@@ -1,0 +1,5 @@
+description: Unauthorized operation
+content:
+  application/json:
+    schema:
+      $ref: './error.yaml'

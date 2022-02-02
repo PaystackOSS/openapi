@@ -1,0 +1,67 @@
+post:
+  tags:
+    - Dedicated Virtual Account
+  summary: Create Dedicated Account
+  operationId: dedicatedAccount_create
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/dedicated-virtual-account/Create.yaml'
+      application/json:
+        schema:
+          $ref: '../../schemas/dedicated-virtual-account/Create.yaml'
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error
+get:
+  tags:
+    - Dedicated Virtual Account
+  summary: List Dedicated Accounts
+  operationId: dedicatedAccount_list
+  parameters:
+    - name: account_number
+      in: query
+      schema:
+        type: string
+    - name: customer
+      in: query
+      schema:
+        type: string
+    - name: active
+      in: query
+      schema:
+        type: boolean
+    - name: currency
+      in: query
+      schema:
+        type: string
+    - name: provider_slug
+      in: query
+      schema:
+        type: string
+    - name: bank_id
+      in: query
+      schema:
+        type: string
+    - name: perPage
+      in: query
+      schema:
+        type: string
+    - name: page
+      in: query
+      schema:
+        type: string
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Refund
+  summary: Fetch Refund
+  operationId: refund_fetch
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

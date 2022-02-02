@@ -1,0 +1,20 @@
+parameters:
+- name: reference
+  in: path
+  required: true
+  schema:
+    type: string
+get:
+  tags:
+    - Transfer
+  summary: Verify Transfer
+  operationId: transfer_verify
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

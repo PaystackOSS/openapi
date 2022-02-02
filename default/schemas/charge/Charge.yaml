@@ -1,0 +1,18 @@
+allOf:
+  - $ref: './Create.yaml'
+  - type: object
+    properties:
+      bank:
+        $ref: '../channel/Bank.yaml'
+  - type: object
+    properties:
+      mobile_money:
+        $ref: '../channel/MobileMoney.yaml'
+  - type: object
+    properties:
+      ussd:
+        $ref: '../channel/USSD.yaml'
+  - type: object
+    properties:
+      eft:
+        $ref: '../channel/EFT.yaml'

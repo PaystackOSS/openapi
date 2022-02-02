@@ -1,0 +1,20 @@
+post:
+  tags:
+    - Transfer Recipient
+  summary: Bulk Create Transfer Recipient
+  operationId: transferrecipient_bulk
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/transfer-recipient/Bulk.yaml'
+      application/json:
+        schema:
+          $ref: '../../schemas/transfer-recipient/Bulk.yaml'
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

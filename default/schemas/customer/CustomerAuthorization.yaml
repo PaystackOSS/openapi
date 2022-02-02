@@ -1,0 +1,7 @@
+type: object
+required:
+- authorization_code
+properties:
+  authorization_code:
+    description: Customer's authorization code to be deactivated
+    type: string

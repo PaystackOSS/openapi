@@ -1,0 +1,18 @@
+post:
+  tags:
+    - Subscription
+  summary: Generate Update Subscription Link
+  operationId: subscription_manageLink
+  parameters:
+  - name: code
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

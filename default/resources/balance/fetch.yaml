@@ -1,0 +1,15 @@
+get:
+  tags:
+    - Balance
+  summary: Fetch Balance
+  operationId: balance_fetch
+  description: Check your Paystack account balance
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

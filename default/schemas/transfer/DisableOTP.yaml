@@ -1,0 +1,7 @@
+type: object
+required:
+  - otp
+properties:
+  otp:
+    description: OTP sent to business phone to verify disabling OTP requirement
+    type:  string

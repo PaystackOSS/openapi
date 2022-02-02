@@ -1,0 +1,42 @@
+parameters:
+- name: id
+  in: path
+  required: true
+  schema:
+    type: string
+get:
+  tags:
+    - Payment Request
+  summary: Fetch Payment Request
+  operationId: paymentRequest_fetch
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error
+put:
+  tags:
+    - Payment Request
+  summary: Update Payment Request
+  operationId: paymentRequest_update
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/payment-request/Update.yaml'
+      application/json:
+        schema:
+          $ref: '../../schemas/payment-request/Update.yaml'
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Charge
+  summary: Check pending charge
+  operationId: charge_check
+  parameters:
+  - name: reference
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error
+

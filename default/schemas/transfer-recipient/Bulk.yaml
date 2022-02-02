@@ -1,0 +1,11 @@
+type: object
+required:
+  - batch
+properties:
+  batch:
+    description: |- 
+      A list of transfer recipient object. Each object should contain type, name, and bank_code. 
+      Any Create Transfer Recipient param can also be passed.
+    type:  array
+    items: 
+      $ref: './Create.yaml'

@@ -1,0 +1,6 @@
+allOf:
+  - $ref: './CustomerRequired.yaml'
+  - $ref: './CustomerBase.yaml'
+  - $ref: './CustomerAuthorization.yaml'
+  - $ref: './CustomerRiskAction.yaml'
+  - $ref: './CustomerIdentification.yaml'

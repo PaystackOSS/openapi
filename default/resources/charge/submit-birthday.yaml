@@ -1,0 +1,20 @@
+post:
+  tags:
+    - Charge
+  summary: Submit Birthday
+  operationId: charge_submitBirthday
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/charge/SubmitBirthday.yaml'
+      application/json:
+        schema:
+          $ref: '../../schemas/charge/SubmitBirthday.yaml'
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

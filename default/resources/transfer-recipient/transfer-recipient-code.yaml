@@ -1,0 +1,55 @@
+parameters:
+- name: code
+  description: Transfer recipient code
+  in: path
+  required: true
+  schema:
+    type: string
+get:
+  tags:
+    - Transfer Recipient
+  summary: Fetch Transfer recipient
+  operationId: transferrecipient_fetch
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error
+put:
+  tags:
+    - Transfer Recipient
+  summary: Update Transfer recipient
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/transfer-recipient/Update.yaml'
+      application/json:
+        schema:
+          $ref: '../../schemas/transfer-recipient/Update.yaml'
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error
+delete:
+  tags:
+    - Transfer Recipient
+  summary: Delete Transfer Recipient
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

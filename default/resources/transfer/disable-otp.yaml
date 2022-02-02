@@ -1,0 +1,12 @@
+post:
+  tags:
+    - Transfer
+  summary: Disable OTP requirement for Transfers
+  operationId: transfer_disableOtp
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

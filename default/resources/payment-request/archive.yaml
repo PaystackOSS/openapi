@@ -1,0 +1,18 @@
+parameters:
+- name: id
+  in: path
+  required: true
+  schema:
+    type: string
+post:
+  tags:
+    - Payment Request
+  summary: Archive Payment Request
+  operationId: paymentRequest_archive
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Dispute
+  summary: List Transaction Disputes
+  operationId: dispute_transaction
+  parameters:
+    - name: id
+      description: Transaction ID
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

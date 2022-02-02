@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Settlement
+  summary: Settlement Transactions
+  operationId: settlements_transaction
+  parameters:
+    - name: perPage
+      in: query
+      schema:
+        type: integer
+      example: '50'
+    - name: page
+      in: query
+      schema:
+        type: integer
+      example: '2'
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

@@ -1,0 +1,30 @@
+type: object
+required:
+  - email
+  - amount
+  - authorization_code
+  - currency
+properties:
+  email:
+    description: Customer's email address
+    type:  string
+  amount:
+    description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+    type: integer
+  authorization_code:
+    description: Valid authorization code to charge
+    type: string
+  currency:
+    description: The transaction currency
+    type: string
+    enum: 
+    - NGN
+    - GHS
+    - ZAR
+    - USD
+  reference:
+    description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+    type: string
+  at_least:
+    description: Minimum amount to charge
+    type: string
