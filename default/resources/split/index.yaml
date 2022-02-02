@@ -1,0 +1,63 @@
+post:
+  tags:
+    - Split
+  summary: Create Split
+  operationId: split_create
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/split/Create.yaml'
+      application/json:
+        schema:
+          $ref: '../../schemas/split/Create.yaml'
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error
+get:
+  tags:
+    - Split
+  summary: List Splits
+  operationId: split_list
+  parameters:
+    - name: name
+      in: query
+      schema:
+        type: string
+    - name: active
+      in: query
+      schema:
+        type: string
+    - name: sort_by
+      in: query
+      schema:
+        type: string
+    - name: from
+      in: query
+      schema:
+        type: string
+    - name: to
+      in: query
+      schema:
+        type: string
+    - name: perPage
+      in: query
+      schema:
+        type: string
+    - name: page
+      in: query
+      schema:
+        type: string
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

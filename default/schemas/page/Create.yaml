@@ -1,0 +1,31 @@
+type: object
+required:
+  - name
+properties:
+  name:
+    description: Name of page
+    type:  string
+  description:
+    description: The description of the page
+    type: string
+  amount:
+    description: |- 
+      Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+    type: integer
+  slug:
+    description: |- 
+      URL slug you would like to be associated with this page. Page will be accessible at https://paystack.com/pay/[slug]
+    type: string
+  metadata:
+    description: Stringified JSON object of custom data
+    type: string
+  redirect_url:
+    description: |- 
+      If you would like Paystack to redirect to a URL upon successful payment, specify the URL here.
+    type: string
+  custom_fields:
+    description: |- 
+      If you would like to accept custom fields, specify them here.
+    type: array
+    items:
+      type: object

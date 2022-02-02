@@ -1,0 +1,67 @@
+type: object
+required:
+  - email
+  - amount
+properties:
+  email:
+    description: Customer's email address
+    type:  string
+  amount:
+    description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+    type: integer
+  currency:
+    description: The transaction currency
+    type: string
+    enum: 
+    - NGN
+    - GHS
+    - ZAR
+    - USD
+  reference:
+    description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+    type: string
+  callback_url:
+    description: Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction
+    type: string
+  plan:
+    description: |-
+      If transaction is to create a subscription to a predefined plan, provide plan code here. 
+      This would invalidate the value provided in amount
+    type: string
+  invoice_limit:
+    description: Number of times to charge customer during subscription to plan
+    type: integer
+  metadata:
+    description: Stringified JSON object of custom data
+    type: string
+  channels:
+    description: |- 
+      An array of payment channels to control what channels you want to make available to the user to make a payment with
+    type: array
+    items:
+      type: string
+      enum: 
+      - card
+      - bank
+      - ussd
+      - qr
+      - eft
+      - mobile_money
+      - bank_transfer
+  split_code:
+    description: The split code of the transaction split
+    type: string
+  subaccount:
+    description: The code for the subaccount that owns the payment
+    type: string
+  transaction_charge:
+    description: |-
+      A flat fee to charge the subaccount for a transaction. 
+      This overrides the split percentage set when the subaccount was created
+    type: string
+  bearer:
+    description: The beare of the transaction charge
+    type: string
+    enum: 
+    - account
+    - subaccount

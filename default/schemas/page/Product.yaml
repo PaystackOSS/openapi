@@ -1,0 +1,9 @@
+type: object
+required:
+  - product
+properties:
+  product:
+    description: IDs of all products to add to a page
+    type:  array
+    items:
+      type: string

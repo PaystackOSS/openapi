@@ -1,0 +1,29 @@
+type: object
+required:
+- type
+- country
+- bvn
+- bank_code
+- account_number
+properties:
+  type:
+    description: Predefined types of identification.
+    type: string
+    enum: 
+    - bvn
+    - bank_account
+  country:
+    description: Two-letter country code of identification issuer
+    type: string
+  bvn:
+    description: Customer's Bank Verification Number
+    type: string
+  bank_code:
+    description: You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).
+    type: string
+  account_number:
+    description: Customer's bank account number.
+    type: string
+  value:
+    description: Customer's identification number. Required if type is bvn
+    type: string

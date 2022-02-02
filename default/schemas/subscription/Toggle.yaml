@@ -1,0 +1,12 @@
+type: object
+required:
+  - code
+  - token
+  - authorization
+properties:
+  code:
+    description: Subscription code
+    type:  string
+  token:
+    description: Email token
+    type: string

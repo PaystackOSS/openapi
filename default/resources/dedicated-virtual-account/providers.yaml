@@ -1,0 +1,14 @@
+get:
+  tags:
+    - Dedicated Virtual Account
+  summary: Fetch Bank Providers
+  operationId: dedicatedAccount_availableProviders
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

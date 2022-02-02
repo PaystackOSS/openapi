@@ -1,0 +1,16 @@
+type: object
+properties:
+  name:
+    description: Name of page
+    type:  string
+  description:
+    description: The description of the page
+    type: string
+  amount:
+    description: |- 
+      Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+    type: integer
+  active:
+    description: |- 
+      Set to false to deactivate page url
+    type: boolean

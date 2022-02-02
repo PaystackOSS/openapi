@@ -1,0 +1,62 @@
+type: object
+properties:
+  customer:
+    description: Customer id or code
+    type:  string
+  amount:
+    description: |- 
+      Payment request amount. Only useful if line items and tax values are ignored. 
+      The endpoint will throw a friendly warning if neither is available.
+    type: integer
+  currency:
+    description: |- 
+      Specify the currency of the invoice. Allowed values are NGN, GHS, ZAR and USD. Defaults to NGN
+    type: string
+  due_date:
+    description: |-
+      ISO 8601 representation of request due date
+    type: string
+    format: date-time
+  description:
+    description: A short description of the payment request
+    type: string
+  line_items:
+    description: |- 
+      Array of line items
+    type: array
+    items:
+      type: object
+  tax:
+    description: |- 
+      Array of taxes
+    type: array
+    items:
+      type: object
+  send_notification:
+    description: |- 
+      Indicates whether Paystack sends an email notification to customer. Defaults to true
+    type: boolean
+    items:
+      type: object
+  draft:
+    description: |- 
+      Indicate if request should be saved as draft. Defaults to false and overrides send_notification
+    type: boolean
+    items:
+      type: object
+  has_invoice:
+    description: |- 
+      Set to true to create a draft invoice (adds an auto incrementing invoice number if none is provided) 
+      even if there are no line_items or tax passed
+    type: boolean
+    items:
+      type: object
+  invoice_number:
+    description: |- 
+      Numeric value of invoice. Invoice will start from 1 and auto increment from there. This field is to help 
+      override whatever value Paystack decides. Auto increment for subsequent invoices continue from this point.
+    type: integer
+  split_code:
+    description: |- 
+      The split code of the transaction split.
+  type: string

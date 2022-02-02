@@ -1,0 +1,5 @@
+description: Resource created
+content:
+  application/json:
+    schema:
+      $ref: './response.yaml'

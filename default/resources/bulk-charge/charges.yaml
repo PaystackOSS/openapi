@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Bulk Charge
+  summary: Fetch Charges in a Batch
+  operationId: bulkCharge_charges
+  parameters:
+  - name: code
+    description: Batch code
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    200:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    404:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

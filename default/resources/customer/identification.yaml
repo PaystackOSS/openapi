@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Customer
+  summary: Validate Customer
+  operationId: customer_validatte
+  description: Validate a customer's identity
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/customer/CustomerIdentification.yaml'
+      application/json:
+        schema:
+          $ref: '../../schemas/customer/CustomerIdentification.yaml'
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

@@ -1,0 +1,24 @@
+type: object
+required:
+  - address
+  - reference
+  - city
+  - state
+  - zipcode
+properties:
+  address:
+    description: Customer's address
+    type: string
+  city:
+    description: Customer's city
+    type: string
+  state:
+    description: Customer's state
+    type: string
+  zipcode:
+    description: Customer's zipcode
+    type: string
+  reference:
+    description: |-
+      The reference of the ongoing transaction
+    type: string

@@ -1,0 +1,18 @@
+parameters:
+- name: id
+  in: path
+  required: true
+  schema:
+    type: string
+post:
+  tags:
+    - Payment Request
+  summary: Finalize Payment Request
+  operationId: paymentRequest_finalize
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error

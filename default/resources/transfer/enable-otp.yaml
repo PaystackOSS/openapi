@@ -1,0 +1,12 @@
+post:
+  tags:
+    - Transfer
+  summary: Enable OTP requirement for Transfers
+  operationId: transfer_enableOtp
+  responses:
+    201:
+      $ref: '../../responses/created.yaml'
+    401:
+      $ref: '../../responses/unauthorized.yaml'
+    default:
+      description: Server error
