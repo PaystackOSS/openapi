@@ -16,4 +16,4 @@ Parameters that requires futher explanation
 How to report an issue
 
 ## License
-This repository is made available under the MIT license. Kindly read the LICENSE file for more information.
+This repository is made available under the MIT license. Kindly read the [LICENSE](https://github.com/PaystackOSS/openapi/blob/main/LICENSE) file for more information.
