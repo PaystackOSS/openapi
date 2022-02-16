@@ -1,0 +1,29 @@
+{
+  "name": "paystack-openapi",
+  "version": "0.1.0",
+  "description": "The OpenAPI specification for the Paystack API",
+  "main": "index.js",
+  "scripts": {
+    "build": "swagger-cli bundle main/paystack.yaml --outfile dist/paystack.yaml --type yaml",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint-sdk": "spectral lint ./sdk/paystack.yaml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaystackOSS/openapi.git"
+  },
+  "keywords": [
+    "Paystack",
+    "OpenAPI"
+  ],
+  "author": "Damilola Odujoko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PaystackOSS/openapi/issues"
+  },
+  "homepage": "https://github.com/PaystackOSS/openapi#readme",
+  "dependencies": {
+    "@apidevtools/swagger-cli": "^4.0.4",
+    "@stoplight/spectral-cli": "^6.2.0"
+  }
+}
