@@ -13,7 +13,7 @@ tags:
   - name: Transaction
   - name: Split
   - name: Customer
-  - name: Dedicated NUBAN
+  - name: Dedicated Virtual Account
   - name: Subaccount
   - name: Plan
   - name: Subscription
@@ -658,6 +658,12 @@ paths:
         default:
           description: Server error
   /customer/{code}/identification:
+    parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
     post:
       tags:
         - Customer
@@ -682,17 +688,17 @@ paths:
   /dedicated_account:
     post:
       tags:
-        - Dedicated NUBAN
+        - Dedicated Virtual Account
       summary: Create Dedicated Account
       operationId: dedicatedAccount_create
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DedicatedNubanCreate'
+              $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
           application/json:
             schema:
-              $ref: '#/components/schemas/DedicatedNubanCreate'
+              $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
       responses:
         201:
           $ref: '#/components/responses/Created'
@@ -702,7 +708,7 @@ paths:
           description: Server error
     get:
       tags:
-        - Dedicated NUBAN
+        - Dedicated Virtual Account
       summary: List Dedicated Accounts
       operationId: dedicatedAccount_list
       parameters:
@@ -756,7 +762,7 @@ paths:
         type: string
     get:
       tags:
-        - Dedicated NUBAN
+        - Dedicated Virtual Account
       summary: Fetch Dedicated Account
       operationId: dedicatedAccount_fetch
       responses:
@@ -770,7 +776,7 @@ paths:
           description: Server error
     delete:
       tags:
-        - Dedicated NUBAN
+        - Dedicated Virtual Account
       summary: Deactivate Dedicated Account
       operationId: dedicatedAccount_deactivate
       responses:
@@ -785,7 +791,7 @@ paths:
   /dedicated_account/available_providers:
     get:
       tags:
-        - Dedicated NUBAN
+        - Dedicated Virtual Account
       summary: Fetch Bank Providers
       operationId: dedicatedAccount_availableProviders
       responses:
@@ -800,17 +806,17 @@ paths:
   /dedicated_account/split:
     post:
       tags:
-        - Dedicated NUBAN
+        - Dedicated Virtual Account
       summary: Split Dedicated Account Transaction
       operationId: dedicatedAccount_addSplit
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DedicatedNubanSplit'
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
           application/json:
             schema:
-              $ref: '#/components/schemas/DedicatedNubanSplit'
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
       responses:
         201:
           $ref: '#/components/responses/Created'
@@ -820,17 +826,17 @@ paths:
           description: Server error
     delete:
       tags:
-        - Dedicated NUBAN
+        - Dedicated Virtual Account
       summary: Remove Split from Dedicated Account
       operationId: dedicatedAccount_removeSplit
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DedicatedNubanSplit'
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
           application/json:
             schema:
-              $ref: '#/components/schemas/DedicatedNubanSplit'
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
       responses:
         200:
           $ref: '#/components/responses/Ok'
@@ -3382,7 +3388,7 @@ components:
         value:
           description: Customer's identification number. Required if type is bvn
           type: string
-    DedicatedNubanCreate:
+    DedicatedVirtualAccountCreate:
       type: object
       required:
       - customer
@@ -3399,7 +3405,7 @@ components:
         split_code:
           description: Split code consisting of the lists of accounts you want to split the transaction with
           type: string
-    DedicatedNubanSplit:
+    DedicatedVirtualAccountSplit:
       type: object
       required:
       - account_number
