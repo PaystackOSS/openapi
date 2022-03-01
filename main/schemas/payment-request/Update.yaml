@@ -59,4 +59,4 @@ properties:
   split_code:
     description: |- 
       The split code of the transaction split.
-  type: string
+    type: string
