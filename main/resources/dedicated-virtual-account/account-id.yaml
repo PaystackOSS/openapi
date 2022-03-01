@@ -23,12 +23,12 @@ delete:
     - Dedicated Virtual Account
   summary: Deactivate Dedicated Account
   operationId: dedicatedAccount_deactivate
-responses:
-    200:
-      $ref: '../../responses/created.yaml'
-    401:
-      $ref: '../../responses/unauthorized.yaml'
-    404:
-      $ref: '../../responses/unauthorized.yaml'
-    default:
-      description: Server error
+  responses:
+      200:
+        $ref: '../../responses/created.yaml'
+      401:
+        $ref: '../../responses/unauthorized.yaml'
+      404:
+        $ref: '../../responses/unauthorized.yaml'
+      default:
+        description: Server error
