@@ -11,7 +11,7 @@ get:
   operationId: page_fetch
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:
@@ -33,7 +33,7 @@ put:
           $ref: '../../schemas/page/Update.yaml'
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:

@@ -12,7 +12,7 @@ get:
   operationId: transferrecipient_fetch
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:
@@ -33,7 +33,7 @@ put:
           $ref: '../../schemas/transfer-recipient/Update.yaml'
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:
@@ -46,7 +46,7 @@ delete:
   summary: Delete Transfer Recipient
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:

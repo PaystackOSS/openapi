@@ -13,8 +13,8 @@ post:
         schema:
           $ref: '../../schemas/customer/CustomerIdentification.yaml'
   responses:
-    201:
-      $ref: '../../responses/created.yaml'
+    202:
+      $ref: '../../responses/accepted.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     default:

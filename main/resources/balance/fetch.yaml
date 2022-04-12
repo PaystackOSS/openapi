@@ -6,7 +6,7 @@ get:
   description: Check your Paystack account balance
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:

@@ -12,7 +12,7 @@ get:
   operationId: dispute_fetch
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:
@@ -34,7 +34,7 @@ put:
           $ref: '../../schemas/dispute/Update.yaml'
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:
