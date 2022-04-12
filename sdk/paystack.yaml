@@ -6,6 +6,10 @@ info:
     merchants and developers can harness to build financial solutions
     in Africa.
   version: 1.0.0
+  contact:
+    name: Paystack Integration
+    url: https://paystack.com/docs
+    email: techsupport@paystack.com
 servers:
   - url: https://api.paystack.co
     description: Base API endpoint
@@ -47,8 +51,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionInitialize'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -247,8 +251,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionChargeAuthorization'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -268,8 +272,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionCheckAuthorization'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -289,8 +293,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionPartialDebit'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -352,8 +356,8 @@ paths:
             schema:
               $ref: '#/components/schemas/SplitCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -472,8 +476,8 @@ paths:
             type: string
           example: application/json
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -499,8 +503,8 @@ paths:
           schema:
             type: string
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -520,8 +524,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -629,8 +633,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerRiskAction'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -651,8 +655,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerDeactivateAuthorization'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -679,8 +683,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerValidation'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        202:
+          $ref: '#/components/responses/Accepted'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -700,8 +704,8 @@ paths:
             schema:
               $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -818,8 +822,8 @@ paths:
             schema:
               $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -861,8 +865,8 @@ paths:
             schema:
               $ref: '#/components/schemas/SubaccountCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -962,8 +966,8 @@ paths:
             schema:
               $ref: '#/components/schemas/PlanCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1073,8 +1077,8 @@ paths:
             schema:
               $ref: '#/components/schemas/SubscriptionCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1162,8 +1166,8 @@ paths:
             schema:
               $ref: '#/components/schemas/SubscriptionToggle'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1183,8 +1187,8 @@ paths:
             schema:
               $ref: '#/components/schemas/SubscriptionToggle'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1202,8 +1206,8 @@ paths:
         schema:
           type: string
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1221,8 +1225,8 @@ paths:
         schema:
           type: string
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1359,8 +1363,8 @@ paths:
             schema:
               $ref: '#/components/schemas/PageCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1487,8 +1491,8 @@ paths:
             schema:
               $ref: '#/components/schemas/PageProduct'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1508,8 +1512,8 @@ paths:
             schema:
               $ref: '#/components/schemas/PaymentRequestCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1643,8 +1647,8 @@ paths:
       summary: Send Notification
       operationId: paymentRequest_notify
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1677,8 +1681,8 @@ paths:
       summary: Finalize Payment Request
       operationId: paymentRequest_finalize
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1696,8 +1700,8 @@ paths:
       summary: Archive Payment Request
       operationId: paymentRequest_archive
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1822,8 +1826,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferRecipientBulk'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1899,8 +1903,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferInitiate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1961,8 +1965,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferFinalize'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -1982,8 +1986,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferBulk'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2088,8 +2092,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferResendOTP'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2101,8 +2105,8 @@ paths:
       summary: Disable OTP requirement for Transfers
       operationId: transfer_disableOtp
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2122,8 +2126,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferFinalizeDisableOTP'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2135,8 +2139,8 @@ paths:
       summary: Enable OTP requirement for Transfers
       operationId: transfer_enableOtp
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2244,8 +2248,8 @@ paths:
                     eft:
                       $ref: '#/components/schemas/EFT'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2265,8 +2269,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitPin'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2286,8 +2290,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitOTP'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2307,8 +2311,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitPhone'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2328,8 +2332,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitBirthday'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2349,8 +2353,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitAddress'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2404,7 +2408,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/BulkChargeInitiate'
       responses:
-        201:
+        200:
           $ref: '#/components/responses/Created'
         401:
           $ref: '#/components/responses/Unauthorized'
@@ -2586,8 +2590,8 @@ paths:
             schema:
               $ref: '#/components/schemas/RefundCreate'
       responses:
-        201:
-          $ref: '#/components/responses/Created'
+        200:
+          $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2880,52 +2884,10 @@ paths:
           schema:
             type: string
       responses:
-        201:
-          $ref: '#/components/responses/Created'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /bvn/match:
-    post:
-      tags:
-        - Verification
-      summary: Match Service
-      operationId: verification_bvnMatch
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/VerificationBVNMatch'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VerificationBVNMatch'
-      responses:
-        201:
-          $ref: '#/components/responses/Created'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /bank/resolve_bvn/{bvn}:
-    get:
-      tags:
-        - Verification
-      summary: Resolve BVN
-      operationId: verification_resolveBvn
-      parameters:
-        - name: bvn
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
         200:
           $ref: '#/components/responses/Ok'
         401:
           $ref: '#/components/responses/Unauthorized'
-        404:
-          $ref: '#/components/responses/NotFound'
         default:
           description: Server error
   /bank/resolve:
@@ -4243,13 +4205,26 @@ components:
           type: string
         data:
           type: object
+    Accepted:
+      type: object
+      properties:
+        status:
+          type:  boolean
+        message:
+          type: string
   responses:
     Ok:
-      description: Successful operation
+      description: Request successful
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Response'
+    Accepted:
+      description: Request accepted for processing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Accepted'
     Created:
       description: Resource created
       content:

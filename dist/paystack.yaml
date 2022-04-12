@@ -109,7 +109,7 @@ paths:
                     - account
                     - subaccount
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -130,7 +130,7 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -168,7 +168,7 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -190,7 +190,7 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -211,7 +211,7 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -249,7 +249,7 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -287,7 +287,7 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -357,7 +357,7 @@ paths:
                   description: 'If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.'
                   type: boolean
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -399,7 +399,7 @@ paths:
                     - ZAR
                     - USD
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -449,7 +449,7 @@ paths:
                   description: Minimum amount to charge
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -469,7 +469,7 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -490,7 +490,7 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -551,7 +551,7 @@ paths:
                   description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -593,7 +593,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -614,7 +618,7 @@ paths:
       operationId: split_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -690,7 +694,7 @@ paths:
             type: string
           example: application/json
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -718,7 +722,7 @@ paths:
             type: string
           example: application/json
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -743,7 +747,7 @@ paths:
                 - $ref: '#/components/schemas/Customer/allOf/0'
                 - $ref: '#/components/schemas/Customer/allOf/1'
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -786,7 +790,7 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -807,7 +811,7 @@ paths:
       operationId: customer_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -852,7 +856,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Customer/allOf/3'
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -874,7 +878,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Customer/allOf/2'
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -896,8 +900,17 @@ paths:
             schema:
               $ref: '#/components/schemas/Customer/allOf/4'
       responses:
-        '201':
-          $ref: '#/paths/~1plan/get/responses/200'
+        '202':
+          description: Request accepted for processing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         default:
@@ -932,7 +945,7 @@ paths:
                   description: Split code consisting of the lists of accounts you want to split the transaction with
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1062,7 +1075,7 @@ paths:
                   description: Split code consisting of the lists of accounts you want to split the transaction with
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1117,7 +1130,7 @@ paths:
                   description: Stringified JSON object of custom data
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1281,7 +1294,7 @@ paths:
                     Can be overridden by specifying an invoice_limit while subscribing.
                   type: integer
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1327,7 +1340,7 @@ paths:
           description: The end date
       responses:
         '200':
-          description: Resource created
+          description: Request successful
           content:
             application/json:
               schema:
@@ -1451,7 +1464,7 @@ paths:
                   type: string
                   format: date-time
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1497,7 +1510,7 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -1540,7 +1553,7 @@ paths:
             schema:
               $ref: '#/paths/~1subscription~1enable/post/requestBody/content/application~1json/schema'
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1572,7 +1585,7 @@ paths:
                   description: Email token
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1591,7 +1604,7 @@ paths:
           schema:
             type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1610,7 +1623,7 @@ paths:
           schema:
             type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1656,7 +1669,7 @@ paths:
                   type: integer
       responses:
         '201':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         default:
@@ -1817,7 +1830,7 @@ paths:
                   items:
                     type: object
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -1966,7 +1979,7 @@ paths:
                   items:
                     type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2044,7 +2057,7 @@ paths:
                   type: string
       responses:
         '201':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         default:
@@ -2232,7 +2245,7 @@ paths:
       summary: Send Notification
       operationId: paymentRequest_notify
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2266,7 +2279,7 @@ paths:
       summary: Finalize Payment Request
       operationId: paymentRequest_finalize
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2285,7 +2298,7 @@ paths:
       summary: Archive Payment Request
       operationId: paymentRequest_archive
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2310,7 +2323,7 @@ paths:
           example: '2'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -2336,7 +2349,7 @@ paths:
           example: '2'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         '404':
@@ -2389,7 +2402,7 @@ paths:
                   type: string
       responses:
         '201':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1split/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
         default:
@@ -2456,7 +2469,7 @@ paths:
                   items:
                     $ref: '#/paths/~1transferrecipient/post/requestBody/content/application~1json/schema'
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2567,7 +2580,7 @@ paths:
                     Only -,_ and alphanumeric characters are allowed.
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2639,7 +2652,7 @@ paths:
                   description: OTP sent to business phone to verify transfer
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2671,7 +2684,7 @@ paths:
                   items:
                     $ref: '#/paths/~1transfer/post/requestBody/content/application~1json/schema'
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2787,7 +2800,7 @@ paths:
                   description: Either resend_otp or transfer
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2800,7 +2813,7 @@ paths:
       summary: Disable OTP requirement for Transfers
       operationId: transfer_disableOtp
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2827,7 +2840,7 @@ paths:
                   description: OTP sent to business phone to verify disabling OTP requirement
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2840,7 +2853,7 @@ paths:
       summary: Enable OTP requirement for Transfers
       operationId: transfer_enableOtp
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -2994,7 +3007,7 @@ paths:
                           enum:
                             - ozow
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3025,7 +3038,7 @@ paths:
                   description: Transaction reference that requires the PIN
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3056,7 +3069,7 @@ paths:
                   description: The reference of the ongoing transaction
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3087,7 +3100,7 @@ paths:
                   description: The reference of the ongoing transaction
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3118,7 +3131,7 @@ paths:
                   description: The reference of the ongoing transaction
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3161,7 +3174,7 @@ paths:
                   description: The reference of the ongoing transaction
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3225,7 +3238,7 @@ paths:
                     items:
                       $ref: '#/paths/~1bulkcharge/post/requestBody/content/application~1x-www-form-urlencoded/schema/items'
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3439,7 +3452,7 @@ paths:
                   description: Merchant reason
                   type: string
       responses:
-        '201':
+        '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
           $ref: '#/paths/~1plan/get/responses/401'
@@ -3796,74 +3809,9 @@ paths:
           schema:
             type: string
       responses:
-        '201':
-          $ref: '#/paths/~1plan/get/responses/200'
-        '401':
-          $ref: '#/paths/~1plan/get/responses/401'
-        default:
-          description: Server error
-  /bvn/match:
-    post:
-      tags:
-        - Verification
-      summary: Match Service
-      operationId: verification_bvnMatch
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/paths/~1bvn~1match/post/requestBody/content/application~1json/schema'
-          application/json:
-            schema:
-              type: object
-              required:
-                - account_number
-                - bank_code
-                - bvn
-              properties:
-                account_number:
-                  description: Bank Account Number
-                  type: string
-                bank_code:
-                  description: You can get the list of banks codes by calling the List Bank endpoint
-                  type: integer
-                bvn:
-                  description: 11 digits Bank Verification Number
-                  type: string
-                first_name:
-                  description: Customer's first name
-                  type: string
-                middle_name:
-                  description: Customer's middle name
-                  type: string
-                last_name:
-                  description: Customer's last name
-                  type: string
-      responses:
-        '201':
-          $ref: '#/paths/~1plan/get/responses/200'
-        '401':
-          $ref: '#/paths/~1plan/get/responses/401'
-        default:
-          description: Server error
-  '/bank/resolve_bvn/{bvn}':
-    get:
-      tags:
-        - Verification
-      summary: Resolve BVN
-      operationId: verification_resolveBvn
-      parameters:
-        - name: bvn
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
         '200':
           $ref: '#/paths/~1plan/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
-        '404':
           $ref: '#/paths/~1plan/get/responses/401'
         default:
           description: Server error

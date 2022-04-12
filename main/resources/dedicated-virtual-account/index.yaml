@@ -12,8 +12,8 @@ post:
         schema:
           $ref: '../../schemas/dedicated-virtual-account/Create.yaml'
   responses:
-    201:
-      $ref: '../../responses/created.yaml'
+    200:
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     default:
@@ -58,7 +58,7 @@ get:
         type: string
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:

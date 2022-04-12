@@ -12,8 +12,8 @@ post:
         schema:
           $ref: '../../schemas/page/Create.yaml'
   responses:
-    201:
-      $ref: '../../responses/created.yaml'
+    200:
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     default:
@@ -48,7 +48,7 @@ get:
       description: The end date
   responses:
     200:
-      $ref: '../../responses/created.yaml'
+      $ref: '../../responses/ok.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:

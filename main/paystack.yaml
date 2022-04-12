@@ -205,10 +205,6 @@ paths:
     $ref: './resources/dispute/resolve.yaml'
   /dispute/{id}/evidence:
     $ref: './resources/dispute/evidence.yaml'
-  /bvn/match:
-    $ref: './resources/verification/bvn-match.yaml'
-  /bank/resolve_bvn/{bvn}:
-    $ref: './resources/verification/resolve-bvn.yaml'
   /bank/resolve:
     $ref: './resources/verification/resolve-bank.yaml'
   /decision/bin/{bin}:

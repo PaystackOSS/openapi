@@ -1,0 +1,10 @@
+description: Request accepted for processing
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type:  boolean
+        message:
+          type: string
