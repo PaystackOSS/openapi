@@ -110,9 +110,9 @@ paths:
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transaction/verify/{reference}':
@@ -130,11 +130,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transaction:
@@ -168,11 +168,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transaction/{id}':
@@ -190,11 +190,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transaction/timeline/{id_or_reference}':
@@ -211,11 +211,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transaction/totals:
@@ -249,11 +249,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transaction/export:
@@ -287,11 +287,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transaction/charge_authorization:
@@ -358,9 +358,9 @@ paths:
                   type: boolean
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transaction/check_authorization:
@@ -400,9 +400,9 @@ paths:
                     - USD
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transaction/partial_debit:
@@ -450,9 +450,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transaction/{id}/event':
@@ -469,11 +469,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transaction/{id}/session':
@@ -490,11 +490,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /split:
@@ -552,9 +552,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -593,15 +593,11 @@ paths:
             type: string
       responses:
         '200':
-          description: Resource created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/Ok/content/application~1json/schema'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/split/{id}':
@@ -618,11 +614,11 @@ paths:
       operationId: split_fetch
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -658,11 +654,11 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/split/{id}/subaccount/add':
@@ -695,9 +691,9 @@ paths:
           example: application/json
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/split/{id}/subaccount/remove':
@@ -723,9 +719,9 @@ paths:
           example: application/json
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /customer:
@@ -748,9 +744,9 @@ paths:
                 - $ref: '#/components/schemas/Customer/allOf/1'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -790,11 +786,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/customer/{code}':
@@ -811,11 +807,11 @@ paths:
       operationId: customer_fetch
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -833,11 +829,11 @@ paths:
               $ref: '#/components/schemas/Customer/allOf/1'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /customer/set_risk_action:
@@ -857,9 +853,9 @@ paths:
               $ref: '#/components/schemas/Customer/allOf/3'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /customer/deactivate_authorization:
@@ -879,12 +875,18 @@ paths:
               $ref: '#/components/schemas/Customer/allOf/2'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/customer/{code}/identification':
+    parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
     post:
       tags:
         - Customer
@@ -912,7 +914,7 @@ paths:
                   message:
                     type: string
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /dedicated_account:
@@ -946,9 +948,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -991,11 +993,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/dedicated_account/{account_id}':
@@ -1012,11 +1014,11 @@ paths:
       operationId: dedicatedAccount_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     delete:
@@ -1026,11 +1028,11 @@ paths:
       operationId: dedicatedAccount_deactivate
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /dedicated_account/available_providers:
@@ -1041,11 +1043,11 @@ paths:
       operationId: dedicatedAccount_availableProviders
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /dedicated_account/split:
@@ -1076,9 +1078,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /subaccount:
@@ -1131,9 +1133,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -1166,11 +1168,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/subaccount/{code}':
@@ -1187,11 +1189,11 @@ paths:
       operationId: subaccount_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -1241,11 +1243,11 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /plan:
@@ -1295,9 +1297,9 @@ paths:
                   type: integer
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -1340,24 +1342,11 @@ paths:
           description: The end date
       responses:
         '200':
-          description: Request successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/Ok/content/application~1json/schema'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          description: Unauthorized operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/plan/{code}':
@@ -1374,11 +1363,11 @@ paths:
       operationId: plan_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -1423,11 +1412,11 @@ paths:
                   type: integer
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /subscription:
@@ -1465,9 +1454,9 @@ paths:
                   format: date-time
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -1510,11 +1499,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/subscription/{code}':
@@ -1531,11 +1520,11 @@ paths:
       operationId: subscription_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /subscription/disable:
@@ -1554,9 +1543,9 @@ paths:
               $ref: '#/paths/~1subscription~1enable/post/requestBody/content/application~1json/schema'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /subscription/enable:
@@ -1586,9 +1575,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/subscription/{code}/manage/link':
@@ -1605,9 +1594,9 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/subscription/{code}/manage/email':
@@ -1624,9 +1613,9 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /product:
@@ -1669,9 +1658,13 @@ paths:
                   type: integer
       responses:
         '201':
-          $ref: '#/paths/~1split/get/responses/200'
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -1706,11 +1699,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/product/{id}':
@@ -1727,11 +1720,11 @@ paths:
       operationId: product_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -1768,11 +1761,11 @@ paths:
                   type: integer
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     delete:
@@ -1782,11 +1775,11 @@ paths:
       operationId: product_delete
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /page:
@@ -1831,9 +1824,9 @@ paths:
                     type: object
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -1866,11 +1859,24 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          description: Unauthorized operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/page/{id}':
@@ -1887,11 +1893,11 @@ paths:
       operationId: page_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -1922,11 +1928,11 @@ paths:
                   type: boolean
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/page/check_slug_availability/{slug}':
@@ -1943,11 +1949,11 @@ paths:
       operationId: page_checkSlugAvailability
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/page/{id}/product':
@@ -1980,9 +1986,9 @@ paths:
                     type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /paymentrequest:
@@ -2057,9 +2063,9 @@ paths:
                   type: string
       responses:
         '201':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -2107,11 +2113,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/paymentrequest/{id}':
@@ -2128,11 +2134,11 @@ paths:
       operationId: paymentRequest_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -2204,11 +2210,11 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/paymentrequest/verify/{id}':
@@ -2225,11 +2231,11 @@ paths:
       operationId: paymentRequest_verify
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/paymentrequest/notify/{id}':
@@ -2246,9 +2252,9 @@ paths:
       operationId: paymentRequest_notify
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /paymentrequest/totals:
@@ -2259,11 +2265,11 @@ paths:
       operationId: paymentRequest_totals
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/paymentrequest/finalize/{id}':
@@ -2280,9 +2286,9 @@ paths:
       operationId: paymentRequest_finalize
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/paymentrequest/archive/{id}':
@@ -2299,9 +2305,9 @@ paths:
       operationId: paymentRequest_archive
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /settlement:
@@ -2323,14 +2329,20 @@ paths:
           example: '2'
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/settlement/{id}/transaction':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
     get:
       tags:
         - Settlement
@@ -2349,11 +2361,11 @@ paths:
           example: '2'
       responses:
         '200':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transferrecipient:
@@ -2402,9 +2414,9 @@ paths:
                   type: string
       responses:
         '201':
-          $ref: '#/paths/~1split/get/responses/200'
+          $ref: '#/paths/~1product/post/responses/201'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -2437,11 +2449,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transferrecipient/bulk:
@@ -2470,9 +2482,9 @@ paths:
                     $ref: '#/paths/~1transferrecipient/post/requestBody/content/application~1json/schema'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transferrecipient/{code}':
@@ -2490,11 +2502,11 @@ paths:
       operationId: transferrecipient_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -2520,11 +2532,11 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     delete:
@@ -2533,11 +2545,11 @@ paths:
       summary: Delete Transfer Recipient
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer:
@@ -2581,9 +2593,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -2620,11 +2632,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer/finalize_transfer:
@@ -2653,9 +2665,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer/bulk:
@@ -2685,9 +2697,9 @@ paths:
                     $ref: '#/paths/~1transfer/post/requestBody/content/application~1json/schema'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transfer/{code}':
@@ -2705,11 +2717,11 @@ paths:
       operationId: transfer_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/transfer/verify/{reference}':
@@ -2726,11 +2738,11 @@ paths:
       operationId: transfer_verify
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer/export:
@@ -2768,11 +2780,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer/resend_otp:
@@ -2801,9 +2813,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer/disable_otp:
@@ -2814,9 +2826,9 @@ paths:
       operationId: transfer_disableOtp
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer/disable_otp_finalize:
@@ -2841,9 +2853,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /transfer/enable_otp:
@@ -2854,9 +2866,9 @@ paths:
       operationId: transfer_enableOtp
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /balance:
@@ -2868,11 +2880,11 @@ paths:
       description: Check your Paystack account balance
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /balance/ledger:
@@ -2906,11 +2918,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /charge:
@@ -3008,9 +3020,9 @@ paths:
                             - ozow
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /charge/submit_pin:
@@ -3039,9 +3051,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /charge/submit_otp:
@@ -3070,9 +3082,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /charge/submit_phone:
@@ -3101,9 +3113,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /charge/submit_birthday:
@@ -3132,9 +3144,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /charge/submit_address:
@@ -3175,9 +3187,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/charge/{reference}':
@@ -3194,11 +3206,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /bulkcharge:
@@ -3239,9 +3251,9 @@ paths:
                       $ref: '#/paths/~1bulkcharge/post/requestBody/content/application~1x-www-form-urlencoded/schema/items'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -3274,11 +3286,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/bulkcharge/{code}':
@@ -3296,11 +3308,11 @@ paths:
       operationId: bulkCharge_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/bulkcharge/{code}/charges':
@@ -3318,11 +3330,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/bulkcharge/pause/{code}':
@@ -3340,11 +3352,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/bulkcharge/resume/{code}':
@@ -3362,11 +3374,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /integration/payment_session_timeout:
@@ -3377,11 +3389,11 @@ paths:
       operationId: integration_fetchPaymentSessionTimeout
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -3405,11 +3417,11 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /refund:
@@ -3453,9 +3465,9 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     get:
@@ -3488,11 +3500,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/refund/{id}':
@@ -3509,11 +3521,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /dispute:
@@ -3562,11 +3574,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/dispute/{id}':
@@ -3584,11 +3596,11 @@ paths:
       operationId: dispute_fetch
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
     put:
@@ -3615,11 +3627,11 @@ paths:
                   type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/dispute/{id}/upload_url':
@@ -3637,11 +3649,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /dispute/export:
@@ -3679,11 +3691,11 @@ paths:
           description: The end date
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/dispute/transaction/{id}':
@@ -3701,11 +3713,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/dispute/{id}/resolve':
@@ -3755,11 +3767,11 @@ paths:
                   type: integer
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/dispute/{id}/evidence':
@@ -3810,9 +3822,9 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /bank/resolve:
@@ -3834,11 +3846,11 @@ paths:
           example: '063'
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   '/decision/bin/{bin}':
@@ -3855,11 +3867,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /country:
@@ -3870,11 +3882,11 @@ paths:
       operationId: verification_listCountries
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /bank:
@@ -3914,11 +3926,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
   /address_verification/states:
@@ -3942,11 +3954,11 @@ paths:
             type: string
       responses:
         '200':
-          $ref: '#/paths/~1plan/get/responses/200'
+          $ref: '#/paths/~1page/get/responses/200'
         '401':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         '404':
-          $ref: '#/paths/~1plan/get/responses/401'
+          $ref: '#/paths/~1page/get/responses/401'
         default:
           description: Server error
 components:

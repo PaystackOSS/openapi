@@ -1,0 +1,84 @@
+openapi: 3.0.1
+info:
+  title: Create an online marketplace
+  description: >-
+    The OpenAPI specification for creating an online marketplace using the Paystack API
+  version: 1.0.0
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+paths:
+  /subaccount:
+    post:
+      $ref: '../main/resources/subaccount/create.yaml'
+  /split:
+    post:
+      $ref: '../main/resources/split/create.yaml'
+  /transaction/initialize:
+    $ref: '../main/resources/transaction/initialize.yaml'
+  /refund:
+    post:
+      $ref: '../main/resources/refund/create.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Customer:
+      $ref: '../main/schemas/customer/Customer.yaml'
+    Error:
+      type: object
+      properties:
+        status:
+          type:  boolean
+        message:
+          type: string
+    Response:
+      type: object
+      properties:
+        status:
+          type:  boolean
+        message:
+          type: string
+        data:
+          type: object
+  responses:
+    Ok:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../main/responses/response.yaml'
+    Created:
+      description: Resource created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:       
+            status: false
+            message: Entity not found
+    Unauthorized:
+      description: Unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Invalid key
+    GeneralError:
+      description: General Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+security:
+  - bearerAuth: []

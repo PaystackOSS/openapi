@@ -1,3 +1,9 @@
+parameters:
+- name: id
+  in: path
+  required: true
+  schema:
+    type: integer
 get:
   tags:
     - Settlement
