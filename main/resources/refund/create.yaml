@@ -1,0 +1,19 @@
+tags:
+  - Refund
+summary: Create Refund
+operationId: refund_create
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        $ref: '../../schemas/refund/Create.yaml'
+    application/json:
+      schema:
+        $ref: '../../schemas/refund/Create.yaml'
+responses:
+  200:
+    $ref: '../../responses/ok.yaml'
+  401:
+    $ref: '../../responses/unauthorized.yaml'
+  default:
+    description: Server error

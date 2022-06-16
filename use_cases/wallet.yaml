@@ -1,0 +1,87 @@
+openapi: 3.0.1
+info:
+  title: Create a wallet app
+  description: >-
+    The OpenAPI specification for creating a wallet application using the Paystack API
+  version: 1.0.0
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+paths:
+  /customer:
+    post:
+      $ref: '../main/resources/customer/create.yaml'
+  /customer/{code}/identification:
+    $ref: '../main/resources/customer/identification.yaml'
+  /dedicated_account:
+    post:
+      $ref: '../main/resources/dedicated-virtual-account/create.yaml'
+  /transferrecipient:
+    post:
+      $ref: '../main/resources/transfer-recipient/create.yaml'
+  /transfer:
+    post:
+      $ref: '../main/resources/transfer/initiate.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Customer:
+      $ref: '../main/schemas/customer/Customer.yaml'
+    Error:
+      type: object
+      properties:
+        status:
+          type:  boolean
+        message:
+          type: string
+    Response:
+      type: object
+      properties:
+        status:
+          type:  boolean
+        message:
+          type: string
+        data:
+          type: object
+  responses:
+    Ok:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../main/responses/response.yaml'
+    Created:
+      description: Resource created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:       
+            status: false
+            message: Entity not found
+    Unauthorized:
+      description: Unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Invalid key
+    GeneralError:
+      description: General Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+security:
+  - bearerAuth: []

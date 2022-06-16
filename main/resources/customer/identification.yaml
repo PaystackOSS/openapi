@@ -1,3 +1,9 @@
+parameters:
+- name: code
+  in: path
+  required: true
+  schema:
+    type: string
 post:
   tags:
     - Customer

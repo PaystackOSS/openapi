@@ -1,0 +1,36 @@
+tags:
+  - Subaccount
+summary: List Subaccounts
+operationId: subaccount_list
+parameters:
+  - in: query
+    name: perPage
+    schema:
+      type: integer
+    description: Number of records to fetch per page
+  - in: query
+    name: page
+    schema:
+      type: integer
+    description: The section to retrieve
+  - in: query
+    name: from
+    schema:
+      type: string
+      format: date-time
+    description: The start date
+  - in: query
+    name: to
+    schema:
+      type: string
+      format: date-time
+    description: The end date
+responses:
+  200:
+    $ref: '../../responses/ok.yaml'
+  401:
+    $ref: '../../responses/unauthorized.yaml'
+  404:
+    $ref: '../../responses/unauthorized.yaml'
+  default:
+    description: Server error
