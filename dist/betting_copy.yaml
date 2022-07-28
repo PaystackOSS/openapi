@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Test-Create a betting platform
+  title: Test - Create a betting platform test
   description: The OpenAPI specification for creating a betting platform using the Paystack API
   version: 1.0.0
 servers:
