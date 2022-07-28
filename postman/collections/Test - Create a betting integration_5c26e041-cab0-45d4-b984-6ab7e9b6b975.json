@@ -1,0 +1,1613 @@
+{
+	"info": {
+		"_postman_id": "dc1c71ff-f4fa-48c2-b78c-c329ac708bd6",
+		"name": "Test - Create a betting integration",
+		"description": "The OpenAPI specification for creating a betting platform using the Paystack API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "Initialize Transaction",
+					"id": "0831766b-2187-4f9b-8cb2-b3a57f1b6dba",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "venia",
+									"description": "(Required) Customer's email address"
+								},
+								{
+									"key": "amount",
+									"value": "-49578451",
+									"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR"
+								},
+								{
+									"key": "currency",
+									"value": "NGN",
+									"description": "The transaction currency"
+								},
+								{
+									"key": "reference",
+									"value": "dolor nisi",
+									"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed."
+								},
+								{
+									"key": "callback_url",
+									"value": "dolore irure",
+									"description": "Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction"
+								},
+								{
+									"key": "plan",
+									"value": "sit Excepteur irure",
+									"description": "If transaction is to create a subscription to a predefined plan, provide plan code here. \nThis would invalidate the value provided in amount"
+								},
+								{
+									"key": "invoice_limit",
+									"value": "43984881",
+									"description": "Number of times to charge customer during subscription to plan"
+								},
+								{
+									"key": "metadata",
+									"value": "velit dolore",
+									"description": "Stringified JSON object of custom data"
+								},
+								{
+									"key": "channels",
+									"value": "qr",
+									"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with"
+								},
+								{
+									"key": "channels",
+									"value": "eft",
+									"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with"
+								},
+								{
+									"key": "split_code",
+									"value": "dolor",
+									"description": "The split code of the transaction split"
+								},
+								{
+									"key": "subaccount",
+									"value": "occaecat dolore elit",
+									"description": "The code for the subaccount that owns the payment"
+								},
+								{
+									"key": "transaction_charge",
+									"value": "proident non",
+									"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created"
+								},
+								{
+									"key": "bearer",
+									"value": "account",
+									"description": "The beare of the transaction charge"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/initialize",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"initialize"
+							]
+						},
+						"description": "Create a new transaction. Adding some more text for test."
+					},
+					"response": [
+						{
+							"id": "91f45594-c342-4088-9c53-f6f5c061a789",
+							"name": "Request successful",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"description": "(Required) Customer's email address",
+											"key": "email",
+											"value": "mollit Ut sint in adipisicing"
+										},
+										{
+											"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR",
+											"key": "amount",
+											"value": "-57214370"
+										},
+										{
+											"description": "The transaction currency",
+											"key": "currency",
+											"value": "GHS"
+										},
+										{
+											"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed.",
+											"key": "reference",
+											"value": "aliquip velit nostrud Ut"
+										},
+										{
+											"description": "Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction",
+											"key": "callback_url",
+											"value": "dolore Lorem"
+										},
+										{
+											"description": "If transaction is to create a subscription to a predefined plan, provide plan code here. \nThis would invalidate the value provided in amount",
+											"key": "plan",
+											"value": "incididunt non reprehe"
+										},
+										{
+											"description": "Number of times to charge customer during subscription to plan",
+											"key": "invoice_limit",
+											"value": "75534314"
+										},
+										{
+											"description": "Stringified JSON object of custom data",
+											"key": "metadata",
+											"value": "deserunt eu amet consequat"
+										},
+										{
+											"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with",
+											"key": "channels",
+											"value": "bank_transfer"
+										},
+										{
+											"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with",
+											"key": "channels",
+											"value": "mobile_money"
+										},
+										{
+											"description": "The split code of the transaction split",
+											"key": "split_code",
+											"value": "cillum ad et"
+										},
+										{
+											"description": "The code for the subaccount that owns the payment",
+											"key": "subaccount",
+											"value": "Excepteur quis sunt"
+										},
+										{
+											"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created",
+											"key": "transaction_charge",
+											"value": "sed aute minim in"
+										},
+										{
+											"description": "The beare of the transaction charge",
+											"key": "bearer",
+											"value": "account"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/transaction/initialize",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transaction",
+										"initialize"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"status\": false,\n  \"message\": \"anim nostrud in consequat\",\n  \"data\": {}\n}"
+						},
+						{
+							"id": "d928ad8c-8289-4cfc-894a-6b47a430e5ea",
+							"name": "Unauthorized operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"description": "(Required) Customer's email address",
+											"key": "email",
+											"value": "mollit Ut sint in adipisicing"
+										},
+										{
+											"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR",
+											"key": "amount",
+											"value": "-57214370"
+										},
+										{
+											"description": "The transaction currency",
+											"key": "currency",
+											"value": "GHS"
+										},
+										{
+											"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed.",
+											"key": "reference",
+											"value": "aliquip velit nostrud Ut"
+										},
+										{
+											"description": "Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction",
+											"key": "callback_url",
+											"value": "dolore Lorem"
+										},
+										{
+											"description": "If transaction is to create a subscription to a predefined plan, provide plan code here. \nThis would invalidate the value provided in amount",
+											"key": "plan",
+											"value": "incididunt non reprehe"
+										},
+										{
+											"description": "Number of times to charge customer during subscription to plan",
+											"key": "invoice_limit",
+											"value": "75534314"
+										},
+										{
+											"description": "Stringified JSON object of custom data",
+											"key": "metadata",
+											"value": "deserunt eu amet consequat"
+										},
+										{
+											"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with",
+											"key": "channels",
+											"value": "bank_transfer"
+										},
+										{
+											"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with",
+											"key": "channels",
+											"value": "mobile_money"
+										},
+										{
+											"description": "The split code of the transaction split",
+											"key": "split_code",
+											"value": "cillum ad et"
+										},
+										{
+											"description": "The code for the subaccount that owns the payment",
+											"key": "subaccount",
+											"value": "Excepteur quis sunt"
+										},
+										{
+											"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created",
+											"key": "transaction_charge",
+											"value": "sed aute minim in"
+										},
+										{
+											"description": "The beare of the transaction charge",
+											"key": "bearer",
+											"value": "account"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/transaction/initialize",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transaction",
+										"initialize"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"status\": false,\n  \"message\": \"magna ut Excepteur nisi sed\"\n}"
+						},
+						{
+							"id": "6116c418-adce-44a4-8be2-b4219284b1b7",
+							"name": "Server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"description": "(Required) Customer's email address",
+											"key": "email",
+											"value": "mollit Ut sint in adipisicing"
+										},
+										{
+											"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR",
+											"key": "amount",
+											"value": "-57214370"
+										},
+										{
+											"description": "The transaction currency",
+											"key": "currency",
+											"value": "GHS"
+										},
+										{
+											"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed.",
+											"key": "reference",
+											"value": "aliquip velit nostrud Ut"
+										},
+										{
+											"description": "Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction",
+											"key": "callback_url",
+											"value": "dolore Lorem"
+										},
+										{
+											"description": "If transaction is to create a subscription to a predefined plan, provide plan code here. \nThis would invalidate the value provided in amount",
+											"key": "plan",
+											"value": "incididunt non reprehe"
+										},
+										{
+											"description": "Number of times to charge customer during subscription to plan",
+											"key": "invoice_limit",
+											"value": "75534314"
+										},
+										{
+											"description": "Stringified JSON object of custom data",
+											"key": "metadata",
+											"value": "deserunt eu amet consequat"
+										},
+										{
+											"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with",
+											"key": "channels",
+											"value": "bank_transfer"
+										},
+										{
+											"description": "An array of payment channels to control what channels you want to make available to the user to make a payment with",
+											"key": "channels",
+											"value": "mobile_money"
+										},
+										{
+											"description": "The split code of the transaction split",
+											"key": "split_code",
+											"value": "cillum ad et"
+										},
+										{
+											"description": "The code for the subaccount that owns the payment",
+											"key": "subaccount",
+											"value": "Excepteur quis sunt"
+										},
+										{
+											"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created",
+											"key": "transaction_charge",
+											"value": "sed aute minim in"
+										},
+										{
+											"description": "The beare of the transaction charge",
+											"key": "bearer",
+											"value": "account"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/transaction/initialize",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transaction",
+										"initialize"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Charge Authorization",
+					"id": "1b70eb43-9c51-42e5-aa4e-ec2f4caa8dfb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "sit id ut",
+									"description": "(Required) Customer's email address"
+								},
+								{
+									"key": "amount",
+									"value": "50060804",
+									"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR"
+								},
+								{
+									"key": "authorization_code",
+									"value": "consectetur cupidatat veniam ut",
+									"description": "(Required) Valid authorization code to charge"
+								},
+								{
+									"key": "reference",
+									"value": "reprehenderit in",
+									"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed."
+								},
+								{
+									"key": "currency",
+									"value": "ZAR",
+									"description": "The transaction currency"
+								},
+								{
+									"key": "metadata",
+									"value": "consectetur eiusmod",
+									"description": "Stringified JSON object of custom data"
+								},
+								{
+									"key": "split_code",
+									"value": "in adipisicing occaecat",
+									"description": "The split code of the transaction split"
+								},
+								{
+									"key": "subaccount",
+									"value": "labore esse ul",
+									"description": "The code for the subaccount that owns the payment"
+								},
+								{
+									"key": "transaction_charge",
+									"value": "laborum velit do dolor",
+									"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created"
+								},
+								{
+									"key": "bearer",
+									"value": "subaccount",
+									"description": "The beare of the transaction charge"
+								},
+								{
+									"key": "queue",
+									"value": "true",
+									"description": "If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors."
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/charge_authorization",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"charge_authorization"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "e07964e4-76c6-4da9-bce6-51081b1250e7",
+							"name": "Request successful",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"description": "(Required) Customer's email address",
+											"key": "email",
+											"value": "sit id ut"
+										},
+										{
+											"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR",
+											"key": "amount",
+											"value": "50060804"
+										},
+										{
+											"description": "(Required) Valid authorization code to charge",
+											"key": "authorization_code",
+											"value": "consectetur cupidatat veniam ut"
+										},
+										{
+											"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed.",
+											"key": "reference",
+											"value": "reprehenderit in"
+										},
+										{
+											"description": "The transaction currency",
+											"key": "currency",
+											"value": "ZAR"
+										},
+										{
+											"description": "Stringified JSON object of custom data",
+											"key": "metadata",
+											"value": "consectetur eiusmod"
+										},
+										{
+											"description": "The split code of the transaction split",
+											"key": "split_code",
+											"value": "in adipisicing occaecat"
+										},
+										{
+											"description": "The code for the subaccount that owns the payment",
+											"key": "subaccount",
+											"value": "labore esse ul"
+										},
+										{
+											"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created",
+											"key": "transaction_charge",
+											"value": "laborum velit do dolor"
+										},
+										{
+											"description": "The beare of the transaction charge",
+											"key": "bearer",
+											"value": "subaccount"
+										},
+										{
+											"description": "If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.",
+											"key": "queue",
+											"value": "true"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/transaction/charge_authorization",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transaction",
+										"charge_authorization"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"status\": false,\n  \"message\": \"anim nostrud in consequat\",\n  \"data\": {}\n}"
+						},
+						{
+							"id": "3a09ad88-bee4-48f1-beee-e3f39c64a4cc",
+							"name": "Unauthorized operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"description": "(Required) Customer's email address",
+											"key": "email",
+											"value": "sit id ut"
+										},
+										{
+											"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR",
+											"key": "amount",
+											"value": "50060804"
+										},
+										{
+											"description": "(Required) Valid authorization code to charge",
+											"key": "authorization_code",
+											"value": "consectetur cupidatat veniam ut"
+										},
+										{
+											"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed.",
+											"key": "reference",
+											"value": "reprehenderit in"
+										},
+										{
+											"description": "The transaction currency",
+											"key": "currency",
+											"value": "ZAR"
+										},
+										{
+											"description": "Stringified JSON object of custom data",
+											"key": "metadata",
+											"value": "consectetur eiusmod"
+										},
+										{
+											"description": "The split code of the transaction split",
+											"key": "split_code",
+											"value": "in adipisicing occaecat"
+										},
+										{
+											"description": "The code for the subaccount that owns the payment",
+											"key": "subaccount",
+											"value": "labore esse ul"
+										},
+										{
+											"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created",
+											"key": "transaction_charge",
+											"value": "laborum velit do dolor"
+										},
+										{
+											"description": "The beare of the transaction charge",
+											"key": "bearer",
+											"value": "subaccount"
+										},
+										{
+											"description": "If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.",
+											"key": "queue",
+											"value": "true"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/transaction/charge_authorization",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transaction",
+										"charge_authorization"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"status\": false,\n  \"message\": \"magna ut Excepteur nisi sed\"\n}"
+						},
+						{
+							"id": "506b0047-a76f-4d69-999b-55e55b0e7450",
+							"name": "Server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"description": "(Required) Customer's email address",
+											"key": "email",
+											"value": "sit id ut"
+										},
+										{
+											"description": "(Required) Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR",
+											"key": "amount",
+											"value": "50060804"
+										},
+										{
+											"description": "(Required) Valid authorization code to charge",
+											"key": "authorization_code",
+											"value": "consectetur cupidatat veniam ut"
+										},
+										{
+											"description": "Unique transaction reference. Only -, ., = and alphanumeric characters allowed.",
+											"key": "reference",
+											"value": "reprehenderit in"
+										},
+										{
+											"description": "The transaction currency",
+											"key": "currency",
+											"value": "ZAR"
+										},
+										{
+											"description": "Stringified JSON object of custom data",
+											"key": "metadata",
+											"value": "consectetur eiusmod"
+										},
+										{
+											"description": "The split code of the transaction split",
+											"key": "split_code",
+											"value": "in adipisicing occaecat"
+										},
+										{
+											"description": "The code for the subaccount that owns the payment",
+											"key": "subaccount",
+											"value": "labore esse ul"
+										},
+										{
+											"description": "A flat fee to charge the subaccount for a transaction. \nThis overrides the split percentage set when the subaccount was created",
+											"key": "transaction_charge",
+											"value": "laborum velit do dolor"
+										},
+										{
+											"description": "The beare of the transaction charge",
+											"key": "bearer",
+											"value": "subaccount"
+										},
+										{
+											"description": "If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.",
+											"key": "queue",
+											"value": "true"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/transaction/charge_authorization",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transaction",
+										"charge_authorization"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": ""
+						}
+					]
+				}
+			],
+			"id": "ad1c0292-d668-447f-86d6-4797c2ec2dec"
+		},
+		{
+			"name": "Resolve Account Number",
+			"id": "b4d982e9-ec2e-4f57-8639-9924eb87f30f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/bank/resolve?account_number=94268987&bank_code=6373458",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bank",
+						"resolve"
+					],
+					"query": [
+						{
+							"key": "account_number",
+							"value": "94268987"
+						},
+						{
+							"key": "bank_code",
+							"value": "6373458"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "895fe4d6-e867-45f1-a32d-78ac35e27d17",
+					"name": "Request successful",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bank/resolve?account_number=94268987&bank_code=6373458",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bank",
+								"resolve"
+							],
+							"query": [
+								{
+									"key": "account_number",
+									"value": "94268987"
+								},
+								{
+									"key": "bank_code",
+									"value": "6373458"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n  \"status\": false,\n  \"message\": \"anim nostrud in consequat\",\n  \"data\": {}\n}"
+				},
+				{
+					"id": "7913884b-3805-4be2-9d38-cd73473e8fee",
+					"name": "Unauthorized operation",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bank/resolve?account_number=94268987&bank_code=6373458",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bank",
+								"resolve"
+							],
+							"query": [
+								{
+									"key": "account_number",
+									"value": "94268987"
+								},
+								{
+									"key": "bank_code",
+									"value": "6373458"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n  \"status\": false,\n  \"message\": \"magna ut Excepteur nisi sed\"\n}"
+				},
+				{
+					"id": "6f7bcd33-c981-4bb0-b855-ab3ba7976ac8",
+					"name": "Unauthorized operation",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bank/resolve?account_number=94268987&bank_code=6373458",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bank",
+								"resolve"
+							],
+							"query": [
+								{
+									"key": "account_number",
+									"value": "94268987"
+								},
+								{
+									"key": "bank_code",
+									"value": "6373458"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n  \"status\": false,\n  \"message\": \"magna ut Excepteur nisi sed\"\n}"
+				},
+				{
+					"id": "e1d80a5d-e8b2-44b2-8ab4-47b23733de75",
+					"name": "Server error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bank/resolve?account_number=94268987&bank_code=6373458",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bank",
+								"resolve"
+							],
+							"query": [
+								{
+									"key": "account_number",
+									"value": "94268987"
+								},
+								{
+									"key": "bank_code",
+									"value": "6373458"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create Transfer Recipient",
+			"id": "6009641c-69ba-4a9d-9872-d7b93da1a63a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "consectetur ipsum exercitation",
+							"description": "(Required) Recipient Type (Only nuban at this time)"
+						},
+						{
+							"key": "name",
+							"value": "aliqua sit",
+							"description": "(Required) Recipient's name"
+						},
+						{
+							"key": "account_number",
+							"value": "incididunt aute veniam",
+							"description": "(Required) Recipient's bank account number"
+						},
+						{
+							"key": "bank_code",
+							"value": "elit consequat",
+							"description": "(Required) Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint"
+						},
+						{
+							"key": "description",
+							"value": "in",
+							"description": "A description for this recipient"
+						},
+						{
+							"key": "currency",
+							"value": "proident",
+							"description": "Currency for the account receiving the transfer"
+						},
+						{
+							"key": "authorization_code",
+							"value": "exercitation aliqua sint occaecat sed",
+							"description": "An authorization code from a previous transaction"
+						},
+						{
+							"key": "metadata",
+							"value": "consequat Ut laborum",
+							"description": "Stringified JSON object of custom data"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/transferrecipient",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"transferrecipient"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "aba67800-db25-4a49-a2db-1c062fd663b3",
+					"name": "Resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"description": "(Required) Recipient Type (Only nuban at this time)",
+									"key": "type",
+									"value": "consectetur ipsum exercitation"
+								},
+								{
+									"description": "(Required) Recipient's name",
+									"key": "name",
+									"value": "aliqua sit"
+								},
+								{
+									"description": "(Required) Recipient's bank account number",
+									"key": "account_number",
+									"value": "incididunt aute veniam"
+								},
+								{
+									"description": "(Required) Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint",
+									"key": "bank_code",
+									"value": "elit consequat"
+								},
+								{
+									"description": "A description for this recipient",
+									"key": "description",
+									"value": "in"
+								},
+								{
+									"description": "Currency for the account receiving the transfer",
+									"key": "currency",
+									"value": "proident"
+								},
+								{
+									"description": "An authorization code from a previous transaction",
+									"key": "authorization_code",
+									"value": "exercitation aliqua sint occaecat sed"
+								},
+								{
+									"description": "Stringified JSON object of custom data",
+									"key": "metadata",
+									"value": "consequat Ut laborum"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transferrecipient",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transferrecipient"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n  \"status\": false,\n  \"message\": \"anim nostrud in consequat\",\n  \"data\": {}\n}"
+				},
+				{
+					"id": "9dcc57cd-de18-44d5-bc3c-6870a99cb299",
+					"name": "Unauthorized operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"description": "(Required) Recipient Type (Only nuban at this time)",
+									"key": "type",
+									"value": "consectetur ipsum exercitation"
+								},
+								{
+									"description": "(Required) Recipient's name",
+									"key": "name",
+									"value": "aliqua sit"
+								},
+								{
+									"description": "(Required) Recipient's bank account number",
+									"key": "account_number",
+									"value": "incididunt aute veniam"
+								},
+								{
+									"description": "(Required) Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint",
+									"key": "bank_code",
+									"value": "elit consequat"
+								},
+								{
+									"description": "A description for this recipient",
+									"key": "description",
+									"value": "in"
+								},
+								{
+									"description": "Currency for the account receiving the transfer",
+									"key": "currency",
+									"value": "proident"
+								},
+								{
+									"description": "An authorization code from a previous transaction",
+									"key": "authorization_code",
+									"value": "exercitation aliqua sint occaecat sed"
+								},
+								{
+									"description": "Stringified JSON object of custom data",
+									"key": "metadata",
+									"value": "consequat Ut laborum"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transferrecipient",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transferrecipient"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n  \"status\": false,\n  \"message\": \"magna ut Excepteur nisi sed\"\n}"
+				},
+				{
+					"id": "4bc90582-c2c3-4643-8aa8-e9ebc4f0566e",
+					"name": "Server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"description": "(Required) Recipient Type (Only nuban at this time)",
+									"key": "type",
+									"value": "consectetur ipsum exercitation"
+								},
+								{
+									"description": "(Required) Recipient's name",
+									"key": "name",
+									"value": "aliqua sit"
+								},
+								{
+									"description": "(Required) Recipient's bank account number",
+									"key": "account_number",
+									"value": "incididunt aute veniam"
+								},
+								{
+									"description": "(Required) Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint",
+									"key": "bank_code",
+									"value": "elit consequat"
+								},
+								{
+									"description": "A description for this recipient",
+									"key": "description",
+									"value": "in"
+								},
+								{
+									"description": "Currency for the account receiving the transfer",
+									"key": "currency",
+									"value": "proident"
+								},
+								{
+									"description": "An authorization code from a previous transaction",
+									"key": "authorization_code",
+									"value": "exercitation aliqua sint occaecat sed"
+								},
+								{
+									"description": "Stringified JSON object of custom data",
+									"key": "metadata",
+									"value": "consequat Ut laborum"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transferrecipient",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transferrecipient"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Initiate Bulk Transfer",
+			"id": "2ae98279-f8e9-4147-8d2a-4daaf7e6453c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "source",
+							"value": "Lorem amet reprehenderit in exercit",
+							"description": "Where should we transfer from? Only balance is allowed for now"
+						},
+						{
+							"key": "transfers",
+							"value": "{\"source\":\"deserunt in\",\"amount\":\"pariat\",\"recipient\":\"enim ut ullamco in\",\"reason\":\"cupidatat et consectetur ad\",\"currency\":\"culpa Duis in\",\"reference\":\"t\"}",
+							"description": "A list of transfer object. Each object should contain amount, recipient, and reference"
+						},
+						{
+							"key": "transfers",
+							"value": "{\"source\":\"sed\",\"amount\":\"magna irure\",\"recipient\":\"eu ut fugiat\",\"reason\":\"ullamco laborum reprehenderit aliquip ipsum\",\"currency\":\"eu est minim\",\"reference\":\"eiusmod officia\"}",
+							"description": "A list of transfer object. Each object should contain amount, recipient, and reference"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/transfer/bulk",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"transfer",
+						"bulk"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "10b5d1ef-d3b9-439b-b481-f564a764593a",
+					"name": "Request successful",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"description": "Where should we transfer from? Only balance is allowed for now",
+									"key": "source",
+									"value": "amet fugiat"
+								},
+								{
+									"description": "A list of transfer object. Each object should contain amount, recipient, and reference",
+									"key": "transfers",
+									"value": "{\"source\":\"Excepteur amet nulla\",\"amount\":\"Exce\",\"recipient\":\"ea consequat\",\"reason\":\"officia est null\",\"currency\":\"labore commodo\",\"reference\":\"aute sint\"}"
+								},
+								{
+									"description": "A list of transfer object. Each object should contain amount, recipient, and reference",
+									"key": "transfers",
+									"value": "{\"source\":\"anim labore culpa\",\"amount\":\"culpa minim eiusmod\",\"recipient\":\"eu dolor pariatur enim\",\"reason\":\"velit\",\"currency\":\"nostrud\",\"reference\":\"ullamco\"}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transfer/bulk",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transfer",
+								"bulk"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n  \"status\": false,\n  \"message\": \"anim nostrud in consequat\",\n  \"data\": {}\n}"
+				},
+				{
+					"id": "a0a51bee-5884-4fa6-8962-dcdd4cce7f4f",
+					"name": "Unauthorized operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"description": "Where should we transfer from? Only balance is allowed for now",
+									"key": "source",
+									"value": "amet fugiat"
+								},
+								{
+									"description": "A list of transfer object. Each object should contain amount, recipient, and reference",
+									"key": "transfers",
+									"value": "{\"source\":\"Excepteur amet nulla\",\"amount\":\"Exce\",\"recipient\":\"ea consequat\",\"reason\":\"officia est null\",\"currency\":\"labore commodo\",\"reference\":\"aute sint\"}"
+								},
+								{
+									"description": "A list of transfer object. Each object should contain amount, recipient, and reference",
+									"key": "transfers",
+									"value": "{\"source\":\"anim labore culpa\",\"amount\":\"culpa minim eiusmod\",\"recipient\":\"eu dolor pariatur enim\",\"reason\":\"velit\",\"currency\":\"nostrud\",\"reference\":\"ullamco\"}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transfer/bulk",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transfer",
+								"bulk"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n  \"status\": false,\n  \"message\": \"magna ut Excepteur nisi sed\"\n}"
+				},
+				{
+					"id": "5520636b-656b-48d8-9f15-b242da1dc0ea",
+					"name": "Server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"description": "Where should we transfer from? Only balance is allowed for now",
+									"key": "source",
+									"value": "amet fugiat"
+								},
+								{
+									"description": "A list of transfer object. Each object should contain amount, recipient, and reference",
+									"key": "transfers",
+									"value": "{\"source\":\"Excepteur amet nulla\",\"amount\":\"Exce\",\"recipient\":\"ea consequat\",\"reason\":\"officia est null\",\"currency\":\"labore commodo\",\"reference\":\"aute sint\"}"
+								},
+								{
+									"description": "A list of transfer object. Each object should contain amount, recipient, and reference",
+									"key": "transfers",
+									"value": "{\"source\":\"anim labore culpa\",\"amount\":\"culpa minim eiusmod\",\"recipient\":\"eu dolor pariatur enim\",\"reason\":\"velit\",\"currency\":\"nostrud\",\"reference\":\"ullamco\"}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transfer/bulk",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transfer",
+								"bulk"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": ""
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "<Bearer Token>",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"id": "dc21207d-8afb-4828-98b9-09ed30984840",
+			"key": "baseUrl",
+			"value": "https://api.paystack.co",
+			"type": "string"
+		}
+	]
+}
