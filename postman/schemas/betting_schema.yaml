@@ -1,0 +1,459 @@
+openapi: 3.0.1
+info:
+  title: Test - Create a betting platform test from Postman
+  description: The OpenAPI specification for creating a betting platform using the Paystack API
+  version: 1.0.0
+servers:
+  - url: 'https://api.paystack.co'
+    description: Base API endpoint
+paths:
+  /transaction/initialize:
+    post:
+      tags:
+        - Transaction
+      summary: Initialize Transaction
+      operationId: transaction_initialize
+      description: Create a new transaction. Adding some more text for test.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/paths/~1transaction~1initialize/post/requestBody/content/application~1json/schema'
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - amount
+              properties:
+                email:
+                  description: Customer's email address
+                  type: string
+                amount:
+                  description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
+                  type: integer
+                currency:
+                  description: The transaction currency
+                  type: string
+                  enum:
+                    - NGN
+                    - GHS
+                    - ZAR
+                    - USD
+                reference:
+                  description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
+                  type: string
+                callback_url:
+                  description: 'Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction'
+                  type: string
+                plan:
+                  description: |-
+                    If transaction is to create a subscription to a predefined plan, provide plan code here. 
+                    This would invalidate the value provided in amount
+                  type: string
+                invoice_limit:
+                  description: Number of times to charge customer during subscription to plan
+                  type: integer
+                metadata:
+                  description: Stringified JSON object of custom data
+                  type: string
+                channels:
+                  description: An array of payment channels to control what channels you want to make available to the user to make a payment with
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - card
+                      - bank
+                      - ussd
+                      - qr
+                      - eft
+                      - mobile_money
+                      - bank_transfer
+                split_code:
+                  description: The split code of the transaction split
+                  type: string
+                subaccount:
+                  description: The code for the subaccount that owns the payment
+                  type: string
+                transaction_charge:
+                  description: |-
+                    A flat fee to charge the subaccount for a transaction. 
+                    This overrides the split percentage set when the subaccount was created
+                  type: string
+                bearer:
+                  description: The beare of the transaction charge
+                  type: string
+                  enum:
+                    - account
+                    - subaccount
+      responses:
+        '200':
+          $ref: '#/paths/~1bank~1resolve/get/responses/200'
+        '401':
+          $ref: '#/paths/~1bank~1resolve/get/responses/401'
+        default:
+          description: Server error
+  /transaction/charge_authorization:
+    post:
+      tags:
+        - Transaction
+      summary: Charge Authorization
+      operationId: transaction_chargeAuthorization
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/paths/~1transaction~1charge_authorization/post/requestBody/content/application~1json/schema'
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - amount
+                - authorization_code
+              properties:
+                email:
+                  description: Customer's email address
+                  type: string
+                amount:
+                  description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
+                  type: integer
+                authorization_code:
+                  description: Valid authorization code to charge
+                  type: string
+                reference:
+                  description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
+                  type: string
+                currency:
+                  description: The transaction currency
+                  type: string
+                  enum:
+                    - NGN
+                    - GHS
+                    - ZAR
+                    - USD
+                metadata:
+                  description: Stringified JSON object of custom data
+                  type: string
+                split_code:
+                  description: The split code of the transaction split
+                  type: string
+                subaccount:
+                  description: The code for the subaccount that owns the payment
+                  type: string
+                transaction_charge:
+                  description: |-
+                    A flat fee to charge the subaccount for a transaction. 
+                    This overrides the split percentage set when the subaccount was created
+                  type: string
+                bearer:
+                  description: The beare of the transaction charge
+                  type: string
+                  enum:
+                    - account
+                    - subaccount
+                queue:
+                  description: 'If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.'
+                  type: boolean
+      responses:
+        '200':
+          $ref: '#/paths/~1bank~1resolve/get/responses/200'
+        '401':
+          $ref: '#/paths/~1bank~1resolve/get/responses/401'
+        default:
+          description: Server error
+  /bank/resolve:
+    get:
+      tags:
+        - Verification
+      summary: Resolve Account Number
+      operationId: verification_resolveAccountNumber
+      parameters:
+        - name: account_number
+          in: query
+          schema:
+            type: integer
+          example: 0022728151
+        - name: bank_code
+          in: query
+          schema:
+            type: integer
+          example: '063'
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+        '401':
+          description: Unauthorized operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+        '404':
+          $ref: '#/paths/~1bank~1resolve/get/responses/401'
+        default:
+          description: Server error
+  /transferrecipient:
+    post:
+      tags:
+        - Transfer Recipient
+      summary: Create Transfer Recipient
+      operationId: transferrecipient_create
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/paths/~1transferrecipient/post/requestBody/content/application~1json/schema'
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - name
+                - account_number
+                - bank_code
+              properties:
+                type:
+                  description: Recipient Type (Only nuban at this time)
+                  type: string
+                name:
+                  description: Recipient's name
+                  type: string
+                account_number:
+                  description: Recipient's bank account number
+                  type: string
+                bank_code:
+                  description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
+                  type: string
+                description:
+                  description: A description for this recipient
+                  type: string
+                currency:
+                  description: Currency for the account receiving the transfer
+                  type: string
+                authorization_code:
+                  description: An authorization code from a previous transaction
+                  type: string
+                metadata:
+                  description: Stringified JSON object of custom data
+                  type: string
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+        '401':
+          $ref: '#/paths/~1bank~1resolve/get/responses/401'
+        default:
+          description: Server error
+  /transfer/bulk:
+    post:
+      tags:
+        - Transfer
+      summary: Initiate Bulk Transfer
+      operationId: transfer_bulk
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/paths/~1transfer~1bulk/post/requestBody/content/application~1json/schema'
+          application/json:
+            schema:
+              type: object
+              required:
+                - batch
+              properties:
+                source:
+                  description: Where should we transfer from? Only balance is allowed for now
+                  type: string
+                transfers:
+                  description: 'A list of transfer object. Each object should contain amount, recipient, and reference'
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - source
+                      - amount
+                      - recipient
+                    properties:
+                      source:
+                        description: Where should we transfer from? Only balance is allowed for now
+                        type: string
+                      amount:
+                        description: Amount to transfer in kobo if currency is NGN and pesewas if currency is GHS.
+                        type: string
+                      recipient:
+                        description: The transfer recipient's code
+                        type: string
+                      reason:
+                        description: The reason or narration for the transfer.
+                        type: string
+                      currency:
+                        description: Specify the currency of the transfer. Defaults to NGN.
+                        type: string
+                      reference:
+                        description: |-
+                          If specified, the field should be a unique identifier (in lowercase) for the object. 
+                          Only -,_ and alphanumeric characters are allowed.
+                        type: string
+      responses:
+        '200':
+          $ref: '#/paths/~1bank~1resolve/get/responses/200'
+        '401':
+          $ref: '#/paths/~1bank~1resolve/get/responses/401'
+        default:
+          description: Server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Customer:
+      allOf:
+        - type: object
+          required:
+            - email
+          properties:
+            email:
+              description: Customer's email address
+              type: string
+        - type: object
+          properties:
+            first_name:
+              description: Customer's first name
+              type: string
+            last_name:
+              description: Customer's last name
+              type: string
+            phone:
+              description: Customer's phone number
+              type: string
+            metadata:
+              description: Stringified JSON object of custom data
+              type: string
+        - type: object
+          required:
+            - authorization_code
+          properties:
+            authorization_code:
+              description: Customer's authorization code to be deactivated
+              type: string
+        - type: object
+          required:
+            - customer
+          properties:
+            customer:
+              description: 'Customer''s code, or email address'
+              type: string
+            risk_action:
+              description: |
+                One of the possible risk actions [ default, allow, deny ]. allow to whitelist. 
+                deny to blacklist. Customers start with a default risk action.
+              type: string
+              enum:
+                - default
+                - allow
+                - deny
+        - type: object
+          required:
+            - type
+            - country
+            - bvn
+            - bank_code
+            - account_number
+          properties:
+            type:
+              description: Predefined types of identification.
+              type: string
+              enum:
+                - bvn
+                - bank_account
+            country:
+              description: Two-letter country code of identification issuer
+              type: string
+            bvn:
+              description: Customer's Bank Verification Number
+              type: string
+            bank_code:
+              description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
+              type: string
+            account_number:
+              description: Customer's bank account number.
+              type: string
+            value:
+              description: Customer's identification number. Required if type is bvn
+              type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+    Response:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+  responses:
+    Ok:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+              message:
+                type: string
+              data:
+                type: object
+    Created:
+      description: Resource created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Entity not found
+    Unauthorized:
+      description: Unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Invalid key
+    GeneralError:
+      description: General Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+security:
+  - bearerAuth: []
