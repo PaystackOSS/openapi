@@ -8,12 +8,15 @@ properties:
   email:
     description: Customer's email address
     type:  string
+    example: person@email.com
   amount:
     description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
     type: integer
+    example: 10247
   authorization_code:
     description: Valid authorization code to charge
     type: string
+    example: AUTH_CODE
   currency:
     description: The transaction currency
     type: string
@@ -25,6 +28,8 @@ properties:
   reference:
     description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
     type: string
+    example: 123.uniq=ref-3
   at_least:
     description: Minimum amount to charge
     type: string
+    example: 10000

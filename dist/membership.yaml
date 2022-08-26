@@ -63,6 +63,19 @@ paths:
           description: Unauthorized operation
           content:
             application/json:
+              examples:
+                No_Authorization_Header:
+                  value:
+                    status: false
+                    message: No Authorization Header was found
+                Bad-Authorization-Header:
+                  value:
+                    status: false
+                    message: 'Format is Authorization Bearer [secret key]'
+                Invalid_Key:
+                  value:
+                    status: false
+                    message: Invalid key
               schema:
                 type: object
                 properties:
@@ -134,9 +147,11 @@ paths:
                 email:
                   description: Customer's email address
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 currency:
                   description: The transaction currency
                   type: string
@@ -148,6 +163,7 @@ paths:
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-
                 callback_url:
                   description: 'Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction'
                   type: string
@@ -156,12 +172,27 @@ paths:
                     If transaction is to create a subscription to a predefined plan, provide plan code here. 
                     This would invalidate the value provided in amount
                   type: string
+                  example: PLN_123wede
                 invoice_limit:
                   description: Number of times to charge customer during subscription to plan
                   type: integer
                 metadata:
                   description: Stringified JSON object of custom data
                   type: string
+                  example: |
+                    {"cart_id":398, "custom_fields": [{
+                        "display_name":"Invoice ID",
+                        "variable_name":"Invoice ID",
+                        "value":209
+                      },
+                                  {
+                                    "display_name":"Cart Items",
+                                    "variable_name":"cart_items",
+                                    "value":"3 bananas, 12 mangoes"
+                                  }
+                                ]
+                              }
+                    }
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
@@ -175,19 +206,30 @@ paths:
                       - eft
                       - mobile_money
                       - bank_transfer
+                  example:
+                    - card
+                    - bank
+                    - ussd
+                    - qr
+                    - eft
+                    - mobile_money
+                    - bank_transfer
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
                   type: string
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
@@ -219,17 +261,21 @@ paths:
                 - authorization_code
               properties:
                 email:
-                  description: Customer's email address
+                  description: Customer's email address used during the first transaction
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 authorization_code:
                   description: Valid authorization code to charge
                   type: string
+                  example: AUTH_CODE
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-2
                 currency:
                   description: The transaction currency
                   type: string
@@ -240,20 +286,25 @@ paths:
                     - USD
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example: |
+                    {cart_id:398, custom_fields:[{}] }
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
                   type: string
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account

@@ -6,6 +6,8 @@ properties:
   transfer_code:
     description: The transfer code you want to finalize
     type:  string
+    example: TRF_CODE
   otp:
     description: OTP sent to business phone to verify transfer
     type:  string
+    example: 123456
