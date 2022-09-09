@@ -1,4 +1,4 @@
-post:
+get:
   tags:
     - Subscription
   summary: Generate Update Subscription Link

@@ -1194,7 +1194,7 @@ paths:
         default:
           description: Server error
   /subscription/{code}/manage/link:
-    post:
+    get:
       tags:
         - Subscription
       summary: Generate Update Subscription Link
