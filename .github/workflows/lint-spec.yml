@@ -1,0 +1,15 @@
+name: Run Spectral on Pull Requests
+
+on:
+  - pull_request
+
+jobs:
+  build:
+    name: Run Spectral
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint SDK specification
+        uses: stoplightio/spectral-action@latest
+        with:
+          file_glob: 'sdk/*.yaml'
