@@ -8,12 +8,12 @@ get:
       in: query
       schema:
         type: integer
-      example: '0022728151'
+      example: 0022728151
     - name: bank_code
       in: query
       schema:
         type: integer
-      example: '063'
+      example: 063
   responses:
     200:
       $ref: '../../responses/ok.yaml'
