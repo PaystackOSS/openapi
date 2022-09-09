@@ -51,9 +51,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionInitialize'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -63,6 +63,7 @@ paths:
         - Transaction
       summary: Verify Transaction
       operationId: transaction_verify
+      description: Verify a previously initiated transaction using it's reference
       parameters:
         - name: reference
           in: path
@@ -71,11 +72,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -85,6 +86,7 @@ paths:
         - Transaction
       summary: List Transactions
       operationId: transaction_list
+      description: List transactions that has occurred on your integration
       parameters:
         - in: query
           name: perPage
@@ -109,11 +111,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -123,6 +125,7 @@ paths:
         - Transaction
       summary: Fetch Transaction
       operationId: transaction_fetch
+      description: Fetch a transaction to get its details
       parameters:
       - name: id
         in: path
@@ -131,11 +134,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -145,6 +148,7 @@ paths:
         - Transaction
       summary: Fetch Transaction Timeline
       operationId: transaction_timeline
+      description: Get the details about the lifecycle of a transaction from initiation to completion
       parameters:
       - name: id_or_reference
         in: path
@@ -152,11 +156,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -166,6 +170,7 @@ paths:
         - Transaction
       summary: Transaction Totals
       operationId: transaction_totals
+      description: Get the total amount of all transactions
       parameters:
         - in: query
           name: perPage
@@ -190,11 +195,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -228,11 +233,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -251,9 +256,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionChargeAuthorization'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -272,9 +277,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionCheckAuthorization'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -293,9 +298,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionPartialDebit'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -312,11 +317,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -333,11 +338,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -356,9 +361,9 @@ paths:
             schema:
               $ref: '#/components/schemas/SplitCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -397,11 +402,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -418,11 +423,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -446,11 +451,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -476,9 +481,9 @@ paths:
             type: string
           example: application/json
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -503,9 +508,9 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -524,9 +529,9 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -566,11 +571,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -587,11 +592,11 @@ paths:
       summary: Fetch Customer
       operationId: customer_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -609,11 +614,11 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -633,9 +638,9 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerRiskAction'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -655,9 +660,9 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerDeactivateAuthorization'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -683,9 +688,9 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerValidation'
       responses:
-        202:
+        '202':
           $ref: '#/components/responses/Accepted'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -704,9 +709,9 @@ paths:
             schema:
               $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -749,11 +754,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -770,11 +775,11 @@ paths:
       summary: Fetch Dedicated Account
       operationId: dedicatedAccount_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -784,11 +789,11 @@ paths:
       summary: Deactivate Dedicated Account
       operationId: dedicatedAccount_deactivate
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -799,11 +804,11 @@ paths:
       summary: Fetch Bank Providers
       operationId: dedicatedAccount_availableProviders
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -822,9 +827,9 @@ paths:
             schema:
               $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -842,11 +847,11 @@ paths:
             schema:
               $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -865,9 +870,9 @@ paths:
             schema:
               $ref: '#/components/schemas/SubaccountCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -900,11 +905,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -921,11 +926,11 @@ paths:
       summary: Fetch Subaccount
       operationId: subaccount_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -943,11 +948,11 @@ paths:
             schema:
               $ref: '#/components/schemas/SubaccountUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -966,9 +971,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PlanCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1011,11 +1016,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1032,11 +1037,11 @@ paths:
       summary: Fetch Plan
       operationId: plan_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1054,11 +1059,11 @@ paths:
             schema:
               $ref: '#/components/schemas/PlanUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1077,9 +1082,9 @@ paths:
             schema:
               $ref: '#/components/schemas/SubscriptionCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1122,11 +1127,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1143,11 +1148,11 @@ paths:
       summary: Fetch Subscription
       operationId: subscription_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1166,9 +1171,9 @@ paths:
             schema:
               $ref: '#/components/schemas/SubscriptionToggle'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1187,9 +1192,9 @@ paths:
             schema:
               $ref: '#/components/schemas/SubscriptionToggle'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1206,9 +1211,9 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1225,9 +1230,9 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1246,9 +1251,9 @@ paths:
             schema:
               $ref: '#/components/schemas/ProductCreate'
       responses:
-        201:
+        '201':
           $ref: '#/components/responses/Created'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1283,11 +1288,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1304,11 +1309,11 @@ paths:
       summary: Fetch Product
       operationId: product_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1326,11 +1331,11 @@ paths:
             schema:
               $ref: '#/components/schemas/ProductUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1340,11 +1345,11 @@ paths:
       summary: Delete Product
       operationId: product_delete
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1363,9 +1368,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PageCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1398,11 +1403,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1427,11 +1432,11 @@ paths:
             schema:
               $ref: '#/components/schemas/PageUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1441,11 +1446,11 @@ paths:
       summary: Fetch Page
       operationId: page_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1462,11 +1467,11 @@ paths:
       summary: Check Slug Availability
       operationId: page_checkSlugAvailability
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1491,9 +1496,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PageProduct'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1512,9 +1517,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PaymentRequestCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1562,11 +1567,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1583,11 +1588,11 @@ paths:
       summary: Fetch Payment Request
       operationId: paymentRequest_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1605,11 +1610,11 @@ paths:
             schema:
               $ref: '#/components/schemas/PaymentRequestUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1626,11 +1631,11 @@ paths:
       summary: Verify Payment Request
       operationId: paymentRequest_verify
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1647,9 +1652,9 @@ paths:
       summary: Send Notification
       operationId: paymentRequest_notify
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1660,11 +1665,11 @@ paths:
       summary: Payment Request Total
       operationId: paymentRequest_totals
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1681,9 +1686,9 @@ paths:
       summary: Finalize Payment Request
       operationId: paymentRequest_finalize
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1700,9 +1705,9 @@ paths:
       summary: Archive Payment Request
       operationId: paymentRequest_archive
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1717,18 +1722,18 @@ paths:
           in: query
           schema:
             type: integer
-          example: '50'
+          example: 50
         - name: page
           in: query
           schema:
             type: integer
-          example: '2'
+          example: 2
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1745,11 +1750,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1768,9 +1773,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferRecipientCreate'
       responses:
-        201:
+        '201':
           $ref: '#/components/responses/Created'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1803,11 +1808,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1826,9 +1831,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferRecipientBulk'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1846,11 +1851,11 @@ paths:
       summary: Fetch Transfer recipient
       operationId: transferrecipient_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1867,11 +1872,11 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferRecipientUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1880,11 +1885,11 @@ paths:
         - Transfer Recipient
       summary: Delete Transfer Recipient
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1903,9 +1908,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferInitiate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1942,11 +1947,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -1965,9 +1970,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferFinalize'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -1986,9 +1991,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferBulk'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2006,11 +2011,11 @@ paths:
       summary: Fetch Transfer
       operationId: transfer_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2027,11 +2032,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2069,11 +2074,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2092,9 +2097,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferResendOTP'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2105,9 +2110,9 @@ paths:
       summary: Disable OTP requirement for Transfers
       operationId: transfer_disableOtp
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2126,9 +2131,9 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferFinalizeDisableOTP'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2139,9 +2144,9 @@ paths:
       summary: Enable OTP requirement for Transfers
       operationId: transfer_enableOtp
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2153,11 +2158,11 @@ paths:
       operationId: balance_fetch
       description: You can only transfer from what you have
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2191,11 +2196,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2248,9 +2253,9 @@ paths:
                     eft:
                       $ref: '#/components/schemas/EFT'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2269,9 +2274,9 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitPin'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2290,9 +2295,9 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitOTP'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2311,9 +2316,9 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitPhone'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2332,9 +2337,9 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitBirthday'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2353,9 +2358,9 @@ paths:
             schema:
               $ref: '#/components/schemas/ChargeSubmitAddress'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2372,11 +2377,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2408,9 +2413,9 @@ paths:
                     items:
                       $ref: '#/components/schemas/BulkChargeInitiate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Created'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2443,11 +2448,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2465,11 +2470,11 @@ paths:
       summary: Fetch Bulk Charge Batch
       operationId: bulkCharge_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2487,11 +2492,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2509,11 +2514,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2531,11 +2536,11 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2546,11 +2551,11 @@ paths:
       summary: Fetch Payment Session Timeout
       operationId: integration_fetchPaymentSessionTimeout
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2567,11 +2572,11 @@ paths:
               example:
                 timeout: 30
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2590,9 +2595,9 @@ paths:
             schema:
               $ref: '#/components/schemas/RefundCreate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2625,11 +2630,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2646,11 +2651,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2694,11 +2699,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2716,11 +2721,11 @@ paths:
       summary: Fetch Dispute
       operationId: dispute_fetch
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2738,11 +2743,11 @@ paths:
             schema:
               $ref: '#/components/schemas/DisputeUpdate'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2760,11 +2765,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2802,11 +2807,11 @@ paths:
             format: date-time
           description: The end date
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2824,11 +2829,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2854,11 +2859,11 @@ paths:
             schema:
               $ref: '#/components/schemas/DisputeResolve'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2884,9 +2889,9 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -2901,18 +2906,18 @@ paths:
           in: query
           schema:
             type: integer
-          example: '0022728151'
+          example: 0022728151
         - name: bank_code
           in: query
           schema:
             type: integer
-          example: '063'
+          example: 063
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2929,11 +2934,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2944,11 +2949,11 @@ paths:
       summary: List Countries
       operationId: verification_listCountries
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -2988,11 +2993,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
@@ -3016,11 +3021,11 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Ok'
-        401:
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
