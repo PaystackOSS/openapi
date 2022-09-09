@@ -2,6 +2,7 @@
   "name": "paystack-openapi",
   "version": "1.0.0",
   "description": "The OpenAPI specification for the Paystack API",
+  "author": "Damilola Odujoko",
   "main": "index.js",
   "scripts": {
     "build": "npm run build-main && npm run build-wallet && npm run build-membership && npm run build-marketplace && npm run build-betting && npm run build-lending && npm run build-savings",
@@ -12,25 +13,25 @@
     "build-betting": "swagger-cli bundle use_cases/betting.yaml --outfile dist/betting.yaml --type yaml",
     "build-lending": "swagger-cli bundle use_cases/lending.yaml --outfile dist/lending.yaml --type yaml",
     "build-savings": "swagger-cli bundle use_cases/savings.yaml --outfile dist/savings.yaml --type yaml",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run lint-main && npm run lint-sdk",
+    "lint-main": "spectral lint dist/paystack.yaml",
     "lint-sdk": "spectral lint ./sdk/paystack.yaml"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PaystackOSS/openapi.git"
+    "url": "https://github.com/PaystackOSS/openapi.git"
   },
   "keywords": [
     "Paystack",
     "OpenAPI"
   ],
-  "author": "Damilola Odujoko",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/PaystackOSS/openapi/issues"
   },
   "homepage": "https://github.com/PaystackOSS/openapi#readme",
-  "dependencies": {
+  "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
-    "@stoplight/spectral-cli": "^6.2.0"
+    "@stoplight/spectral-cli": "^6.5.1"
   }
 }
