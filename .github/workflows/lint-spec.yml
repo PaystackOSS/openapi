@@ -5,11 +5,14 @@ on:
 
 jobs:
   build:
-    name: Run Spectral
+    name: Lint 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: stoplightio/spectral-action@latest
       - name: Lint SDK specification
-        uses: stoplightio/spectral-action@latest
         with:
           file_glob: 'sdk/*.yaml'
+      - name: Lint distribution specification
+        with:
+          file_glob: 'dist/*.yaml'
