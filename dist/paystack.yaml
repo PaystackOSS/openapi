@@ -2321,12 +2321,12 @@ paths:
           in: query
           schema:
             type: integer
-          example: '50'
+          example: 50
         - name: page
           in: query
           schema:
             type: integer
-          example: '2'
+          example: 2
       responses:
         '200':
           $ref: '#/paths/~1product/post/responses/201'
@@ -2353,12 +2353,12 @@ paths:
           in: query
           schema:
             type: integer
-          example: '50'
+          example: 50
         - name: page
           in: query
           schema:
             type: integer
-          example: '2'
+          example: 2
       responses:
         '200':
           $ref: '#/paths/~1product/post/responses/201'
@@ -3843,7 +3843,7 @@ paths:
           in: query
           schema:
             type: integer
-          example: '063'
+          example: 51
       responses:
         '200':
           $ref: '#/paths/~1page/get/responses/200'

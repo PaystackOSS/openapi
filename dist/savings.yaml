@@ -179,7 +179,7 @@ paths:
           in: query
           schema:
             type: integer
-          example: '063'
+          example: 51
       responses:
         '200':
           $ref: '#/paths/~1transfer/post/responses/200'
