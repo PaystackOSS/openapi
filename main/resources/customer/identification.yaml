@@ -20,7 +20,7 @@ post:
           $ref: '../../schemas/customer/CustomerIdentification.yaml'
   responses:
     202:
-      $ref: '../../responses/accepted.yaml'
+      $ref: '../../responses/customer/validate.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     default:

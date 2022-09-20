@@ -3,3 +3,6 @@ content:
   application/json:
     schema:
       $ref: './response.yaml'
+    examples:
+      Create Transfer Recipient:
+        $ref: '../examples/transfer-recipient/create.yaml'

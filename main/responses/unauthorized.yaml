@@ -2,7 +2,7 @@ description: Unauthorized operation
 content:
   application/json:
     examples:
-      No_Authorization_Header:
+      No-Authorization-Header:
         value:
           status: false
           message: "No Authorization Header was found"
@@ -10,7 +10,7 @@ content:
         value:
           status: false
           message: "Format is Authorization Bearer [secret key]"
-      Invalid_Key:
+      Invalid-Key:
         value:
           status: false
           message: "Invalid key"

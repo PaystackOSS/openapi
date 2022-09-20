@@ -3,3 +3,12 @@ content:
   application/json:
     schema:
       $ref: './response.yaml'
+    examples:
+      Resolve Account Number:
+        $ref: '../examples/identity-verification/resolve-account-number.yaml'
+      Create Subaccount:
+        $ref: '../examples/subaccount/create.yaml'
+      Create Split:
+        $ref: '../examples/split/create.yaml'
+
+                  

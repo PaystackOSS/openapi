@@ -13,6 +13,7 @@ paths:
         - Subaccount
       summary: Create Subaccount
       operationId: subaccount_create
+      description: Create a new subaccount
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -30,31 +31,40 @@ paths:
                 business_name:
                   description: Name of business for subaccount
                   type: string
+                  example: Some Subaccount
                 settlement_bank:
                   description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
                   type: string
+                  example: 11
                 account_number:
                   description: Bank account number
                   type: string
+                  example: 0
                 percentage_charge:
-                  description: Customer's phone number
+                  description: Transaction percentage that the subaccount gets
                   type: number
                   format: float
+                  example: 0.3
                 description:
                   description: A description for this subaccount
                   type: string
+                  example: A service provider
                 primary_contact_email:
                   description: A contact email for the subaccount
                   type: string
+                  example: sub@example.com
                 primary_contact_name:
                   description: The name of the contact person for this subaccount
                   type: string
+                  example: person@example.com
                 primary_contact_phone:
                   description: A phone number to call for this subaccount
                   type: string
                 metadata:
                   description: Stringified JSON object of custom data
                   type: string
+                  example: |
+                    {"category": "General supplies" }
       responses:
         '200':
           $ref: '#/paths/~1split/post/responses/200'
@@ -68,6 +78,7 @@ paths:
         - Split
       summary: Create Split
       operationId: split_create
+      description: Create a new transaction split
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -129,6 +140,176 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
+                Charge Authorization:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 500000
+                      currency: NGN
+                      reference: 123.uniq=ref-2
+                      metadata:
+                        'cart_id:398 custom_fields':
+                          - {}
+                      split_code: SPL_123AbZ
+                      subaccount: ACCT_23abcdefgh
+                Resolve Account Number:
+                  value:
+                    status: true
+                    message: Account number resolved
+                    data:
+                      account_number: 1234567
+                      account_name: Doe Jane Loren
+                      bank_id: 9
+                Initiate Transfer:
+                  value:
+                    status: true
+                    message: Transfer has been queued
+                    data:
+                      reference: on5hyz9poe
+                      integration: 428626
+                      domain: test
+                      amount: 3794800
+                      currency: NGN
+                      source: balance
+                      reason: Holiday Flexing
+                      recipient: 6788170
+                      status: success
+                      transfer_code: TRF_fiyxvgkh71e717b
+                      id: 23070321
+                      createdAt: 2020-05-13T14:22:49.687Z
+                      updatedAt: 2020-05-13T14:22:49.687Z
+                Initiate Bulk Transfer:
+                  value:
+                    status: true
+                    message: 2 transfers queued.
+                    data:
+                      - recipient: RCP_1a25w1h3n0xctjg
+                        amount: 50000
+                        transfer_code: TRF_mi8oa4liagyvq2md
+                        currency: NGN
+                        status: success
+                      - recipient: RCP_sa1k1btncp993q1
+                        amount: 50000
+                        transfer_code: TRF_1c5upr4hp85l93n7
+                        currency: NGN
+                        status: success
+                Create Subaccount:
+                  value:
+                    status: true
+                    message: Subaccount created
+                    data:
+                      business_name: Cheese Sticks
+                      account_number: 123456789
+                      percentage_charge: 0.2
+                      settlement_bank: Guaranty Trust Bank
+                      integration: 428626
+                      domain: test
+                      subaccount_code: ACCT_xxxxxxxxxxxxx
+                      is_verified: false
+                      settlement_schedule: AUTO
+                      active: true
+                      migrate: false
+                      id: 37614
+                      createdAt: 2020-05-19T11:54:20.655Z
+                      updatedAt: 2020-05-19T11:54:20.655Z
+                Create Split:
+                  value:
+                    status: true
+                    message: Split created
+                    data:
+                      id: 142
+                      name: Test Doc
+                      type: percentage
+                      currency: NGN
+                      integration: 428626
+                      domain: test
+                      split_code: SPL_e7jnRLtzla
+                      active: true
+                      bearer_type: subaccount
+                      bearer_subaccount: 40809
+                      createdAt: 2020-06-30T11:42:29.150Z
+                      updatedAt: 2020-06-30T11:42:29.150Z
+                      subaccounts:
+                        - subaccount:
+                            id: 40809
+                            subaccount_code: ACCT_z3x6z3nbo14xsil
+                            business_name: Business Name
+                            description: Business Description
+                            primary_contact_name: null
+                            primary_contact_email: null
+                            primary_contact_phone: null
+                            metadata: null
+                            percentage_charge: 20
+                            settlement_bank: Business Bank
+                            account_number: 1234567890
+                          share: 20
+                        - subaccount:
+                            id: 40809
+                            subaccount_code: ACCT_pwwualwty4nhq9d
+                            business_name: Business Name
+                            description: Business Description
+                            primary_contact_name: null
+                            primary_contact_email: null
+                            primary_contact_phone: null
+                            metadata: null
+                            percentage_charge: 20
+                            settlement_bank: Business Bank
+                            account_number: 123456789
+                          share: 30
+                      total_subaccounts: 2
+                Create Refund:
+                  value:
+                    status: true
+                    message: Refund has been queued for processing
+                    data:
+                      transaction:
+                        id: 1004723697
+                        domain: live
+                        reference: T685312322670591
+                        amount: 10000
+                        paid_at: '2021-08-20T18:34:11.000Z'
+                        channel: apple_pay
+                        currency: NGN
+                        authorization:
+                          exp_month: null
+                          exp_year: null
+                          account_name: null
+                        customer:
+                          international_format_phone: null
+                        plan: {}
+                        subaccount:
+                          currency: null
+                        split: {}
+                        order_id: null
+                        paidAt: '2021-08-20T18:34:11.000Z'
+                        pos_transaction_data: null
+                        source: null
+                        fees_breakdown: null
+                      integration: 412829
+                      deducted_amount: 0
+                      channel: null
+                      merchant_note: Refund for transaction T685312322670591 by test@me.com
+                      customer_note: Refund for transaction T685312322670591
+                      status: pending
+                      refunded_by: test@me.com
+                      expected_at: '2021-12-16T09:21:17.016Z'
+                      currency: NGN
+                      domain: live
+                      amount: 10000
+                      fully_deducted: false
+                      id: 3018284
+                      createdAt: '2021-12-07T09:21:17.122Z'
+                      updatedAt: '2021-12-07T09:21:17.122Z'
         '401':
           description: Unauthorized operation
           content:
@@ -266,7 +447,14 @@ paths:
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1split/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  $ref: '#/paths/~1split/post/responses/200/content/application~1json/examples/Initiailize%20Transaction'
         '401':
           $ref: '#/paths/~1split/post/responses/401'
         default:

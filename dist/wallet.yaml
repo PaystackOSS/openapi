@@ -27,17 +27,40 @@ paths:
                 - $ref: '#/components/schemas/Customer/allOf/1'
       responses:
         '200':
-          description: Request successful
+          description: Customer Created
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Customer:
+                  value:
+                    status: true
+                    message: Customer created
+                    data: null
+                    transactions: []
+                    subscriptions: []
+                    authorizations: []
+                    email: somebody@example.com
+                    first_name: Some
+                    last_name: Body
+                    phone: '+2348123456789'
+                    integration: 463433
+                    domain: test
+                    metadata: {}
+                    customer_code: CUS_pztcpsx5kng2fbk
+                    risk_action: default
+                    id: 95485991
+                    createdAt: '2022-09-20T12:52:10.583Z'
+                    updatedAt: '2022-09-20T12:52:10.583Z'
+                    identified: false
+                    identifications: null
         '401':
           description: Unauthorized operation
           content:
             application/json:
               examples:
-                No_Authorization_Header:
+                No-Authorization-Header:
                   value:
                     status: false
                     message: No Authorization Header was found
@@ -45,7 +68,7 @@ paths:
                   value:
                     status: false
                     message: 'Format is Authorization Bearer [secret key]'
-                Invalid_Key:
+                Invalid-Key:
                   value:
                     status: false
                     message: Invalid key
@@ -81,16 +104,16 @@ paths:
               $ref: '#/components/schemas/Customer/allOf/4'
       responses:
         '202':
-          description: Request accepted for processing
+          description: Customer Validation
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Validate Customer:
+                  value:
+                    status: true
+                    message: Customer Identification in progress
         '401':
           $ref: '#/paths/~1customer/post/responses/401'
         default:
@@ -115,18 +138,60 @@ paths:
                 customer:
                   description: Customer ID or code
                   type: string
+                  example: CUS_abc123der
                 preferred_bank:
                   description: 'The bank slug for preferred bank. To get a list of available banks, use the List Providers endpoint'
                   type: string
+                  example: wema-bank
                 subaccount:
                   description: Subaccount code of the account you want to split the transaction with
                   type: string
+                  example: ACCT_123455asdin
                 split_code:
                   description: Split code consisting of the lists of accounts you want to split the transaction with
                   type: string
+                  example: SPL_123asbde
       responses:
         '200':
-          $ref: '#/paths/~1customer/post/responses/200'
+          description: Creation Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Dedicated Account:
+                  value:
+                    status: true
+                    message: NUBAN successfully created
+                    data:
+                      bank:
+                        name: Wema Bank
+                        id: 20
+                        slug: wema-bank
+                      account_name: KAROKART / RHODA CHURCH
+                      account_number: 9930000737
+                      assigned: true
+                      currency: NGN
+                      metadata: null
+                      active: true
+                      id: 253
+                      created_at: 2019-12-12T12:39:04.000Z
+                      updated_at: 2020-01-06T15:51:24.000Z
+                      assignment:
+                        integration: 100043
+                        assignee_id: 7454289
+                        assignee_type: Customer
+                        expired: false
+                        account_type: PAY-WITH-TRANSFER-RECURRING
+                        assigned_at: 2020-01-06T15:51:24.764Z
+                      customer:
+                        id: 7454289
+                        first_name: RHODA
+                        last_name: CHURCH
+                        email: rhodachurch@email.com
+                        customer_code: CUS_kpb3qj71u1m0rw8
+                        phone: 2349053267565
+                        risk_action: default
         '401':
           $ref: '#/paths/~1customer/post/responses/401'
         default:
@@ -166,11 +231,11 @@ paths:
                 account_number:
                   description: Recipient's bank account number
                   type: string
-                  example: 0
+                  example: '0000000000'
                 bank_code:
                   description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
                   type: string
-                  example: 11
+                  example: '011'
                 description:
                   description: A description for this recipient
                   type: string
@@ -190,14 +255,40 @@ paths:
                   description: Stringified JSON object of custom data
                   type: string
                   example: |
-                    {transfer_id: 123}
+                    {referrer_id: 123}
       responses:
         '201':
-          description: Resource created
+          description: Transfer Recipient Created
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Customer:
+                  value:
+                    status: true
+                    message: Transfer recipient created successfully
+                    data:
+                      active: true
+                      createdAt: 2022-09-16T08:31:43.321Z
+                      currency: NGN
+                      domain: live
+                      id: 38770134
+                      integration: 463433
+                      metadata:
+                        referrer_id: 123
+                      name: Ada Lovelace
+                      recipient_code: RCP_2fl8jmb2v3kbleb
+                      type: nuban
+                      updatedAt: 2022-09-16T08:31:43.321Z
+                      is_deleted: false
+                      isDeleted: false
+                      details:
+                        authorization_code: null
+                        account_number: 0
+                        account_name: Doe Jane Loren
+                        bank_code: 11
+                        bank_name: First Bank of Nigeria
         '401':
           $ref: '#/paths/~1customer/post/responses/401'
         default:
@@ -248,7 +339,45 @@ paths:
                   example: Transfer-123_unique
       responses:
         '200':
-          $ref: '#/paths/~1customer/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiate Transfer:
+                  value:
+                    status: true
+                    message: Transfer has been queued
+                    data:
+                      reference: on5hyz9poe
+                      integration: 428626
+                      domain: test
+                      amount: 3794800
+                      currency: NGN
+                      source: balance
+                      reason: Holiday Flexing
+                      recipient: 6788170
+                      status: success
+                      transfer_code: TRF_fiyxvgkh71e717b
+                      id: 23070321
+                      createdAt: 2020-05-13T14:22:49.687Z
+                      updatedAt: 2020-05-13T14:22:49.687Z
+                Initiate Bulk Transfer:
+                  value:
+                    status: true
+                    message: 2 transfers queued.
+                    data:
+                      - recipient: RCP_1a25w1h3n0xctjg
+                        amount: 50000
+                        transfer_code: TRF_mi8oa4liagyvq2md
+                        currency: NGN
+                        status: success
+                      - recipient: RCP_sa1k1btncp993q1
+                        amount: 50000
+                        transfer_code: TRF_1c5upr4hp85l93n7
+                        currency: NGN
+                        status: success
         '401':
           $ref: '#/paths/~1customer/post/responses/401'
         default:
@@ -273,12 +402,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: 2348123456789
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -322,18 +454,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
               type: string
+              example: 123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: 7
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: 111111111
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:

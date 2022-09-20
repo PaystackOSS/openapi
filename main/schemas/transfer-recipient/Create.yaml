@@ -24,7 +24,7 @@ properties:
   bank_code:
     description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
     type: string
-    example: 011
+    example: "011"
   description:
     description: A description for this recipient
     type: string
@@ -46,4 +46,4 @@ properties:
     description: Stringified JSON object of custom data
     type: string
     example: >
-      {transfer_id: 123}
+      {referrer_id: 123}
