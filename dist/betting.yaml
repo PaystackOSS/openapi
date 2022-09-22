@@ -252,7 +252,7 @@ paths:
           in: query
           schema:
             type: integer
-          example: '063'
+          example: 51
       responses:
         '200':
           description: Resolve Account Number

@@ -1,0 +1,42 @@
+value:
+  status: true
+  message: Refund has been queued for processing
+  data:
+    transaction:
+      id: 1004723697
+      domain: test
+      reference: T685312322670591
+      amount: 10000
+      paid_at: '2021-08-20T18:34:11.000Z'
+      channel: apple_pay
+      currency: NGN
+      authorization:
+        exp_month:
+        exp_year:
+        account_name:
+      customer:
+        international_format_phone:
+      plan: {}
+      subaccount:
+        currency:
+      split: {}
+      order_id:
+      paidAt: '2021-08-20T18:34:11.000Z'
+      pos_transaction_data:
+      source:
+      fees_breakdown:
+    integration: 412829
+    deducted_amount: 0
+    channel:
+    merchant_note: Refund for transaction T685312322670591 by test@me.com
+    customer_note: Refund for transaction T685312322670591
+    status: pending
+    refunded_by: test@me.com
+    expected_at: '2021-12-16T09:21:17.016Z'
+    currency: NGN
+    domain: live
+    amount: 10000
+    fully_deducted: false
+    id: 3018284
+    createdAt: '2021-12-07T09:21:17.122Z'
+    updatedAt: '2021-12-07T09:21:17.122Z'

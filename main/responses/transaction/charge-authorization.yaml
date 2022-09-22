@@ -1,0 +1,8 @@
+description: Request successful
+content:
+  application/json:
+    schema:
+      $ref: '../response.yaml'
+    examples:
+      Charge Authorization:
+        $ref: '../../examples/transaction/charge-authorization.yaml'

@@ -1,0 +1,17 @@
+value:
+  status: true
+  message: Transfer has been queued
+  data:
+    reference: on5hyz9poe
+    integration: 428626
+    domain: test
+    amount: 3794800
+    currency: NGN
+    source: balance
+    reason: Holiday Flexing
+    recipient: 6788170
+    status: success
+    transfer_code: TRF_fiyxvgkh71e717b
+    id: 23070321
+    createdAt: 2020-05-13T14:22:49.687Z
+    updatedAt: 2020-05-13T14:22:49.687Z

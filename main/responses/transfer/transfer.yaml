@@ -1,0 +1,10 @@
+description: Request successful
+content:
+  application/json:
+    schema:
+      $ref: '../response.yaml'
+    examples:
+      Initiate Transfer:
+        $ref: '../../examples/transfer/initiate.yaml'
+      Initiate Bulk Transfer:
+        $ref: '../../examples/transfer/bulk.yaml'

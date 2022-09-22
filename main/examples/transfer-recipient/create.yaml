@@ -1,0 +1,24 @@
+value:
+  status: true
+  message: Transfer recipient created successfully
+  data:
+    active: true
+    createdAt: 2022-09-16T08:31:43.321Z
+    currency: NGN
+    domain: live
+    id: 38770134
+    integration: 463433
+    metadata:
+      referrer_id: 123
+    name: Ada Lovelace
+    recipient_code: RCP_2fl8jmb2v3kbleb
+    type: nuban
+    updatedAt: 2022-09-16T08:31:43.321Z
+    is_deleted: false
+    isDeleted: false
+    details:
+      authorization_code: null
+      account_number: 000000000
+      account_name: Doe Jane Loren
+      bank_code: 011
+      bank_name: First Bank of Nigeria
