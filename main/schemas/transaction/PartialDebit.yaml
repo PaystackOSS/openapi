@@ -32,4 +32,4 @@ properties:
   at_least:
     description: Minimum amount to charge
     type: string
-    example: 10000
+    example: 5500

@@ -13,7 +13,7 @@ requestBody:
         $ref: '../../schemas/split/Create.yaml'
 responses:
   200:
-    $ref: '../../examples/split/create.yaml'
+    $ref: '../../responses/split/create.yaml'
   401:
     $ref: '../../responses/unauthorized.yaml'
   default:

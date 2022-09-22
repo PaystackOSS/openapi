@@ -3,6 +3,8 @@ properties:
   subaccount:
     description: Subaccount code of the customer or partner
     type: string
+    example: ACCT_03tb3u7jgwb4v
   share:
     description: The percentage or flat quota of the customer or partner
     type: string
+    example: 102

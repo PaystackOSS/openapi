@@ -1,7 +1,17 @@
 openapi: 3.0.1
 info:
   title: Create a wallet app
-  description: The OpenAPI specification for creating a wallet application using the Paystack API
+  description: |-
+    The OpenAPI specification for creating a wallet application using the [Paystack API](https://paystack.com/docs/api/).
+    ### Prerequisites
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    After setting up your secret API key, use the [Customers API](https://paystack.com/docs/api/#customer) to create and validate a customer.  You then assign a [Dedicated Virtual Account](https://paystack.com/docs/payments/dedicated-virtual-accounts) to the customer. 
+
+    Transfers in this case refer to moving money to bank accounts and mobile money accounts using our [Transfers API](https://paystack.com/docs/transfers) rather than other wallet users.
+
+    *Dedicated Virtual Account is currently available for [registered businesses](https://support.paystack.com/hc/en-us/articles/360009881220-How-do-I-activate-my-Paystack-Registered-Business-) in Nigeria.*
   version: 1.0.0
 servers:
   - url: 'https://api.paystack.co'

@@ -139,7 +139,20 @@ paths:
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -396,7 +409,23 @@ paths:
                   type: boolean
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Charge Authorization:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 500000
+                      currency: NGN
+                      reference: 123.uniq=ref-2
+                      metadata: 'cart_id:398, custom_fields:[{}]'
+                      split_code: SPL_123AbZ
+                      subaccount: ACCT_23abcdefgh
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -493,10 +522,60 @@ paths:
                 at_least:
                   description: Minimum amount to charge
                   type: string
-                  example: 10000
+                  example: 5500
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Partial Debit:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 10247
+                      currency: NGN
+                      transaction_date: '2022-09-22T07:36:03.000Z'
+                      status: success
+                      reference: dycmjmd23f1hygq
+                      domain: test
+                      metadata: ''
+                      gateway_response: Approved
+                      message: null
+                      channel: card
+                      ip_address: null
+                      log: null
+                      fees: 52
+                      authorization:
+                        authorization_code: AUTH_15qn6qmeip
+                        bin: '408408'
+                        last4: '4081'
+                        exp_month: '12'
+                        exp_year: '2030'
+                        channel: card
+                        card_type: 'visa '
+                        bank: TEST BANK
+                        country_code: NG
+                        brand: visa
+                        reusable: true
+                        signature: SIG_yEXu7dLBeqG0kU7g95Ke
+                        account_name: null
+                      customer:
+                        id: 54219771
+                        first_name: null
+                        last_name: null
+                        email: some.other@body.com
+                        customer_code: CUS_toq66lmva87v66g
+                        phone: null
+                        metadata: null
+                        risk_action: default
+                        international_format_phone: null
+                      plan: 0
+                      requested_amount: 10247
+                      id: 2122110499
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -549,6 +628,7 @@ paths:
         - Split
       summary: Create Split
       operationId: split_create
+      description: Create a new transaction split
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -566,6 +646,7 @@ paths:
                 name:
                   description: Name of the transaction split
                   type: string
+                  example: Testing Accounts
                 type:
                   description: The type of transaction split you want to create.
                   type: string
@@ -596,9 +677,60 @@ paths:
                 bearer_subaccount:
                   description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
                   type: string
+                  example: ACCT_03tb3u7jgwb4
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Split Creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Split:
+                  value:
+                    status: true
+                    message: Split created
+                    data:
+                      id: 142
+                      name: Test Doc
+                      type: percentage
+                      currency: NGN
+                      integration: 428626
+                      domain: test
+                      split_code: SPL_e7jnRLtzla
+                      active: true
+                      bearer_type: subaccount
+                      bearer_subaccount: 40809
+                      createdAt: 2020-06-30T11:42:29.150Z
+                      updatedAt: 2020-06-30T11:42:29.150Z
+                      subaccounts:
+                        - subaccount:
+                            id: 40809
+                            subaccount_code: ACCT_z3x6z3nbo14xsil
+                            business_name: Business Name
+                            description: Business Description
+                            primary_contact_name: null
+                            primary_contact_email: null
+                            primary_contact_phone: null
+                            metadata: null
+                            percentage_charge: 20
+                            settlement_bank: Business Bank
+                            account_number: 1234567890
+                          share: 20
+                        - subaccount:
+                            id: 40809
+                            subaccount_code: ACCT_pwwualwty4nhq9d
+                            business_name: Business Name
+                            description: Business Description
+                            primary_contact_name: null
+                            primary_contact_email: null
+                            primary_contact_phone: null
+                            metadata: null
+                            percentage_charge: 20
+                            settlement_bank: Business Bank
+                            account_number: 123456789
+                          share: 30
+                      total_subaccounts: 2
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -725,9 +857,11 @@ paths:
                 subaccount:
                   description: Subaccount code of the customer or partner
                   type: string
+                  example: ACCT_03tb3u7jgwb4v
                 share:
                   description: The percentage or flat quota of the customer or partner
                   type: string
+                  example: 102
       parameters:
         - name: id
           in: path
@@ -790,7 +924,34 @@ paths:
                 - $ref: '#/components/schemas/Customer/allOf/1'
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Customer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Customer:
+                  value:
+                    status: true
+                    message: Customer created
+                    data: null
+                    transactions: []
+                    subscriptions: []
+                    authorizations: []
+                    email: somebody@example.com
+                    first_name: Some
+                    last_name: Body
+                    phone: '+2348123456789'
+                    integration: 463433
+                    domain: test
+                    metadata: {}
+                    customer_code: CUS_pztcpsx5kng2fbk
+                    risk_action: default
+                    id: 95485991
+                    createdAt: '2022-09-20T12:52:10.583Z'
+                    updatedAt: '2022-09-20T12:52:10.583Z'
+                    identified: false
+                    identifications: null
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -949,16 +1110,16 @@ paths:
               $ref: '#/components/schemas/Customer/allOf/4'
       responses:
         '202':
-          description: Request accepted for processing
+          description: Customer Validation
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Validate Customer:
+                  value:
+                    status: true
+                    message: Customer Identification in progress
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -983,18 +1144,60 @@ paths:
                 customer:
                   description: Customer ID or code
                   type: string
+                  example: CUS_abc123der
                 preferred_bank:
                   description: 'The bank slug for preferred bank. To get a list of available banks, use the List Providers endpoint'
                   type: string
+                  example: wema-bank
                 subaccount:
                   description: Subaccount code of the account you want to split the transaction with
                   type: string
+                  example: ACCT_123455asdin
                 split_code:
                   description: Split code consisting of the lists of accounts you want to split the transaction with
                   type: string
+                  example: SPL_123asbde
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Creation Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Dedicated Account:
+                  value:
+                    status: true
+                    message: NUBAN successfully created
+                    data:
+                      bank:
+                        name: Wema Bank
+                        id: 20
+                        slug: wema-bank
+                      account_name: KAROKART / RHODA CHURCH
+                      account_number: 9930000737
+                      assigned: true
+                      currency: NGN
+                      metadata: null
+                      active: true
+                      id: 253
+                      created_at: 2019-12-12T12:39:04.000Z
+                      updated_at: 2020-01-06T15:51:24.000Z
+                      assignment:
+                        integration: 100043
+                        assignee_id: 7454289
+                        assignee_type: Customer
+                        expired: false
+                        account_type: PAY-WITH-TRANSFER-RECURRING
+                        assigned_at: 2020-01-06T15:51:24.764Z
+                      customer:
+                        id: 7454289
+                        first_name: RHODA
+                        last_name: CHURCH
+                        email: rhodachurch@email.com
+                        customer_code: CUS_kpb3qj71u1m0rw8
+                        phone: 2349053267565
+                        risk_action: default
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -1135,6 +1338,7 @@ paths:
         - Subaccount
       summary: Create Subaccount
       operationId: subaccount_create
+      description: Create a new subaccount
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1152,34 +1356,67 @@ paths:
                 business_name:
                   description: Name of business for subaccount
                   type: string
+                  example: Some Subaccount
                 settlement_bank:
                   description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
                   type: string
+                  example: 11
                 account_number:
                   description: Bank account number
                   type: string
+                  example: 0
                 percentage_charge:
-                  description: Customer's phone number
+                  description: Transaction percentage that the subaccount gets
                   type: number
                   format: float
+                  example: 0.3
                 description:
                   description: A description for this subaccount
                   type: string
+                  example: A service provider
                 primary_contact_email:
                   description: A contact email for the subaccount
                   type: string
+                  example: sub@example.com
                 primary_contact_name:
                   description: The name of the contact person for this subaccount
                   type: string
+                  example: person@example.com
                 primary_contact_phone:
                   description: A phone number to call for this subaccount
                   type: string
                 metadata:
                   description: Stringified JSON object of custom data
                   type: string
+                  example: |
+                    {"category": "General supplies" }
       responses:
-        '200':
-          $ref: '#/paths/~1page/get/responses/200'
+        '201':
+          description: Subaccount Creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Subaccount:
+                  value:
+                    status: true
+                    message: Subaccount created
+                    data:
+                      business_name: Cheese Sticks
+                      account_number: 123456789
+                      percentage_charge: 0.2
+                      settlement_bank: Guaranty Trust Bank
+                      integration: 428626
+                      domain: test
+                      subaccount_code: ACCT_xxxxxxxxxxxxx
+                      is_verified: false
+                      settlement_schedule: AUTO
+                      active: true
+                      migrate: false
+                      id: 37614
+                      createdAt: 2020-05-19T11:54:20.655Z
+                      updatedAt: 2020-05-19T11:54:20.655Z
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -1318,15 +1555,19 @@ paths:
                 name:
                   description: Name of plan
                   type: string
+                  example: My monthly membership
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 20000
                 interval:
                   description: 'Interval in words. Valid intervals are daily, weekly, monthly,biannually, annually'
                   type: string
+                  example: monthly
                 description:
                   description: A description for this plan
-                  type: boolean
+                  type: string
+                  example: Monthly membership payment plan
                 send_invoices:
                   description: Set to false if you don't want invoices to be sent to your customers
                   type: boolean
@@ -1336,14 +1577,43 @@ paths:
                 currency:
                   description: 'Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD'
                   type: string
+                  example: NGN
                 invoice_limit:
                   description: |-
                     Number of invoices to raise during subscription to this plan. 
                     Can be overridden by specifying an invoice_limit while subscribing.
                   type: integer
+                  example: 0
       responses:
-        '200':
-          $ref: '#/paths/~1page/get/responses/200'
+        '201':
+          description: Create Plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Plan:
+                  value:
+                    status: true
+                    message: Plan created
+                    data:
+                      name: My monthly membership
+                      interval: monthly
+                      amount: 20000
+                      description: Monthly membership payment plan
+                      integration: 463433
+                      domain: test
+                      currency: NGN
+                      plan_code: PLN_y4y1wkydoptw6zv
+                      invoice_limit: 0
+                      send_invoices: true
+                      send_sms: true
+                      hosted_page: false
+                      migrate: false
+                      is_archived: false
+                      id: 393872
+                      createdAt: '2022-09-22T02:15:06.702Z'
+                      updatedAt: '2022-09-22T02:15:06.702Z'
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -1486,21 +1756,53 @@ paths:
                 customer:
                   description: Customer's email address or customer code
                   type: string
+                  example: person@example.com
                 plan:
-                  description: Plan code
+                  description: Plan code that the customer should subscribe to
                   type: string
+                  example: PLN_y4y1wkydoptw6zv
                 authorization:
                   description: |-
                     If customer has multiple authorizations, you can set the desired authorization you wish to use for this subscription here. 
                     If this is not supplied, the customer's most recent authorization would be used
                   type: string
+                  example: AUTH_Codaad23
                 start_date:
                   description: 'Set the date for the first debit. (ISO 8601 format) e.g. 2017-05-16T00:30:13+01:00'
                   type: string
                   format: date-time
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Create Subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Subscription:
+                  value:
+                    status: true
+                    message: Subscription successfully created
+                    data:
+                      customer: 89363925
+                      plan: 393873
+                      integration: 463433
+                      domain: test
+                      start: 1663817490
+                      status: active
+                      quantity: 1
+                      amount: 20000
+                      authorization: 374536802
+                      invoice_limit: 0
+                      split_code: null
+                      subscription_code: SUB_k0alurkz6l2d3nz
+                      email_token: txyhn3zjzcr9xlo
+                      id: 456933
+                      cancelledAt: null
+                      createdAt: '2022-09-22T03:31:30.886Z'
+                      updatedAt: '2022-09-22T03:31:30.886Z'
+                      cron_expression: 31 3 22 * *
+                      next_payment_date: '2022-10-22T03:31:00.000Z'
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -1709,6 +2011,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Transfer Recipient:
+                  value:
+                    status: true
+                    message: Transfer recipient created successfully
+                    data:
+                      active: true
+                      createdAt: 2022-09-16T08:31:43.321Z
+                      currency: NGN
+                      domain: live
+                      id: 38770134
+                      integration: 463433
+                      metadata:
+                        referrer_id: 123
+                      name: Ada Lovelace
+                      recipient_code: RCP_2fl8jmb2v3kbleb
+                      type: nuban
+                      updatedAt: 2022-09-16T08:31:43.321Z
+                      is_deleted: false
+                      isDeleted: false
+                      details:
+                        authorization_code: null
+                        account_number: 0
+                        account_name: Doe Jane Loren
+                        bank_code: 11
+                        bank_name: First Bank of Nigeria
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -1915,7 +2243,7 @@ paths:
           content:
             application/json:
               examples:
-                No_Authorization_Header:
+                No-Authorization-Header:
                   value:
                     status: false
                     message: No Authorization Header was found
@@ -1923,7 +2251,7 @@ paths:
                   value:
                     status: false
                     message: 'Format is Authorization Bearer [secret key]'
-                Invalid_Key:
+                Invalid-Key:
                   value:
                     status: false
                     message: Invalid key
@@ -2462,11 +2790,11 @@ paths:
                 account_number:
                   description: Recipient's bank account number
                   type: string
-                  example: 0
+                  example: '0000000000'
                 bank_code:
                   description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
                   type: string
-                  example: 11
+                  example: '011'
                 description:
                   description: A description for this recipient
                   type: string
@@ -2486,10 +2814,17 @@ paths:
                   description: Stringified JSON object of custom data
                   type: string
                   example: |
-                    {transfer_id: 123}
+                    {referrer_id: 123}
       responses:
         '201':
-          $ref: '#/paths/~1product/post/responses/201'
+          description: Transfer Recipient Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Customer:
+                  $ref: '#/paths/~1product/post/responses/201/content/application~1json/examples/Create%20Transfer%20Recipient'
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -2673,7 +3008,7 @@ paths:
                   example: Transfer-123_unique
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          $ref: '#/paths/~1transfer~1bulk/post/responses/200'
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -2740,9 +3075,11 @@ paths:
                 transfer_code:
                   description: The transfer code you want to finalize
                   type: string
+                  example: TRF_CODE
                 otp:
                   description: OTP sent to business phone to verify transfer
                   type: string
+                  example: 123456
       responses:
         '200':
           $ref: '#/paths/~1page/get/responses/200'
@@ -2777,7 +3114,45 @@ paths:
                     $ref: '#/paths/~1transfer/post/requestBody/content/application~1json/schema'
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiate Transfer:
+                  value:
+                    status: true
+                    message: Transfer has been queued
+                    data:
+                      reference: on5hyz9poe
+                      integration: 428626
+                      domain: test
+                      amount: 3794800
+                      currency: NGN
+                      source: balance
+                      reason: Holiday Flexing
+                      recipient: 6788170
+                      status: success
+                      transfer_code: TRF_fiyxvgkh71e717b
+                      id: 23070321
+                      createdAt: 2020-05-13T14:22:49.687Z
+                      updatedAt: 2020-05-13T14:22:49.687Z
+                Initiate Bulk Transfer:
+                  value:
+                    status: true
+                    message: 2 transfers queued.
+                    data:
+                      - recipient: RCP_1a25w1h3n0xctjg
+                        amount: 50000
+                        transfer_code: TRF_mi8oa4liagyvq2md
+                        currency: NGN
+                        status: success
+                      - recipient: RCP_sa1k1btncp993q1
+                        amount: 50000
+                        transfer_code: TRF_1c5upr4hp85l93n7
+                        currency: NGN
+                        status: success
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -2931,6 +3306,7 @@ paths:
                 otp:
                   description: OTP sent to business phone to verify disabling OTP requirement
                   type: string
+                  example: 123456
       responses:
         '200':
           $ref: '#/paths/~1page/get/responses/200'
@@ -3524,11 +3900,13 @@ paths:
                 transaction:
                   description: Transaction reference or id
                   type: string
+                  example: T685312322670591
                 amount:
                   description: |-
                     Amount ( in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR ) to be refunded to the customer. 
                     Amount cannot be more than the original transaction amount
                   type: integer
+                  example: 10000
                 currency:
                   description: Three-letter ISO currency
                   type: string
@@ -3540,12 +3918,62 @@ paths:
                 customer_note:
                   description: Customer reason
                   type: string
+                  example: Refund for transaction T685312322670591
                 merchant_note:
                   description: Merchant reason
                   type: string
+                  example: Refund for transaction T685312322670591 by test@me.com
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Refund:
+                  value:
+                    status: true
+                    message: Refund has been queued for processing
+                    data:
+                      transaction:
+                        id: 1004723697
+                        domain: test
+                        reference: T685312322670591
+                        amount: 10000
+                        paid_at: '2021-08-20T18:34:11.000Z'
+                        channel: apple_pay
+                        currency: NGN
+                        authorization:
+                          exp_month: null
+                          exp_year: null
+                          account_name: null
+                        customer:
+                          international_format_phone: null
+                        plan: {}
+                        subaccount:
+                          currency: null
+                        split: {}
+                        order_id: null
+                        paidAt: '2021-08-20T18:34:11.000Z'
+                        pos_transaction_data: null
+                        source: null
+                        fees_breakdown: null
+                      integration: 412829
+                      deducted_amount: 0
+                      channel: null
+                      merchant_note: Refund for transaction T685312322670591 by test@me.com
+                      customer_note: Refund for transaction T685312322670591
+                      status: pending
+                      refunded_by: test@me.com
+                      expected_at: '2021-12-16T09:21:17.016Z'
+                      currency: NGN
+                      domain: live
+                      amount: 10000
+                      fully_deducted: false
+                      id: 3018284
+                      createdAt: '2021-12-07T09:21:17.122Z'
+                      updatedAt: '2021-12-07T09:21:17.122Z'
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -3926,7 +4354,20 @@ paths:
           example: '063'
       responses:
         '200':
-          $ref: '#/paths/~1page/get/responses/200'
+          description: Resolve Account Number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Resolve Bank:
+                  value:
+                    status: true
+                    message: Account number resolved
+                    data:
+                      account_number: 1234567
+                      account_name: Doe Jane Loren
+                      bank_id: 9
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         '404':
@@ -4061,12 +4502,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: 2348123456789
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -4110,18 +4554,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
               type: string
+              example: 123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: 7
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: 111111111
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:

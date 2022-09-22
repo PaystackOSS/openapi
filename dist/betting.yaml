@@ -1,7 +1,13 @@
 openapi: 3.0.1
 info:
   title: Create a betting platform
-  description: The OpenAPI specification for creating a betting platform using the Paystack API
+  description: |-
+    The OpenAPI specification for creating a betting platform using the [Paystack API](https://paystack.com/docs/api/).
+    ### Prerequisites
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    We strongly recommend using the [Bulk Transfer API](https://paystack.com/docs/transfers/bulk-transfers) for sending customers their winnings instead of using Single Transfers.
   version: 1.0.0
 servers:
   - url: 'https://api.paystack.co'
@@ -118,7 +124,20 @@ paths:
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1bank~1resolve/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
         '401':
           $ref: '#/paths/~1bank~1resolve/get/responses/401'
         default:
@@ -196,7 +215,23 @@ paths:
                   type: boolean
       responses:
         '200':
-          $ref: '#/paths/~1bank~1resolve/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Charge Authorization:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 500000
+                      currency: NGN
+                      reference: 123.uniq=ref-2
+                      metadata: 'cart_id:398, custom_fields:[{}]'
+                      split_code: SPL_123AbZ
+                      subaccount: ACCT_23abcdefgh
         '401':
           $ref: '#/paths/~1bank~1resolve/get/responses/401'
         default:
@@ -220,34 +255,13 @@ paths:
           example: '063'
       responses:
         '200':
-          description: Request successful
+          description: Resolve Account Number
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
               examples:
-                Initiailize Transaction:
-                  value:
-                    status: true
-                    message: Authorization URL created
-                    data:
-                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
-                      access_code: spandaoende
-                      reference: ad123ada
-                Charge Authorization:
-                  value:
-                    status: true
-                    message: Charge attempted
-                    data:
-                      amount: 500000
-                      currency: NGN
-                      reference: 123.uniq=ref-2
-                      metadata:
-                        'cart_id:398 custom_fields':
-                          - {}
-                      split_code: SPL_123AbZ
-                      subaccount: ACCT_23abcdefgh
-                Resolve Account Number:
+                Resolve Bank:
                   value:
                     status: true
                     message: Account number resolved
@@ -255,45 +269,12 @@ paths:
                       account_number: 1234567
                       account_name: Doe Jane Loren
                       bank_id: 9
-                Initiate Transfer:
-                  value:
-                    status: true
-                    message: Transfer has been queued
-                    data:
-                      reference: on5hyz9poe
-                      integration: 428626
-                      domain: test
-                      amount: 3794800
-                      currency: NGN
-                      source: balance
-                      reason: Holiday Flexing
-                      recipient: 6788170
-                      status: success
-                      transfer_code: TRF_fiyxvgkh71e717b
-                      id: 23070321
-                      createdAt: 2020-05-13T14:22:49.687Z
-                      updatedAt: 2020-05-13T14:22:49.687Z
-                Initiate Bulk Transfer:
-                  value:
-                    status: true
-                    message: 2 transfers queued.
-                    data:
-                      - recipient: RCP_1a25w1h3n0xctjg
-                        amount: 50000
-                        transfer_code: TRF_mi8oa4liagyvq2md
-                        currency: NGN
-                        status: success
-                      - recipient: RCP_sa1k1btncp993q1
-                        amount: 50000
-                        transfer_code: TRF_1c5upr4hp85l93n7
-                        currency: NGN
-                        status: success
         '401':
           description: Unauthorized operation
           content:
             application/json:
               examples:
-                No_Authorization_Header:
+                No-Authorization-Header:
                   value:
                     status: false
                     message: No Authorization Header was found
@@ -301,7 +282,7 @@ paths:
                   value:
                     status: false
                     message: 'Format is Authorization Bearer [secret key]'
-                Invalid_Key:
+                Invalid-Key:
                   value:
                     status: false
                     message: Invalid key
@@ -375,16 +356,16 @@ paths:
                   description: Stringified JSON object of custom data
                   type: string
                   example: |
-                    {transfer_id: 123}
+                    {referrer_id: 123}
       responses:
         '201':
-          description: Resource created
+          description: Transfer Recipient Created
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
               examples:
-                Create Transfer Recipient:
+                Create Customer:
                   value:
                     status: true
                     message: Transfer recipient created successfully
@@ -395,7 +376,9 @@ paths:
                       domain: live
                       id: 38770134
                       integration: 463433
-                      name: Some Guy
+                      metadata:
+                        referrer_id: 123
+                      name: Ada Lovelace
                       recipient_code: RCP_2fl8jmb2v3kbleb
                       type: nuban
                       updatedAt: 2022-09-16T08:31:43.321Z
@@ -468,7 +451,45 @@ paths:
                         example: Transfer-123_unique
       responses:
         '200':
-          $ref: '#/paths/~1bank~1resolve/get/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiate Transfer:
+                  value:
+                    status: true
+                    message: Transfer has been queued
+                    data:
+                      reference: on5hyz9poe
+                      integration: 428626
+                      domain: test
+                      amount: 3794800
+                      currency: NGN
+                      source: balance
+                      reason: Holiday Flexing
+                      recipient: 6788170
+                      status: success
+                      transfer_code: TRF_fiyxvgkh71e717b
+                      id: 23070321
+                      createdAt: 2020-05-13T14:22:49.687Z
+                      updatedAt: 2020-05-13T14:22:49.687Z
+                Initiate Bulk Transfer:
+                  value:
+                    status: true
+                    message: 2 transfers queued.
+                    data:
+                      - recipient: RCP_1a25w1h3n0xctjg
+                        amount: 50000
+                        transfer_code: TRF_mi8oa4liagyvq2md
+                        currency: NGN
+                        status: success
+                      - recipient: RCP_sa1k1btncp993q1
+                        amount: 50000
+                        transfer_code: TRF_1c5upr4hp85l93n7
+                        currency: NGN
+                        status: success
         '401':
           $ref: '#/paths/~1bank~1resolve/get/responses/401'
         default:
@@ -493,12 +514,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: 2348123456789
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -542,18 +566,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
               type: string
+              example: 123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: 7
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: 111111111
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:

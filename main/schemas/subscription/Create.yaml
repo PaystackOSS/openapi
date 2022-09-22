@@ -6,14 +6,17 @@ properties:
   customer:
     description: Customer's email address or customer code
     type:  string
+    example: person@example.com
   plan:
-    description: Plan code
+    description: Plan code that the customer should subscribe to
     type: string
+    example: PLN_y4y1wkydoptw6zv
   authorization:
     description: |-
       If customer has multiple authorizations, you can set the desired authorization you wish to use for this subscription here. 
       If this is not supplied, the customer's most recent authorization would be used
     type: string
+    example: AUTH_Codaad23
   start_date:
     description: |-
       Set the date for the first debit. (ISO 8601 format) e.g. 2017-05-16T00:30:13+01:00

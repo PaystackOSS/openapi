@@ -1,7 +1,13 @@
 openapi: 3.0.1
 info:
   title: Create an online marketplace
-  description: The OpenAPI specification for creating an online marketplace using the Paystack API
+  description: |-
+    The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
+    ### Prerequisites
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    The [Split API](https://paystack.com/docs/payments/split-payments/) is useful in marketplace apps where the transactions are divided between the platform and the vendor. That way, the platform keeps a portion of each transaction.
   version: 1.0.0
 servers:
   - url: 'https://api.paystack.co'
@@ -66,8 +72,32 @@ paths:
                   example: |
                     {"category": "General supplies" }
       responses:
-        '200':
-          $ref: '#/paths/~1split/post/responses/200'
+        '201':
+          description: Subaccount Creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Subaccount:
+                  value:
+                    status: true
+                    message: Subaccount created
+                    data:
+                      business_name: Cheese Sticks
+                      account_number: 123456789
+                      percentage_charge: 0.2
+                      settlement_bank: Guaranty Trust Bank
+                      integration: 428626
+                      domain: test
+                      subaccount_code: ACCT_xxxxxxxxxxxxx
+                      is_verified: false
+                      settlement_schedule: AUTO
+                      active: true
+                      migrate: false
+                      id: 37614
+                      createdAt: 2020-05-19T11:54:20.655Z
+                      updatedAt: 2020-05-19T11:54:20.655Z
         '401':
           $ref: '#/paths/~1split/post/responses/401'
         default:
@@ -96,6 +126,7 @@ paths:
                 name:
                   description: Name of the transaction split
                   type: string
+                  example: Testing Accounts
                 type:
                   description: The type of transaction split you want to create.
                   type: string
@@ -111,9 +142,11 @@ paths:
                       subaccount:
                         description: Subaccount code of the customer or partner
                         type: string
+                        example: ACCT_03tb3u7jgwb4v
                       share:
                         description: The percentage or flat quota of the customer or partner
                         type: string
+                        example: 102
                 currency:
                   description: The transaction currency
                   type: string
@@ -133,95 +166,15 @@ paths:
                 bearer_subaccount:
                   description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
                   type: string
+                  example: ACCT_03tb3u7jgwb4
       responses:
         '200':
-          description: Request successful
+          description: Split Creation
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
               examples:
-                Initiailize Transaction:
-                  value:
-                    status: true
-                    message: Authorization URL created
-                    data:
-                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
-                      access_code: spandaoende
-                      reference: ad123ada
-                Charge Authorization:
-                  value:
-                    status: true
-                    message: Charge attempted
-                    data:
-                      amount: 500000
-                      currency: NGN
-                      reference: 123.uniq=ref-2
-                      metadata:
-                        'cart_id:398 custom_fields':
-                          - {}
-                      split_code: SPL_123AbZ
-                      subaccount: ACCT_23abcdefgh
-                Resolve Account Number:
-                  value:
-                    status: true
-                    message: Account number resolved
-                    data:
-                      account_number: 1234567
-                      account_name: Doe Jane Loren
-                      bank_id: 9
-                Initiate Transfer:
-                  value:
-                    status: true
-                    message: Transfer has been queued
-                    data:
-                      reference: on5hyz9poe
-                      integration: 428626
-                      domain: test
-                      amount: 3794800
-                      currency: NGN
-                      source: balance
-                      reason: Holiday Flexing
-                      recipient: 6788170
-                      status: success
-                      transfer_code: TRF_fiyxvgkh71e717b
-                      id: 23070321
-                      createdAt: 2020-05-13T14:22:49.687Z
-                      updatedAt: 2020-05-13T14:22:49.687Z
-                Initiate Bulk Transfer:
-                  value:
-                    status: true
-                    message: 2 transfers queued.
-                    data:
-                      - recipient: RCP_1a25w1h3n0xctjg
-                        amount: 50000
-                        transfer_code: TRF_mi8oa4liagyvq2md
-                        currency: NGN
-                        status: success
-                      - recipient: RCP_sa1k1btncp993q1
-                        amount: 50000
-                        transfer_code: TRF_1c5upr4hp85l93n7
-                        currency: NGN
-                        status: success
-                Create Subaccount:
-                  value:
-                    status: true
-                    message: Subaccount created
-                    data:
-                      business_name: Cheese Sticks
-                      account_number: 123456789
-                      percentage_charge: 0.2
-                      settlement_bank: Guaranty Trust Bank
-                      integration: 428626
-                      domain: test
-                      subaccount_code: ACCT_xxxxxxxxxxxxx
-                      is_verified: false
-                      settlement_schedule: AUTO
-                      active: true
-                      migrate: false
-                      id: 37614
-                      createdAt: 2020-05-19T11:54:20.655Z
-                      updatedAt: 2020-05-19T11:54:20.655Z
                 Create Split:
                   value:
                     status: true
@@ -267,55 +220,12 @@ paths:
                             account_number: 123456789
                           share: 30
                       total_subaccounts: 2
-                Create Refund:
-                  value:
-                    status: true
-                    message: Refund has been queued for processing
-                    data:
-                      transaction:
-                        id: 1004723697
-                        domain: live
-                        reference: T685312322670591
-                        amount: 10000
-                        paid_at: '2021-08-20T18:34:11.000Z'
-                        channel: apple_pay
-                        currency: NGN
-                        authorization:
-                          exp_month: null
-                          exp_year: null
-                          account_name: null
-                        customer:
-                          international_format_phone: null
-                        plan: {}
-                        subaccount:
-                          currency: null
-                        split: {}
-                        order_id: null
-                        paidAt: '2021-08-20T18:34:11.000Z'
-                        pos_transaction_data: null
-                        source: null
-                        fees_breakdown: null
-                      integration: 412829
-                      deducted_amount: 0
-                      channel: null
-                      merchant_note: Refund for transaction T685312322670591 by test@me.com
-                      customer_note: Refund for transaction T685312322670591
-                      status: pending
-                      refunded_by: test@me.com
-                      expected_at: '2021-12-16T09:21:17.016Z'
-                      currency: NGN
-                      domain: live
-                      amount: 10000
-                      fully_deducted: false
-                      id: 3018284
-                      createdAt: '2021-12-07T09:21:17.122Z'
-                      updatedAt: '2021-12-07T09:21:17.122Z'
         '401':
           description: Unauthorized operation
           content:
             application/json:
               examples:
-                No_Authorization_Header:
+                No-Authorization-Header:
                   value:
                     status: false
                     message: No Authorization Header was found
@@ -323,7 +233,7 @@ paths:
                   value:
                     status: false
                     message: 'Format is Authorization Bearer [secret key]'
-                Invalid_Key:
+                Invalid-Key:
                   value:
                     status: false
                     message: Invalid key
@@ -454,7 +364,13 @@ paths:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
               examples:
                 Initiailize Transaction:
-                  $ref: '#/paths/~1split/post/responses/200/content/application~1json/examples/Initiailize%20Transaction'
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
         '401':
           $ref: '#/paths/~1split/post/responses/401'
         default:
@@ -479,11 +395,13 @@ paths:
                 transaction:
                   description: Transaction reference or id
                   type: string
+                  example: T685312322670591
                 amount:
                   description: |-
                     Amount ( in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR ) to be refunded to the customer. 
                     Amount cannot be more than the original transaction amount
                   type: integer
+                  example: 10000
                 currency:
                   description: Three-letter ISO currency
                   type: string
@@ -495,12 +413,62 @@ paths:
                 customer_note:
                   description: Customer reason
                   type: string
+                  example: Refund for transaction T685312322670591
                 merchant_note:
                   description: Merchant reason
                   type: string
+                  example: Refund for transaction T685312322670591 by test@me.com
       responses:
         '200':
-          $ref: '#/paths/~1split/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Refund:
+                  value:
+                    status: true
+                    message: Refund has been queued for processing
+                    data:
+                      transaction:
+                        id: 1004723697
+                        domain: test
+                        reference: T685312322670591
+                        amount: 10000
+                        paid_at: '2021-08-20T18:34:11.000Z'
+                        channel: apple_pay
+                        currency: NGN
+                        authorization:
+                          exp_month: null
+                          exp_year: null
+                          account_name: null
+                        customer:
+                          international_format_phone: null
+                        plan: {}
+                        subaccount:
+                          currency: null
+                        split: {}
+                        order_id: null
+                        paidAt: '2021-08-20T18:34:11.000Z'
+                        pos_transaction_data: null
+                        source: null
+                        fees_breakdown: null
+                      integration: 412829
+                      deducted_amount: 0
+                      channel: null
+                      merchant_note: Refund for transaction T685312322670591 by test@me.com
+                      customer_note: Refund for transaction T685312322670591
+                      status: pending
+                      refunded_by: test@me.com
+                      expected_at: '2021-12-16T09:21:17.016Z'
+                      currency: NGN
+                      domain: live
+                      amount: 10000
+                      fully_deducted: false
+                      id: 3018284
+                      createdAt: '2021-12-07T09:21:17.122Z'
+                      updatedAt: '2021-12-07T09:21:17.122Z'
         '401':
           $ref: '#/paths/~1split/post/responses/401'
         default:
@@ -525,12 +493,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: 2348123456789
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -574,18 +545,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
               type: string
+              example: 123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: 7
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: 111111111
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:

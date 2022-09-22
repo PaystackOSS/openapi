@@ -1,7 +1,13 @@
 openapi: 3.0.1
 info:
   title: Create a savings application
-  description: The OpenAPI specification for creating a savings application using the Paystack API
+  description: |-
+    The OpenAPI specification for creating a savings application using the [Paystack API](https://paystack.com/docs/api/).
+    ### Prerequisites
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    Once setup, start with the [Initialize Transaction endpoint](https://paystack.com/docs/api/#transaction-initialize), where you'll open the `authorization_url` to load the Paystack Checkout and complete the transaction.
   version: 1.0.0
 servers:
   - url: 'https://api.paystack.co'
@@ -223,9 +229,7 @@ paths:
                       amount: 500000
                       currency: NGN
                       reference: 123.uniq=ref-2
-                      metadata:
-                        'cart_id:398 custom_fields':
-                          - {}
+                      metadata: 'cart_id:398, custom_fields:[{}]'
                       split_code: SPL_123AbZ
                       subaccount: ACCT_23abcdefgh
         '401':
@@ -251,13 +255,13 @@ paths:
           example: '063'
       responses:
         '200':
-          description: Request successful
+          description: Resolve Account Number
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
               examples:
-                Resolve Account Number:
+                Resolve Bank:
                   value:
                     status: true
                     message: Account number resolved
@@ -265,70 +269,6 @@ paths:
                       account_number: 1234567
                       account_name: Doe Jane Loren
                       bank_id: 9
-                Create Subaccount:
-                  value:
-                    status: true
-                    message: Subaccount created
-                    data:
-                      business_name: Cheese Sticks
-                      account_number: 123456789
-                      percentage_charge: 0.2
-                      settlement_bank: Guaranty Trust Bank
-                      integration: 428626
-                      domain: test
-                      subaccount_code: ACCT_xxxxxxxxxxxxx
-                      is_verified: false
-                      settlement_schedule: AUTO
-                      active: true
-                      migrate: false
-                      id: 37614
-                      createdAt: 2020-05-19T11:54:20.655Z
-                      updatedAt: 2020-05-19T11:54:20.655Z
-                Create Split:
-                  value:
-                    status: true
-                    message: Split created
-                    data:
-                      id: 142
-                      name: Test Doc
-                      type: percentage
-                      currency: NGN
-                      integration: 428626
-                      domain: test
-                      split_code: SPL_e7jnRLtzla
-                      active: true
-                      bearer_type: subaccount
-                      bearer_subaccount: 40809
-                      createdAt: 2020-06-30T11:42:29.150Z
-                      updatedAt: 2020-06-30T11:42:29.150Z
-                      subaccounts:
-                        - subaccount:
-                            id: 40809
-                            subaccount_code: ACCT_z3x6z3nbo14xsil
-                            business_name: Business Name
-                            description: Business Description
-                            primary_contact_name: null
-                            primary_contact_email: null
-                            primary_contact_phone: null
-                            metadata: null
-                            percentage_charge: 20
-                            settlement_bank: Business Bank
-                            account_number: 1234567890
-                          share: 20
-                        - subaccount:
-                            id: 40809
-                            subaccount_code: ACCT_pwwualwty4nhq9d
-                            business_name: Business Name
-                            description: Business Description
-                            primary_contact_name: null
-                            primary_contact_email: null
-                            primary_contact_phone: null
-                            metadata: null
-                            percentage_charge: 20
-                            settlement_bank: Business Bank
-                            account_number: 123456789
-                          share: 30
-                      total_subaccounts: 2
         '401':
           $ref: '#/paths/~1transfer/post/responses/401'
         '404':
@@ -394,16 +334,16 @@ paths:
                   description: Stringified JSON object of custom data
                   type: string
                   example: |
-                    {transfer_id: 123}
+                    {referrer_id: 123}
       responses:
         '201':
-          description: Resource created
+          description: Transfer Recipient Created
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
               examples:
-                Create Transfer Recipient:
+                Create Customer:
                   value:
                     status: true
                     message: Transfer recipient created successfully
@@ -414,7 +354,9 @@ paths:
                       domain: live
                       id: 38770134
                       integration: 463433
-                      name: Some Guy
+                      metadata:
+                        referrer_id: 123
+                      name: Ada Lovelace
                       recipient_code: RCP_2fl8jmb2v3kbleb
                       type: nuban
                       updatedAt: 2022-09-16T08:31:43.321Z
@@ -520,7 +462,7 @@ paths:
           content:
             application/json:
               examples:
-                No_Authorization_Header:
+                No-Authorization-Header:
                   value:
                     status: false
                     message: No Authorization Header was found
@@ -528,7 +470,7 @@ paths:
                   value:
                     status: false
                     message: 'Format is Authorization Bearer [secret key]'
-                Invalid_Key:
+                Invalid-Key:
                   value:
                     status: false
                     message: Invalid key
@@ -561,12 +503,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: 2348123456789
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -610,18 +555,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
               type: string
+              example: 123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: 7
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: 111111111
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:
