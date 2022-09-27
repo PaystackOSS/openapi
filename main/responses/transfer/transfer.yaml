@@ -6,5 +6,3 @@ content:
     examples:
       Initiate Transfer:
         $ref: '../../examples/transfer/initiate.yaml'
-      Initiate Bulk Transfer:
-        $ref: '../../examples/transfer/bulk.yaml'
