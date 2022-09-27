@@ -12,11 +12,11 @@ properties:
   settlement_bank:
     description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
     type: string
-    example: 011
+    example: "011"
   account_number:
     description: Bank account number
     type: string
-    example: 0000000000
+    example: "0000000000"
   percentage_charge:
     description: Transaction percentage that the subaccount gets
     type: number
@@ -39,6 +39,6 @@ properties:
     type: string
   metadata:
     description: Stringified JSON object of custom data
-    type: string
-    example: >
-      {"category": "General supplies" }
+    type: object
+    example:
+      category: General supplies

@@ -18,16 +18,16 @@ properties:
     example: NG
   bvn:
     description: Customer's Bank Verification Number
-    type: string
+    type: integer
     example: 0123456789
   bank_code:
     description: You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).
     type: string
-    example: 007
+    example: "007"
   account_number:
     description: Customer's bank account number.
     type: string
-    example: 0111111111
+    example: "0111111111"
   first_name:
     description: Customer's first name
     type: string

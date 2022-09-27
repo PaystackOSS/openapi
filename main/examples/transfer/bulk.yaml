@@ -1,7 +1,7 @@
 value:
   status: true
   message: 2 transfers queued.
-  data: 
+  data:
     - recipient: RCP_1a25w1h3n0xctjg
       amount: 50000
       transfer_code: TRF_mi8oa4liagyvq2md

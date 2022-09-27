@@ -37,23 +37,16 @@ properties:
     type: integer
   metadata:
     description: Stringified JSON object of custom data
-    type: string
-    example: > 
-      {"cart_id":398,
-      "custom_fields":
-      [{
-          "display_name":"Invoice ID",
-          "variable_name":"Invoice ID",
-          "value":209
-        },
-                    {
-                      "display_name":"Cart Items",
-                      "variable_name":"cart_items",
-                      "value":"3 bananas, 12 mangoes"
-                    }
-                  ]
-                }
-      }
+    type: object
+    example: 
+      cart_id: 398
+      custom_fields:
+        - display_name: Invoice ID
+          variable_name: Invoice ID
+          value: 209
+        - display_name: Cart Items
+          variable_name: cart_items
+          value: 3 bananas, 12 mangoes
   channels:
     description: |- 
       An array of payment channels to control what channels you want to make available to the user to make a payment with
@@ -81,7 +74,7 @@ properties:
     description: |-
       A flat fee to charge the subaccount for a transaction. 
       This overrides the split percentage set when the subaccount was created
-    type: string
+    type: integer
     example: 12300
   bearer:
     description: The bearer of the transaction charge

@@ -47,24 +47,24 @@ paths:
                   value:
                     status: true
                     message: Customer created
-                    data: null
-                    transactions: []
-                    subscriptions: []
-                    authorizations: []
-                    email: somebody@example.com
-                    first_name: Some
-                    last_name: Body
-                    phone: '+2348123456789'
-                    integration: 463433
-                    domain: test
-                    metadata: {}
-                    customer_code: CUS_pztcpsx5kng2fbk
-                    risk_action: default
-                    id: 95485991
-                    createdAt: '2022-09-20T12:52:10.583Z'
-                    updatedAt: '2022-09-20T12:52:10.583Z'
-                    identified: false
-                    identifications: null
+                    data:
+                      transactions: []
+                      subscriptions: []
+                      authorizations: []
+                      email: somebody@example.com
+                      first_name: Some
+                      last_name: Body
+                      phone: '+2348123456789'
+                      integration: 463433
+                      domain: test
+                      metadata: {}
+                      customer_code: CUS_pztcpsx5kng2fbk
+                      risk_action: default
+                      id: 95485991
+                      createdAt: '2022-09-20T12:52:10.583Z'
+                      updatedAt: '2022-09-20T12:52:10.583Z'
+                      identified: false
+                      identifications: []
         '401':
           description: Unauthorized operation
           content:
@@ -297,7 +297,7 @@ paths:
                         authorization_code: null
                         account_number: 0
                         account_name: Doe Jane Loren
-                        bank_code: 11
+                        bank_code: 9
                         bank_name: First Bank of Nigeria
         '401':
           $ref: '#/paths/~1customer/post/responses/401'
@@ -328,8 +328,8 @@ paths:
                   example: balance
                 amount:
                   description: Amount to transfer in kobo if currency is NGN. pesewas if currency is GHS and cents for ZAR.
-                  type: string
-                  amount: 10234
+                  type: integer
+                  example: 10234
                 recipient:
                   description: The transfer recipient's code
                   type: string
@@ -420,7 +420,7 @@ components:
             phone:
               description: Customer's phone number
               type: string
-              example: 2348123456789
+              example: '+2348123456789'
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -467,16 +467,16 @@ components:
               example: NG
             bvn:
               description: Customer's Bank Verification Number
-              type: string
-              example: 123456789
+              type: integer
+              example: 0123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
-              example: 7
+              example: '007'
             account_number:
               description: Customer's bank account number.
               type: string
-              example: 111111111
+              example: '0111111111'
             first_name:
               description: Customer's first name
               type: string

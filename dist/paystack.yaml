@@ -81,21 +81,16 @@ paths:
                   type: integer
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
-                  example: |
-                    {"cart_id":398, "custom_fields": [{
-                        "display_name":"Invoice ID",
-                        "variable_name":"Invoice ID",
-                        "value":209
-                      },
-                                  {
-                                    "display_name":"Cart Items",
-                                    "variable_name":"cart_items",
-                                    "value":"3 bananas, 12 mangoes"
-                                  }
-                                ]
-                              }
-                    }
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
@@ -129,7 +124,7 @@ paths:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
                   example: 12300
                 bearer:
                   description: The bearer of the transaction charge
@@ -382,8 +377,15 @@ paths:
                 metadata:
                   description: Stringified JSON object of custom data
                   type: object
-                  example: |
-                    {cart_id:398, custom_fields:[{}] }
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 split_code:
                   description: The split code of the transaction split
                   type: string
@@ -396,7 +398,7 @@ paths:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
                   example: 12300
                 bearer:
                   description: The bearer of the transaction charge
@@ -521,7 +523,7 @@ paths:
                   example: 123.uniq=ref-3
                 at_least:
                   description: Minimum amount to charge
-                  type: string
+                  type: integer
                   example: 5500
       responses:
         '200':
@@ -728,7 +730,7 @@ paths:
                             metadata: null
                             percentage_charge: 20
                             settlement_bank: Business Bank
-                            account_number: 123456789
+                            account_number: 0123456789
                           share: 30
                       total_subaccounts: 2
         '401':
@@ -861,7 +863,7 @@ paths:
                 share:
                   description: The percentage or flat quota of the customer or partner
                   type: string
-                  example: 102
+                  example: '102'
       parameters:
         - name: id
           in: path
@@ -934,24 +936,24 @@ paths:
                   value:
                     status: true
                     message: Customer created
-                    data: null
-                    transactions: []
-                    subscriptions: []
-                    authorizations: []
-                    email: somebody@example.com
-                    first_name: Some
-                    last_name: Body
-                    phone: '+2348123456789'
-                    integration: 463433
-                    domain: test
-                    metadata: {}
-                    customer_code: CUS_pztcpsx5kng2fbk
-                    risk_action: default
-                    id: 95485991
-                    createdAt: '2022-09-20T12:52:10.583Z'
-                    updatedAt: '2022-09-20T12:52:10.583Z'
-                    identified: false
-                    identifications: null
+                    data:
+                      transactions: []
+                      subscriptions: []
+                      authorizations: []
+                      email: somebody@example.com
+                      first_name: Some
+                      last_name: Body
+                      phone: '+2348123456789'
+                      integration: 463433
+                      domain: test
+                      metadata: {}
+                      customer_code: CUS_pztcpsx5kng2fbk
+                      risk_action: default
+                      id: 95485991
+                      createdAt: '2022-09-20T12:52:10.583Z'
+                      updatedAt: '2022-09-20T12:52:10.583Z'
+                      identified: false
+                      identifications: []
         '401':
           $ref: '#/paths/~1page/get/responses/401'
         default:
@@ -1360,11 +1362,11 @@ paths:
                 settlement_bank:
                   description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
                   type: string
-                  example: 11
+                  example: '011'
                 account_number:
                   description: Bank account number
                   type: string
-                  example: 0
+                  example: '0000000000'
                 percentage_charge:
                   description: Transaction percentage that the subaccount gets
                   type: number
@@ -1387,9 +1389,9 @@ paths:
                   type: string
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
-                  example: |
-                    {"category": "General supplies" }
+                  type: object
+                  example:
+                    category: General supplies
       responses:
         '201':
           description: Subaccount Creation
@@ -1404,7 +1406,7 @@ paths:
                     message: Subaccount created
                     data:
                       business_name: Cheese Sticks
-                      account_number: 123456789
+                      account_number: 0123456789
                       percentage_charge: 0.2
                       settlement_bank: Guaranty Trust Bank
                       integration: 428626
@@ -2035,7 +2037,7 @@ paths:
                         authorization_code: null
                         account_number: 0
                         account_name: Doe Jane Loren
-                        bank_code: 11
+                        bank_code: 9
                         bank_name: First Bank of Nigeria
         '401':
           $ref: '#/paths/~1page/get/responses/401'
@@ -2987,8 +2989,8 @@ paths:
                   example: balance
                 amount:
                   description: Amount to transfer in kobo if currency is NGN. pesewas if currency is GHS and cents for ZAR.
-                  type: string
-                  amount: 10234
+                  type: integer
+                  example: 10234
                 recipient:
                   description: The transfer recipient's code
                   type: string
@@ -3078,7 +3080,7 @@ paths:
                   example: TRF_CODE
                 otp:
                   description: OTP sent to business phone to verify transfer
-                  type: string
+                  type: integer
                   example: 123456
       responses:
         '200':
@@ -3306,7 +3308,7 @@ paths:
                 otp:
                   description: OTP sent to business phone to verify disabling OTP requirement
                   type: string
-                  example: 123456
+                  example: '123456'
       responses:
         '200':
           $ref: '#/paths/~1page/get/responses/200'
@@ -4365,7 +4367,7 @@ paths:
                     status: true
                     message: Account number resolved
                     data:
-                      account_number: 1234567
+                      account_number: 342391
                       account_name: Doe Jane Loren
                       bank_id: 9
         '401':
@@ -4510,7 +4512,7 @@ components:
             phone:
               description: Customer's phone number
               type: string
-              example: 2348123456789
+              example: '+2348123456789'
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -4557,16 +4559,16 @@ components:
               example: NG
             bvn:
               description: Customer's Bank Verification Number
-              type: string
-              example: 123456789
+              type: integer
+              example: 0123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
-              example: 7
+              example: '007'
             account_number:
               description: Customer's bank account number.
               type: string
-              example: 111111111
+              example: '0111111111'
             first_name:
               description: Customer's first name
               type: string

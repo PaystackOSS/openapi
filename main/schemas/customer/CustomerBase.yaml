@@ -11,7 +11,7 @@ properties:
   phone:
     description: Customer's phone number
     type: string
-    example: +2348123456789
+    example: "+2348123456789"
   metadata:
     description: Stringified JSON object of custom data
     type: string

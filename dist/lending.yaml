@@ -66,21 +66,16 @@ paths:
                   type: integer
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
-                  example: |
-                    {"cart_id":398, "custom_fields": [{
-                        "display_name":"Invoice ID",
-                        "variable_name":"Invoice ID",
-                        "value":209
-                      },
-                                  {
-                                    "display_name":"Cart Items",
-                                    "variable_name":"cart_items",
-                                    "value":"3 bananas, 12 mangoes"
-                                  }
-                                ]
-                              }
-                    }
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
@@ -114,7 +109,7 @@ paths:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
                   example: 12300
                 bearer:
                   description: The bearer of the transaction charge
@@ -188,8 +183,15 @@ paths:
                 metadata:
                   description: Stringified JSON object of custom data
                   type: object
-                  example: |
-                    {cart_id:398, custom_fields:[{}] }
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 split_code:
                   description: The split code of the transaction split
                   type: string
@@ -202,7 +204,7 @@ paths:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
                   example: 12300
                 bearer:
                   description: The bearer of the transaction charge
@@ -282,7 +284,7 @@ paths:
                   example: 123.uniq=ref-3
                 at_least:
                   description: Minimum amount to charge
-                  type: string
+                  type: integer
                   example: 5500
       responses:
         '200':
@@ -371,7 +373,7 @@ paths:
                     status: true
                     message: Account number resolved
                     data:
-                      account_number: 1234567
+                      account_number: 342391
                       account_name: Doe Jane Loren
                       bank_id: 9
         '401':
@@ -471,7 +473,7 @@ paths:
                         authorization_code: null
                         account_number: 0
                         account_name: Doe Jane Loren
-                        bank_code: 11
+                        bank_code: 9
                         bank_name: First Bank of Nigeria
         '401':
           $ref: '#/paths/~1transfer/post/responses/401'
@@ -502,8 +504,8 @@ paths:
                   example: balance
                 amount:
                   description: Amount to transfer in kobo if currency is NGN. pesewas if currency is GHS and cents for ZAR.
-                  type: string
-                  amount: 10234
+                  type: integer
+                  example: 10234
                 recipient:
                   description: The transfer recipient's code
                   type: string
@@ -616,7 +618,7 @@ components:
             phone:
               description: Customer's phone number
               type: string
-              example: 2348123456789
+              example: '+2348123456789'
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -663,16 +665,16 @@ components:
               example: NG
             bvn:
               description: Customer's Bank Verification Number
-              type: string
-              example: 123456789
+              type: integer
+              example: 0123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
-              example: 7
+              example: '007'
             account_number:
               description: Customer's bank account number.
               type: string
-              example: 111111111
+              example: '0111111111'
             first_name:
               description: Customer's first name
               type: string

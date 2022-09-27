@@ -31,5 +31,5 @@ properties:
     example: 123.uniq=ref-3
   at_least:
     description: Minimum amount to charge
-    type: string
+    type: integer
     example: 5500

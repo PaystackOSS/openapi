@@ -41,11 +41,11 @@ paths:
                 settlement_bank:
                   description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
                   type: string
-                  example: 11
+                  example: '011'
                 account_number:
                   description: Bank account number
                   type: string
-                  example: 0
+                  example: '0000000000'
                 percentage_charge:
                   description: Transaction percentage that the subaccount gets
                   type: number
@@ -68,9 +68,9 @@ paths:
                   type: string
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
-                  example: |
-                    {"category": "General supplies" }
+                  type: object
+                  example:
+                    category: General supplies
       responses:
         '201':
           description: Subaccount Creation
@@ -85,7 +85,7 @@ paths:
                     message: Subaccount created
                     data:
                       business_name: Cheese Sticks
-                      account_number: 123456789
+                      account_number: 0123456789
                       percentage_charge: 0.2
                       settlement_bank: Guaranty Trust Bank
                       integration: 428626
@@ -146,7 +146,7 @@ paths:
                       share:
                         description: The percentage or flat quota of the customer or partner
                         type: string
-                        example: 102
+                        example: '102'
                 currency:
                   description: The transaction currency
                   type: string
@@ -217,7 +217,7 @@ paths:
                             metadata: null
                             percentage_charge: 20
                             settlement_bank: Business Bank
-                            account_number: 123456789
+                            account_number: 0123456789
                           share: 30
                       total_subaccounts: 2
         '401':
@@ -299,21 +299,16 @@ paths:
                   type: integer
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
-                  example: |
-                    {"cart_id":398, "custom_fields": [{
-                        "display_name":"Invoice ID",
-                        "variable_name":"Invoice ID",
-                        "value":209
-                      },
-                                  {
-                                    "display_name":"Cart Items",
-                                    "variable_name":"cart_items",
-                                    "value":"3 bananas, 12 mangoes"
-                                  }
-                                ]
-                              }
-                    }
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
@@ -347,7 +342,7 @@ paths:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
                   example: 12300
                 bearer:
                   description: The bearer of the transaction charge
@@ -501,7 +496,7 @@ components:
             phone:
               description: Customer's phone number
               type: string
-              example: 2348123456789
+              example: '+2348123456789'
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -548,16 +543,16 @@ components:
               example: NG
             bvn:
               description: Customer's Bank Verification Number
-              type: string
-              example: 123456789
+              type: integer
+              example: 0123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
-              example: 7
+              example: '007'
             account_number:
               description: Customer's bank account number.
               type: string
-              example: 111111111
+              example: '0111111111'
             first_name:
               description: Customer's first name
               type: string

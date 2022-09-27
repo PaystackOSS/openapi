@@ -9,5 +9,5 @@ properties:
     example: TRF_CODE
   otp:
     description: OTP sent to business phone to verify transfer
-    type:  string
+    type:  integer
     example: 123456

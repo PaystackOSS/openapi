@@ -10,8 +10,8 @@ properties:
     example: balance
   amount:
     description: Amount to transfer in kobo if currency is NGN. pesewas if currency is GHS and cents for ZAR.
-    type:  string
-    amount: 10234
+    type:  integer
+    example: 10234
   recipient:
     description: The transfer recipient's code
     type: string
