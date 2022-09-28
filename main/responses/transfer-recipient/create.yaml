@@ -1,0 +1,8 @@
+description: Transfer Recipient Created
+content:
+  application/json:
+    schema:
+      $ref: '../response.yaml'
+    examples:
+      Create Customer:
+        $ref: '../../examples/transfer-recipient/create.yaml'

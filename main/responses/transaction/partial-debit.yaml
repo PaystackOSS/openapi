@@ -1,0 +1,8 @@
+description: Request successful
+content:
+  application/json:
+    schema:
+      $ref: '../response.yaml'
+    examples:
+      Partial Debit:
+        $ref: '../../examples/transaction/partial-debit.yaml'

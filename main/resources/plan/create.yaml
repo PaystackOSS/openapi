@@ -11,8 +11,8 @@ requestBody:
       schema:
         $ref: '../../schemas/plan/Create.yaml'
 responses:
-  200:
-    $ref: '../../responses/ok.yaml'
+  201:
+    $ref: '../../responses/plan/create.yaml'
   401:
     $ref: '../../responses/unauthorized.yaml'
   default:

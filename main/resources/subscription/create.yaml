@@ -12,7 +12,7 @@ requestBody:
         $ref: '../../schemas/subscription/Create.yaml'
 responses:
   200:
-    $ref: '../../responses/ok.yaml'
+    $ref: '../../responses/subscription/create.yaml'
   401:
     $ref: '../../responses/unauthorized.yaml'
   default:

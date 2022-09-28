@@ -16,10 +16,11 @@ get:
       example: 063
   responses:
     200:
-      $ref: '../../responses/ok.yaml'
+      $ref: '../../responses/verification/resolve-bank.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:
       $ref: '../../responses/unauthorized.yaml'
     default:
       description: Server error
+      

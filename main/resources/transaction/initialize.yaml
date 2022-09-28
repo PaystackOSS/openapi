@@ -14,7 +14,7 @@ post:
           $ref: '../../schemas/transaction/Initialize.yaml'
   responses:
     200:
-      $ref: '../../responses/ok.yaml'
+      $ref: '../../responses/transaction/initialize.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     default:

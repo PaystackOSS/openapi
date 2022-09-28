@@ -1,0 +1,7 @@
+value:
+  status: true
+  message: Authorization URL created
+  data:
+    authorization_url: https://checkout.paystack.com/spnajmit2hgi2c1
+    access_code: spandaoende
+    reference: ad123ada

@@ -6,28 +6,44 @@ required:
   - bank_code
 properties:
   type:
-    description: Recipient Type (Only nuban at this time)
+    description: Recipient Type - nuban for NGN, mobile_money for MOMO in GHS, basa for ZAR and authorization for all.
     type:  string
+    enum: 
+    - nuban
+    - mobile_money
+    - basa
+    - authorization
   name:
     description: Recipient's name
     type: string
+    example: Ada Lovelace
   account_number:
     description: Recipient's bank account number
     type: string
+    example: "0000000000"
   bank_code:
     description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
     type: string
+    example: "011"
   description:
     description: A description for this recipient
     type: string
+    example: Keeps our servers running
   currency:
     description: |- 
       Currency for the account receiving the transfer
     type: string
+    enum:
+    - NGN
+    - GHS
+    - ZAR
   authorization_code:
     description: |- 
       An authorization code from a previous transaction
     type: string
+    example: AUTH_CODE
   metadata:
     description: Stringified JSON object of custom data
     type: string
+    example: >
+      {referrer_id: 123}

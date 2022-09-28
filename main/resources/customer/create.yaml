@@ -16,7 +16,7 @@ requestBody:
         - $ref: '../../schemas/customer/CustomerBase.yaml'
 responses:
   200:
-    $ref: '../../responses/ok.yaml'
+    $ref: '../../responses/customer/create.yaml'
   401:
     $ref: '../../responses/unauthorized.yaml'
   default:

@@ -1,0 +1,33 @@
+value:
+  status: true
+  message: NUBAN successfully created
+  data: 
+    bank: 
+      name: Wema Bank
+      id: 20
+      slug: wema-bank
+    account_name: KAROKART / RHODA CHURCH
+    account_number: 9930000737
+    assigned: true
+    currency: NGN
+    metadata: null
+    active: true
+    id: 253
+    created_at: 2019-12-12T12:39:04.000Z
+    updated_at: 2020-01-06T15:51:24.000Z
+    assignment: 
+      integration: 100043
+      assignee_id: 7454289
+      assignee_type: Customer
+      expired: false
+      account_type: PAY-WITH-TRANSFER-RECURRING
+      assigned_at: 2020-01-06T15:51:24.764Z
+    customer: 
+      id: 7454289
+      first_name: RHODA
+      last_name: CHURCH
+      email: rhodachurch@email.com
+      customer_code: CUS_kpb3qj71u1m0rw8
+      phone: +2349053267565
+      risk_action: default
+    
