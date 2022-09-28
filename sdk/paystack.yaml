@@ -677,7 +677,7 @@ paths:
       tags:
         - Customer
       summary: Validate Customer
-      operationId: customer_validatte
+      operationId: customer_validate
       description: Validate a customer's identity
       requestBody:
         content:
