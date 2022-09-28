@@ -8,28 +8,37 @@ properties:
   business_name:
     description: Name of business for subaccount
     type:  string
+    example: Some Subaccount
   settlement_bank:
     description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
     type: string
+    example: "011"
   account_number:
     description: Bank account number
     type: string
+    example: "0000000000"
   percentage_charge:
-    description: Customer's phone number
+    description: Transaction percentage that the subaccount gets
     type: number
     format: float
+    example: 0.3
   description:
     description: A description for this subaccount
     type: string
+    example: A service provider
   primary_contact_email:
     description: A contact email for the subaccount
     type: string
+    example: sub@example.com
   primary_contact_name:
     description: The name of the contact person for this subaccount
     type: string
+    example: person@example.com
   primary_contact_phone:
     description: A phone number to call for this subaccount
     type: string
   metadata:
     description: Stringified JSON object of custom data
-    type: string
+    type: object
+    example:
+      category: General supplies

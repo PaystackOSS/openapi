@@ -1,7 +1,13 @@
 openapi: 3.0.1
 info:
   title: Create a lending application
-  description: The OpenAPI specification for creating a lending application using the Paystack API
+  description: |-
+    The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
+    ### Prerequisites
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    The [Partial Debits](https://paystack.com/docs/payments/partial-debits) feature allows you to recover some revenue that would have otherwise been lost. It is currently available on request.
   version: 1.0.0
 servers:
   - url: 'https://api.paystack.co'
@@ -29,9 +35,11 @@ paths:
                 email:
                   description: Customer's email address
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 currency:
                   description: The transaction currency
                   type: string
@@ -43,6 +51,7 @@ paths:
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-
                 callback_url:
                   description: 'Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction'
                   type: string
@@ -51,12 +60,22 @@ paths:
                     If transaction is to create a subscription to a predefined plan, provide plan code here. 
                     This would invalidate the value provided in amount
                   type: string
+                  example: PLN_123wede
                 invoice_limit:
                   description: Number of times to charge customer during subscription to plan
                   type: integer
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
@@ -70,26 +89,50 @@ paths:
                       - eft
                       - mobile_money
                       - bank_transfer
+                  example:
+                    - card
+                    - bank
+                    - ussd
+                    - qr
+                    - eft
+                    - mobile_money
+                    - bank_transfer
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1transfer/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
         '401':
           $ref: '#/paths/~1transfer/post/responses/401'
         default:
@@ -114,17 +157,21 @@ paths:
                 - authorization_code
               properties:
                 email:
-                  description: Customer's email address
+                  description: Customer's email address used during the first transaction
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 authorization_code:
                   description: Valid authorization code to charge
                   type: string
+                  example: AUTH_CODE
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-2
                 currency:
                   description: The transaction currency
                   type: string
@@ -135,20 +182,32 @@ paths:
                     - USD
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
@@ -158,7 +217,23 @@ paths:
                   type: boolean
       responses:
         '200':
-          $ref: '#/paths/~1transfer/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Charge Authorization:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 500000
+                      currency: NGN
+                      reference: 123.uniq=ref-2
+                      metadata: 'cart_id:398, custom_fields:[{}]'
+                      split_code: SPL_123AbZ
+                      subaccount: ACCT_23abcdefgh
         '401':
           $ref: '#/paths/~1transfer/post/responses/401'
         default:
@@ -186,12 +261,15 @@ paths:
                 email:
                   description: Customer's email address
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 authorization_code:
                   description: Valid authorization code to charge
                   type: string
+                  example: AUTH_CODE
                 currency:
                   description: The transaction currency
                   type: string
@@ -203,12 +281,64 @@ paths:
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-3
                 at_least:
                   description: Minimum amount to charge
-                  type: string
+                  type: integer
+                  example: 5500
       responses:
         '200':
-          $ref: '#/paths/~1transfer/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Partial Debit:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 10247
+                      currency: NGN
+                      transaction_date: '2022-09-22T07:36:03.000Z'
+                      status: success
+                      reference: dycmjmd23f1hygq
+                      domain: test
+                      metadata: ''
+                      gateway_response: Approved
+                      message: null
+                      channel: card
+                      ip_address: null
+                      log: null
+                      fees: 52
+                      authorization:
+                        authorization_code: AUTH_15qn6qmeip
+                        bin: '408408'
+                        last4: '4081'
+                        exp_month: '12'
+                        exp_year: '2030'
+                        channel: card
+                        card_type: 'visa '
+                        bank: TEST BANK
+                        country_code: NG
+                        brand: visa
+                        reusable: true
+                        signature: SIG_yEXu7dLBeqG0kU7g95Ke
+                        account_name: null
+                      customer:
+                        id: 54219771
+                        first_name: null
+                        last_name: null
+                        email: some.other@body.com
+                        customer_code: CUS_toq66lmva87v66g
+                        phone: null
+                        metadata: null
+                        risk_action: default
+                        international_format_phone: null
+                      plan: 0
+                      requested_amount: 10247
+                      id: 2122110499
         '401':
           $ref: '#/paths/~1transfer/post/responses/401'
         default:
@@ -232,7 +362,20 @@ paths:
           example: 51
       responses:
         '200':
-          $ref: '#/paths/~1transfer/post/responses/200'
+          description: Resolve Account Number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Resolve Bank:
+                  value:
+                    status: true
+                    message: Account number resolved
+                    data:
+                      account_number: 342391
+                      account_name: Doe Jane Loren
+                      bank_id: 9
         '401':
           $ref: '#/paths/~1transfer/post/responses/401'
         '404':
@@ -260,36 +403,78 @@ paths:
                 - bank_code
               properties:
                 type:
-                  description: Recipient Type (Only nuban at this time)
+                  description: 'Recipient Type - nuban for NGN, mobile_money for MOMO in GHS, basa for ZAR and authorization for all.'
                   type: string
+                  enum:
+                    - nuban
+                    - mobile_money
+                    - basa
+                    - authorization
                 name:
                   description: Recipient's name
                   type: string
+                  example: Ada Lovelace
                 account_number:
                   description: Recipient's bank account number
                   type: string
+                  example: '0000000000'
                 bank_code:
                   description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
                   type: string
+                  example: '011'
                 description:
                   description: A description for this recipient
                   type: string
+                  example: Keeps our servers running
                 currency:
                   description: Currency for the account receiving the transfer
                   type: string
+                  enum:
+                    - NGN
+                    - GHS
+                    - ZAR
                 authorization_code:
                   description: An authorization code from a previous transaction
                   type: string
+                  example: AUTH_CODE
                 metadata:
                   description: Stringified JSON object of custom data
                   type: string
+                  example: |
+                    {referrer_id: 123}
       responses:
         '201':
-          description: Resource created
+          description: Transfer Recipient Created
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Customer:
+                  value:
+                    status: true
+                    message: Transfer recipient created successfully
+                    data:
+                      active: true
+                      createdAt: 2022-09-16T08:31:43.321Z
+                      currency: NGN
+                      domain: live
+                      id: 38770134
+                      integration: 463433
+                      metadata:
+                        referrer_id: 123
+                      name: Ada Lovelace
+                      recipient_code: RCP_2fl8jmb2v3kbleb
+                      type: nuban
+                      updatedAt: 2022-09-16T08:31:43.321Z
+                      is_deleted: false
+                      isDeleted: false
+                      details:
+                        authorization_code: null
+                        account_number: 0
+                        account_name: Doe Jane Loren
+                        bank_code: 9
+                        bank_name: First Bank of Nigeria
         '401':
           $ref: '#/paths/~1transfer/post/responses/401'
         default:
@@ -316,15 +501,19 @@ paths:
                 source:
                   description: Where should we transfer from? Only balance is allowed for now
                   type: string
+                  example: balance
                 amount:
-                  description: Amount to transfer in kobo if currency is NGN and pesewas if currency is GHS.
-                  type: string
+                  description: Amount to transfer in kobo if currency is NGN. pesewas if currency is GHS and cents for ZAR.
+                  type: integer
+                  example: 10234
                 recipient:
                   description: The transfer recipient's code
                   type: string
+                  example: RCP_CODE
                 reason:
                   description: The reason or narration for the transfer.
                   type: string
+                  example: Good job
                 currency:
                   description: Specify the currency of the transfer. Defaults to NGN.
                   type: string
@@ -333,6 +522,7 @@ paths:
                     If specified, the field should be a unique identifier (in lowercase) for the object. 
                     Only -,_ and alphanumeric characters are allowed.
                   type: string
+                  example: Transfer-123_unique
       responses:
         '200':
           description: Request successful
@@ -340,10 +530,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiate Transfer:
+                  value:
+                    status: true
+                    message: Transfer has been queued
+                    data:
+                      reference: on5hyz9poe
+                      integration: 428626
+                      domain: test
+                      amount: 3794800
+                      currency: NGN
+                      source: balance
+                      reason: Holiday Flexing
+                      recipient: 6788170
+                      status: success
+                      transfer_code: TRF_fiyxvgkh71e717b
+                      id: 23070321
+                      createdAt: 2020-05-13T14:22:49.687Z
+                      updatedAt: 2020-05-13T14:22:49.687Z
         '401':
           description: Unauthorized operation
           content:
             application/json:
+              examples:
+                No-Authorization-Header:
+                  value:
+                    status: false
+                    message: No Authorization Header was found
+                Bad-Authorization-Header:
+                  value:
+                    status: false
+                    message: 'Format is Authorization Bearer [secret key]'
+                Invalid-Key:
+                  value:
+                    status: false
+                    message: Invalid key
               schema:
                 type: object
                 properties:
@@ -373,12 +595,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: '+2348123456789'
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -422,18 +647,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
-              type: string
+              type: integer
+              example: 0123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: '007'
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: '0111111111'
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:

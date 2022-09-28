@@ -1,0 +1,8 @@
+description: Split Creation
+content:
+  application/json:
+    schema:
+      $ref: '../response.yaml'
+    examples:
+      Create Split:
+        $ref: '../../examples/split/create.yaml'

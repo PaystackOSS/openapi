@@ -1,0 +1,8 @@
+description: Subaccount Creation
+content:
+  application/json:
+    schema:
+      $ref: '../response.yaml'
+    examples:
+      Create Subaccount:
+        $ref: '../../examples/subaccount/create.yaml'

@@ -1,7 +1,15 @@
 openapi: 3.0.1
 info:
   title: Create a membership app
-  description: The OpenAPI specification for creating a membership application using the Paystack API
+  description: |-
+    The OpenAPI specification for creating a membership application using the [Paystack API](https://paystack.com/docs/api/).
+    ### Prerequisites
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    When using the [Subscriptions API](https://paystack.com/docs/payments/subscriptions), Paystack automatically charges the customer at the due time. This saves you the need to run scheduled tasks for every customer.
+
+    While with the [Charge Authorization API](https://paystack.com/docs/payments/recurring-charges), you send Paystack the charge details at the due time.
   version: 1.0.0
 servers:
   - url: 'https://api.paystack.co'
@@ -29,15 +37,19 @@ paths:
                 name:
                   description: Name of plan
                   type: string
+                  example: My monthly membership
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 20000
                 interval:
                   description: 'Interval in words. Valid intervals are daily, weekly, monthly,biannually, annually'
                   type: string
+                  example: monthly
                 description:
                   description: A description for this plan
-                  type: boolean
+                  type: string
+                  example: Monthly membership payment plan
                 send_invoices:
                   description: Set to false if you don't want invoices to be sent to your customers
                   type: boolean
@@ -47,22 +59,60 @@ paths:
                 currency:
                   description: 'Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD'
                   type: string
+                  example: NGN
                 invoice_limit:
                   description: |-
                     Number of invoices to raise during subscription to this plan. 
                     Can be overridden by specifying an invoice_limit while subscribing.
                   type: integer
+                  example: 0
       responses:
-        '200':
-          description: Request successful
+        '201':
+          description: Create Plan
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Plan:
+                  value:
+                    status: true
+                    message: Plan created
+                    data:
+                      name: My monthly membership
+                      interval: monthly
+                      amount: 20000
+                      description: Monthly membership payment plan
+                      integration: 463433
+                      domain: test
+                      currency: NGN
+                      plan_code: PLN_y4y1wkydoptw6zv
+                      invoice_limit: 0
+                      send_invoices: true
+                      send_sms: true
+                      hosted_page: false
+                      migrate: false
+                      is_archived: false
+                      id: 393872
+                      createdAt: '2022-09-22T02:15:06.702Z'
+                      updatedAt: '2022-09-22T02:15:06.702Z'
         '401':
           description: Unauthorized operation
           content:
             application/json:
+              examples:
+                No-Authorization-Header:
+                  value:
+                    status: false
+                    message: No Authorization Header was found
+                Bad-Authorization-Header:
+                  value:
+                    status: false
+                    message: 'Format is Authorization Bearer [secret key]'
+                Invalid-Key:
+                  value:
+                    status: false
+                    message: Invalid key
               schema:
                 type: object
                 properties:
@@ -93,21 +143,53 @@ paths:
                 customer:
                   description: Customer's email address or customer code
                   type: string
+                  example: person@example.com
                 plan:
-                  description: Plan code
+                  description: Plan code that the customer should subscribe to
                   type: string
+                  example: PLN_y4y1wkydoptw6zv
                 authorization:
                   description: |-
                     If customer has multiple authorizations, you can set the desired authorization you wish to use for this subscription here. 
                     If this is not supplied, the customer's most recent authorization would be used
                   type: string
+                  example: AUTH_Codaad23
                 start_date:
                   description: 'Set the date for the first debit. (ISO 8601 format) e.g. 2017-05-16T00:30:13+01:00'
                   type: string
                   format: date-time
       responses:
         '200':
-          $ref: '#/paths/~1plan/post/responses/200'
+          description: Create Subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Subscription:
+                  value:
+                    status: true
+                    message: Subscription successfully created
+                    data:
+                      customer: 89363925
+                      plan: 393873
+                      integration: 463433
+                      domain: test
+                      start: 1663817490
+                      status: active
+                      quantity: 1
+                      amount: 20000
+                      authorization: 374536802
+                      invoice_limit: 0
+                      split_code: null
+                      subscription_code: SUB_k0alurkz6l2d3nz
+                      email_token: txyhn3zjzcr9xlo
+                      id: 456933
+                      cancelledAt: null
+                      createdAt: '2022-09-22T03:31:30.886Z'
+                      updatedAt: '2022-09-22T03:31:30.886Z'
+                      cron_expression: 31 3 22 * *
+                      next_payment_date: '2022-10-22T03:31:00.000Z'
         '401':
           $ref: '#/paths/~1plan/post/responses/401'
         default:
@@ -134,9 +216,11 @@ paths:
                 email:
                   description: Customer's email address
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 currency:
                   description: The transaction currency
                   type: string
@@ -148,6 +232,7 @@ paths:
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-
                 callback_url:
                   description: 'Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction'
                   type: string
@@ -156,12 +241,22 @@ paths:
                     If transaction is to create a subscription to a predefined plan, provide plan code here. 
                     This would invalidate the value provided in amount
                   type: string
+                  example: PLN_123wede
                 invoice_limit:
                   description: Number of times to charge customer during subscription to plan
                   type: integer
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
@@ -175,26 +270,50 @@ paths:
                       - eft
                       - mobile_money
                       - bank_transfer
+                  example:
+                    - card
+                    - bank
+                    - ussd
+                    - qr
+                    - eft
+                    - mobile_money
+                    - bank_transfer
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1plan/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
         '401':
           $ref: '#/paths/~1plan/post/responses/401'
         default:
@@ -219,17 +338,21 @@ paths:
                 - authorization_code
               properties:
                 email:
-                  description: Customer's email address
+                  description: Customer's email address used during the first transaction
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 authorization_code:
                   description: Valid authorization code to charge
                   type: string
+                  example: AUTH_CODE
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-2
                 currency:
                   description: The transaction currency
                   type: string
@@ -240,20 +363,32 @@ paths:
                     - USD
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
@@ -263,7 +398,23 @@ paths:
                   type: boolean
       responses:
         '200':
-          $ref: '#/paths/~1plan/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Charge Authorization:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 500000
+                      currency: NGN
+                      reference: 123.uniq=ref-2
+                      metadata: 'cart_id:398, custom_fields:[{}]'
+                      split_code: SPL_123AbZ
+                      subaccount: ACCT_23abcdefgh
         '401':
           $ref: '#/paths/~1plan/post/responses/401'
         default:
@@ -288,12 +439,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: '+2348123456789'
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -337,18 +491,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
-              type: string
+              type: integer
+              example: 0123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: '007'
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: '0111111111'
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:

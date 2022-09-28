@@ -1,0 +1,23 @@
+value:
+  status: true
+  message: Subscription successfully created
+  data:
+    customer: 89363925
+    plan: 393873
+    integration: 463433
+    domain: test
+    start: 1663817490
+    status: active
+    quantity: 1
+    amount: 20000
+    authorization: 374536802
+    invoice_limit: 0
+    split_code:
+    subscription_code: SUB_k0alurkz6l2d3nz
+    email_token: txyhn3zjzcr9xlo
+    id: 456933
+    cancelledAt:
+    createdAt: '2022-09-22T03:31:30.886Z'
+    updatedAt: '2022-09-22T03:31:30.886Z'
+    cron_expression: 31 3 22 * *
+    next_payment_date: '2022-10-22T03:31:00.000Z'

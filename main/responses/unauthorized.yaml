@@ -1,5 +1,18 @@
 description: Unauthorized operation
 content:
   application/json:
+    examples:
+      No-Authorization-Header:
+        value:
+          status: false
+          message: "No Authorization Header was found"
+      Bad-Authorization-Header:
+        value:
+          status: false
+          message: "Format is Authorization Bearer [secret key]"
+      Invalid-Key:
+        value:
+          status: false
+          message: "Invalid key"
     schema:
       $ref: './error.yaml'

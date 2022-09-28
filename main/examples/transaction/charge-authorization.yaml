@@ -1,0 +1,12 @@
+value:
+  status: true
+  message: Charge attempted
+  data:
+    amount: 500000
+    currency: NGN
+    reference: 123.uniq=ref-2
+    metadata:
+      cart_id:398, 
+      custom_fields:[{}]
+    split_code: SPL_123AbZ
+    subaccount: ACCT_23abcdefgh

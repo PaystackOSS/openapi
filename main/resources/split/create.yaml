@@ -2,6 +2,7 @@ tags:
   - Split
 summary: Create Split
 operationId: split_create
+description: Create a new transaction split
 requestBody:
   content:
     application/x-www-form-urlencoded:
@@ -12,7 +13,7 @@ requestBody:
         $ref: '../../schemas/split/Create.yaml'
 responses:
   200:
-    $ref: '../../responses/ok.yaml'
+    $ref: '../../responses/split/create.yaml'
   401:
     $ref: '../../responses/unauthorized.yaml'
   default:

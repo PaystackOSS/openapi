@@ -6,12 +6,15 @@ properties:
   email:
     description: Customer's email address
     type:  string
+    example: person@example.com
   amount:
     description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
     type: integer
+    example: 10245
   authorization_code:
     description: Valid authorization code to charge
     type: string
+    example: AUTH_CODE
   currency:
     description: The transaction currency
     type: string

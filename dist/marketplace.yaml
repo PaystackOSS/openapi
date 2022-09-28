@@ -1,7 +1,13 @@
 openapi: 3.0.1
 info:
   title: Create an online marketplace
-  description: The OpenAPI specification for creating an online marketplace using the Paystack API
+  description: |-
+    The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
+    ### Prerequisites
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    The [Split API](https://paystack.com/docs/payments/split-payments/) is useful in marketplace apps where the transactions are divided between the platform and the vendor. That way, the platform keeps a portion of each transaction.
   version: 1.0.0
 servers:
   - url: 'https://api.paystack.co'
@@ -13,6 +19,7 @@ paths:
         - Subaccount
       summary: Create Subaccount
       operationId: subaccount_create
+      description: Create a new subaccount
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -30,34 +37,67 @@ paths:
                 business_name:
                   description: Name of business for subaccount
                   type: string
+                  example: Some Subaccount
                 settlement_bank:
                   description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
                   type: string
+                  example: '011'
                 account_number:
                   description: Bank account number
                   type: string
+                  example: '0000000000'
                 percentage_charge:
-                  description: Customer's phone number
+                  description: Transaction percentage that the subaccount gets
                   type: number
                   format: float
+                  example: 0.3
                 description:
                   description: A description for this subaccount
                   type: string
+                  example: A service provider
                 primary_contact_email:
                   description: A contact email for the subaccount
                   type: string
+                  example: sub@example.com
                 primary_contact_name:
                   description: The name of the contact person for this subaccount
                   type: string
+                  example: person@example.com
                 primary_contact_phone:
                   description: A phone number to call for this subaccount
                   type: string
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    category: General supplies
       responses:
-        '200':
-          $ref: '#/paths/~1split/post/responses/200'
+        '201':
+          description: Subaccount Creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Subaccount:
+                  value:
+                    status: true
+                    message: Subaccount created
+                    data:
+                      business_name: Cheese Sticks
+                      account_number: 0123456789
+                      percentage_charge: 0.2
+                      settlement_bank: Guaranty Trust Bank
+                      integration: 428626
+                      domain: test
+                      subaccount_code: ACCT_xxxxxxxxxxxxx
+                      is_verified: false
+                      settlement_schedule: AUTO
+                      active: true
+                      migrate: false
+                      id: 37614
+                      createdAt: 2020-05-19T11:54:20.655Z
+                      updatedAt: 2020-05-19T11:54:20.655Z
         '401':
           $ref: '#/paths/~1split/post/responses/401'
         default:
@@ -68,6 +108,7 @@ paths:
         - Split
       summary: Create Split
       operationId: split_create
+      description: Create a new transaction split
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -85,6 +126,7 @@ paths:
                 name:
                   description: Name of the transaction split
                   type: string
+                  example: Testing Accounts
                 type:
                   description: The type of transaction split you want to create.
                   type: string
@@ -100,9 +142,11 @@ paths:
                       subaccount:
                         description: Subaccount code of the customer or partner
                         type: string
+                        example: ACCT_03tb3u7jgwb4v
                       share:
                         description: The percentage or flat quota of the customer or partner
                         type: string
+                        example: '102'
                 currency:
                   description: The transaction currency
                   type: string
@@ -122,17 +166,77 @@ paths:
                 bearer_subaccount:
                   description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
                   type: string
+                  example: ACCT_03tb3u7jgwb4
       responses:
         '200':
-          description: Request successful
+          description: Split Creation
           content:
             application/json:
               schema:
                 $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Split:
+                  value:
+                    status: true
+                    message: Split created
+                    data:
+                      id: 142
+                      name: Test Doc
+                      type: percentage
+                      currency: NGN
+                      integration: 428626
+                      domain: test
+                      split_code: SPL_e7jnRLtzla
+                      active: true
+                      bearer_type: subaccount
+                      bearer_subaccount: 40809
+                      createdAt: 2020-06-30T11:42:29.150Z
+                      updatedAt: 2020-06-30T11:42:29.150Z
+                      subaccounts:
+                        - subaccount:
+                            id: 40809
+                            subaccount_code: ACCT_z3x6z3nbo14xsil
+                            business_name: Business Name
+                            description: Business Description
+                            primary_contact_name: null
+                            primary_contact_email: null
+                            primary_contact_phone: null
+                            metadata: null
+                            percentage_charge: 20
+                            settlement_bank: Business Bank
+                            account_number: 1234567890
+                          share: 20
+                        - subaccount:
+                            id: 40809
+                            subaccount_code: ACCT_pwwualwty4nhq9d
+                            business_name: Business Name
+                            description: Business Description
+                            primary_contact_name: null
+                            primary_contact_email: null
+                            primary_contact_phone: null
+                            metadata: null
+                            percentage_charge: 20
+                            settlement_bank: Business Bank
+                            account_number: 0123456789
+                          share: 30
+                      total_subaccounts: 2
         '401':
           description: Unauthorized operation
           content:
             application/json:
+              examples:
+                No-Authorization-Header:
+                  value:
+                    status: false
+                    message: No Authorization Header was found
+                Bad-Authorization-Header:
+                  value:
+                    status: false
+                    message: 'Format is Authorization Bearer [secret key]'
+                Invalid-Key:
+                  value:
+                    status: false
+                    message: Invalid key
               schema:
                 type: object
                 properties:
@@ -164,9 +268,11 @@ paths:
                 email:
                   description: Customer's email address
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 currency:
                   description: The transaction currency
                   type: string
@@ -178,6 +284,7 @@ paths:
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-
                 callback_url:
                   description: 'Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction'
                   type: string
@@ -186,12 +293,22 @@ paths:
                     If transaction is to create a subscription to a predefined plan, provide plan code here. 
                     This would invalidate the value provided in amount
                   type: string
+                  example: PLN_123wede
                 invoice_limit:
                   description: Number of times to charge customer during subscription to plan
                   type: integer
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
@@ -205,26 +322,50 @@ paths:
                       - eft
                       - mobile_money
                       - bank_transfer
+                  example:
+                    - card
+                    - bank
+                    - ussd
+                    - qr
+                    - eft
+                    - mobile_money
+                    - bank_transfer
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1split/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
         '401':
           $ref: '#/paths/~1split/post/responses/401'
         default:
@@ -249,11 +390,13 @@ paths:
                 transaction:
                   description: Transaction reference or id
                   type: string
+                  example: T685312322670591
                 amount:
                   description: |-
                     Amount ( in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR ) to be refunded to the customer. 
                     Amount cannot be more than the original transaction amount
                   type: integer
+                  example: 10000
                 currency:
                   description: Three-letter ISO currency
                   type: string
@@ -265,12 +408,62 @@ paths:
                 customer_note:
                   description: Customer reason
                   type: string
+                  example: Refund for transaction T685312322670591
                 merchant_note:
                   description: Merchant reason
                   type: string
+                  example: Refund for transaction T685312322670591 by test@me.com
       responses:
         '200':
-          $ref: '#/paths/~1split/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Refund:
+                  value:
+                    status: true
+                    message: Refund has been queued for processing
+                    data:
+                      transaction:
+                        id: 1004723697
+                        domain: test
+                        reference: T685312322670591
+                        amount: 10000
+                        paid_at: '2021-08-20T18:34:11.000Z'
+                        channel: apple_pay
+                        currency: NGN
+                        authorization:
+                          exp_month: null
+                          exp_year: null
+                          account_name: null
+                        customer:
+                          international_format_phone: null
+                        plan: {}
+                        subaccount:
+                          currency: null
+                        split: {}
+                        order_id: null
+                        paidAt: '2021-08-20T18:34:11.000Z'
+                        pos_transaction_data: null
+                        source: null
+                        fees_breakdown: null
+                      integration: 412829
+                      deducted_amount: 0
+                      channel: null
+                      merchant_note: Refund for transaction T685312322670591 by test@me.com
+                      customer_note: Refund for transaction T685312322670591
+                      status: pending
+                      refunded_by: test@me.com
+                      expected_at: '2021-12-16T09:21:17.016Z'
+                      currency: NGN
+                      domain: live
+                      amount: 10000
+                      fully_deducted: false
+                      id: 3018284
+                      createdAt: '2021-12-07T09:21:17.122Z'
+                      updatedAt: '2021-12-07T09:21:17.122Z'
         '401':
           $ref: '#/paths/~1split/post/responses/401'
         default:
@@ -295,12 +488,15 @@ components:
             first_name:
               description: Customer's first name
               type: string
+              example: Some
             last_name:
               description: Customer's last name
               type: string
+              example: Body
             phone:
               description: Customer's phone number
               type: string
+              example: '+2348123456789'
             metadata:
               description: Stringified JSON object of custom data
               type: string
@@ -344,18 +540,27 @@ components:
             country:
               description: Two-letter country code of identification issuer
               type: string
+              example: NG
             bvn:
               description: Customer's Bank Verification Number
-              type: string
+              type: integer
+              example: 0123456789
             bank_code:
               description: 'You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).'
               type: string
+              example: '007'
             account_number:
               description: Customer's bank account number.
               type: string
-            value:
-              description: Customer's identification number. Required if type is bvn
+              example: '0111111111'
+            first_name:
+              description: Customer's first name
               type: string
+              example: Uchenna
+            last_name:
+              description: Customer's last name
+              type: string
+              example: Okoro
     Error:
       type: object
       properties:
