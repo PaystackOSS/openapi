@@ -21,6 +21,8 @@ paths:
     $ref: '../main/resources/transaction/initialize.yaml'
   /transaction/charge_authorization:
     $ref: '../main/resources/transaction/charge-authorization.yaml'
+  /transaction/charge_authorization:
+    $ref: '../main/resources/transaction/verify.yaml'
   /bank/resolve:
     $ref: '../main/resources/verification/resolve-bank.yaml'
   /transferrecipient:
