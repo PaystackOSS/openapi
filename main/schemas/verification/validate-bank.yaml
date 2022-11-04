@@ -1,0 +1,44 @@
+type: object
+required:
+  - account_name
+  - account_number
+  - account_type
+  - bank_code
+  - country_code
+  - document_type
+  - document_number
+properties:
+  account_name:
+    description: Customer's first and last name registered with their bank
+    type: string
+    example: Ada Lovelace
+  account_number:
+    description: Customer's account number
+    type: string
+    example: 0123456789
+  account_type: 
+    description: The type of bank account the customer is using. This can either be personal or business.
+    type: string
+    enum:
+    - personal
+    - business
+  bank_code:
+    description: The bank code of the customer's bank. You can get them from our List Banks API
+    type: string
+    example: 632005
+  country_code:
+    description: The two digit ISO code of the customer's bank
+    type: string
+    example: ZA
+  document_type:
+    description: The customer's mode of identification. It could be identityNumber, passportNumber or businessRegistrationNumber
+    type: string
+    enum:
+    - identityNumber
+    - passportNumber
+    - businessRegistrationNumber
+  document_number:
+    description: Customer's mode of identity number
+    type: string
+    example: 1234567890123
+
