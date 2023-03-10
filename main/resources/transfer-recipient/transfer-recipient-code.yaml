@@ -23,6 +23,7 @@ put:
   tags:
     - Transfer Recipient
   summary: Update Transfer recipient
+  operationId: transferrecipient_update
   requestBody:
     content:
       application/x-www-form-urlencoded:
@@ -44,6 +45,7 @@ delete:
   tags:
     - Transfer Recipient
   summary: Delete Transfer Recipient
+  operationId: transferrecipient_delete
   responses:
     200:
       $ref: '../../responses/ok.yaml'
