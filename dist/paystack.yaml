@@ -418,7 +418,12 @@ paths:
                       amount: 500000
                       currency: NGN
                       reference: 123.uniq=ref-2
-                      metadata: 'cart_id:398, custom_fields:[{}]'
+                      metadata:
+                        cart_id: 398
+                        custom_fields:
+                          - display_name: Invoice ID
+                            variable_name: Invoice ID
+                            value: 209
                       split_code: SPL_123AbZ
                       subaccount: ACCT_23abcdefgh
         '401':
@@ -1706,7 +1711,7 @@ paths:
                   type: string
                 description:
                   description: A description for this plan
-                  type: boolean
+                  type: string
                 send_invoices:
                   description: Set to false if you don't want invoices to be sent to your customers
                   type: boolean

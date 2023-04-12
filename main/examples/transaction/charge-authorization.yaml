@@ -7,9 +7,9 @@ value:
     reference: 123.uniq=ref-2
     metadata:
       cart_id: 398
-        custom_fields:
-          - display_name: Invoice ID
-            variable_name: Invoice ID
-            value: 209
+      custom_fields:
+        - display_name: Invoice ID
+          variable_name: Invoice ID
+          value: 209
     split_code: SPL_123AbZ
     subaccount: ACCT_23abcdefgh
