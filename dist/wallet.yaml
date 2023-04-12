@@ -39,9 +39,11 @@ paths:
                 email:
                   description: Customer's email address
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 currency:
                   description: The transaction currency
                   type: string
@@ -53,53 +55,81 @@ paths:
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-
                 callback_url:
-                  description: 'Fully qualified url, e.g. https://example.com/ . Use this to override the callback url provided on the dashboard for this transaction'
+                  description: Fully qualified url. Use this to override the callback url provided on the dashboard for this transaction
                   type: string
+                  example: 'https://example.com/'
                 plan:
                   description: |-
                     If transaction is to create a subscription to a predefined plan, provide plan code here. 
                     This would invalidate the value provided in amount
                   type: string
+                  example: PLN_123wede
                 invoice_limit:
                   description: Number of times to charge customer during subscription to plan
                   type: integer
+                  example: 10
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    metadata:
+                      cart_id: 398
+                      custom_fields:
+                        - display_name: Invoice ID
+                          variable_name: Invoice ID
+                          value: 209
+                        - display_name: Cart Items
+                          variable_name: cart_items
+                          value: '3 bananas, 12 mangoes'
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
-                  items:
-                    type: string
-                    enum:
-                      - card
-                      - bank
-                      - ussd
-                      - qr
-                      - eft
-                      - mobile_money
-                      - bank_transfer
+                  enum:
+                    - card
+                    - bank
+                    - ussd
+                    - qr
+                    - eft
+                    - mobile_money
+                    - bank_transfer
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
                     - subaccount
       responses:
         '200':
-          $ref: '#/paths/~1customer/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Initiailize Transaction:
+                  value:
+                    status: true
+                    message: Authorization URL created
+                    data:
+                      authorization_url: 'https://checkout.paystack.com/spnajmit2hgi2c1'
+                      access_code: spandaoende
+                      reference: ad123ada
         '401':
           $ref: '#/paths/~1customer/post/responses/401'
         default:
@@ -124,17 +154,21 @@ paths:
                 - authorization_code
               properties:
                 email:
-                  description: Customer's email address
+                  description: Customer's email address used during the first transaction
                   type: string
+                  example: person@email.com
                 amount:
                   description: 'Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR'
                   type: integer
+                  example: 10247
                 authorization_code:
                   description: Valid authorization code to charge
                   type: string
+                  example: AUTH_CODE
                 reference:
                   description: 'Unique transaction reference. Only -, ., = and alphanumeric characters allowed.'
                   type: string
+                  example: 123.uniq=ref-2
                 currency:
                   description: The transaction currency
                   type: string
@@ -145,20 +179,32 @@ paths:
                     - USD
                 metadata:
                   description: Stringified JSON object of custom data
-                  type: string
+                  type: object
+                  example:
+                    cart_id: 398
+                    custom_fields:
+                      - display_name: Invoice ID
+                        variable_name: Invoice ID
+                        value: 209
+                      - display_name: Cart Items
+                        variable_name: cart_items
+                        value: '3 bananas, 12 mangoes'
                 split_code:
                   description: The split code of the transaction split
                   type: string
+                  example: SPL_123AbZ
                 subaccount:
                   description: The code for the subaccount that owns the payment
                   type: string
+                  example: ACCT_23abcdefgh
                 transaction_charge:
                   description: |-
                     A flat fee to charge the subaccount for a transaction. 
                     This overrides the split percentage set when the subaccount was created
-                  type: string
+                  type: integer
+                  example: 12300
                 bearer:
-                  description: The beare of the transaction charge
+                  description: The bearer of the transaction charge
                   type: string
                   enum:
                     - account
@@ -168,7 +214,28 @@ paths:
                   type: boolean
       responses:
         '200':
-          $ref: '#/paths/~1customer/post/responses/200'
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Charge Authorization:
+                  value:
+                    status: true
+                    message: Charge attempted
+                    data:
+                      amount: 500000
+                      currency: NGN
+                      reference: 123.uniq=ref-2
+                      metadata:
+                        cart_id: 398
+                        custom_fields:
+                          - display_name: Invoice ID
+                            variable_name: Invoice ID
+                            value: 209
+                      split_code: SPL_123AbZ
+                      subaccount: ACCT_23abcdefgh
         '401':
           $ref: '#/paths/~1customer/post/responses/401'
         default:

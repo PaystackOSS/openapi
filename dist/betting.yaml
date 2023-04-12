@@ -224,10 +224,44 @@ paths:
                       amount: 500000
                       currency: NGN
                       reference: 123.uniq=ref-2
-                      metadata: 'cart_id:398, custom_fields:[{}]'
+                      metadata:
+                        cart_id: 398
+                        custom_fields:
+                          - display_name: Invoice ID
+                            variable_name: Invoice ID
+                            value: 209
                       split_code: SPL_123AbZ
                       subaccount: ACCT_23abcdefgh
         '401':
+          $ref: '#/paths/~1bank~1resolve/get/responses/401'
+        default:
+          description: Server error
+  /transaction/verify:
+    get:
+      tags:
+        - Transaction
+      summary: Verify Transaction
+      operationId: transaction_verify
+      parameters:
+        - name: reference
+          in: path
+          description: The transaction reference to verify
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Ok/content/application~1json/schema'
+              examples:
+                Create Transfer Recipient:
+                  $ref: '#/paths/~1transferrecipient/post/responses/201/content/application~1json/examples/Create%20Customer'
+        '401':
+          $ref: '#/paths/~1bank~1resolve/get/responses/401'
+        '404':
           $ref: '#/paths/~1bank~1resolve/get/responses/401'
         default:
           description: Server error
