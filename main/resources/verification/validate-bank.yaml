@@ -1,0 +1,10 @@
+post:
+  tags:
+    - Verification
+  summary: Validate Bank Account
+  operationId: verification_validateAccountNumber
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../../schemas/verification/validate-bank.yaml'

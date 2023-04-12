@@ -24,6 +24,10 @@ servers:
   - url: https://api.paystack.co
     description: Base API endpoint
 paths:
+  /transaction/initialize:
+    $ref: '../main/resources/transaction/initialize.yaml'
+  /transaction/charge_authorization:
+    $ref: '../main/resources/transaction/charge-authorization.yaml'
   /customer:
     post:
       $ref: '../main/resources/customer/create.yaml'
