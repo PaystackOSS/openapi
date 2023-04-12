@@ -2918,6 +2918,7 @@ paths:
       tags:
         - Transfer Recipient
       summary: Update Transfer recipient
+      operationId: transferrecipient_update
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -2926,8 +2927,6 @@ paths:
           application/json:
             schema:
               type: object
-              required:
-                - batch
               properties:
                 name:
                   description: Recipient's name
@@ -2948,6 +2947,7 @@ paths:
       tags:
         - Transfer Recipient
       summary: Delete Transfer Recipient
+      operationId: transferrecipient_delete
       responses:
         '200':
           $ref: '#/paths/~1page/get/responses/200'
