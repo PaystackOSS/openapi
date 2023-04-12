@@ -1,6 +1,4 @@
 type: object
-required:
-  - batch
 properties:
   name:
     description: Recipient's name

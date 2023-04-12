@@ -11,7 +11,7 @@ properties:
     type: string
   description:
     description: A description for this plan
-    type: boolean
+    type: string
   send_invoices:
     description: Set to false if you don't want invoices to be sent to your customers
     type: boolean
