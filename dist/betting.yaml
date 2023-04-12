@@ -236,7 +236,7 @@ paths:
           $ref: '#/paths/~1bank~1resolve/get/responses/401'
         default:
           description: Server error
-  /transaction/verify:
+  '/transaction/verify/{reference}':
     get:
       tags:
         - Transaction
