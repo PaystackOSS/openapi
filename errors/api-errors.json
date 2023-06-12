@@ -45,13 +45,13 @@
    "error": "Oooops, your payment has exceeded the time to pay.",
    "meaning": "Payment for the transaction was not made before the Payment Session Timeout had elapsed (include link to Payment Session Timeout documentation)",
    "solution": "Increase your Payment Session Timeout, or set it to 0 to remove the timeout completely",
-   "API": "Inline Checkout"
+   "API": "Transactions"
  },
  {
-   "error": "Duplicate charge request for reference: x",
+   "error": "Duplicate charge request for reference",
    "meaning": "You passed the same reference while trying to initialize a transaction using the Inline/Popup method",
    "solution": "Generate and pass a new transaction reference for every transaction",
-   "API": "Inline Checkout"
+   "API": "Transactions"
  },
  {
    "error": "Bank code is invalid",
@@ -69,7 +69,7 @@
    "error": "Unknown bank code: x",
    "meaning": "The bank code passed does not exist or is invalid",
    "solution": "Ensure that you're passing the correct bank code. Use the List Banks Endpoint to get the list of all available banks and their corresponding bank codes",
-   "API": "Resolve Account Number, Transfer recipient"
+   "API": "Transfer Recipients"
  },
  {
    "error": "Watch your spending. Amount cannot be processed online... (What did you expect?).",
@@ -81,13 +81,13 @@
    "error": "Invalid 'from' date",
    "meaning": "The 'from' parameter of your query is in the incorrect date format",
    "solution": "Ensure you're passing the 'from' parameter in ISO 8601 format",
-   "API": ""
+   "API": "Transfers"
  },
  {
    "error": "Account details not found for this authorization",
    "meaning": "No account details could be found for this authorization, so the transfer recipient can't be created",
    "solution": "Create the transfer recipient using their bank account number",
-   "API": "Transfer"
+   "API": "Transfer Recipients"
  },
  {
    "error": "Too many attempts. You have to wait for x minutes to try again",
@@ -153,7 +153,7 @@
    "error": "bank_code is required",
    "meaning": "This endpoint expects that you pass a bank_code parameter in your API Request",
    "solution": "Ensure that you're passing the correct bank code. Use the List Banks Endpoint to get the list of all available banks and their corresponding bank codes",
-   "API": "Transfer recipient, Verification"
+   "API": "Transfers"
  },
  {
    "error": "Email address is required to create charge",
@@ -213,12 +213,12 @@
    "error": "BVN must be 11 digits long",
    "meaning": "The BVN must be 11 digits long",
    "solution": "Ensure the length of the BVN being passed is exactly 11 digits",
-   "API": "BVN Match"
+   "API": "Verification"
  },
  {
    "error": "Sorry, We can't make the transfer to this recipient at the moment",
    "meaning": "The account number of the recipient is on a fraud watchlist and transfers to that account has been disabled.",
-   "solution": "",
+   "solution": "The customer should reach out to the bank and clear the issues raised.",
    "API": "Transfers"
  },
  {
@@ -234,16 +234,10 @@
    "API": "Transfers"
  },
  {
-   "error": "Free limit reached. You must be in live mode to make this request",
-   "meaning": "You've exhausted the number of free calls you can make for BVN resolve and BVN match endpoints using your test secret key",
-   "solution": "Switch to your live secret key for the API calls. Note that you'll be billed for these calls, and will need to have funds in your Paystack balance to cover them",
-   "API": "Verification"
- },
- {
    "error": "Amount is invalid. It must be a number and be 100 NGN or greater",
    "meaning": "The minimum amount for creating a subscription plan is NGN 100",
    "solution": "Ensure the amount for the plan is greater than or equal to NGN 100",
-   "API": "Subscription"
+   "API": "Subscriptions"
  },
  {
    "error": "first_name, last_name are required in request body and must not be empty",
@@ -261,7 +255,7 @@
    "error": "Storefront not found",
    "meaning": "No storefront could be found with this storefront id",
    "solution": "Ensure that you're passing the id of a storefront that exists on this integration",
-   "API": "Product"
+   "API": "Products"
  },
  {
    "error": "PIN must be of length: 4",
@@ -294,10 +288,10 @@
    "API": "Transactions"
  },
  {
-   "error": "Cannot refund less than USD1",
+   "error": "Cannot refund less than USD 1",
    "meaning": "Minimum amount for USD refunds is 1 USD",
    "solution": "Increase refund amount to USD 1 and above",
-   "API": "Refund"
+   "API": "Refunds"
  },
  {
    "error": "Your reference contains illegal special characters",
@@ -309,23 +303,23 @@
    "error": "Product not found",
    "meaning": "No product could be found with this product id",
    "solution": "Ensure that you're passing the id of a product that exists on this integration",
-   "API": "Product"
+   "API": "Products"
  },
  {
    "error": "A customer with the specified email or code was not found",
    "meaning": "No customer could be found with this customer email/code",
    "solution": "Ensure that you're passing the customer code/email of a customer that exists on this integration",
-   "API": "Subscription"
+   "API": "Subscriptions"
  },
  {
    "error": "Authorization code is invalid",
-   "meaning": "The authorization code for the transaction is not valid ",
+   "meaning": "The authorization code for the transaction is not valid",
    "solution": "Use a valid authorization code by generating a new one",
    "API": "Transactions"
  },
  {
    "error": "Please pass card number to charge",
-   "meaning": "The card number is missing to complete a charge ",
+   "meaning": "The card number is missing to complete a charge",
    "solution": "Provide the appropriate card number we want to charge",
    "API": "Charge"
  },
@@ -337,15 +331,15 @@
  },
  {
    "error": "Account number must be at least 6 digits in length",
-   "meaning": "The bank account number is less than the required minimum number",
-   "solution": "Provide a correct account number",
-   "API": "Subaccount"
+   "meaning": "The bank account number is less than the required minimum number.",
+   "solution": "Provide a correct account number when creating a new Subaccount",
+   "API": "Transactions"
  },
  {
    "error": "account_number is required",
    "meaning": "The bank account number is not provided",
-   "solution": "Provide a correct account number",
-   "API": "Subaccount"
+   "solution": "Provide a correct account number when creating a new Subaccount",
+   "API": "Transactions"
  },
  {
    "error": "Transaction has been fully reversed",
@@ -357,7 +351,7 @@
    "error": "Customer not found",
    "meaning": "No customer could be found with this customer code/email",
    "solution": "Ensure that you're passing the customer code/email of a customer that exists on this integration",
-   "API": "Subscription"
+   "API": "Subscriptions"
  },
  {
    "error": "Recipient specified is invalid",
@@ -369,7 +363,7 @@
    "error": "Account closed",
    "meaning": "The customer's account has been closed by the bank",
    "solution": "The customer should reach out to the bank if they did not close the account",
-   "API": "Tranfers"
+   "API": "Transfers"
  },
  {
    "error": "Dispute not found",
@@ -393,7 +387,7 @@
    "error": "Either authorization_code or account_number must be passed.",
    "meaning": "Authorization code or account number is missing while creating/editing a transfer recipient",
    "solution": "Provide a valid authorization code or account number ",
-   "API": "Charge"
+   "API": "Transfer Recipients"
  },
  {
    "error": "Plan not found",
@@ -403,14 +397,14 @@
  },
  {
    "error": "Invalid Amount Sent",
-   "meaning": "The amonnt provided for the transaction or transfer is not valid ",
+   "meaning": "The amonnt provided for the transaction or transfer is not valid",
    "solution": "Provide a valid amount based on the recommended minimum",
    "API": "Transactions"
  },
  {
    "error": "Evidence is required",
    "meaning": "No evidence has been provided while trying to resolve a dispute",
-   "solution": "Provide evidence while resolving a dispute ",
+   "solution": "Provide evidence while resolving a dispute",
    "API": "Disputes"
  },
  {
@@ -453,7 +447,7 @@
    "error": "Customer code is invalid for your live domain.",
    "meaning": "You are using the customer code created in test mode with your live secret key",
    "solution": "You should use test credentials with test keys and live credentials with live keys",
-   "API": "Customer"
+   "API": "Customers"
  },
  {
    "error": "Denied by fraud system",
@@ -465,7 +459,7 @@
    "error": "The customer specified has no active authorizations",
    "meaning": "This means the customer's card has been deactivated.",
    "solution": "You need to intiatiate a new payment for the customer. This can be done by passing the plan code to the initialize endpoint.",
-   "API": "Subscription"
+   "API": "Subscriptions"
  },
  {
    "error": "Insufficient balance to fulfill this refund. Please top up.",
@@ -489,7 +483,7 @@
    "error": "Could not resolve account name. Check parameters or try again.",
    "meaning": "The bank code and account number don't match",
    "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
-   "API": "Resolve Account"
+   "API": "Verification"
  },
  {
    "error": "Expired Card",
@@ -507,7 +501,7 @@
    "error": "Bank is invalid",
    "meaning": "This account number does not exist for the bank code provided",
    "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
-   "API": "Transfers"
+   "API": "Transfer Recipients"
  },
  {
    "error": "Your balance is not enough to fulfil this request",
@@ -543,7 +537,7 @@
    "error": "This subscription is already in place.",
    "meaning": "This subscription has already been created",
    "solution": "Ensure that the customer that you're creating the subscription for does not already have a subscription on this plan",
-   "API": "Subscription"
+   "API": "Subscriptions"
  },
  {
    "error": "at_least cannot be greater than amount",
@@ -584,13 +578,13 @@
  {
    "error": "Invalid key",
    "meaning": "The API key provided is invalid for this call",
-   "solution": "Verify that you're using the correct type of API key e.g. secret and public. Ensure that there are no spelling errors in your API key",
+   "solution": "Verify that you're using the correct type of API key i.e. secret and public. Ensure that the API key is the same as your dashboard.",
    "API": "Authentication"
  },
  {
    "error": "Invalid entries found",
    "meaning": "The reference parameter contains unsupported characters.",
-   "solution": "They should checkout the API reference docs on reference values that are allowed. https://paystack.com/docs/api/#transfer",
+   "solution": "Checkout the API reference docs on reference values that are allowed. https://paystack.com/docs/api/#transfer",
    "API": "Transfers"
  },
  {
