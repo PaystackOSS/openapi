@@ -3,612 +3,606 @@
    "error": "Transaction reference not found",
    "meaning": "No transaction could be found with this transaction reference",
    "solution": "Ensure that you're passing the reference of a transaction that exists on this integration",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Format is Authorization Bearer [secret key]",
    "meaning": "Authorization header is improperly formatted",
    "solution": "Ensure that the authorization header follows the format: \"Bearer YOUR_SECRET_KEY\". Ex. 'Authorization: Bearer sk_123456789'https://paystack.com/docs/api/#authentication",
-   "API": "Authentication"
+   "tag": "Authentication"
  },
  {
    "error": "System Malfunction",
    "meaning": "This generally means there was an unspecified error with the customer bank.",
    "solution": "The transfer should be retried\t",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Charge attempt cannot be fulfilled until x minutes",
    "meaning": "The merchant is trying to charge a card that has been regulated. If a card fails 10 consecutive times across Paystack businesses, the card will be regulated and can only be charged once every twenty-four hours until there’s a successful transaction.",
    "solution": "Wait for the indicated time period before attempting to charge the card again",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Merchant is not enabled for Partial Debit",
    "meaning": "The Partial Debit service has not been enabled for this business/integration",
    "solution": "You can send us an email at support@paystack.com to make a request for the service",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "There was an error checking this authorization. Try again.",
    "meaning": "An unspecified error occurred while checking the authorization code supplied",
    "solution": "Try again or try another authorization code",
-   "API": "Check Authorization"
+   "tag": "Check Authorization"
  },
  {
    "error": "Slug is invalid",
    "meaning": "This occurs when the Invoice (Payment Request) Code supplied is invalid.",
    "solution": "Pass the correct Invoice (Payment Request) code",
-   "API": "Invoices"
+   "tag": "Invoice"
  },
  {
    "error": "Oooops, your payment has exceeded the time to pay.",
    "meaning": "Payment for the transaction was not made before the Payment Session Timeout had elapsed (include link to Payment Session Timeout documentation)",
    "solution": "Increase your Payment Session Timeout, or set it to 0 to remove the timeout completely",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Duplicate charge request for reference",
    "meaning": "You passed the same reference while trying to initialize a transaction using the Inline/Popup method",
    "solution": "Generate and pass a new transaction reference for every transaction",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Bank code is invalid",
    "meaning": "The bank code passed does not exist or is invalid",
    "solution": "Ensure that you're passing the correct bank code. Use the List Banks Endpoint to get the list of all available banks and their corresponding bank codes",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Amount must be an integer",
    "meaning": "Amount must be a positive integer (a whole number greater than zero, but not a fraction or decimal fraction)",
    "solution": "Ensure that you're passing your amount correctly. It should be a number greater than zero, with no decimal places",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Unknown bank code: x",
    "meaning": "The bank code passed does not exist or is invalid",
    "solution": "Ensure that you're passing the correct bank code. Use the List Banks Endpoint to get the list of all available banks and their corresponding bank codes",
-   "API": "Transfer Recipients"
+   "tag": "Transfer Recipient"
  },
  {
    "error": "Watch your spending. Amount cannot be processed online... (What did you expect?).",
    "meaning": "You're attempting to charge the customer an amount that is above the allowed limit fortransactions on Paystack",
    "solution": "Reduce the amount you're attempting to charge the customer",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Invalid 'from' date",
    "meaning": "The 'from' parameter of your query is in the incorrect date format",
    "solution": "Ensure you're passing the 'from' parameter in ISO 8601 format",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Account details not found for this authorization",
    "meaning": "No account details could be found for this authorization, so the transfer recipient can't be created",
    "solution": "Create the transfer recipient using their bank account number",
-   "API": "Transfer Recipients"
+   "tag": "Transfer Recipient"
  },
  {
    "error": "Too many attempts. You have to wait for x minutes to try again",
    "meaning": "You have provided the incorrect OTP too many times, so have to wait the specifiedamount of time before trying again",
    "solution": "Wait the specified amount of time and try again with the correct OTP",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Invalid character in transaction reference",
    "meaning": "Your transaction reference includes an invalid character. Only -,., =and alphanumeric characters are allowed",
    "solution": "Ensure that you aren't using any characters that aren't alphanumeric or contained in \"-,., =\" in your transaction reference",
-   "API": "Transactions"
- },
- {
-   "error": "Error, please try again.",
-   "meaning": "An unspecified error has occured",
-   "solution": "Try the API call again",
-   "API": ""
+   "tag": "Transaction"
  },
  {
    "error": "Duplicate charge request for reference: x",
    "meaning": "You're attempting to use a transaction reference that has previously been used for a transaction",
    "solution": "Try the charge/transaction with a new transaction reference",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Access Denied",
    "meaning": "You do not have access to the requested resource",
    "solution": "You'll need to confirm that you should have access to this resource. You can reach out to our support team at support@paystack.com to do this",
-   "API": "Dedicated Virtual Account"
+   "tag": "Dedicated Virtual Account"
  },
  {
    "error": "Currency not supported by merchant",
    "meaning": "The currency you're attempting to charge in is not enabled for this merchant/integration",
    "solution": "Ensure you're passing the currency code for a currency enabled on your integration",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Provided registration token is invalid",
    "meaning": "OTP provided for the mobile money transaction is incorrect",
    "solution": "Display error to the customer and ask for correct OTP",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Please provide a unique reference. Reference already exists on a transfer",
    "meaning": "This reference has already been used on a prior transfer",
    "solution": "Create a new reference for the new transfer",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "One of Authorization code, card object, bank object, ussd object, mobile money object, qr object, orEFT Object should be passed.",
    "meaning": "You've attempted to create a charge without passing an object to charge",
    "solution": "Pass an authorization code, card object, bank object, ussd object, mobile money object, qr object, or EFT object",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Account number should be numeric",
    "meaning": "The account number provided contains characters that are not numbers",
    "solution": "Ensure that your account_number consists of numbers only",
-   "API": "Verification"
+   "tag": "Verification"
  },
  {
    "error": "bank_code is required",
    "meaning": "This endpoint expects that you pass a bank_code parameter in your API Request",
    "solution": "Ensure that you're passing the correct bank code. Use the List Banks Endpoint to get the list of all available banks and their corresponding bank codes",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Email address is required to create charge",
    "meaning": "You need to pass a valid email address when attempting to create a charge",
    "solution": "Ensure you're passing the email parameter when creating the charge",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "You cannot initiate third party payouts as a starter business",
    "meaning": "The Transfers product is only available to Registered Paystack businesses",
    "solution": "You'll need to upgrade your business to a Registered Business. To find out how to do so, https://support.paystack.com/hc/en-us/articles/360013732579-How-do-I-switch-from-a-Starter-business-to-a-Registered-business- ",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Transaction cannot be completed. Session timeout exceeded.",
    "meaning": "The transaction was not completed in the time allowed by your session timeout",
    "solution": "You'll need to initialize a new transaction. If you don't want your transactions to time out, you can increase your Session Timeout  or set it to 0 (no timeout)",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Transaction amount limit exceeded",
    "meaning": "The amount you tried to charge is higher than the maximum limit which is 10,000,000 (for all supported currencies)",
    "solution": "You'll need to re-initialize the transaction with lower amount",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Pay with transfer is not currently supported for transactions less than NGN100.00",
    "meaning": "The minimum amount for Pay with Transfers transactions is NGN 100",
    "solution": "Ensure you're passing an amount greater than or equal to NGN 100",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Please wait a few minutes and try again.",
    "meaning": "You've been rate-limited. This means you've made too many API requests in a small time window.",
    "solution": "Wait a few minutes and try the API call again",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Account number is required",
    "meaning": "You need to pass a valid account number in your API Request",
    "solution": "Ensure you're passing an account number",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Invalid Merchant Selected",
    "meaning": "You're attempting to start a transaction with the API key of a disabled business",
    "solution": "If your business was disabled, you should have been sent an email detailing the reason this happened and how to reactivate your business. Send an email to support@paystack.com if you think this was done in error.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Slug already in use",
    "meaning": "The slug you've entered for your Payment Page is already in use by another merchant",
    "solution": "You'll need to choose a different slug",
-   "API": "Payment Pages"
+   "tag": "Page"
  },
  {
    "error": "BVN must be 11 digits long",
    "meaning": "The BVN must be 11 digits long",
    "solution": "Ensure the length of the BVN being passed is exactly 11 digits",
-   "API": "Verification"
+   "tag": "Verification"
  },
  {
    "error": "Sorry, We can't make the transfer to this recipient at the moment",
    "meaning": "The account number of the recipient is on a fraud watchlist and transfers to that account has been disabled.",
    "solution": "The customer should reach out to the bank and clear the issues raised.",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "You need to disable the OTP requirement to use this feature.",
    "meaning": "OTP requirement has to be disabled to use the Bulk Transfers API",
    "solution": "You'll need to disable the OTP for Transfers requirement from your Dashboard. You can find the Transfer Confirmation option under Settings -> Preferences and disable it",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Your balance is not enough to fulfill this request",
    "meaning": "You don't have sufficient funds in your Paystack balance to complete the transfer or refund request",
    "solution": "Topup your paystack balance and try again",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Amount is invalid. It must be a number and be 100 NGN or greater",
    "meaning": "The minimum amount for creating a subscription plan is NGN 100",
    "solution": "Ensure the amount for the plan is greater than or equal to NGN 100",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "first_name, last_name are required in request body and must not be empty",
    "meaning": "First name and last name are required when validating a customer",
    "solution": "Ensure you're passing the first_name and last_name to the validate customer API",
-   "API": "Dedicated Virtual Account"
+   "tag": "Dedicated Virtual Account"
  },
  {
    "error": "Error: You do not have privileges for this action. Kindly contact Admin.",
    "meaning": "You do not have the permission for the action you're trying to perform",
    "solution": "Contact the Admin of your integration to give you the right privileges, see this help guide on User roles and permissions",
-   "API": "Authentication"
+   "tag": "Authentication"
  },
  {
    "error": "Storefront not found",
    "meaning": "No storefront could be found with this storefront id",
    "solution": "Ensure that you're passing the id of a storefront that exists on this integration",
-   "API": "Products"
+   "tag": "Product"
  },
  {
    "error": "PIN must be of length: 4",
    "meaning": "The card PIN must be a 4 digit code",
    "solution": "Validate the length of the PIN from the customer before passing it to the charge API",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Transaction not found",
    "meaning": "No transaction could be found with this transaction reference",
    "solution": "Ensure that you've copied the transaction reference correctly.Confirm that the API keys you're using, belong to the business you're searching the transaction reference for.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Please pass card cvv for validation",
    "meaning": "Card CVV is required to charge a card",
    "solution": "Pass the cvv to the API when attempting a charge",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "You must specify a valid amount",
    "meaning": "You've attempted to initiate a transaction with amount set to zero",
    "solution": "Ensure the amount is an integer greater than 0",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "email is not allowed to be empty",
    "meaning": "Email address is required when initializing a transaction",
    "solution": "Pass the email to the transaction/initialize API",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Cannot refund less than USD 1",
    "meaning": "Minimum amount for USD refunds is 1 USD",
    "solution": "Increase refund amount to USD 1 and above",
-   "API": "Refunds"
+   "tag": "Refund"
  },
  {
    "error": "Your reference contains illegal special characters",
    "meaning": "The transfer reference passed to the API contains illegal special characters",
    "solution": "Ensure that the reference contains only lowercase alphanumeric characters and the only special characters are hyphen (\"-\") and underscore ( \"_\") ",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Product not found",
    "meaning": "No product could be found with this product id",
    "solution": "Ensure that you're passing the id of a product that exists on this integration",
-   "API": "Products"
+   "tag": "Product"
  },
  {
    "error": "A customer with the specified email or code was not found",
    "meaning": "No customer could be found with this customer email/code",
    "solution": "Ensure that you're passing the customer code/email of a customer that exists on this integration",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "Authorization code is invalid",
    "meaning": "The authorization code for the transaction is not valid",
    "solution": "Use a valid authorization code by generating a new one",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Please pass card number to charge",
    "meaning": "The card number is missing to complete a charge",
    "solution": "Provide the appropriate card number we want to charge",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Authentication token expired",
    "meaning": "The token used to authenticate the user for each request expired ",
    "solution": "Generate a new token by re authenticating the user",
-   "API": "Authentication"
+   "tag": "Authentication"
  },
  {
    "error": "Account number must be at least 6 digits in length",
    "meaning": "The bank account number is less than the required minimum number.",
    "solution": "Provide a correct account number when creating a new Subaccount",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "account_number is required",
    "meaning": "The bank account number is not provided",
    "solution": "Provide a correct account number when creating a new Subaccount",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Transaction has been fully reversed",
    "meaning": "The customer has been refunded for this transaction fully. They should expect the money in their account within a few days.",
    "solution": "Let the customer know that the refund should get to their account soon.",
-   "API": "Refunds"
+   "tag": "Refund"
  },
  {
    "error": "Customer not found",
    "meaning": "No customer could be found with this customer code/email",
    "solution": "Ensure that you're passing the customer code/email of a customer that exists on this integration",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "Recipient specified is invalid",
    "meaning": "The transfer recipient is not correct or the param name has a typo.",
    "solution": "Provide a valid recipient. Ensure you are passing the recipient code in the recipient param",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Account closed",
    "meaning": "The customer's account has been closed by the bank",
    "solution": "The customer should reach out to the bank if they did not close the account",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Dispute not found",
    "meaning": "No dispute could be found with this id",
    "solution": "Ensure that you're passing the id of a dispute that exists on this integration",
-   "API": "Disputes"
+   "tag": "Dispute"
  },
  {
    "error": "No Authorization Header was found",
    "meaning": "The authorization header which value is the secret key for API requests is not provided ",
    "solution": "Provide a valid secret key ",
-   "API": "Authentication"
+   "tag": "Authentication"
  },
  {
    "error": "Email address does not match authorization code",
    "meaning": "We are using the wrong email attached to an authorization code",
    "solution": "Use the right email associated to the authorization code ",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Either authorization_code or account_number must be passed.",
    "meaning": "Authorization code or account number is missing while creating/editing a transfer recipient",
    "solution": "Provide a valid authorization code or account number ",
-   "API": "Transfer Recipients"
+   "tag": "Transfer Recipient"
  },
  {
    "error": "Plan not found",
    "meaning": "No plan could be found with this plan id/code",
    "solution": "Ensure that you're passing the id/code of a plan that exists on the integration. Also ensure that you're using the right environment keys (Live keys for plans on live mode and test keys for plans on test environment.)",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "Invalid Amount Sent",
    "meaning": "The amonnt provided for the transaction or transfer is not valid",
    "solution": "Provide a valid amount based on the recommended minimum",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Evidence is required",
    "meaning": "No evidence has been provided while trying to resolve a dispute",
    "solution": "Provide evidence while resolving a dispute",
-   "API": "Disputes"
+   "tag": "Dispute"
  },
  {
    "error": "Refer to card issuer",
    "meaning": "When a card payment error occurs on the POS",
    "solution": "Make sure that the card is enable for a transaction by the issuer",
-   "API": "Terminal"
+   "tag": "Terminal"
  },
  {
    "error": "Page not found",
    "meaning": "No payment page could be found with this id/slug",
    "solution": "Ensure that you're passing the id/slug of a payment page that exists on this integration",
-   "API": "Payment Pages"
+   "tag": "Page"
  },
  {
    "error": "Unable to process transaction",
    "meaning": "This occurs when a customer's transaction is denied by Paystack's fraud system",
    "solution": "The customer needs to escalate to Paystack either through the merchant or via our support channels.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Pickup card (stolen card)",
    "meaning": "This means the customer's card has been reported as lost and a new card has been printed but the customer is yet to pick it up.\t",
    "solution": "The merchant should advise the customer to visit the bank and pickup their new card. In the meantime, the transaction can be completed using other payments options on the checkout",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Invalid Authorization Code",
    "meaning": "You are either passing an empty or wrong authorization code when charging a customer",
    "solution": "Ensure your request doesn't contain an empty authorizationMake sure the right authorization code for the the customer your trying to charge",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Invalid amount passed.",
    "meaning": "You are either sending an empty string or a non-integer value as the amount of a transfer",
    "solution": "You should ensure the length of amount is greater than zero and not a string value",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Customer code is invalid for your live domain.",
    "meaning": "You are using the customer code created in test mode with your live secret key",
    "solution": "You should use test credentials with test keys and live credentials with live keys",
-   "API": "Customers"
+   "tag": "Customer"
  },
  {
    "error": "Denied by fraud system",
    "meaning": "The transaction is flagged as a suspicious one by our fraud system.",
    "solution": "The customer should retry the transaction after 24 hours",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "The customer specified has no active authorizations",
    "meaning": "This means the customer's card has been deactivated.",
    "solution": "You need to intiatiate a new payment for the customer. This can be done by passing the plan code to the initialize endpoint.",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "Insufficient balance to fulfill this refund. Please top up.",
    "meaning": "Your Paystack balance is not enough to complete the refund",
    "solution": "You need to top up your Paystack balance",
-   "API": "Refunds"
+   "tag": "Refund"
  },
  {
    "error": "Cannot resolve account",
    "meaning": "The bank code and account number don't match",
    "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Transfer ID/code specified is invalid.",
    "meaning": "You are trying to fetch a transfer with the wrong transfer ID or code",
    "solution": "Kindly ensure you are using the right transfer ID or code ",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Could not resolve account name. Check parameters or try again.",
    "meaning": "The bank code and account number don't match",
    "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
-   "API": "Verification"
+   "tag": "Verification"
  },
  {
    "error": "Expired Card",
    "meaning": "The customer card you're trying to charge is no longer valid",
    "solution": "Inform the customer to try another card",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "The customer specified has no saved authorizations",
    "meaning": "Subscription cannot be created for a customer who hasn't made a card payment",
    "solution": "You can add a plan code to the initialize endpoint to create the subscription",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "Bank is invalid",
    "meaning": "This account number does not exist for the bank code provided",
    "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
-   "API": "Transfer Recipients"
+   "tag": "Transfer Recipient"
  },
  {
    "error": "Your balance is not enough to fulfil this request",
    "meaning": "This is a paid endpoint and you do not have sufficient funds in your Paystack balance to fulfill the request",
    "solution": "You can use the Top Up option on your dashboard to add funds to your Paystack balance",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Email does not match Authorization code. Authorization may be inactive or belong to adifferent email. Please confirm.",
    "meaning": "The email provided does not correspond to the authorization code provided.",
    "solution": "Verify that the authorization code being passed belongs to the customer whose email address you're passing",
-   "API": "Charge"
+   "tag": "Charge"
  },
  {
    "error": "Duplicate Transaction Reference",
    "meaning": "This transaction reference has already been used on this integration",
    "solution": "Ensure that you use a unique reference for every transaction. Alternatively, leave the reference field blank and we'll auto-generate one for you",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Integration has been deactivated",
    "meaning": "The business has been deactivated on Paystack and cannot process transactions any more.",
    "solution": "The customer should reach out to the business and request they activate their integration on Paystack.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Pickup card (lost card)",
    "meaning": "This card has been blocked by the bank cause the cardholder has reported it lost.",
    "solution": "Advise your customer to reach out to their bank to get the block removed or return the card to the bank",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "This subscription is already in place.",
    "meaning": "This subscription has already been created",
    "solution": "Ensure that the customer that you're creating the subscription for does not already have a subscription on this plan",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "at_least cannot be greater than amount",
    "meaning": "The at_least value cannot be greater than the amount value.",
    "solution": "Ensure that the value you're passing for at_least is less than the amount value. This occurs when using Partial Debit feature.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Transaction reference is invalid",
    "meaning": "Incorrect transaction reference was given",
    "solution": "Verify that the transaction reference is correct. Also ensure that this transaction exists on the integration whose API key you're using",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Account number is invalid",
    "meaning": "The account number provided is invalid",
    "solution": "Please confirm the length and value of the account number provided.Also check the bank code provided belongs to the correct bank.",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Invalid Email Address Passed",
    "meaning": "The email address is improperly formatted.",
    "solution": "Ensure that the email follows the format: \"username@example.com\"",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Declined",
    "meaning": "The card has been blocked by the bank for this transaction.",
    "solution": "Please ask your customer to reach out to their bank to find the reason why the transaction was blocked.You can also advise the customer to activate the card for online transactions.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "That subscription code is invalid",
    "meaning": "You've passed a wrong subscription code to the endpoint.",
    "solution": "Please check and confirm the subscription code exists on your integration.Also confirm that there's no typo on the code you've passed",
-   "API": "Subscriptions"
+   "tag": "Subscription"
  },
  {
    "error": "Invalid key",
    "meaning": "The API key provided is invalid for this call",
    "solution": "Verify that you're using the correct type of API key i.e. secret and public. Ensure that the API key is the same as your dashboard.",
-   "API": "Authentication"
+   "tag": "Authentication"
  },
  {
    "error": "Invalid entries found",
    "meaning": "The reference parameter contains unsupported characters.",
    "solution": "Checkout the API reference docs on reference values that are allowed. https://paystack.com/docs/api/#transfer",
-   "API": "Transfers"
+   "tag": "Transfer"
  },
  {
    "error": "Transaction ID should be numeric.",
    "meaning": "The transaction ID contains non-numeric characters",
    "solution": "Transaction IDs will always be numeric values. Verify that you're passing the transaction ID, and not reference",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Expired card",
    "meaning": "The card used has expired and you should get the customer's newest card details.",
    "solution": "Please ask the customer to pay using a card that's valid.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Insufficient Funds",
    "meaning": "The account tied to the card doesn't have enough to pay for the amount you're charging.",
    "solution": "Please ask the customer to use a card that is well funded or to fund their account that's tied to the card.",
-   "API": "Transactions"
+   "tag": "Transaction"
  },
  {
    "error": "Transfer not found",
    "meaning": "No transfer could be found with this transfer code",
    "solution": "Ensure that you're passing the id/code of a transfer that exists on this integration",
-   "API": "Transfers"
+   "tag": "Transfer"
  }
 ]
