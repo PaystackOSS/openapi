@@ -8,7 +8,7 @@
  {
    "error": "Format is Authorization Bearer [secret key]",
    "meaning": "Authorization header is improperly formatted",
-   "solution": "Ensure that the authorization header follows the format: \"Bearer YOUR_SECRET_KEY\". Ex. 'Authorization: Bearer sk_123456789'https://paystack.com/docs/api/#authentication",
+   "solution": "Ensure that the authorization header follows the format: \"Bearer YOUR_SECRET_KEY\". Ex. 'Authorization: Bearer sk_123456789'",
    "tag": "Authentication"
  },
  {
@@ -18,14 +18,14 @@
    "tag": "Transfer"
  },
  {
-   "error": "Charge attempt cannot be fulfilled until x minutes",
+   "error": "Charge attempt cannot be fulfilled until X minutes",
    "meaning": "The merchant is trying to charge a card that has been regulated. If a card fails 10 consecutive times across Paystack businesses, the card will be regulated and can only be charged once every twenty-four hours until there’s a successful transaction.",
-   "solution": "Wait for the indicated time period before attempting to charge the card again",
+   "solution": "Wait for the indicated time period (represented by X above) before attempting to charge the card again",
    "tag": "Charge"
  },
  {
    "error": "Merchant is not enabled for Partial Debit",
-   "meaning": "The Partial Debit service has not been enabled for this business/integration",
+   "meaning": "The Partial Debit service has not been enabled for this integration",
    "solution": "You can send us an email at support@paystack.com to make a request for the service",
    "tag": "Transaction"
  },
@@ -37,8 +37,8 @@
  },
  {
    "error": "Slug is invalid",
-   "meaning": "This occurs when the Invoice (Payment Request) Code supplied is invalid.",
-   "solution": "Pass the correct Invoice (Payment Request) code",
+   "meaning": "This occurs when the Invoice Code (Payment Request) supplied is invalid.",
+   "solution": "Please check and pass the correct Invoice Code(Payment Request)",
    "tag": "Invoice"
  },
  {
@@ -49,7 +49,7 @@
  },
  {
    "error": "Duplicate charge request for reference",
-   "meaning": "You passed the same reference while trying to initialize a transaction using the Inline/Popup method",
+   "meaning": "You passed the same reference while trying to initialize a transaction using the Inline or Popup method",
    "solution": "Generate and pass a new transaction reference for every transaction",
    "tag": "Transaction"
  },
@@ -66,7 +66,7 @@
    "tag": "Charge"
  },
  {
-   "error": "Unknown bank code: x",
+   "error": "Unknown bank code",
    "meaning": "The bank code passed does not exist or is invalid",
    "solution": "Ensure that you're passing the correct bank code. Use the List Banks Endpoint to get the list of all available banks and their corresponding bank codes",
    "tag": "Transfer Recipient"
@@ -85,14 +85,14 @@
  },
  {
    "error": "Account details not found for this authorization",
-   "meaning": "No account details could be found for this authorization, so the transfer recipient can't be created",
-   "solution": "Create the transfer recipient using their bank account number",
+   "meaning": "The acount details belonging to this authorization couldn't be found, so the transfer recipient can't be created",
+   "solution": "Create the transfer recipient using the bank_code and account number instead.",
    "tag": "Transfer Recipient"
  },
  {
-   "error": "Too many attempts. You have to wait for x minutes to try again",
-   "meaning": "You have provided the incorrect OTP too many times, so have to wait the specifiedamount of time before trying again",
-   "solution": "Wait the specified amount of time and try again with the correct OTP",
+   "error": "Too many attempts. You have to wait for X minutes to try again",
+   "meaning": "You have provided the incorrect OTP too many times, so have to wait the specified amount of time before trying again",
+   "solution": "Wait the specified amount of time (represented by 'X' above) and try again with the correct OTP",
    "tag": "Charge"
  },
  {
@@ -102,20 +102,20 @@
    "tag": "Transaction"
  },
  {
-   "error": "Duplicate charge request for reference: x",
+   "error": "Duplicate charge request for reference",
    "meaning": "You're attempting to use a transaction reference that has previously been used for a transaction",
-   "solution": "Try the charge/transaction with a new transaction reference",
+   "solution": "Try the charge or transaction with a new transaction reference",
    "tag": "Charge"
  },
  {
    "error": "Access Denied",
    "meaning": "You do not have access to the requested resource",
-   "solution": "You'll need to confirm that you should have access to this resource. You can reach out to our support team at support@paystack.com to do this",
+   "solution": "You need to confirm that you've been activated for this feature. You can reach out to our support team at support@paystack.com to do this",
    "tag": "Dedicated Virtual Account"
  },
  {
    "error": "Currency not supported by merchant",
-   "meaning": "The currency you're attempting to charge in is not enabled for this merchant/integration",
+   "meaning": "The currency you're attempting to charge in is not enabled for this integration",
    "solution": "Ensure you're passing the currency code for a currency enabled on your integration",
    "tag": "Charge"
  },
@@ -132,9 +132,9 @@
    "tag": "Transfer"
  },
  {
-   "error": "One of Authorization code, card object, bank object, ussd object, mobile money object, qr object, orEFT Object should be passed.",
+   "error": "One of Authorization code, card object, bank object, ussd object, mobile money object, qr object, or EFT Object should be passed.",
    "meaning": "You've attempted to create a charge without passing an object to charge",
-   "solution": "Pass an authorization code, card object, bank object, ussd object, mobile money object, qr object, or EFT object",
+   "solution": "Pass an authorization code, Card object, Bank object, USSD object, Mobile Money object, QR object, or EFT object",
    "tag": "Charge"
  },
  {
@@ -158,7 +158,7 @@
  {
    "error": "You cannot initiate third party payouts as a starter business",
    "meaning": "The Transfers product is only available to Registered Paystack businesses",
-   "solution": "You'll need to upgrade your business to a Registered Business. To find out how to do so, https://support.paystack.com/hc/en-us/articles/360013732579-How-do-I-switch-from-a-Starter-business-to-a-Registered-business- ",
+   "solution": "You'll need to upgrade your business to a Registered Business.",
    "tag": "Transfer"
  },
  {
@@ -181,7 +181,7 @@
  },
  {
    "error": "Please wait a few minutes and try again.",
-   "meaning": "You've been rate-limited. This means you've made too many API requests in a small time window.",
+   "meaning": "You've been rate-limited. This means you've made too many API requests in a short timeframe.",
    "solution": "Wait a few minutes and try the API call again",
    "tag": "Charge"
  },
@@ -199,8 +199,8 @@
  },
  {
    "error": "Slug already in use",
-   "meaning": "The slug you've entered for your Payment Page is already in use by another merchant",
-   "solution": "You'll need to choose a different slug",
+   "meaning": "The slug you've entered for your Payment Page is already in use by another page",
+   "solution": "You'll need to choose a different slug, and try again.",
    "tag": "Page"
  },
  {
@@ -224,7 +224,7 @@
  {
    "error": "Your balance is not enough to fulfill this request",
    "meaning": "You don't have sufficient funds in your Paystack balance to complete the transfer or refund request",
-   "solution": "Topup your paystack balance and try again",
+   "solution": "Topup your Paystack Balance and try again.",
    "tag": "Transfer"
  },
  {
@@ -242,12 +242,12 @@
  {
    "error": "Error: You do not have privileges for this action. Kindly contact Admin.",
    "meaning": "You do not have the permission for the action you're trying to perform",
-   "solution": "Contact the Admin of your integration to give you the right privileges, see this help guide on User roles and permissions",
+   "solution": "Contact the Admin of your integration to give you the right privileges.",
    "tag": "Authentication"
  },
  {
    "error": "Storefront not found",
-   "meaning": "No storefront could be found with this storefront id",
+   "meaning": "No storefront could be found with the storefront id passed",
    "solution": "Ensure that you're passing the id of a storefront that exists on this integration",
    "tag": "Product"
  },
@@ -260,7 +260,7 @@
  {
    "error": "Transaction not found",
    "meaning": "No transaction could be found with this transaction reference",
-   "solution": "Ensure that you've copied the transaction reference correctly.Confirm that the API keys you're using, belong to the business you're searching the transaction reference for.",
+   "solution": "Ensure that you've copied the transaction reference correctly. Also confirm that the API keys you're using, belong to the business you're searching the transaction reference for.",
    "tag": "Transaction"
  },
  {
@@ -278,7 +278,7 @@
  {
    "error": "email is not allowed to be empty",
    "meaning": "Email address is required when initializing a transaction",
-   "solution": "Pass the email to the transaction/initialize API",
+   "solution": "Pass the email to the transaction initialize API",
    "tag": "Transaction"
  },
  {
@@ -301,8 +301,8 @@
  },
  {
    "error": "A customer with the specified email or code was not found",
-   "meaning": "No customer could be found with this customer email/code",
-   "solution": "Ensure that you're passing the customer code/email of a customer that exists on this integration",
+   "meaning": "No customer could be found with this customer email or customer code",
+   "solution": "Ensure that you're passing the customer code or email of a customer that exists on the integration",
    "tag": "Subscription"
  },
  {
@@ -343,8 +343,8 @@
  },
  {
    "error": "Customer not found",
-   "meaning": "No customer could be found with this customer code/email",
-   "solution": "Ensure that you're passing the customer code/email of a customer that exists on this integration",
+   "meaning": "No customer could be found with this customer code or email",
+   "solution": "Ensure that you're passing the customer code or email of a customer that exists on this integration",
    "tag": "Subscription"
  },
  {
@@ -373,44 +373,44 @@
  },
  {
    "error": "Email address does not match authorization code",
-   "meaning": "We are using the wrong email attached to an authorization code",
-   "solution": "Use the right email associated to the authorization code ",
+   "meaning": "You are using a different email that belongs to an authorization code",
+   "solution": "Ensure that you're passing the right email associated with the authorization code ",
    "tag": "Charge"
  },
  {
    "error": "Either authorization_code or account_number must be passed.",
-   "meaning": "Authorization code or account number is missing while creating/editing a transfer recipient",
+   "meaning": "Authorization code or account number is missing while creating or editing a transfer recipient",
    "solution": "Provide a valid authorization code or account number ",
    "tag": "Transfer Recipient"
  },
  {
    "error": "Plan not found",
-   "meaning": "No plan could be found with this plan id/code",
-   "solution": "Ensure that you're passing the id/code of a plan that exists on the integration. Also ensure that you're using the right environment keys (Live keys for plans on live mode and test keys for plans on test environment.)",
+   "meaning": "No plan could be found with th plan id or code you've provided",
+   "solution": "Ensure that you're passing the id or code of a plan that exists on the integration. Also ensure that you're using the right environment keys (Live keys for plans on live mode and test keys for plans on test)",
    "tag": "Subscription"
  },
  {
    "error": "Invalid Amount Sent",
-   "meaning": "The amonnt provided for the transaction or transfer is not valid",
+   "meaning": "The amount provided for the transaction or transfer is not valid",
    "solution": "Provide a valid amount based on the recommended minimum",
    "tag": "Transaction"
  },
  {
    "error": "Evidence is required",
    "meaning": "No evidence has been provided while trying to resolve a dispute",
-   "solution": "Provide evidence while resolving a dispute",
+   "solution": "Please attache evidence of providing value to the customer while resolving a dispute",
    "tag": "Dispute"
  },
  {
    "error": "Refer to card issuer",
    "meaning": "When a card payment error occurs on the POS",
-   "solution": "Make sure that the card is enable for a transaction by the issuer",
+   "solution": "Make sure that the card is enabled for transactions by the customer's bank",
    "tag": "Terminal"
  },
  {
    "error": "Page not found",
-   "meaning": "No payment page could be found with this id/slug",
-   "solution": "Ensure that you're passing the id/slug of a payment page that exists on this integration",
+   "meaning": "No payment page could be found with this id or slug",
+   "solution": "Ensure that you're passing the id or slug of a payment page that exists on this integration",
    "tag": "Page"
  },
  {
@@ -422,13 +422,13 @@
  {
    "error": "Pickup card (stolen card)",
    "meaning": "This means the customer's card has been reported as lost and a new card has been printed but the customer is yet to pick it up.\t",
-   "solution": "The merchant should advise the customer to visit the bank and pickup their new card. In the meantime, the transaction can be completed using other payments options on the checkout",
+   "solution": "Please advise the customer to visit the bank and pickup their new card. In the meantime, the transaction can be completed using other payments options on the checkout",
    "tag": "Transaction"
  },
  {
    "error": "Invalid Authorization Code",
    "meaning": "You are either passing an empty or wrong authorization code when charging a customer",
-   "solution": "Ensure your request doesn't contain an empty authorizationMake sure the right authorization code for the the customer your trying to charge",
+   "solution": "Ensure your request doesn't contain an empty authorization. Also make sure you're using the right authorization code for the customer you're trying to charge",
    "tag": "Transaction"
  },
  {
@@ -504,9 +504,9 @@
    "tag": "Transfer"
  },
  {
-   "error": "Email does not match Authorization code. Authorization may be inactive or belong to adifferent email. Please confirm.",
+   "error": "Email does not match Authorization code. Authorization may be inactive or belong to a different email. Please confirm.",
    "meaning": "The email provided does not correspond to the authorization code provided.",
-   "solution": "Verify that the authorization code being passed belongs to the customer whose email address you're passing",
+   "solution": "Verify that the authorization code being passed belongs to the email address you're passing",
    "tag": "Charge"
  },
  {
@@ -560,13 +560,13 @@
  {
    "error": "Declined",
    "meaning": "The card has been blocked by the bank for this transaction.",
-   "solution": "Please ask your customer to reach out to their bank to find the reason why the transaction was blocked.You can also advise the customer to activate the card for online transactions.",
+   "solution": "Please ask your customer to reach out to their bank to find the reason why the transaction was blocked. You can also advise the customer to activate the card for online transactions.",
    "tag": "Transaction"
  },
  {
    "error": "That subscription code is invalid",
    "meaning": "You've passed a wrong subscription code to the endpoint.",
-   "solution": "Please check and confirm the subscription code exists on your integration.Also confirm that there's no typo on the code you've passed",
+   "solution": "Please check and confirm the subscription code exists on your integration. Also confirm that there's no typo on the code you've passed",
    "tag": "Subscription"
  },
  {
@@ -578,7 +578,7 @@
  {
    "error": "Invalid entries found",
    "meaning": "The reference parameter contains unsupported characters.",
-   "solution": "Checkout the API reference docs on reference values that are allowed. https://paystack.com/docs/api/#transfer",
+   "solution": "Checkout the API reference docs on reference values that are allowed.",
    "tag": "Transfer"
  },
  {
@@ -602,7 +602,7 @@
  {
    "error": "Transfer not found",
    "meaning": "No transfer could be found with this transfer code",
-   "solution": "Ensure that you're passing the id/code of a transfer that exists on this integration",
+   "solution": "Ensure that you're passing the id or code of a transfer that exists on this integration",
    "tag": "Transfer"
  }
 ]
