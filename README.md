@@ -31,3 +31,5 @@ Kindly [open an issue](https://github.com/PaystackOSS/openapi/issues) if you dis
 
 ## License
 This repository is made available under the MIT license. Kindly read the [LICENSE](https://github.com/PaystackOSS/openapi/blob/main/LICENSE) file for more information.
+
+

@@ -1,0 +1,30 @@
+# See https://redocly.com/docs/cli/configuration/
+
+apis:
+  # Update the apiName with your actual API name, and the version with your actual API version.
+  main@1:
+    root: ./main/paystack.yaml
+  sdk@1:
+    root: ./sdk/paystack.yaml
+
+extends:
+  - recommended
+  
+rules:
+  # A sample custom rule. Read more about rules: https://redocly.com/docs/cli/rules/
+  assert/operation-description:
+    subject: 
+      type: Operation
+      property: description
+    assertions:
+      defined: true
+      minLength: 30
+
+theme:
+  openapi:
+    generateCodeSamples:
+      languages:
+        - lang: curl
+        - lang: Node.js
+        - lang: Python
+        - lang: PHP

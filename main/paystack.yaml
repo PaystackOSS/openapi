@@ -11,8 +11,21 @@ servers:
     description: Base API endpoint
 tags:
   - name: Transaction
+    description: >-
+      The Transactions API allows you create and manage payments on your integration
+    x-displayName: Transaction
   - name: Split
+    description: >-
+      The Transaction Splits API enables merchants split the settlement for a transaction across their payout account, and one or more subaccounts
+    x-displayName: Transaction Splits
+  - name: Terminal
+    description: >- 
+      The Terminal API allows you to build delightful in-person payment experiences
+    x-displayName: Terminal
   - name: Customer
+    description: >- 
+      The Customers API allows you create and manage customers on your integration
+    x-displayName: Customer
   - name: Dedicated Virtual Account
   - name: Subaccount
   - name: Plan
