@@ -19,7 +19,7 @@
  },
  {
    "error": "Charge attempt cannot be fulfilled until X minutes",
-   "meaning": "The merchant is trying to charge a card that has been regulated. If a card fails 10 consecutive times across Paystack businesses, the card will be regulated and can only be charged once every twenty-four hours until there’s a successful transaction.",
+   "meaning": "You're trying to charge a card that has been regulated. If a card fails 10 consecutive times across Paystack businesses, the card will be regulated and can only be charged once every twenty-four hours until there’s a successful transaction.",
    "solution": "Wait for the indicated time period (represented by X above) before attempting to charge the card again",
    "tag": "Charge"
  },
@@ -38,12 +38,12 @@
  {
    "error": "Slug is invalid",
    "meaning": "This occurs when the Invoice Code (Payment Request) supplied is invalid.",
-   "solution": "Please check and pass the correct Invoice Code(Payment Request)",
+   "solution": "Please check and pass the correct Invoice Code (Payment Request)",
    "tag": "Invoice"
  },
  {
    "error": "Oooops, your payment has exceeded the time to pay.",
-   "meaning": "Payment for the transaction was not made before the Payment Session Timeout had elapsed (include link to Payment Session Timeout documentation)",
+   "meaning": "The transaction was not made before the Payment Session Timeout had elapsed",
    "solution": "Increase your Payment Session Timeout, or set it to 0 to remove the timeout completely",
    "tag": "Transaction"
  },
@@ -104,7 +104,7 @@
  {
    "error": "Duplicate charge request for reference",
    "meaning": "You're attempting to use a transaction reference that has previously been used for a transaction",
-   "solution": "Try the charge or transaction with a new transaction reference",
+   "solution": "Try and create the Transaction or Charge with a new reference",
    "tag": "Charge"
  },
  {
@@ -121,8 +121,8 @@
  },
  {
    "error": "Provided registration token is invalid",
-   "meaning": "OTP provided for the mobile money transaction is incorrect",
-   "solution": "Display error to the customer and ask for correct OTP",
+   "meaning": "The OTP provided for the mobile money transaction is incorrect",
+   "solution": "Show the error to the customer and ask for correct OTP.",
    "tag": "Charge"
  },
  {
@@ -132,7 +132,7 @@
    "tag": "Transfer"
  },
  {
-   "error": "One of Authorization code, card object, bank object, ussd object, mobile money object, qr object, or EFT Object should be passed.",
+   "error": "One of Authorization code, card object, bank object, ussd object, mobile money object, qr object, or EFT object should be passed.",
    "meaning": "You've attempted to create a charge without passing an object to charge",
    "solution": "Pass an authorization code, Card object, Bank object, USSD object, Mobile Money object, QR object, or EFT object",
    "tag": "Charge"
@@ -174,9 +174,9 @@
    "tag": "Transaction"
  },
  {
-   "error": "Pay with transfer is not currently supported for transactions less than NGN100.00",
+   "error": "Pay with transfer is not currently supported for transactions less than NGN 100.00",
    "meaning": "The minimum amount for Pay with Transfers transactions is NGN 100",
-   "solution": "Ensure you're passing an amount greater than or equal to NGN 100",
+   "solution": "Ensure you're passing an amount greater than or equal to NGN 100 in Kobo",
    "tag": "Transaction"
  },
  {
@@ -210,8 +210,8 @@
    "tag": "Verification"
  },
  {
-   "error": "Sorry, We can't make the transfer to this recipient at the moment",
-   "meaning": "The account number of the recipient is on a fraud watchlist and transfers to that account has been disabled.",
+   "error": "Sorry, we can't make the transfer to this recipient at the moment",
+   "meaning": "The account number of the recipient is on a fraud watchlist and transfers to that account have been disabled.",
    "solution": "The customer should reach out to the bank and clear the issues raised.",
    "tag": "Transfer"
  },
@@ -236,7 +236,7 @@
  {
    "error": "first_name, last_name are required in request body and must not be empty",
    "meaning": "First name and last name are required when validating a customer",
-   "solution": "Ensure you're passing the first_name and last_name to the validate customer API",
+   "solution": "Ensure you're passing the first_name and last_name to the Validate Customer API",
    "tag": "Dedicated Virtual Account"
  },
  {
@@ -266,7 +266,7 @@
  {
    "error": "Please pass card cvv for validation",
    "meaning": "Card CVV is required to charge a card",
-   "solution": "Pass the cvv to the API when attempting a charge",
+   "solution": "Pass the CVV to the API when attempting a charge",
    "tag": "Charge"
  },
  {
@@ -276,7 +276,7 @@
    "tag": "Transaction"
  },
  {
-   "error": "email is not allowed to be empty",
+   "error": "Email is not allowed to be empty",
    "meaning": "Email address is required when initializing a transaction",
    "solution": "Pass the email to the transaction initialize API",
    "tag": "Transaction"
@@ -440,7 +440,7 @@
  {
    "error": "Customer code is invalid for your live domain.",
    "meaning": "You are using the customer code created in test mode with your live secret key",
-   "solution": "You should use test credentials with test keys and live credentials with live keys",
+   "solution": "You should use your live keys for the live environment and test keys for your test environment.",
    "tag": "Customer"
  },
  {
@@ -464,7 +464,7 @@
  {
    "error": "Cannot resolve account",
    "meaning": "The bank code and account number don't match",
-   "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
+   "solution": "Use the Fetch Bank endpoint to get a list of banks and their respective codes. Also confirm that the account number is correct.",
    "tag": "Transfer"
  },
  {
@@ -476,7 +476,7 @@
  {
    "error": "Could not resolve account name. Check parameters or try again.",
    "meaning": "The bank code and account number don't match",
-   "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
+   "solution": "Use the Fetch Bank endpoint to get a list of banks and their respective codes. Also confirm that the account number is correct.",
    "tag": "Verification"
  },
  {
@@ -494,7 +494,7 @@
  {
    "error": "Bank is invalid",
    "meaning": "This account number does not exist for the bank code provided",
-   "solution": "Use the fetch bank endpoint to get a list of banks and their respective codes",
+   "solution": "Use the Fetch Bank endpoint to get a list of banks and their respective codes",
    "tag": "Transfer Recipient"
  },
  {
@@ -578,7 +578,7 @@
  {
    "error": "Invalid entries found",
    "meaning": "The reference parameter contains unsupported characters.",
-   "solution": "Checkout the API reference docs on reference values that are allowed.",
+   "solution": "Checkout the Transfer Docs on supported characters that are allowed.",
    "tag": "Transfer"
  },
  {
