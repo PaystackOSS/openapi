@@ -33,7 +33,7 @@
    "error": "There was an error checking this authorization. Try again.",
    "meaning": "An unspecified error occurred while checking the authorization code supplied",
    "solution": "Try again or try another authorization code",
-   "tag": "Check Authorization"
+   "tag": "Transaction"
  },
  {
    "error": "Slug is invalid",
