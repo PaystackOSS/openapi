@@ -480,6 +480,7 @@ paths:
                     - NGN
                     - GHS
                     - ZAR
+                    - KES
                 authorization_code:
                   description: An authorization code from a previous transaction
                   type: string
@@ -594,6 +595,11 @@ paths:
                       status: success
                       transfer_code: TRF_fiyxvgkh71e717b
                       id: 23070321
+                      failures: null
+                      source_details: null
+                      request: 654770431
+                      transferred_at: 2020-05-13T14:22:49.687Z
+                      transfersessionid: []
                       createdAt: 2020-05-13T14:22:49.687Z
                       updatedAt: 2020-05-13T14:22:49.687Z
         '401':
