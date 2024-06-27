@@ -11,218 +11,4328 @@ servers:
     description: Base API endpoint
 tags:
   - name: Transaction
+    description: | 
+      A collection of endpoints for managing payments
+    x-product-name: Transactions
   - name: Split
+    description: | 
+      A collection of endpoints for spliting a transaction and managing the splits
+    x-product-name: Transaction Splits
+  - name: Terminal
+    description: | 
+      A collection of endpoints for building delightful in-person payment experiences
+    x-product-name: Terminal
   - name: Customer
+    description: | 
+      A collection of endpoints for creating and managing customers on an integration
+    x-product-name: Transaction Splits
   - name: Dedicated Virtual Account
+    description: | 
+      A collection of endpoints for creating and managing payment accounts for customers
+    x-product-name: Dedicated Virtual Accounts
+  - name: Apple Pay
+    description: | 
+      A collection of endpoints for managing application's top-level domain or subdomain accepting payment via Apple Pay
+    x-product-name: Apple Pay
   - name: Subaccount
+    description: | 
+      A collection of endpoints for creating and managing accounts for sharing a transaction with
+    x-product-name: Subaccounts
   - name: Plan
+    description: | 
+      A collection of endpoints for creating and managing recurring payment configuration
+    x-product-name: Plans
   - name: Subscription
+    description: | 
+      A collection of endpoints for creating and managing recurring payments
+    x-product-name: Subscriptions
   - name: Product
+    description: | 
+      A collection of endpoints for creating and managing inventories
+    x-product-name: Products
   - name: Page
+    description: | 
+      A collection of endpoints for creating and managing links for the collection of payment for products
+    x-product-name: Payment Pages
   - name: Payment Request
+    description: | 
+      A collection of endpoints for managing invoices for the payment of goods and services
+    x-product-name: Payment Requests
   - name: Settlement
+    description: | 
+      A collection of endpoints for gaining insights into payouts
+    x-product-name: Settlements
   - name: Transfer Recipient
+    description: | 
+      A collection of endpoints for creating and managing beneficiaries that you send money to
+    x-product-name: Transfer Recipients
   - name: Transfer
+    description: | 
+      A collection of endpoints for automating sending money to beneficiaries
+    x-product-name: Transfers
   - name: Balance
+    description: | 
+      A collection of endpoints gaining insights into the amount on an integration
+    x-product-name: Balance
   - name: Charge
+    description: | 
+      A collection of endpoints for configuring and managing the payment channels when initiating a payment
+    x-product-name: Charges
   - name: Bulk Charge
+    description: | 
+      A collection of endpoints for creating and managing multiple recurring payments
+    x-product-name: Bulk Charges
   - name: Integration
+    description: | 
+      A collection of endpoints for managing some settings on an integration
+    x-product-name: Integration
   - name: Refund
+    description: | 
+      A collection of endpoints for creating and managing transaction reimbursement
+    x-product-name: Refunds
   - name: Dispute
-  - name: Verification
+    description: | 
+      A collection of endpoints for managing transactions complaint made by customers
+    x-product-name: Disputes
+  - name: Bank
+    description: | 
+      A collection of endpoints for managing bank details
+    x-product-name: Banks
+  - name: Miscellaneous
+    description: | 
+      A collection of endpoints that provides utility functions
+    x-product-name: Miscellaneous
 paths:
   /transaction/initialize:
-    $ref: './resources/transaction/initialize.yaml'
+    post:
+      tags:
+        - Transaction
+      summary: Initialize Transaction
+      operationId: transaction_initialize
+      description: Create a new transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transaction/verify/{reference}:
-    $ref: './resources/transaction/verify.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: Verify Transaction
+      operationId: transaction_verify
+      description: Verify a previously initiated transaction using it's reference
+      parameters:
+        - name: reference
+          in: path
+          description: The transaction reference to verify
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transaction:
-    $ref: './resources/transaction/list.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: List Transactions
+      operationId: transaction_list
+      description: List transactions that has occurred on your integration
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transaction/{id}:
-    $ref: './resources/transaction/fetch.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: Fetch Transaction
+      operationId: transaction_fetch
+      description: Fetch a transaction to get its details
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the transaction to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transaction/timeline/{id_or_reference}:
-    $ref: './resources/transaction/timeline.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: Fetch Transaction Timeline
+      operationId: transaction_timeline
+      description: Get the details about the lifecycle of a transaction from initiation to completion
+      parameters:
+      - name: id_or_reference
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transaction/totals:
-    $ref: './resources/transaction/totals.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: Transaction Totals
+      operationId: transaction_totals
+      description: Get the total amount of all transactions
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transaction/export:
-    $ref: './resources/transaction/export.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: Export Transactions
+      operationId: transaction_download
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transaction/charge_authorization:
-    $ref: './resources/transaction/charge-authorization.yaml'
-  /transaction/check_authorization:
-    $ref: './resources/transaction/check-authorization.yaml'
+    post:
+      tags:
+        - Transaction
+      summary: Charge Authorization
+      operationId: transaction_chargeAuthorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transaction/partial_debit:
-    $ref: './resources/transaction/partial-debit.yaml'
+    post:
+      tags:
+        - Transaction
+      summary: Partial Debit
+      operationId: transaction_partialDebit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionPartialDebit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionPartialDebit'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transaction/{id}/event:
-    $ref: './resources/transaction/event.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: Get Transaction Event
+      operationId: transaction_event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transaction/{id}/session:
-    $ref: './resources/transaction/session.yaml'
+    get:
+      tags:
+        - Transaction
+      summary: Get Transaction Session
+      operationId: transaction_session
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /split:
-    $ref: './resources/split/index.yaml'
+    post:
+      tags:
+        - Split
+      summary: Create Split
+      operationId: split_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SplitCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Split
+      summary: List/Search Splits
+      operationId: split_list
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: active
+          in: query
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+        - name: to
+          in: query
+          schema:
+            type: string
+        - name: perPage
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /split/{id}:
-    $ref: './resources/split/split-id.yaml'
+    get:
+      tags:
+        - Split
+      summary: Fetch Split
+      operationId: split_fetch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Split
+      summary: Update Split
+      operationId: split_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SplitUpdate'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /split/{id}/subaccount/add:
-    $ref: './resources/split/add-subaccount.yaml'
+    post:
+      tags:
+        - Split
+      summary: Add Subaccount to Split
+      operationId: split_addSubaccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitSubaccounts'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SplitSubaccounts'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /split/{id}/subaccount/remove:
-    $ref: './resources/split/remove-subaccount.yaml'
+    post:
+      tags:
+        - Split
+      summary: Remove Subaccount from split
+      operationId: split_removeSubaccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitSubaccounts'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SplitSubaccounts'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /terminal:
+    post:
+      tags:
+        - Terminal
+      summary: Create Customer
+      operationId: terminal_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Terminal
+      summary: List Customers
+      operationId: terminal_list
+      description: List customers on your integration
+      parameters:
+        - name: use_cursor
+          in: query
+          schema:
+            type: boolean
+        - name: next
+          in: query
+          schema:
+            type: string
+        - name: previous
+          in: query
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+        - name: to
+          in: query
+          schema:
+            type: string
+        - name: perPage
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /terminal/{code}:
+    parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Terminal
+      summary: Fetch Customer
+      operationId: terminal_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /customer:
-    $ref: './resources/customer/index.yaml'
+    post:
+      tags:
+        - Customer
+      summary: Create Customer
+      operationId: customer_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Customer
+      summary: List Customers
+      operationId: customer_list
+      description: List customers on your integration
+      parameters:
+        - name: use_cursor
+          in: query
+          schema:
+            type: boolean
+        - name: next
+          in: query
+          schema:
+            type: string
+        - name: previous
+          in: query
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+        - name: to
+          in: query
+          schema:
+            type: string
+        - name: perPage
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /customer/{code}:
-    $ref: './resources/customer/customer-code.yaml'
+    parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Customer
+      summary: Fetch Customer
+      operationId: customer_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Customer
+      summary: Update Customer
+      operationId: customer_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /customer/set_risk_action:
-    $ref: './resources/customer/risk-action.yaml'
+    post:
+      tags:
+        - Customer
+      summary: White/blacklist Customer
+      description: Set customer's risk action by whitelisting or blacklisting the customer
+      operationId: customer_riskAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRiskAction'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerRiskAction'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /customer/deactivate_authorization:
-    $ref: './resources/customer/authorization.yaml'
+    post:
+      tags:
+        - Customer
+      summary: Deactivate Authorization
+      operationId: customer_deactivateAuthorization
+      description: Deactivate a customer's card
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDeactivateAuthorization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerDeactivateAuthorization'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /customer/{code}/identification:
-    $ref: './resources/customer/identification.yaml'
+    parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+        - Customer
+      summary: Validate Customer
+      operationId: customer_validate
+      description: Validate a customer's identity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerValidate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerValidate'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /dedicated_account:
-    $ref: './resources/dedicated-virtual-account/index.yaml'
+    post:
+      tags:
+        - Dedicated Virtual Account
+      summary: Create Dedicated Account
+      operationId: dedicatedAccount_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Dedicated Virtual Account
+      summary: List Dedicated Accounts
+      operationId: dedicatedAccount_list
+      parameters:
+        - name: account_number
+          in: query
+          schema:
+            type: string
+        - name: customer
+          in: query
+          schema:
+            type: string
+        - name: active
+          in: query
+          schema:
+            type: boolean
+        - name: currency
+          in: query
+          schema:
+            type: string
+        - name: provider_slug
+          in: query
+          schema:
+            type: string
+        - name: bank_id
+          in: query
+          schema:
+            type: string
+        - name: perPage
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dedicated_account/{account_id}:
-    $ref: './resources/dedicated-virtual-account/account-id.yaml'
+    parameters:
+    - name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Dedicated Virtual Account
+      summary: Fetch Dedicated Account
+      operationId: dedicatedAccount_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    delete:
+      tags:
+        - Dedicated Virtual Account
+      summary: Deactivate Dedicated Account
+      operationId: dedicatedAccount_deactivate
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dedicated_account/available_providers:
-    $ref: './resources/dedicated-virtual-account/providers.yaml'
+    get:
+      tags:
+        - Dedicated Virtual Account
+      summary: Fetch Bank Providers
+      operationId: dedicatedAccount_availableProviders
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dedicated_account/split:
-    $ref: './resources/dedicated-virtual-account/add-split.yaml'
+    post:
+      tags:
+        - Dedicated Virtual Account
+      summary: Split Dedicated Account Transaction
+      operationId: dedicatedAccount_addSplit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    delete:
+      tags:
+        - Dedicated Virtual Account
+      summary: Remove Split from Dedicated Account
+      operationId: dedicatedAccount_removeSplit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /subaccount:
-    $ref: './resources/subaccount/index.yaml'
+    post:
+      tags:
+        - Subaccount
+      summary: Create Subaccount
+      operationId: subaccount_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubaccountCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubaccountCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Subaccount
+      summary: List Subaccounts
+      operationId: subaccount_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /subaccount/{code}:
-    $ref: './resources/subaccount/subaccount-code.yaml'
+    parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Subaccount
+      summary: Fetch Subaccount
+      operationId: subaccount_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Subaccount
+      summary: Update Subaccount
+      operationId: subaccount_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubaccountUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubaccountUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /plan:
-    $ref: './resources/plan/index.yaml'
+    post:
+      tags:
+        - Plan
+      summary: Create Plan
+      operationId: plan_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Plan
+      summary: List Plans
+      operationId: plan_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: interval
+          schema:
+            type: string
+          description: Specify interval of the plan
+        - in: query
+          name: amount
+          schema:
+            type: integer
+          description: The amount on the plans to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /plan/{code}:
-    $ref: './resources/plan/plan-code.yaml'
+    parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Plan
+      summary: Fetch Plan
+      operationId: plan_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Plan
+      summary: Update Plan
+      operationId: plan_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /subscription:
-    $ref: './resources/subscription/index.yaml'
+    post:
+      tags:
+        - Subscription
+      summary: Create Subscription
+      operationId: subscription_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Subscription
+      summary: List Subscriptions
+      operationId: subscription_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: plan
+          schema:
+            type: string
+          description: Plan ID
+        - in: query
+          name: customer
+          schema:
+            type: string
+          description: Customer ID
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /subscription/{code}:
-    $ref: './resources/subscription/subscription-code.yaml'
+    parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Subscription
+      summary: Fetch Subscription
+      operationId: subscription_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /subscription/disable:
-    $ref: './resources/subscription/disable.yaml'
+    post:
+      tags:
+        - Subscription
+      summary: Disable Subscription
+      operationId: subscription_disable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionToggle'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscriptionToggle'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /subscription/enable:
-    $ref: './resources/subscription/enable.yaml'
+    post:
+      tags:
+        - Subscription
+      summary: Enable Subscription
+      operationId: subscription_enable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionToggle'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscriptionToggle'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /subscription/{code}/manage/link:
-    $ref: './resources/subscription/manage-link.yaml'
+    get:
+      tags:
+        - Subscription
+      summary: Generate Update Subscription Link
+      operationId: subscription_manageLink
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /subscription/{code}/manage/email:
-    $ref: './resources/subscription/manage-email.yaml'
+    post:
+      tags:
+        - Subscription
+      summary: Send Update Subscription Link
+      operationId: subscription_manageEmail
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /product:
-    $ref: './resources/product/index.yaml'
+    post:
+      tags:
+        - Product
+      summary: Create Product
+      operationId: product_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductCreate'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Product
+      summary: List Products
+      operationId: product_list
+      parameters:
+        - name: perPage
+          in: query
+          schema:
+            type: integer
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: active
+          in: query
+          schema:
+            type: boolean
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /product/{id}:
-    $ref: './resources/product/product-id.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Product
+      summary: Fetch Product
+      operationId: product_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Product
+      summary: Update product
+      operationId: product_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    delete:
+      tags:
+        - Product
+      summary: Delete Product
+      operationId: product_delete
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /page:
-    $ref: './resources/page/index.yaml'
+    post:
+      tags:
+        - Page
+      summary: Create Page
+      operationId: page_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PageCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Page
+      summary: List Pages
+      operationId: page_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /page/{id}:
-    $ref: './resources/page/page-id.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Page
+      summary: Fetch Page
+      operationId: page_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Page
+      summary: Update Page
+      operationId: page_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PageUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /page/check_slug_availability/{slug}:
-    $ref: './resources/page/slug-availability.yaml'
+    parameters:
+    - name: slug
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Page
+      summary: Check Slug Availability
+      operationId: page_checkSlugAvailability
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /page/{id}/product:
-    $ref: './resources/page/product.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+        - Page
+      summary: Add Products
+      operationId: page_addProducts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageProduct'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PageProduct'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /paymentrequest:
-    $ref: './resources/payment-request/index.yaml'
+    post:
+      tags:
+        - Payment Request
+      summary: Create Payment Request
+      operationId: paymentRequest_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Payment Request
+      summary: List Payment Request
+      operationId: paymentRequest_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: customer
+          schema:
+            type: string
+          description: Customer ID
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: Invoice status to filter
+        - in: query
+          name: currency
+          schema:
+            type: string
+          description: If your integration supports more than one currency, choose the one to filter
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /paymentrequest/{id}:
-    $ref: './resources/payment-request/payment-request-id.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Payment Request
+      summary: Fetch Payment Request
+      operationId: paymentRequest_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Payment Request
+      summary: Update Payment Request
+      operationId: paymentRequest_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /paymentrequest/verify/{id}:
-    $ref: './resources/payment-request/verify.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Payment Request
+      summary: Verify Payment Request
+      operationId: paymentRequest_verify
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /paymentrequest/notify/{id}:
-    $ref: './resources/payment-request/notify.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+        - Payment Request
+      summary: Send Notification
+      operationId: paymentRequest_notify
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /paymentrequest/totals:
-    $ref: './resources/payment-request/totals.yaml'
+    get:
+      tags:
+        - Payment Request
+      summary: Payment Request Total
+      operationId: paymentRequest_totals
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /paymentrequest/finalize/{id}:
-    $ref: './resources/payment-request/finalize.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+        - Payment Request
+      summary: Finalize Payment Request
+      operationId: paymentRequest_finalize
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /paymentrequest/archive/{id}:
-    $ref: './resources/payment-request/archive.yaml'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+        - Payment Request
+      summary: Archive Payment Request
+      operationId: paymentRequest_archive
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /settlement:
-    $ref: './resources/settlement/fetch.yaml'
+    get:
+      tags:
+        - Settlement
+      summary: Fetch Settlements
+      operationId: settlements_fetch
+      parameters:
+        - name: perPage
+          in: query
+          schema:
+            type: integer
+          example: 50
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: 2
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /settlement/{id}/transaction:
-    $ref: './resources/settlement/transaction.yaml'
+    get:
+      tags:
+        - Settlement
+      summary: Settlement Transactions
+      operationId: settlements_transaction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transferrecipient:
-    $ref: './resources/transfer-recipient/index.yaml'
+    post:
+      tags:
+        - Transfer Recipient
+      summary: Create Transfer Recipient
+      operationId: transferrecipient_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientCreate'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Transfer Recipient
+      summary: List Transfer Recipients
+      operationId: transferrecipient_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transferrecipient/bulk:
-    $ref: './resources/transfer-recipient/bulk.yaml'
+    post:
+      tags:
+        - Transfer Recipient
+      summary: Bulk Create Transfer Recipient
+      operationId: transferrecipient_bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientBulk'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientBulk'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transferrecipient/{code}:
-    $ref: './resources/transfer-recipient/transfer-recipient-code.yaml'
+    parameters:
+    - name: code
+      description: Transfer recipient code
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Transfer Recipient
+      summary: Fetch Transfer recipient
+      operationId: transferrecipient_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Transfer Recipient
+      summary: Update Transfer recipient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    delete:
+      tags:
+        - Transfer Recipient
+      summary: Delete Transfer Recipient
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transfer:
-    $ref: './resources/transfer/index.yaml'
+    post:
+      tags:
+        - Transfer
+      summary: Initiate Transfer
+      operationId: transfer_initiate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferInitiate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferInitiate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Transfer
+      summary: List Transfers
+      operationId: transfer_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transfer/finalize_transfer:
-    $ref: './resources/transfer/finalize.yaml'
+    post:
+      tags:
+        - Transfer
+      summary: Finalize Transfer
+      operationId: transfer_finalize
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferFinalize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferFinalize'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transfer/bulk:
-    $ref: './resources/transfer/bulk.yaml'
+    post:
+      tags:
+        - Transfer
+      summary: Initiate Bulk Transfer
+      operationId: transfer_bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferBulk'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferBulk'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transfer/{code}:
-    $ref: './resources/transfer/transfer-code.yaml'
+    parameters:
+    - name: code
+      description: Transfer code
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Transfer
+      summary: Fetch Transfer
+      operationId: transfer_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transfer/verify/{reference}:
-    $ref: './resources/transfer/verify.yaml'
+    get:
+      tags:
+        - Transfer
+      summary: Verify Transfer
+      operationId: transfer_verify
+      parameters:
+      - name: reference
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transfer/export:
-    $ref: './resources/transfer/export.yaml'
+    get:
+      tags:
+        - Transfer
+      summary: Export Transfers
+      operationId: transfer_download
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /transfer/resend_otp:
-    $ref: './resources/transfer/resend-otp.yaml'
+    post:
+      tags:
+        - Transfer
+      summary: Resend OTP for Transfer
+      operationId: transfer_resendOtp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferResendOTP'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferResendOTP'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transfer/disable_otp:
-    $ref: './resources/transfer/disable-otp.yaml'
+    post:
+      tags:
+        - Transfer
+      summary: Disable OTP requirement for Transfers
+      operationId: transfer_disableOtp
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transfer/disable_otp_finalize:
-    $ref: './resources/transfer/disable-otp-finalize.yaml'
+    post:
+      tags:
+        - Transfer
+      summary: Finalize Disabling of OTP requirement for Transfers
+      operationId: transfer_disableOtpFinalize
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferFinalizeDisableOTP'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferFinalizeDisableOTP'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /transfer/enable_otp:
-    $ref: './resources/transfer/enable-otp.yaml'
+    post:
+      tags:
+        - Transfer
+      summary: Enable OTP requirement for Transfers
+      operationId: transfer_enableOtp
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /balance:
-    $ref: './resources/balance/fetch.yaml'
+    get:
+      tags:
+        - Balance
+      summary: Fetch Balance
+      operationId: balance_fetch
+      description: You can only transfer from what you have
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /balance/ledger:
-    $ref: './resources/balance/ledger.yaml'
+    get:
+      tags:
+        - Balance
+      summary: Balance Ledger
+      operationId: balance_ledger
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /charge:
-    $ref: './resources/charge/create.yaml'
+    post:
+      tags:
+        - Charge
+      summary: Create Charge
+      operationId: charge_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ChargeCreate'
+                - type: object
+                  properties:
+                    bank:
+                      $ref: '#/components/schemas/Bank'
+                - type: object
+                  properties:
+                    mobile_money:
+                      $ref: '#/components/schemas/MobileMoney'
+                - type: object
+                  properties:
+                    ussd:
+                      $ref: '#/components/schemas/USSD'
+                - type: object
+                  properties:
+                    eft:
+                      $ref: '#/components/schemas/EFT'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ChargeCreate'
+                - type: object
+                  properties:
+                    bank:
+                      $ref: '#/components/schemas/Bank'
+                - type: object
+                  properties:
+                    mobile_money:
+                      $ref: '#/components/schemas/MobileMoney'
+                - type: object
+                  properties:
+                    ussd:
+                      $ref: '#/components/schemas/USSD'
+                - type: object
+                  properties:
+                    eft:
+                      $ref: '#/components/schemas/EFT'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /charge/submit_pin:
-    $ref: './resources/charge/submit-pin.yaml'
+    post:
+      tags:
+        - Charge
+      summary: Submit PIN
+      operationId: charge_submitPin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPin'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /charge/submit_otp:
-    $ref: './resources/charge/submit-otp.yaml'
+    post:
+      tags:
+        - Charge
+      summary: Submit OTP
+      operationId: charge_submitOtp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitOTP'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitOTP'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /charge/submit_phone:
-    $ref: './resources/charge/submit-phone.yaml'
+    post:
+      tags:
+        - Charge
+      summary: Submit Phone
+      operationId: charge_submitPhone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPhone'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPhone'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /charge/submit_birthday:
-    $ref: './resources/charge/submit-birthday.yaml'
+    post:
+      tags:
+        - Charge
+      summary: Submit Birthday
+      operationId: charge_submitBirthday
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitBirthday'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitBirthday'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /charge/submit_address:
-    $ref: './resources/charge/submit-address.yaml'
+    post:
+      tags:
+        - Charge
+      summary: Submit Address
+      operationId: charge_submitAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitAddress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitAddress'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /charge/{reference}:
-    $ref: './resources/charge/reference.yaml'
+    get:
+      tags:
+        - Charge
+      summary: Check pending charge
+      operationId: charge_check
+      parameters:
+      - name: reference
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /bulkcharge:
-    $ref: './resources/bulk-charge/index.yaml'
+    post:
+      tags:
+        - Bulk Charge
+      summary: Initiate Bulk Charge
+      operationId: bulkCharge_initiate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                properties:
+                  charges:
+                    title: charges
+                    type: object
+                    items:
+                      $ref: '#/components/schemas/BulkChargeInitiate'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                properties:
+                  charges:
+                    type: object
+                    items:
+                      $ref: '#/components/schemas/BulkChargeInitiate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Created'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Bulk Charge
+      summary: List Bulk Charge Batches
+      operationId: bulkCharge_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /bulkcharge/{code}:
-    $ref: './resources/bulk-charge/fetch.yaml'
+    parameters:
+    - name: code
+      description: Batch code
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Bulk Charge
+      summary: Fetch Bulk Charge Batch
+      operationId: bulkCharge_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /bulkcharge/{code}/charges:
-    $ref: './resources/bulk-charge/charges.yaml'
+    get:
+      tags:
+        - Bulk Charge
+      summary: Fetch Charges in a Batch
+      operationId: bulkCharge_charges
+      parameters:
+      - name: code
+        description: Batch code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /bulkcharge/pause/{code}:
-    $ref: './resources/bulk-charge/pause.yaml'
+    get:
+      tags:
+        - Bulk Charge
+      summary: Pause Bulk Charge Batch
+      operationId: bulkCharge_pause
+      parameters:
+      - name: code
+        description: Batch code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /bulkcharge/resume/{code}:
-    $ref: './resources/bulk-charge/resume-charge.yaml'
+    get:
+      tags:
+        - Bulk Charge
+      summary: Resume Bulk Charge Batch
+      operationId: bulkCharge_resume
+      parameters:
+      - name: code
+        description: Batch code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /integration/payment_session_timeout:
-    $ref: './resources/integration/payment-session.yaml'
+    get:
+      tags:
+        - Integration
+      summary: Fetch Payment Session Timeout
+      operationId: integration_fetchPaymentSessionTimeout
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Integration
+      summary: Update Payment Session Timeout
+      operationId: integration_updatePaymentSessionTimeout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSession'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /refund:
-    $ref: './resources/refund/index.yaml'
+    post:
+      tags:
+        - Refund
+      summary: Create Refund
+      operationId: refund_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefundCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Refund
+      summary: List Refunds
+      operationId: refund_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /refund/{id}:
-    $ref: './resources/refund/fetch.yaml'
+    get:
+      tags:
+        - Refund
+      summary: Fetch Refund
+      operationId: refund_fetch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dispute:
-    $ref: './resources/dispute/list.yaml'
+    get:
+      tags:
+        - Dispute
+      summary: List Disputes
+      operationId: dispute_list
+      parameters:
+        - in: query
+          name: perPage
+          description: Number of records to fetch per page
+          schema:
+            type: integer
+        - in: query
+          name: page
+          description: The section to retrieve
+          schema:
+            type: integer
+        - in: query
+          name: status
+          description: Dispute Status. Acceptable values are awaiting-merchant-feedback, awaiting-bank-feedback, pending, resolved
+          schema:
+            type: string
+        - in: query
+          name: transaction
+          description: Transaction ID
+          schema:
+            type: string
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dispute/{id}:
-    $ref: './resources/dispute/dispute-id.yaml'
+    parameters:
+    - name: id
+      description: Dispute ID
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+        - Dispute
+      summary: Fetch Dispute
+      operationId: dispute_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Dispute
+      summary: Update Dispute
+      operationId: dispute_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisputeUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DisputeUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dispute/{id}/upload_url:
-    $ref: './resources/dispute/upload-url.yaml'
+    get:
+      tags:
+        - Dispute
+      summary: Get Upload URL
+      operationId: dispute_uploadUrl
+      parameters:
+        - name: id
+          description: Dispute ID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dispute/export:
-    $ref: './resources/dispute/export.yaml'
+    get:
+      tags:
+        - Dispute
+      summary: Export Disputes
+      operationId: dispute_download
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dispute/transaction/{id}:
-    $ref: './resources/dispute/transaction.yaml'
+    get:
+      tags:
+        - Dispute
+      summary: List Transaction Disputes
+      operationId: dispute_transaction
+      parameters:
+        - name: id
+          description: Transaction ID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dispute/{id}/resolve:
-    $ref: './resources/dispute/resolve.yaml'
+    put:
+      tags:
+        - Dispute
+      summary: Resolve a Dispute
+      operationId: dispute_resolve
+      parameters:
+        - name: id
+          description: Dispute ID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisputeResolve'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DisputeResolve'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /dispute/{id}/evidence:
-    $ref: './resources/dispute/evidence.yaml'
-  /bank/resolve:
-    $ref: './resources/verification/resolve-bank.yaml'
-  /decision/bin/{bin}:
-    $ref: './resources/verification/card-bin.yaml'
-  /country:
-    $ref: './resources/verification/country.yaml'
+    post:
+      tags:
+        - Dispute
+      summary: Add Evidence
+      operationId: dispute_evidence
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisputeEvidence'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DisputeEvidence'
+      parameters:
+        - name: id
+          description: Dispute ID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /bank:
-    $ref: './resources/verification/bank.yaml'
+    get:
+      tags:
+        - Bank
+      summary: Fetch Banks
+      operationId: bank_fetch
+      parameters:
+        - in: query
+          name: country
+          schema:
+            type: string
+        - in: query
+          name: pay_with_bank_transfer
+          schema:
+            type: boolean
+        - in: query
+          name: use_cursor
+          schema:
+            type: boolean
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+        - in: query
+          name: next
+          schema:
+            type: string
+        - in: query
+          name: previous
+          schema:
+            type: string
+        - in: query
+          name: gateway
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /bank/resolve:
+    get:
+      tags:
+        - Bank
+      summary: Resolve Account Number
+      operationId: bank_resolveAccountNumber
+      parameters:
+        - name: account_number
+          in: query
+          schema:
+            type: integer
+          example: 0022728151
+        - name: bank_code
+          in: query
+          schema:
+            type: integer
+          example: 063
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /decision/bin/{bin}:
+    get:
+      tags:
+        - Miscellaneous
+      summary: Resolve Card BIN
+      operationId: miscellaneous_resolveCardBin
+      parameters:
+        - name: bin
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /country:
+    get:
+      tags:
+        - Miscellaneous
+      summary: List Countries
+      operationId: miscellaneous_listCountries
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
   /address_verification/states:
-    $ref: './resources/verification/state.yaml'
+    get:
+      tags:
+        - Miscellaneous
+      summary: List States (AVS)
+      operationId: miscellaneous_avs
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: country
+          schema:
+            type: string
+        - in: query
+          name: currency
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+      description: Secret key in the format sk_domain_xxxxxx
   schemas:
-    Customer:
-      $ref: './schemas/customer/Customer.yaml'
+    Currency:
+      description: List of all support currencies
+      type: string
+      enum:
+        - 'GHS'
+        - 'KES'
+        - 'NGN'
+        - 'ZAR'
+        - 'USD'
+      example:
+        'GHS'
+    TransactionInitialize:
+      description: Initialize a transaction
+      type: object
+      required:
+        - email
+        - amount
+      properties:
+        email:
+          description: Customer's email address
+          type:  string
+        amount:
+          description: | 
+            Amount should be in smallest denomination of the currency. For example if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        currency:
+          $ref: "#/components/schemas/Currency"
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        channels:
+          description: |- 
+            An array of payment channels to control what channels you want to make available to the user to make a payment with
+          type: array
+          items:
+            type: string
+            enum: ['card', 'bank', 'ussd', 'qr', 'eft', 'mobile_money', 'bank_transfer']
+        callback_url:
+          description: | 
+            Fully qualified url, e.g. https://example.com/ to redirect your customers to after a successful payment. Use this to override the callback url provided on the dashboard for this transaction
+          type: string
+        plan:
+          description: |
+            If transaction is to create a subscription to a predefined plan, provide plan code here. 
+            This would invalidate the value provided in amount
+          type: string
+        invoice_limit:
+          description: Number of times to charge customer during subscription to plan
+          type: integer
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: "#/components/schemas/SplitCreate"
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum: [account, subaccount]
+        label:
+          description: Used to replace the email address shown on the Checkout
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+      example:
+        email: test@demo.com
+        amount: 10000
+    TransactionChargeAuthorization:
+      type: object
+      properties:
+        email:
+          description: Customer's email address
+          type:  string
+        amount:
+          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        currency:
+          description: The transaction currency
+          type: string
+          # enum: ['NGN', 'GHS', 'ZAR', 'USD']
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |-
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The beare of the transaction charge
+          type: string
+          # enum: [account, subaccount]
+        queue:
+          description: |-
+            If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.
+          type: boolean
+      required:
+        - email
+        - amount
+        - authorization_code
+    TransactionCheckAuthorization:
+      type: object
+      properties:
+        email:
+          description: Customer's email address
+          type:  string
+        amount:
+          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        currency:
+          description: The transaction currency
+          type: string
+          # enum: ['NGN', 'GHS', 'ZAR', 'USD']
+      required:
+        - email
+        - amount
+    TransactionPartialDebit:
+      type: object
+      properties:
+        email:
+          description: Customer's email address
+          type:  string
+        amount:
+          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        currency:
+          description: The transaction currency
+          type: string
+          # enum: ['NGN', 'GHS', 'ZAR', 'USD']
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        at_least:
+          description: Minimum amount to charge
+          type: string
+      required:
+        - email
+        - amount
+        - authorization_code
+        - currency
+    SplitCreate:
+      type: object
+      description: | 
+        Split configuration for transactions
+      properties:
+        name:
+          description: Name of the transaction split
+          type:  string
+        type:
+          description: The type of transaction split you want to create.
+          type: string
+          # enum: ['percentage', 'flat']
+        subaccounts:
+          description: A list of object containing subaccount code and number of shares
+          type: array
+          items: 
+            $ref: '#/components/schemas/SplitSubaccounts'
+        currency:
+          description: The transaction currency
+          type: string
+          enum: ['NGN', 'GHS', 'ZAR', 'USD']
+        bearer_type:
+          description: This allows you specify how the transaction charge should be processed
+          type: string
+          # enum: ['subaccount', 'account', 'all-proportional', 'all']
+        bearer_subaccount:
+          description: |-
+            This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
+          type: string
+      required:
+        - name
+        - type
+        - subaccounts
+        - currency
+    SplitSubaccounts:
+      type: object
+      properties:
+        subaccount:
+          description: Subaccount code of the customer or partner
+          type: string
+        share:
+          description: The percentage or flat quota of the customer or partner
+          type: string
+    SplitUpdate:
+      type: object
+      properties:
+        name:
+          description: Name of the transaction split
+          type:  string
+        active:
+          description: Toggle status of split. When true, the split is active, else it's inactive
+          type: boolean
+        bearer_type:
+          description: This allows you specify how the transaction charge should be processed
+          type: string
+          # enum: ['subaccount', 'account', 'all-proportional', 'all']
+        bearer_subaccount:
+          description: |-
+            This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
+          type: string
+    CustomerCreate:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          description: Customer's email address
+          type:  string
+        first_name:
+          description: Customer's first name
+          type: string
+        last_name:
+          description: Customer's last name
+          type: string
+        phone:
+          description: Customer's phone number
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    CustomerUpdate:
+      type: object
+      properties:
+        first_name:
+          description: Customer's first name
+          type: string
+        last_name:
+          description: Customer's last name
+          type: string
+        phone:
+          description: Customer's phone number
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    CustomerRiskAction:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          description: Customer's code, or email address
+          type: string
+        risk_action:
+          description: | 
+            One of the possible risk actions [ default, allow, deny ]. allow to whitelist. 
+            deny to blacklist. Customers start with a default risk action.
+          type: string
+    CustomerDeactivateAuthorization:
+      type: object
+      required:
+      - authorization_code
+      properties:
+        authorization_code:
+          description: Authorization code to be deactivated
+          type: string
+    CustomerValidate:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - type
+      - country
+      - bvn
+      - bank_code
+      - account_number
+      properties:
+        first_name:
+          description: Customer's first name
+          type: string
+        middle_name:
+          description: Customer's middle name
+          type: string
+        last_name:
+          description: Customer's last name
+          type: string
+        type:
+          description: Predefined types of identification.
+          type: string
+        value:
+          description: Customer's identification number. Required if type is bvn
+          type: string
+        country:
+          description: Two-letter country code of identification issuer
+          type: string
+        bvn:
+          description: Customer's Bank Verification Number
+          type: string
+        bank_code:
+          description: You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).
+          type: string
+        account_number:
+          description: Customer's bank account number.
+          type: string
+    DedicatedVirtualAccountCreate:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          description: Customer ID or code
+          type: string
+        preferred_bank:
+          description: The bank slug for preferred bank. To get a list of available banks, use the List Providers endpoint
+          type: string
+        subaccount:
+          description: Subaccount code of the account you want to split the transaction with
+          type: string
+        split_code:
+          description: Split code consisting of the lists of accounts you want to split the transaction with
+          type: string
+    DedicatedVirtualAccountSplit:
+      type: object
+      required:
+      - account_number
+      properties:
+        account_number:
+          description: Valid Dedicated virtual account
+          type: string
+        subaccount:
+          description: Subaccount code of the account you want to split the transaction with
+          type: string
+        split_code:
+          description: Split code consisting of the lists of accounts you want to split the transaction with
+          type: string
+    SubaccountCreate:
+      type: object
+      required:
+        - business_name
+        - settlement_bank
+        - account_number
+        - percentage_charge
+      properties:
+        business_name:
+          description: Name of business for subaccount
+          type:  string
+        settlement_bank:
+          description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
+          type: string
+        account_number:
+          description: Bank account number
+          type: string
+        percentage_charge:
+          description: Customer's phone number
+          type: number
+          format: float
+        description:
+          description: A description for this subaccount
+          type: string
+        primary_contact_email:
+          description: A contact email for the subaccount
+          type: string
+        primary_contact_name:
+          description: The name of the contact person for this subaccount
+          type: string
+        primary_contact_phone:
+          description: A phone number to call for this subaccount
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    SubaccountUpdate:
+      type: object
+      properties:
+        business_name:
+          description: Name of business for subaccount
+          type:  string
+        settlement_bank:
+          description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
+          type: string
+        account_number:
+          description: Bank account number
+          type: string
+        active:
+          description: Activate or deactivate a subaccount
+          type: boolean
+        percentage_charge:
+          description: Customer's phone number
+          type: number
+          format: float
+        description:
+          description: A description for this subaccount
+          type: string
+        primary_contact_email:
+          description: A contact email for the subaccount
+          type: string
+        primary_contact_name:
+          description: The name of the contact person for this subaccount
+          type: string
+        primary_contact_phone:
+          description: A phone number to call for this subaccount
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    PlanCreate:
+      type: object
+      required:
+        - name
+        - amount
+        - interval
+      properties:
+        name:
+          description: Name of plan
+          type:  string
+        amount:
+          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        interval:
+          description: Interval in words. Valid intervals are daily, weekly, monthly,biannually, annually
+          type: string
+        description:
+          description: A description for this plan
+          type: string
+        send_invoices:
+          description: Set to false if you don't want invoices to be sent to your customers
+          type: boolean
+        send_sms:
+          description: Set to false if you don't want text messages to be sent to your customers
+          type: boolean
+        currency:
+          description: Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD
+          type: string
+        invoice_limit:
+          description: |-
+            Number of invoices to raise during subscription to this plan. 
+            Can be overridden by specifying an invoice_limit while subscribing.
+          type: integer
+    PlanUpdate:
+      type: object
+      properties:
+        name:
+          description: Name of plan
+          type:  string
+        amount:
+          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        interval:
+          description: Interval in words. Valid intervals are daily, weekly, monthly,biannually, annually
+          type: string
+        description:
+          description: A description for this plan
+          type: boolean
+        send_invoices:
+          description: Set to false if you don't want invoices to be sent to your customers
+          type: boolean
+        send_sms:
+          description: Set to false if you don't want text messages to be sent to your customers
+          type: boolean
+        currency:
+          description: Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD
+          type: string
+        invoice_limit:
+          description: |-
+            Number of invoices to raise during subscription to this plan. 
+            Can be overridden by specifying an invoice_limit while subscribing.
+          type: integer
+    SubscriptionCreate:
+      type: object
+      required:
+        - customer
+        - plan
+      properties:
+        customer:
+          description: Customer's email address or customer code
+          type:  string
+        plan:
+          description: Plan code
+          type: string
+        authorization:
+          description: |-
+            If customer has multiple authorizations, you can set the desired authorization you wish to use for this subscription here. 
+            If this is not supplied, the customer's most recent authorization would be used
+          type: string
+        start_date:
+          description: |-
+            Set the date for the first debit. (ISO 8601 format) e.g. 2017-05-16T00:30:13+01:00
+          type: string
+          format: date-time
+    SubscriptionToggle:
+      type: object
+      required:
+        - code
+        - token
+      properties:
+        code:
+          description: Subscription code
+          type:  string
+        token:
+          description: Email token
+          type: string
+    ProductCreate:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - currency
+      properties:
+        name:
+          description: Name of product
+          type:  string
+        description:
+          description: The description of the product
+          type: string
+        price:
+          description: |- 
+            Price should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        currency:
+          description: |- 
+            Currency in which price is set. Allowed values are: NGN, GHS, ZAR or USD
+          type: string
+        limited:
+          description: |- 
+            Set to true if the product has limited stock. Leave as false if the product has unlimited stock
+          type: boolean
+        quantity:
+          description: |- 
+            Number of products in stock. Use if limited is true
+          type: integer
+    ProductUpdate:
+      type: object
+      properties:
+        name:
+          description: Name of product
+          type:  string
+        description:
+          description: The description of the product
+          type: string
+        price:
+          description: |- 
+            Price should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        currency:
+          description: |- 
+            Currency in which price is set. Allowed values are: NGN, GHS, ZAR or USD
+          type: string
+        limited:
+          description: |- 
+            Set to true if the product has limited stock. Leave as false if the product has unlimited stock
+          type: boolean
+        quantity:
+          description: |- 
+            Number of products in stock. Use if limited is true
+          type: integer
+    PageCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          description: Name of page
+          type:  string
+        description:
+          description: The description of the page
+          type: string
+        amount:
+          description: |- 
+            Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        slug:
+          description: |- 
+            URL slug you would like to be associated with this page. Page will be accessible at https://paystack.com/pay/[slug]
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+        redirect_url:
+          description: |- 
+            If you would like Paystack to redirect to a URL upon successful payment, specify the URL here.
+          type: string
+        custom_fields:
+          description: |- 
+            If you would like to accept custom fields, specify them here.
+          type: array
+          items:
+            type: object
+    PageUpdate:
+      type: object
+      properties:
+        name:
+          description: Name of page
+          type:  string
+        description:
+          description: The description of the page
+          type: string
+        amount:
+          description: |- 
+            Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        active:
+          description: |- 
+            Set to false to deactivate page url
+          type: boolean
+    PageProduct:
+      type: object
+      required:
+        - product
+      properties:
+        product:
+          description: IDs of all products to add to a page
+          type:  array
+          items:
+            type: string
+    PaymentRequestCreate:
+      type: object
+      required:
+        - customer
+      properties:
+        customer:
+          description: Customer id or code
+          type:  string
+        amount:
+          description: |- 
+            Payment request amount. Only useful if line items and tax values are ignored. 
+            The endpoint will throw a friendly warning if neither is available.
+          type: integer
+        currency:
+          description: |- 
+            Specify the currency of the invoice. Allowed values are NGN, GHS, ZAR and USD. Defaults to NGN
+          type: string
+        due_date:
+          description: |-
+            ISO 8601 representation of request due date
+          type: string
+          format: date-time
+        description:
+          description: A short description of the payment request
+          type: string
+        line_items:
+          description: |- 
+            Array of line items
+          type: array
+          items:
+            type: object
+        tax:
+          description: |- 
+            Array of taxes
+          type: array
+          items:
+            type: object
+        send_notification:
+          description: |- 
+            Indicates whether Paystack sends an email notification to customer. Defaults to true
+          type: boolean
+          items:
+            type: object
+        draft:
+          description: |- 
+            Indicate if request should be saved as draft. Defaults to false and overrides send_notification
+          type: boolean
+          items:
+            type: object
+        has_invoice:
+          description: |- 
+            Set to true to create a draft invoice (adds an auto incrementing invoice number if none is provided) 
+            even if there are no line_items or tax passed
+          type: boolean
+          items:
+            type: object
+        invoice_number:
+          description: |- 
+            Numeric value of invoice. Invoice will start from 1 and auto increment from there. This field is to help 
+            override whatever value Paystack decides. Auto increment for subsequent invoices continue from this point.
+          type: integer
+        split_code:
+          description: |- 
+            The split code of the transaction split.
+          type: string
+    PaymentRequestUpdate:
+      type: object
+      properties:
+        customer:
+          description: Customer id or code
+          type:  string
+        amount:
+          description: |- 
+            Payment request amount. Only useful if line items and tax values are ignored. 
+            The endpoint will throw a friendly warning if neither is available.
+          type: integer
+        currency:
+          description: |- 
+            Specify the currency of the invoice. Allowed values are NGN, GHS, ZAR and USD. Defaults to NGN
+          type: string
+        due_date:
+          description: |-
+            ISO 8601 representation of request due date
+          type: string
+          format: date-time
+        description:
+          description: A short description of the payment request
+          type: string
+        line_items:
+          description: |- 
+            Array of line items
+          type: array
+          items:
+            type: object
+        tax:
+          description: |- 
+            Array of taxes
+          type: array
+          items:
+            type: object
+        send_notification:
+          description: |- 
+            Indicates whether Paystack sends an email notification to customer. Defaults to true
+          type: boolean
+          items:
+            type: object
+        draft:
+          description: |- 
+            Indicate if request should be saved as draft. Defaults to false and overrides send_notification
+          type: boolean
+          items:
+            type: object
+        has_invoice:
+          description: |- 
+            Set to true to create a draft invoice (adds an auto incrementing invoice number if none is provided) 
+            even if there are no line_items or tax passed
+          type: boolean
+          items:
+            type: object
+        invoice_number:
+          description: |- 
+            Numeric value of invoice. Invoice will start from 1 and auto increment from there. This field is to help 
+            override whatever value Paystack decides. Auto increment for subsequent invoices continue from this point.
+          type: integer
+        split_code:
+          description: |- 
+            The split code of the transaction split.
+          type: string
+    TransferRecipientCreate:
+      type: object
+      required:
+        - type
+        - name
+        - account_number
+        - bank_code
+      properties:
+        type:
+          description: Recipient Type (Only nuban at this time)
+          type:  string
+        name:
+          description: Recipient's name
+          type: string
+        account_number:
+          description: Recipient's bank account number
+          type: string
+        bank_code:
+          description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
+          type: string
+        description:
+          description: A description for this recipient
+          type: string
+        currency:
+          description: |- 
+            Currency for the account receiving the transfer
+          type: string
+        authorization_code:
+          description: |- 
+            An authorization code from a previous transaction
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    TransferRecipientBulk:
+      type: object
+      required:
+        - batch
+      properties:
+        batch:
+          description: |- 
+            A list of transfer recipient object. Each object should contain type, name, and bank_code. 
+            Any Create Transfer Recipient param can also be passed.
+          type:  array
+          items: 
+            $ref: '#/components/schemas/TransferRecipientCreate'
+    TransferRecipientUpdate:
+      type: object
+      properties:
+        name:
+          description: Recipient's name
+          type: string
+        email:
+          description: Recipient's email address
+          type: string
+    TransferInitiate:
+      type: object
+      required:
+        - source
+        - amount
+        - recipient
+      properties:
+        source:
+          description: Where should we transfer from? Only balance is allowed for now
+          type:  string
+        amount:
+          description: Amount to transfer in kobo if currency is NGN and pesewas if currency is GHS.
+          type:  string
+        recipient:
+          description: The transfer recipient's code
+          type: string
+        reason:
+          description: The reason or narration for the transfer. 
+          type: string
+        currency:
+          description: |- 
+            Specify the currency of the transfer. Defaults to NGN.
+          type: string
+        reference:
+          description: |- 
+            If specified, the field should be a unique identifier (in lowercase) for the object. 
+            Only -,_ and alphanumeric characters are allowed.
+          type: string
+    TransferFinalize:
+      type: object
+      required:
+        - transfer_code
+        - otp
+      properties:
+        transfer_code:
+          description: The transfer code you want to finalize
+          type:  string
+        otp:
+          description: OTP sent to business phone to verify transfer
+          type:  string
+    TransferBulk:
+      type: object
+      required:
+        - source
+        - transfers
+      properties:
+        source:
+          description: Where should we transfer from? Only balance is allowed for now
+          type:  string
+        transfers:
+          description: |- 
+            A list of transfer object. Each object should contain amount, recipient, and reference
+          type: array
+          items: 
+            $ref: '#/components/schemas/TransferInitiate'
+    TransferResendOTP:
+      type: object
+      required:
+        - transfer_code
+        - reason
+      properties:
+        transfer_code:
+          description: The transfer code that requires an OTP validation
+          type:  string
+        reason:
+          description: Either resend_otp or transfer
+          type:  string
+    TransferFinalizeDisableOTP:
+      type: object
+      required:
+        - otp
+      properties:
+        otp:
+          description: OTP sent to business phone to verify disabling OTP requirement
+          type:  string
+    ChargeCreate:
+      type: object
+      required:
+        - email
+        - amount
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: |-
+            Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: string
+        authorization_code:
+          description: |-
+            An authorization code to charge.
+          type: string
+        pin:
+          description: |-
+            4-digit PIN (send with a non-reusable authorization code)
+          type: string
+        reference:
+          description: |-
+            Unique transaction reference. Only -, .`, = and alphanumeric characters allowed.
+          type: string
+        birthday:
+          description: |-
+            The customer's birthday in the format YYYY-MM-DD e.g 2017-05-16
+          type: string
+          format: date-time
+        device_id:
+          description: |-
+            This is the unique identifier of the device a user uses in making payment. 
+            Only -, .`, = and alphanumeric characters are allowed.
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    ChargeSubmitPin:
+      type: object
+      required:
+        - pin
+        - reference
+      properties:
+        pin:
+          description: Customer's PIN
+          type: string
+        reference:
+          description: |-
+            Transaction reference that requires the PIN
+          type: string
+    ChargeSubmitOTP:
+      type: object
+      required:
+        - otp
+        - reference
+      properties:
+        otp:
+          description: Customer's OTP
+          type: string
+        reference:
+          description: |-
+            The reference of the ongoing transaction
+          type: string
+    ChargeSubmitPhone:
+      type: object
+      required:
+        - phone
+        - reference
+      properties:
+        phone:
+          description: Customer's mobile number
+          type: string
+        reference:
+          description: |-
+            The reference of the ongoing transaction
+          type: string
+    ChargeSubmitBirthday:
+      type: object
+      required:
+        - birthday
+        - reference
+      properties:
+        birthday:
+          description: Customer's birthday in the format YYYY-MM-DD e.g 2016-09-21
+          type: string
+        reference:
+          description: |-
+            The reference of the ongoing transaction
+          type: string
+    ChargeSubmitAddress:
+      type: object
+      required:
+        - address
+        - reference
+        - city
+        - state
+        - zipcode
+      properties:
+        address:
+          description: Customer's address
+          type: string
+        city:
+          description: Customer's city
+          type: string
+        state:
+          description: Customer's state
+          type: string
+        zipcode:
+          description: Customer's zipcode
+          type: string
+        reference:
+          description: |-
+            The reference of the ongoing transaction
+          type: string
+    BulkChargeInitiate:
+      type: object
+      required:
+        - authorization
+        - amount
+      properties:
+        authorization:
+          description: Customer's card authorization code
+          type: string
+        amount:
+          description: Amount to charge on the authorization
+          type: string
+    PaymentSession:
+      type: object
+      required:
+        - timeout
+      properties:
+        timeout:
+          description: Time in seconds before a transaction becomes invalid
+          type: string
+          example: '30'
+    RefundCreate:
+      type: object
+      required:
+        - transaction
+      properties:
+        transaction:
+          description: Transaction reference or id
+          type:  string
+        amount:
+          description: |-
+            Amount ( in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR ) to be refunded to the customer. 
+            Amount cannot be more than the original transaction amount
+          type: integer
+        currency:
+          description: Three-letter ISO currency. Allowed values are NGN, GHS, ZAR or USD
+          type: string
+        customer_note:
+          description: Customer reason
+          type: string
+        merchant_note:
+          description: Merchant reason
+          type: string
+    DisputeEvidence:
+      type: object
+      required:
+        - customer_email
+        - customer_name
+        - customer_phone
+        - service_details
+      properties:
+        customer_email:
+          description: Customer email
+          type:  string
+        customer_name:
+          description: Customer name
+          type:  string
+        customer_phone:
+          description: Customer mobile number
+          type:  string
+        service_details:
+          description: Details of service offered
+          type:  string
+        delivery_address:
+          description: Delivery address
+          type:  string
+        delivery_date:
+          description: ISO 8601 representation of delivery date (YYYY-MM-DD)
+          type: string
+          format: date-time
+    DisputeUpdate:
+      type: object
+      required:
+        - refund_amount
+      properties:
+        refund_amount:
+          description: The amount to refund, in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type:  string
+        uploaded_filename:
+          description: |-
+            Filename of attachment returned via response from the Dispute upload URL
+          type: string
+    DisputeResolve:
+      type: object
+      required:
+        - resolution
+        - message
+        - refund_amount
+        - uploaded_filename
+      properties:
+        resolution:
+          description: Dispute resolution. Accepted values, merchant-accepted, declined
+          type:  string
+        message:
+          description: Reason for resolving
+          type:  string
+        refund_amount:
+          description: The amount to refund, in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type:  string
+        uploaded_filename:
+          description: |-
+            Filename of attachment returned via response from the Dispute upload URL
+          type: string
+        evidence:
+          description: |-
+            Evidence Id for fraud claims
+          type: integer
+    VerificationBVNMatch:
+      type: object
+      required:
+        - account_number
+        - bank_code
+        - bvn
+      properties:
+        account_number:
+          description: Bank Account Number
+          type:  string
+        bank_code:
+          description: You can get the list of banks codes by calling the List Bank endpoint
+          type: integer
+        bvn:
+          description: 11 digits Bank Verification Number
+          type: string
+        first_name:
+          description: Customer's first name
+          type: string
+        middle_name:
+          description: Customer's middle name
+          type: string
+        last_name:
+          description: Customer's last name
+          type: string
+    Bank:
+      type: object
+      properties:
+        code:
+          description: Customer's bank code
+          type: string
+        account_number:
+          description: Customer's account number
+          type: string
+    USSD:
+      type: object
+      properties:
+        type:
+          description: The three-digit USSD code. One of, 737, 919, 822, 966
+          type: string
+    MobileMoney:
+      type: object
+      properties:
+        phone:
+          description: Customer's phone number
+          type: string
+        provider:
+          description: The telco provider of customer's phone number. This can be fetched from the List Bank endpoint
+          type: string
+    EFT:
+      type: object
+      properties:
+        provider:
+          description: The EFT provider
+          type: string
     Error:
       type: object
       properties:
@@ -239,13 +4349,28 @@ components:
           type: string
         data:
           type: object
+    Accepted:
+      type: object
+      properties:
+        status:
+          type:  boolean
+        message:
+          type: string
   responses:
+    TransactionInitializeResponse:
+      description: Successful respo
     Ok:
-      description: Successful operation
+      description: Request successful
       content:
         application/json:
           schema:
-            $ref: './responses/response.yaml'
+            $ref: '#/components/schemas/Response'
+    Accepted:
+      description: Request accepted for processing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Accepted'
     Created:
       description: Resource created
       content:
