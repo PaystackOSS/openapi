@@ -120,7 +120,9 @@ paths:
               $ref: '#/components/schemas/TransactionInitialize'
       responses:
         '200':
-          $ref: '#/components/responses/Ok'
+          $ref: "#/components/responses/TransactionInitializeOkResponse"
+        '400':
+          $ref: "#/components/responses/TransactionInitializeBadRequestResponse"
         '401':
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -157,27 +159,106 @@ paths:
       description: List transactions that has occurred on your integration
       parameters:
         - in: query
-          name: perPage
+          name: use_cursor
+          description: A flag to indicate if cursor based pagination should be used
+          schema:
+            type: boolean
+        - in: query
+          name: next
+          description: | 
+            An alphanumeric value returned for every cursor based retrieval, used to 
+            retrieve the next set of data
+          schema:
+            type: string
+        - in: query
+          name: previous
+          description: | 
+            An alphanumeric value returned for every cursor based retrieval, used to 
+            retrieve the previous set of data
+          schema:
+            type: string
+        - in: query
+          name: per_page
           schema:
             type: integer
-          description: Number of records to fetch per page
+          description: The number of records to fetch per request
         - in: query
           name: page
           schema:
             type: integer
-          description: The section to retrieve
+          description: Used to indicate the offeset to retrieve data from
         - in: query
           name: from
+          description: The start date
           schema:
             type: string
             format: date-time
-          description: The start date
         - in: query
           name: to
+          description: The end date
           schema:
             type: string
             format: date-time
-          description: The end date
+        - in: query
+          name: channel
+          description: The payment method the customer used to complete the transaction
+          schema:
+            type: string
+            enum:
+              - card
+              - pos
+              - bank
+              - dedicated_nuban
+              - ussd
+              - bank_transfer
+        - in: query
+          name: terminal_id
+          description: The terminal ID to filter all transactions from a terminal
+          schema:
+            type: string
+        - in: query
+          name: customer_code
+          description: The customer code to filter all transactions from a customer
+          schema:
+            type: string
+        - in: query
+          name: amount
+          description: Filter transactions by a certain amount
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: status
+          description: Filter transaction by status
+          schema:
+            type: string
+            enum: ['success', 'failed', 'abandoned', 'reversed']
+        - in: query
+          name: source
+          description: The origin of the payment
+          schema:
+            type: string
+            enum:
+              - merchantApi
+              - checkout
+              - pos
+              - virtualTerminal
+        - in: query
+          name: subaccount_code
+          description: Filter transaction by subaccount code
+          schema:
+            type: string
+        - in: query
+          name: split_code
+          description: Filter transaction by split code
+          schema:
+            type: string
+        - in: query
+          name: settlement
+          description: The settlement ID to filter for settled transactions
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -3242,6 +3323,79 @@ components:
       example:
         email: test@demo.com
         amount: 10000
+    TransactionInitializeOkModel:
+      type: object
+      description: | 
+        Response of a successful transaction initialization
+      properties:
+        status:
+          description: An indicator for the state of the request
+          type: boolean
+        message:
+          description: A summary of the state of the request
+          type: string
+        data:
+          description: A summary of the state of the request
+          type: object
+          $ref: "#/components/schemas/TransactionInitializeAuth"
+        errorCodeMappingNotFound:
+          description: An indicator for error mapping for the request
+          type: boolean
+      example:
+        status: true
+        message: Authorization URL created
+        data:
+          authorization_url: https://checkout.paystack.com/jktpk4ii34rajca
+          access_code: jktpk4ii34rajca
+          reference: 1788908275392184320
+        errorCodeMappingNotFound: false
+    TransactionInitializeAuth:
+      type: object
+      description: | 
+        Authorization object in the transaction initialize response
+      properties:
+        authorization_url:
+          description: A URL that you can redirect users to complete the payment
+          type: string
+        access_code:
+          description: A unique code that can be used as an alternative of the authorization URL
+          type: string
+        reference:
+          description: A unique identifier to track the state of the transaction
+          type: string
+    TransactionInitializeBadRequestModel:
+      type: object
+      description: | 
+        Error response returned when a transaction is initialized with incorrect parameters
+      properties:
+        status:
+          type:  boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          type: object
+          description: Extra details to help with a resolution of the error
+          $ref: "#/components/schemas/ErrorMeta"
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+        code: 
+          type: string
+          description: The error code
+          enum: ['validation_error', 'processor_error', 'api_error']
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+      example:
+        status: false
+        message: Duplicate Transaction Reference
+        meta: 
+          nextStep: Try and create the Transaction or Charge with a new reference
+        type: validation_error
+        code: duplicate_reference
+        errorCodeMappingNotFound: false
     TransactionChargeAuthorization:
       type: object
       properties:
@@ -3344,7 +3498,7 @@ components:
         type:
           description: The type of transaction split you want to create.
           type: string
-          # enum: ['percentage', 'flat']
+          enum: ['percentage', 'flat']
         subaccounts:
           description: A list of object containing subaccount code and number of shares
           type: array
@@ -3357,7 +3511,7 @@ components:
         bearer_type:
           description: This allows you specify how the transaction charge should be processed
           type: string
-          # enum: ['subaccount', 'account', 'all-proportional', 'all']
+          enum: ['subaccount', 'account', 'all-proportional', 'all']
         bearer_subaccount:
           description: |-
             This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
@@ -4338,8 +4492,30 @@ components:
       properties:
         status:
           type:  boolean
+          description: An indicator for the state of the request
         message:
           type: string
+          description: A short description of the error
+        meta:
+          type: object
+          description: Extra details to help with a resolution of the error
+          $ref: "#/components/schemas/ErrorMeta"
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+        code: 
+          type: string
+          description: The error code
+          enum: ['validation_error', 'processor_error', 'api_error']
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+    ErrorMeta:
+      type: object
+      properties:
+        nextStep: 
+          type: string
+          description: A summarised solution for the error
     Response:
       type: object
       properties:
@@ -4357,8 +4533,18 @@ components:
         message:
           type: string
   responses:
-    TransactionInitializeResponse:
-      description: Successful respo
+    TransactionInitializeOkResponse:
+      description: Responses from the Transaction Initialize endpoint
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TransactionInitializeOkModel"
+    TransactionInitializeBadRequestResponse:
+      description: Responses from the Transaction Initialize endpoint
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TransactionInitializeBadRequestModel"
     Ok:
       description: Request successful
       content:
