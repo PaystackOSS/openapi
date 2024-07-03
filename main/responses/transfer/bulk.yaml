@@ -4,4 +4,5 @@ content:
     schema:
       $ref: '../bulk-response.yaml'
     example:
-      $ref: '../../examples/transfer/bulk.yaml'
+      Bulk Transfers:
+        $ref: '../../examples/transfer/bulk.yaml'

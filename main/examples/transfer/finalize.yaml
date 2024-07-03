@@ -1,0 +1,19 @@
+value:
+  status: true
+  message: Transfer has been queued
+  data:
+    domain: test
+    amount: 1000000
+    currency: NGN
+    reference: n7ll9pzl6b
+    source: balance
+    source_details: 
+    reason: E go better for you
+    status: pending
+    transfer_code: TRF_zuirlnr9qblgfko
+    titan_code: 
+    id: 529410
+    integration: 123460
+    recipient: 225204
+    createdAt: '2018-08-02T10:02:55.000Z'
+    updatedAt: '2018-08-02T10:12:05.000Z'

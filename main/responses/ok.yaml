@@ -3,6 +3,3 @@ content:
   application/json:
     schema:
       $ref: './response.yaml'
-    examples:
-      List Transfers:
-        $ref: '../examples/transfer/list.yaml'

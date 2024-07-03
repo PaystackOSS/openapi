@@ -4,9 +4,5 @@ content:
     schema:
       $ref: '../response.yaml'
     examples:
-      Initiate Transfer:
-        $ref: '../../examples/transfer/initiate.yaml'
-      Bulk Transfers:
-        $ref: '../../examples/transfer/bulk.yaml'
       Finalize Transfer:
         $ref: '../../examples/transfer/finalize.yaml'
