@@ -263,14 +263,9 @@ paths:
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
-                  enum:
-                    - card
-                    - bank
-                    - ussd
-                    - qr
-                    - eft
-                    - mobile_money
-                    - bank_transfer
+                  items:
+                    type: string
+                    example: '[''card'', ''bank'',''ussd'', ''qr'', ''eft'', ''mobile_money'', ''bank_transfer'']'
                 split_code:
                   description: The split code of the transaction split
                   type: string
