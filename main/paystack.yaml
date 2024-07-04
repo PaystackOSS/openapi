@@ -291,7 +291,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
-  /transaction/timeline/{id_or_reference}:
+  /transaction/timeline/{id}:
     get:
       tags:
         - Transaction
@@ -299,11 +299,13 @@ paths:
       operationId: transaction_timeline
       description: Get the details about the lifecycle of a transaction from initiation to completion
       parameters:
-      - name: id_or_reference
+      - name: id
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
+        example: 3936799950
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -322,27 +324,19 @@ paths:
       description: Get the total amount of all transactions
       parameters:
         - in: query
-          name: perPage
-          schema:
-            type: integer
-          description: Number of records to fetch per page
-        - in: query
-          name: page
-          schema:
-            type: integer
-          description: The section to retrieve
-        - in: query
+          description: The start date
           name: from
           schema:
             type: string
             format: date-time
-          description: The start date
+          example: 2024-06-01
         - in: query
           name: to
+          description: The end date
           schema:
             type: string
             format: date-time
-          description: The end date
+          example: 2024-06-30
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -360,27 +354,50 @@ paths:
       operationId: transaction_download
       parameters:
         - in: query
-          name: perPage
-          schema:
-            type: integer
-          description: Number of records to fetch per page
-        - in: query
-          name: page
-          schema:
-            type: integer
-          description: The section to retrieve
-        - in: query
           name: from
+          description: The start date
           schema:
             type: string
             format: date-time
-          description: The start date
+          example: 2024-06-01
         - in: query
           name: to
+          description: The end date
           schema:
             type: string
             format: date-time
-          description: The end date
+          example: 2024-06-01
+        - in: query
+          name: status
+          description: Filter by the status of the transaction
+          schema:
+            type: string
+            enum:
+              - success
+              - failed
+              - abandoned
+              - reversed
+              - all
+          example: success
+        - in: query
+          name: customer
+          description: Filter by customer code
+          schema:
+            type: string
+          example: CUS_eqt26928wowif7z
+        - in: query
+          name: subaccount_code
+          description: Filter by subaccount code
+          schema:
+            type: string
+          example: ACCT_dskvlw3y3dMukmt
+        - in: query
+          name: settlement
+          description: Filter by the settlement ID
+          schema:
+            type: integer
+            format: int64
+          example: 5687910
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -443,7 +460,9 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
+          example: 3936799950
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -464,7 +483,9 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
+          example: 3936799950
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -3398,12 +3419,16 @@ components:
         errorCodeMappingNotFound: false
     TransactionChargeAuthorization:
       type: object
+      required:
+        - email
+        - amount
+        - authorization_code
       properties:
         email:
           description: Customer's email address
           type:  string
         amount:
-          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          description: Amount in the lower denomination of your currency
           type: integer
         authorization_code:
           description: Valid authorization code to charge
@@ -3412,12 +3437,7 @@ components:
           description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
           type: string
         currency:
-          description: The transaction currency
-          type: string
-          # enum: ['NGN', 'GHS', 'ZAR', 'USD']
-        metadata:
-          description: Stringified JSON object of custom data
-          type: string
+          $ref: "#/components/schemas/Currency"
         split_code:
           description: The split code of the transaction split
           type: string
@@ -3430,17 +3450,20 @@ components:
             This overrides the split percentage set when the subaccount was created
           type: string
         bearer:
-          description: The beare of the transaction charge
+          description: The bearer of the transaction charge
           type: string
-          # enum: [account, subaccount]
+          enum: [account, subaccount]
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
         queue:
           description: |-
             If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.
           type: boolean
-      required:
-        - email
-        - amount
-        - authorization_code
+      example:
+        email: jb@email.com
+        amount: 30000
+        authorization_code: AUTH_df1l5ehnym
     TransactionCheckAuthorization:
       type: object
       properties:
@@ -3462,31 +3485,35 @@ components:
         - amount
     TransactionPartialDebit:
       type: object
-      properties:
-        email:
-          description: Customer's email address
-          type:  string
-        amount:
-          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
-          type: integer
-        authorization_code:
-          description: Valid authorization code to charge
-          type: string
-        currency:
-          description: The transaction currency
-          type: string
-          # enum: ['NGN', 'GHS', 'ZAR', 'USD']
-        reference:
-          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
-          type: string
-        at_least:
-          description: Minimum amount to charge
-          type: string
       required:
         - email
         - amount
         - authorization_code
         - currency
+      properties:
+        email:
+          description: Customer's email address
+          type:  string
+        amount:
+          description: Specified in the lowest denomination of your currency
+          type: integer
+          format: int64
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        currency:
+          $ref: "#/components/schemas/Currency"
+        at_least:
+          description: Minimum amount to charge
+          type: string
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+      example:
+        email: tap@email.com
+        amount: 40510
+        authorization_code: AUTH_df1l5ehnym
+        currency: ZAR
     SplitCreate:
       type: object
       description: | 
