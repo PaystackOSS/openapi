@@ -12,7 +12,7 @@ get:
   operationId: transfer_fetch
   responses:
     200:
-      $ref: '../../responses/ok.yaml'
+      $ref: '../../responses/transfer/transfer.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     404:

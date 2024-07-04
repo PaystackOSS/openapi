@@ -1,0 +1,48 @@
+value:
+  status: true
+  message: Transfer retrieved
+  data: 
+    amount: 2000
+    createdAt: 2023-04-04T10:41:58.000Z
+    currency: NGN
+    domain: live
+    failures: 
+    id: 269771800
+    integration: 463433
+    reason: Redemption amount
+    reference: abc-123-reference
+    source: balance
+    source_details: 
+    status: success
+    titan_code: 
+    transfer_code: TRF_09i424359abc123
+    request: 2484542312
+    transferred_at: 2023-04-04T10:42:01.000Z
+    updatedAt: 2023-04-04T10:42:01.000Z
+    recipient: 
+      active: true
+      createdAt: 2023-04-04T10:41:12.000Z
+      currency: NGN
+      description: 
+      domain: live
+      email: customer@example.com
+      id: 51991232
+      integration: 463433
+      metadata: 
+      name: Mekatilili Menza
+      recipient_code: RCP_hcbqw7tcdojffkg
+      type: nuban
+      updatedAt: 2023-04-04T10:41:12.000Z
+      is_deleted: false
+      isDeleted: false
+      details: 
+        authorization_code: 
+        account_number: 0123456789
+        account_name: MEKATILILI MENZA M
+        bank_code: 058
+        bank_name: Guaranty Trust Bank
+    session: 
+      provider: nip
+      id: '00031231231231231231231230101'
+    fee_charged: 1000
+    fees_breakdown: 

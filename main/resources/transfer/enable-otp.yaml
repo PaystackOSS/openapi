@@ -5,7 +5,7 @@ post:
   operationId: transfer_enableOtp
   responses:
     200:
-      $ref: '../../responses/ok.yaml'
+      $ref: '../../responses/transfer/transfer.yaml'
     401:
       $ref: '../../responses/unauthorized.yaml'
     default:

@@ -25,14 +25,14 @@ value:
         input: []
         history: [
             
-                type: action
-                message: Attempted to pay with card
-                time: 13
-            
-            
-                type: success
-                message: Successfully paid with card
-                time: 16
+            type: action
+            message: Attempted to pay with card
+            time: 13
+        
+        
+            type: success
+            message: Successfully paid with card
+            time: 16
             
         ]
     fees: 50

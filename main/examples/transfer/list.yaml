@@ -91,7 +91,7 @@ value:
       fee_charged: 0
       fees_breakdown: null 
       meta:
-        total: 30
+        total: 3
         skipped: 0
         perPage: 50
         page: 1

@@ -31,10 +31,8 @@ parameters:
     description: The end date
 responses:
   200:
-    $ref: '../../responses/ok.yaml'
+    $ref: '../../responses/transfer/transfer.yaml'
   401:
-    $ref: '../../responses/unauthorized.yaml'
-  404:
     $ref: '../../responses/unauthorized.yaml'
   default:
     description: Server error
