@@ -6,6 +6,8 @@ info:
     merchants and developers can harness to build financial solutions
     in Africa.
   version: 1.0.0
+  contact:
+    email: techsupport@paystack.com
 servers:
   - url: https://api.paystack.co
     description: Base API endpoint
@@ -329,14 +331,14 @@ paths:
           schema:
             type: string
             format: date-time
-          example: 2024-06-01
+          example: 2024-06-01T00:00:01Z
         - in: query
           name: to
           description: The end date
           schema:
             type: string
             format: date-time
-          example: 2024-06-30
+          example: 2024-06-30T13:36:54Z
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -359,14 +361,14 @@ paths:
           schema:
             type: string
             format: date-time
-          example: 2024-06-01
+          example: 2024-06-01T00:00:01Z
         - in: query
           name: to
           description: The end date
           schema:
             type: string
             format: date-time
-          example: 2024-06-01
+          example: 2024-06-30T13:36:54Z
         - in: query
           name: status
           description: Filter by the status of the transaction
@@ -1103,10 +1105,10 @@ paths:
               $ref: "#/components/schemas/ApplePayParam"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ApplePayParam'
+              $ref: "#/components/schemas/ApplePayParam"
       responses:
         '200':
-          $ref: '#/components/responses/Ok'
+          $ref: "#/components/responses/ApplePayOkResponse"
         '401':
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -2169,6 +2171,7 @@ paths:
       tags:
         - Transfer Recipient
       summary: Update Transfer recipient
+      operationId: transferrecipient_update
       requestBody:
         content:
           application/json:
@@ -2190,6 +2193,7 @@ paths:
       tags:
         - Transfer Recipient
       summary: Delete Transfer Recipient
+      operationId: transferrecipient_delete
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -3427,8 +3431,6 @@ components:
           description: A summary of the state of the request
           type: string
         data:
-          description: A summary of the state of the request
-          type: object
           $ref: "#/components/schemas/TransactionInitializeAuth"
         errorCodeMappingNotFound:
           description: An indicator for error mapping for the request
@@ -3439,7 +3441,7 @@ components:
         data:
           authorization_url: https://checkout.paystack.com/jktpk4ii34rajca
           access_code: jktpk4ii34rajca
-          reference: 1788908275392184320
+          reference: '1788908275392184320'
         errorCodeMappingNotFound: false
     TransactionInitializeAuth:
       type: object
@@ -3467,16 +3469,14 @@ components:
           type: string
           description: A short description of the error
         meta:
-          type: object
-          description: Extra details to help with a resolution of the error
           $ref: "#/components/schemas/ErrorMeta"
         type:
           type: string
           description: A tag to indicate the type of the error
+          enum: ['validation_error', 'processor_error', 'api_error']
         code: 
           type: string
           description: The error code
-          enum: ['validation_error', 'processor_error', 'api_error']
         errorCodeMappingNotFound:
           type: boolean
           description: An indicator for error mapping for the request
@@ -3535,25 +3535,6 @@ components:
         email: jb@email.com
         amount: 30000
         authorization_code: AUTH_df1l5ehnym
-    TransactionCheckAuthorization:
-      type: object
-      properties:
-        email:
-          description: Customer's email address
-          type:  string
-        amount:
-          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
-          type: integer
-        authorization_code:
-          description: Valid authorization code to charge
-          type: string
-        currency:
-          description: The transaction currency
-          type: string
-          # enum: ['NGN', 'GHS', 'ZAR', 'USD']
-      required:
-        - email
-        - amount
     TransactionPartialDebit:
       type: object
       required:
@@ -3788,9 +3769,10 @@ components:
           type: boolean
         message:
           description: A short description of the response
-          type: boolean
+          type: string
       example:
-        domainName: example.com
+        status: true
+        message: Domain successfully registered on Apple Pay
     SubaccountCreate:
       type: object
       required:
@@ -4551,31 +4533,6 @@ components:
           description: |-
             Evidence Id for fraud claims
           type: integer
-    VerificationBVNMatch:
-      type: object
-      required:
-        - account_number
-        - bank_code
-        - bvn
-      properties:
-        account_number:
-          description: Bank Account Number
-          type:  string
-        bank_code:
-          description: You can get the list of banks codes by calling the List Bank endpoint
-          type: integer
-        bvn:
-          description: 11 digits Bank Verification Number
-          type: string
-        first_name:
-          description: Customer's first name
-          type: string
-        middle_name:
-          description: Customer's middle name
-          type: string
-        last_name:
-          description: Customer's last name
-          type: string
     Bank:
       type: object
       properties:
@@ -4616,8 +4573,6 @@ components:
           type: string
           description: A short description of the error
         meta:
-          type: object
-          description: Extra details to help with a resolution of the error
           $ref: "#/components/schemas/ErrorMeta"
         type:
           type: string
@@ -4631,6 +4586,7 @@ components:
           description: An indicator for error mapping for the request
     ErrorMeta:
       type: object
+      description: Extra details to help with a resolution of the error
       properties:
         nextStep: 
           type: string
@@ -4664,6 +4620,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/TransactionInitializeBadRequestModel"
+    ApplePayOkResponse:
+      description: Responses from the Transaction Initialize endpoint
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplePayCreateOkModel"
     Ok:
       description: Request successful
       content:
@@ -4700,11 +4662,5 @@ components:
           example:
             status: false
             message: Invalid key
-    GeneralError:
-      description: General Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
 security:
   - bearerAuth: []
