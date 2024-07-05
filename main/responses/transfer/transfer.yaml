@@ -6,3 +6,21 @@ content:
     examples:
       Initiate Transfer:
         $ref: '../../examples/transfer/initiate.yaml'
+      Bulk Transfers:
+        $ref: '../../examples/transfer/bulk.yaml'
+      Finalize Transfer:
+        $ref: '../../examples/transfer/finalize.yaml'
+      List Transfers:
+        $ref: '../../examples/transfer/list.yaml'
+      Fetch Transfer:
+        $ref: '../../examples/transfer/fetch.yaml'
+      Verify Transfer:
+        $ref: '../../examples/transfer/verify.yaml'
+      Enable OTP:
+        $ref: '../../examples/transfer/enable-otp.yaml'
+      Resend OTP:
+        $ref: '../../examples/transfer/resend-otp.yaml'
+      Disable OTP:
+        $ref: '../../examples/transfer/disable-otp.yaml'
+      Finalize Disable OTP:
+        $ref: '../../examples/transfer/disable-otp-finalize.yaml'

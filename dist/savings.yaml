@@ -82,14 +82,9 @@ paths:
                 channels:
                   description: An array of payment channels to control what channels you want to make available to the user to make a payment with
                   type: array
-                  enum:
-                    - card
-                    - bank
-                    - ussd
-                    - qr
-                    - eft
-                    - mobile_money
-                    - bank_transfer
+                  items:
+                    type: string
+                    example: '[''card'', ''bank'',''ussd'', ''qr'', ''eft'', ''mobile_money'', ''bank_transfer'']'
                 split_code:
                   description: The split code of the transaction split
                   type: string
@@ -326,6 +321,7 @@ paths:
                     - NGN
                     - GHS
                     - ZAR
+                    - KES
                 authorization_code:
                   description: An authorization code from a previous transaction
                   type: string
@@ -440,8 +436,263 @@ paths:
                       status: success
                       transfer_code: TRF_fiyxvgkh71e717b
                       id: 23070321
+                      failures: null
+                      source_details: null
+                      request: 654770431
+                      transferred_at: 2020-05-13T14:22:49.687Z
+                      transfersessionid: []
                       createdAt: 2020-05-13T14:22:49.687Z
                       updatedAt: 2020-05-13T14:22:49.687Z
+                Bulk Transfers:
+                  value:
+                    status: true
+                    message: 2 transfers queued.
+                    data:
+                      - reference: abc-12345679abc
+                        recipient: RCP_1a25w1h3n0xctjg
+                        amount: 50000
+                        transfer_code: TRF_mi8oa4liagyvq2md
+                        currency: NGN
+                        status: pending
+                      - reference: abc-123457
+                        recipient: RCP_sa1k1btncp993q1
+                        amount: 50000
+                        transfer_code: TRF_1c5upr4hp85l93n7
+                        currency: NGN
+                        status: pending
+                Finalize Transfer:
+                  value:
+                    status: true
+                    message: Transfer has been queued
+                    data:
+                      domain: test
+                      amount: 1000000
+                      currency: NGN
+                      reference: n7ll9pzl6b
+                      source: balance
+                      source_details: null
+                      reason: E go better for you
+                      status: pending
+                      transfer_code: TRF_zuirlnr9qblgfko
+                      titan_code: null
+                      id: 529410
+                      integration: 123460
+                      recipient: 225204
+                      createdAt: '2018-08-02T10:02:55.000Z'
+                      updatedAt: '2018-08-02T10:12:05.000Z'
+                List Transfers:
+                  value:
+                    status: true
+                    message: Transfers retrieved
+                    data:
+                      - amount: 1187500
+                        createdAt: '2024-03-07T16:13:42.000Z'
+                        currency: NGN
+                        domain: live
+                        failures: null
+                        id: 480480480480
+                        integration: 463433
+                        reason: transfer demo
+                        reference: demo-transfer
+                        source: balance
+                        source_details: null
+                        status: success
+                        titan_code: null
+                        transfer_code: TRF_57qtrcpodassad
+                        request: 544648484
+                        transferred_at: '2024-03-07T16:13:43.000Z'
+                        updatedAt: '2024-03-07T16:13:43.000Z'
+                        recipient:
+                          active: true
+                          createdAt: '2024-03-07T16:08:13.000Z'
+                          currency: NGN
+                          description: Demo transfers
+                          domain: live
+                          email: example@example.com
+                          id: 12309312
+                          integration: 463433
+                          metadata: null
+                          name: DANTE ALIGHIERI
+                          recipient_code: RCP_67gq8xn0ls58535
+                          type: nuban
+                          updatedAt: '2024-03-07T16:37:12.000Z'
+                          is_deleted: false
+                          isDeleted: false
+                          details:
+                            authorization_code: null
+                            account_number: '12334567890'
+                            account_name: DANTE ALIGHIERI
+                            bank_code: '999991'
+                            bank_name: PalmPay
+                        session:
+                          provider: nip
+                          id: '110001231091230120391238372113'
+                        fee_charged: 0
+                        fees_breakdown: null
+                      - amount: 712500
+                        createdAt: '2024-03-07T16:11:10.000Z'
+                        currency: NGN
+                        domain: live
+                        failures: null
+                        id: 480480480
+                        integration: 463433
+                        reason: food
+                        reference: cf20odaindonec892384cas
+                        source: balance
+                        source_details: null
+                        status: success
+                        titan_code: null
+                        transfer_code: TRF_scgho47oei0s578v
+                        request: 5454545545
+                        transferred_at: '2024-03-07T16:11:12.000Z'
+                        updatedAt: '2024-03-07T16:11:12.000Z'
+                        recipient:
+                          active: true
+                          createdAt: '2024-03-07T16:08:13.000Z'
+                          currency: NGN
+                          description: '4.0'
+                          domain: live
+                          email: ojoojo971@gmail.com
+                          id: 73001094
+                          integration: 463433
+                          metadata: null
+                          name: Mwana Kupona
+                          recipient_code: RCP_67gq8xn0ls58535
+                          type: nuban
+                          updatedAt: '2024-03-07T16:37:12.000Z'
+                          is_deleted: false
+                          isDeleted: false
+                          details:
+                            authorization_code: null
+                            account_number: '0000000000'
+                            account_name: MWANA TAU
+                            bank_code: '011'
+                            bank_name: First Bank of Nigeria
+                        session:
+                          provider: nip
+                          id: '120312192381218312812312312'
+                        fee_charged: 0
+                        fees_breakdown: null
+                        meta:
+                          total: 3
+                          skipped: 0
+                          perPage: 50
+                          page: 1
+                          pageCount: 1
+                Fetch Transfer:
+                  value:
+                    status: true
+                    message: Transfer retrieved
+                    data:
+                      amount: 2000
+                      createdAt: 2023-04-04T10:41:58.000Z
+                      currency: NGN
+                      domain: live
+                      failures: null
+                      id: 269771800
+                      integration: 463433
+                      reason: Redemption amount
+                      reference: abc-123-reference
+                      source: balance
+                      source_details: null
+                      status: success
+                      titan_code: null
+                      transfer_code: TRF_09i424359abc123
+                      request: 2484542312
+                      transferred_at: 2023-04-04T10:42:01.000Z
+                      updatedAt: 2023-04-04T10:42:01.000Z
+                      recipient:
+                        active: true
+                        createdAt: 2023-04-04T10:41:12.000Z
+                        currency: NGN
+                        description: null
+                        domain: live
+                        email: customer@example.com
+                        id: 51991232
+                        integration: 463433
+                        metadata: null
+                        name: Mekatilili Menza
+                        recipient_code: RCP_hcbqw7tcdojffkg
+                        type: nuban
+                        updatedAt: 2023-04-04T10:41:12.000Z
+                        is_deleted: false
+                        isDeleted: false
+                        details:
+                          authorization_code: null
+                          account_number: 0123456789
+                          account_name: MEKATILILI MENZA M
+                          bank_code: 058
+                          bank_name: Guaranty Trust Bank
+                      session:
+                        provider: nip
+                        id: '00031231231231231231231230101'
+                      fee_charged: 1000
+                      fees_breakdown: null
+                Verify Transfer:
+                  value:
+                    status: true
+                    message: Transfer retrieved
+                    data:
+                      amount: 2000
+                      createdAt: 2023-04-04T10:41:58.000Z
+                      currency: NGN
+                      domain: live
+                      failures: null
+                      id: 269771800
+                      integration: 463433
+                      reason: Redemption amount
+                      reference: abc-123-reference
+                      source: balance
+                      source_details: null
+                      status: success
+                      titan_code: null
+                      transfer_code: TRF_09i424359abc123
+                      request: 2484542312
+                      transferred_at: 2023-04-04T10:42:01.000Z
+                      updatedAt: 2023-04-04T10:42:01.000Z
+                      recipient:
+                        active: true
+                        createdAt: 2023-04-04T10:41:12.000Z
+                        currency: NGN
+                        description: null
+                        domain: live
+                        email: customer@example.com
+                        id: 51991232
+                        integration: 463433
+                        metadata: null
+                        name: Mekatilili Menza
+                        recipient_code: RCP_hcbqw7tcdojffkg
+                        type: nuban
+                        updatedAt: 2023-04-04T10:41:12.000Z
+                        is_deleted: false
+                        isDeleted: false
+                        details:
+                          authorization_code: null
+                          account_number: 0123456789
+                          account_name: MEKATILILI MENZA M
+                          bank_code: 058
+                          bank_name: Guaranty Trust Bank
+                      session:
+                        provider: nip
+                        id: '00031231231231231231231230101'
+                      fee_charged: 1000
+                      fees_breakdown: null
+                Enable OTP:
+                  value:
+                    status: true
+                    message: OTP requirement for transfers has been enabled
+                Resend OTP:
+                  value:
+                    status: true
+                    message: OTP has been resent
+                Disable OTP:
+                  value:
+                    status: true
+                    message: OTP has been sent to mobile number ending with 4321
+                Finalize Disable OTP:
+                  value:
+                    status: true
+                    message: OTP requirement for transfers has been disabled
         '401':
           description: Unauthorized operation
           content:

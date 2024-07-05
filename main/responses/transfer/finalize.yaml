@@ -1,0 +1,8 @@
+description: Request successful
+content:
+  application/json:
+    schema:
+      $ref: '../response.yaml'
+    examples:
+      Finalize Transfer:
+        $ref: '../../examples/transfer/finalize.yaml'

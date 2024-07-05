@@ -37,6 +37,7 @@ properties:
     - NGN
     - GHS
     - ZAR
+    - KES
   authorization_code:
     description: |- 
       An authorization code from a previous transaction
