@@ -4278,17 +4278,57 @@ components:
           description: |- 
             Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
           type: integer
+        currency:
+          description: |- 
+            The transaction currency. Defaults to your integration currency.
+          type: string
+          enum:
+            - NGN
+            - GHS
+            - ZAR
+            - KES
+            - USD
         slug:
           description: |- 
-            URL slug you would like to be associated with this page. Page will be accessible at https://paystack.com/pay/[slug]
+            URL slug you would like to be associated with this page. Page will be accessible at `https://paystack.com/pay/[slug]`
+          type: string
+        type:
+          description: |
+            The type of payment page to create. Defaults to `payment` if no type is specified.
+          type: string
+          enum:
+            - payment
+            - subscription
+            - product
+            - plan
+        plan:
+          description: The ID of the plan to subscribe customers on this payment page to when `type` is set to `subscription`.
+          type: string
+        fixed_amount:
+          description: Specifies whether to collect a fixed amount on the payment page. If true, `amount` must be passed.
+          type: boolean
+        split_code:
+          description: The split code of the transaction split. e.g. `SPL_98WF13Eb3w`
           type: string
         metadata:
           description: Stringified JSON object of custom data
           type: string
         redirect_url:
-          description: |- 
+          description: | 
             If you would like Paystack to redirect to a URL upon successful payment, specify the URL here.
           type: string
+        success_message:
+          description: |
+            A success message to display to the customer after a successful transaction
+          type: string
+        notification_email:
+          description: | 
+            An email address that will receive transaction notifications for this payment page
+          type: string
+        collect_phone:
+          description: |
+            Specify whether to collect phone numbers on the payment page
+          type: boolean
         custom_fields:
           description: |- 
             If you would like to accept custom fields, specify them here.
