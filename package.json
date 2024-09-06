@@ -5,7 +5,7 @@
   "author": "Damilola Odujoko",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build-main && npm run build-wallet && npm run build-membership && npm run build-marketplace && npm run build-betting && npm run build-lending && npm run build-savings",
+    "build": "pnpm build-main && pnpm build-wallet && pnpm build-membership && pnpm build-marketplace && pnpm build-betting && pnpm build-lending && pnpm build-savings",
     "build-main": "swagger-cli bundle main/paystack.yaml --outfile dist/paystack.yaml --type yaml",
     "build-wallet": "swagger-cli bundle use_cases/wallet.yaml --outfile dist/wallet.yaml --type yaml",
     "build-membership": "swagger-cli bundle use_cases/membership.yaml --outfile dist/membership.yaml --type yaml",
@@ -13,7 +13,7 @@
     "build-betting": "swagger-cli bundle use_cases/betting.yaml --outfile dist/betting.yaml --type yaml",
     "build-lending": "swagger-cli bundle use_cases/lending.yaml --outfile dist/lending.yaml --type yaml",
     "build-savings": "swagger-cli bundle use_cases/savings.yaml --outfile dist/savings.yaml --type yaml",
-    "lint": "npm run lint-main && npm run lint-sdk",
+    "lint": "pnpm lint-main && pnpm lint-sdk",
     "lint-main": "spectral lint dist/paystack.yaml",
     "lint-sdk": "spectral lint ./sdk/paystack.yaml"
   },
@@ -33,6 +33,7 @@
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
     "@quobix/vacuum": "^0.10.1",
+    "@redocly/cli": "^1.22.1",
     "@stoplight/spectral-cli": "^6.5.1"
   }
 }
