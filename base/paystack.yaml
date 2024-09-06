@@ -1111,6 +1111,27 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
+  /dedicated_account/assign:
+    post:
+      tags:
+        - Dedicated Virtual Account
+      summary: Assign Dedicated Account
+      operationId: dedicatedAccount_assign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountAssign'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountAssign'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /dedicated_account/{account_id}:
     parameters:
     - name: account_id
@@ -1146,12 +1167,28 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
-  /dedicated_account/available_providers:
+  /dedicated_account/requery:
+    parameters:
+    - name: account_number
+      description: Virtual account number to requery
+      in: query
+      schema:
+        type: string
+    - name: provider_slug
+      description: The bank's slug in lowercase, without spaces e.g. `wema-bank`
+      in: query
+      schema:
+        type: string
+    - name: date
+      description: The day the transfer was made in `YYYY-MM-DD` format
+      in: query
+      schema:
+        type: string
     get:
       tags:
         - Dedicated Virtual Account
-      summary: Fetch Bank Providers
-      operationId: dedicatedAccount_availableProviders
+      summary: Requery Dedicated Account
+      operationId: dedicatedAccount_requery
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -1195,6 +1232,21 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /dedicated_account/available_providers:
+    get:
+      tags:
+        - Dedicated Virtual Account
+      summary: Fetch Bank Providers
+      operationId: dedicatedAccount_availableProviders
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -3902,6 +3954,51 @@ components:
           type: string
         preferred_bank:
           description: The bank slug for preferred bank. To get a list of available banks, use the List Providers endpoint
+          type: string
+        subaccount:
+          description: Subaccount code of the account you want to split the transaction with
+          type: string
+        split_code:
+          description: Split code consisting of the lists of accounts you want to split the transaction with
+          type: string
+    DedicatedVirtualAccountAssign:
+      type: object
+      required:
+      - email
+      - first_name
+      - last_name
+      - phone
+      - preferred_bank
+      - country
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        first_name:
+          description: Customer's first name
+          type: string
+        last_name:
+          description: Customer's last name
+          type: string
+        phone:
+          description: Customer's phone name
+          type: string
+        preferred_bank:
+          description: |
+            The bank slug for preferred bank. To get a list of available banks, 
+            use the List Banks endpoint, passing `pay_with_bank_transfer=true` query parameter
+          type: string
+        country: 
+          description: Currently accepts NG only
+          type: string
+        account_number: 
+          description: Customer's account number
+          type: string
+        bvn: 
+          description: Customer's Bank Verification Number
+          type: string
+        bank_code: 
+          description: Customer's bank code
           type: string
         subaccount:
           description: Subaccount code of the account you want to split the transaction with
