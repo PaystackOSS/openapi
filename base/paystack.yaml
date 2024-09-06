@@ -3439,6 +3439,27 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
+  /bank/validate:
+    post:
+      tags:
+        - Bank
+      summary: Validate Bank Account
+      operationId: bank_validateAccountNumber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankValidateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BankValidateRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /decision/bin/{bin}:
     get:
       tags:
@@ -4851,12 +4872,55 @@ components:
         account_number:
           description: Customer's account number
           type: string
+    BankValidateRequest:
+      type: object
+      required:
+      - account_name
+      - account_number
+      - account_type
+      - bank_code
+      - country_code
+      - document_type
+      properties:
+        account_name:
+          description: Customer's first and last name registered with their bank
+          type: string
+        account_number:
+          description: Customer's account number
+          type: string
+        account_type:
+          description: The type of the customer's account number
+          type: string
+          enum:
+          - personal
+          - business
+        bank_code:
+          description: The bank code of the customer’s bank. You can fetch the bank codes by using our List Banks endpoint
+          type: string
+        country_code:
+          description: The two digit ISO code of the customer’s bank
+          type: string
+        document_type:
+          description: Customer’s mode of identity
+          type: string
+          enum:
+          - identityNumber
+          - passportNumber
+          - businessRegistrationNumber
+        document_number:
+          description: Customer’s mode of identity number
+          type: string
     USSD:
       type: object
       properties:
         type:
-          description: The three-digit USSD code. One of, 737, 919, 822, 966
+          description: The three-digit USSD code.
           type: string
+          enum:
+            - 737
+            - 919
+            - 822
+            - 966
     MobileMoney:
       type: object
       properties:
