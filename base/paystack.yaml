@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://json-schema.org/draft/2020-12/schema
+
 openapi: 3.0.1
 info:
   title: Paystack
@@ -15,7 +17,7 @@ tags:
     description: |
       A collection of endpoints for managing payments
     x-product-name: Transactions
-  - name: Split
+  - name: Transaction Split
     description: |
       A collection of endpoints for spliting a transaction and managing the splits
     x-product-name: Transaction Splits
@@ -26,7 +28,11 @@ tags:
   - name: Customer
     description: |
       A collection of endpoints for creating and managing customers on an integration
-    x-product-name: Transaction Splits
+    x-product-name: Customers
+  - name: Direct Debit
+    description: |
+      A collection of endpoints for managing Direct Debit
+    x-product-name: Direct Debit
   - name: Dedicated Virtual Account
     description: |
       A collection of endpoints for creating and managing payment accounts for customers
@@ -3891,6 +3897,185 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /directdebit/activation-charge:
+    put:
+      tags:
+        - Direct Debit
+      summary: Trigger Activation Charge
+      description: Trigger activation charge for specified customers
+      operationId: directdebit_triggerActivationCharge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectDebitActivationChargeRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/DirectDebitActivationChargeSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /directdebit/mandate-authorizations:
+    get:
+      tags:
+        - Direct Debit
+      summary: List Mandate Authorizations
+      description: Get a list of all the direct debit mandates on your integration
+      operationId: directdebit_listMandateAuthorizations
+      parameters:
+        - name: cursor
+          in: query
+          description: The cursor value of the next set of authorizations to fetch. You can get this from the meta object of the response
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by the authorization status
+          schema:
+            type: string
+            enum:
+              - pending
+              - active
+              - revoked
+        - name: per_page
+          in: query
+          description: The number of authorizations to fetch per request
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerFetchMandateAuthorizationsSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/authorization/initialize:
+    post:
+      tags:
+        - Customer
+      summary: Initialize Authorization
+      description: Initiate a request to create a reusable authorization code for recurring transactions
+      operationId: customer_initializeAuthorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAuthorizationInitializeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerAuthorizationInitializeRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerAuthorizationInitializeSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/authorization/verify/{reference}:
+    get:
+      tags:
+        - Customer
+      summary: Verify Authorization
+      description: Check the status of an authorization request
+      operationId: customer_verifyAuthorization
+      parameters:
+        - name: reference
+          in: path
+          description: The reference returned in the initialization response
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerAuthorizationVerifySuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /customer/{id}/initialize-direct-debit:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the customer to initialize the direct debit for
+    post:
+      tags:
+        - Customer
+      summary: Initialize Direct Debit
+      operationId: customer_initializeDirectDebit
+      description: Initialize the process of linking an account to a customer for Direct Debit transactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInitializeDirectDebitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerInitializeDirectDebitRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerInitializeDirectDebitSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/{id}/directdebit-activation-charge:
+    put:
+      tags:
+        - Customer
+      summary: Direct Debit Activation Charge
+      operationId: customer_directDebitActivationCharge
+      description: Trigger an activation charge on an inactive mandate on behalf of your customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: The customer ID attached to the authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDirectDebitActivationChargeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerDirectDebitActivationChargeRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerDirectDebitActivationChargeSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/{id}/directdebit-mandate-authorizations:
+    get:
+      tags:
+        - Customer
+      summary: Fetch Mandate Authorizations
+      operationId: customer_fetchMandateAuthorizations
+      description: Get the list of direct debit mandates associated with a customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The customer ID for the authorizations to fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerFetchMandateAuthorizationsSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
 components:
@@ -15787,6 +15972,475 @@ components:
         - status
         - message
         - data
+    DirectDebitActivationChargeRequest:
+      type: object
+      required:
+        - customer_ids
+      properties:
+        customer_ids:
+          type: array
+          description: Array of customer IDs to trigger activation charge for
+          items:
+            type: integer
+          example: [28958104, 983697220]
+    DirectDebitActivationChargeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Mandate is queued for retry'
+      required:
+        - status
+        - message
+    DirectDebitMandateAuthorizationCustomer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 28958104
+        customer_code:
+          type: string
+          example: 'CUS_5kye9bc41uw15pb'
+        email:
+          type: string
+          example: 'customer@email.com'
+        first_name:
+          type: string
+          example: 'Booker'
+        last_name:
+          type: string
+          example: 'Jones'
+      required:
+        - id
+        - customer_code
+        - email
+        - first_name
+        - last_name
+    DirectDebitMandateAuthorizationData:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 112244
+        status:
+          type: string
+          example: 'active'
+        mandate_id:
+          type: integer
+          example: 1560169
+        authorization_id:
+          type: integer
+          example: 1069309917
+        authorization_code:
+          type: string
+          example: 'AUTH_lEt8QgrSfW'
+        integration_id:
+          type: integer
+          example: 463433
+        account_number:
+          type: string
+          example: '0123456789'
+        bank_code:
+          type: string
+          example: '058'
+        bank_name:
+          type: string
+          example: 'Guaranty Trust Bank'
+        customer:
+          $ref: '#/components/schemas/DirectDebitMandateAuthorizationCustomer'
+        authorized_at:
+          type: string
+          format: date-time
+          example: '2025-06-23T12:47:10.632Z'
+      required:
+        - id
+        - status
+        - mandate_id
+        - authorization_id
+        - authorization_code
+        - integration_id
+        - account_number
+        - bank_code
+        - bank_name
+        - customer
+        - authorized_at
+    DirectDebitMandateAuthorizationMeta:
+      type: object
+      properties:
+        per_page:
+          type: integer
+          example: 10
+        next:
+          type: string
+          example: 'MTI1OTc='
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 40
+      required:
+        - per_page
+        - count
+        - total
+    DirectDebitMandateAuthorizationListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Mandate authorizations retrieved successfully'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DirectDebitMandateAuthorizationData'
+        meta:
+          $ref: '#/components/schemas/DirectDebitMandateAuthorizationMeta'
+      required:
+        - status
+        - message
+        - data
+        - meta
+    CustomerAuthorizationInitializeAccount:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The customer's account number
+          example: '0123456789'
+        bank_code:
+          type: string
+          description: The code representing the customer's bank
+          example: '058'
+      required:
+        - number
+        - bank_code
+    CustomerAuthorizationInitializeAddress:
+      type: object
+      properties:
+        street:
+          type: string
+          description: The customer's street
+          example: '123 Main Street'
+        city:
+          type: string
+          description: The customer's city
+          example: 'Lagos'
+        state:
+          type: string
+          description: The customer's state
+          example: 'Lagos'
+      required:
+        - street
+        - city
+        - state
+    CustomerAuthorizationInitializeRequest:
+      type: object
+      required:
+        - email
+        - channel
+      properties:
+        email:
+          type: string
+          description: Customer's email address
+          example: 'ravi@demo.com'
+        channel:
+          type: string
+          description: direct-debit is the only supported option for now
+          enum:
+            - direct_debit
+          example: 'direct_debit'
+        callback_url:
+          type: string
+          description: Fully qualified url (e.g. https://example.com/) to redirect your customer to
+          example: 'http://test.url.com'
+        account:
+          $ref: '#/components/schemas/CustomerAuthorizationInitializeAccount'
+        address:
+          $ref: '#/components/schemas/CustomerAuthorizationInitializeAddress'
+    CustomerAuthorizationInitializeResponseData:
+      type: object
+      properties:
+        redirect_url:
+          type: string
+          example: 'https://checkout.paystack.com/82t4mp5b5mfn51h'
+        access_code:
+          type: string
+          example: '82t4mp5b5mfn51h'
+        reference:
+          type: string
+          example: 'dfbzfotsrbv4n5s82t4mp5b5mfn51h'
+      required:
+        - redirect_url
+        - access_code
+        - reference
+    CustomerAuthorizationInitializeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Authorization initialized'
+        data:
+          $ref: '#/components/schemas/CustomerAuthorizationInitializeResponseData'
+      required:
+        - status
+        - message
+        - data
+    CustomerAuthorizationVerifyResponseCustomer:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 'CUS_24lze1c8i2zl76y'
+        email:
+          type: string
+          example: 'ravi@demo.com'
+      required:
+        - code
+        - email
+    CustomerAuthorizationVerifyResponseData:
+      type: object
+      properties:
+        authorization_code:
+          type: string
+          example: 'AUTH_JV4T9Wawdj'
+        channel:
+          type: string
+          example: 'direct_debit'
+        bank:
+          type: string
+          example: 'Guaranty Trust Bank'
+        active:
+          type: boolean
+          example: true
+        customer:
+          $ref: '#/components/schemas/CustomerAuthorizationVerifyResponseCustomer'
+      required:
+        - authorization_code
+        - channel
+        - bank
+        - active
+        - customer
+    CustomerAuthorizationVerifyResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Authorization retrieved successfully'
+        data:
+          $ref: '#/components/schemas/CustomerAuthorizationVerifyResponseData'
+      required:
+        - status
+        - message
+        - data
+    CustomerInitializeDirectDebitAccount:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The customer's account number
+          example: '0123456789'
+        bank_code:
+          type: string
+          description: The code representing the customer's bank
+          example: '058'
+      required:
+        - number
+        - bank_code
+    CustomerInitializeDirectDebitAddress:
+      type: object
+      properties:
+        street:
+          type: string
+          description: The customer's street
+          example: 'Some Where'
+        city:
+          type: string
+          description: The customer's city
+          example: 'Ikeja'
+        state:
+          type: string
+          description: The customer's state
+          example: 'Lagos'
+      required:
+        - street
+        - city
+        - state
+    CustomerInitializeDirectDebitRequest:
+      type: object
+      required:
+        - account
+        - address
+      properties:
+        account:
+          $ref: '#/components/schemas/CustomerInitializeDirectDebitAccount'
+        address:
+          $ref: '#/components/schemas/CustomerInitializeDirectDebitAddress'
+    CustomerInitializeDirectDebitResponseData:
+      type: object
+      properties:
+        redirect_url:
+          type: string
+          example: 'https://link.paystack.com/ll6b0szngj1f27k'
+        access_code:
+          type: string
+          example: 'll6b0szngj1f27k'
+        reference:
+          type: string
+          example: '1er945lpy4txyki'
+      required:
+        - redirect_url
+        - access_code
+        - reference
+    CustomerInitializeDirectDebitResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Authorization initialized'
+        data:
+          $ref: '#/components/schemas/CustomerInitializeDirectDebitResponseData'
+      required:
+        - status
+        - message
+        - data
+    CustomerDirectDebitActivationChargeRequest:
+      type: object
+      required:
+        - authorization_id
+      properties:
+        authorization_id:
+          type: integer
+          description: The authorization ID gotten from the initiation response
+          example: 1069309917
+    CustomerDirectDebitActivationChargeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Mandate is queued for retry'
+      required:
+        - status
+        - message
+    CustomerFetchMandateAuthorizationsResponseData:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 164098
+        status:
+          type: string
+          example: 'active'
+        mandate_id:
+          type: integer
+          example: 512003
+        authorization_id:
+          type: integer
+          example: 110049014
+        authorization_code:
+          type: string
+          example: 'AUTH_8Lol0pNt14'
+        integration_id:
+          type: integer
+          example: 463433
+        account_number:
+          type: string
+          example: '0123456789'
+        bank_code:
+          type: string
+          example: '032'
+        bank_name:
+          type: string
+          example: null
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 43975700
+            customer_code:
+              type: string
+              example: 'CUS_2eusy8uwe34s23fy'
+            email:
+              type: string
+              example: 'customer@email.com'
+            first_name:
+              type: string
+              example: 'Smith'
+            last_name:
+              type: string
+              example: 'Bel'
+        authorized_at:
+          type: string
+          format: date-time
+          example: '2024-09-27T10:57:53.824Z'
+      required:
+        - id
+        - status
+        - mandate_id
+        - authorization_id
+        - authorization_code
+        - integration_id
+        - account_number
+        - bank_code
+        - customer
+        - authorized_at
+    CustomerFetchMandateAuthorizationsResponseMeta:
+      type: object
+      properties:
+        per_page:
+          type: integer
+          example: 50
+        next:
+          type: string
+          example: null
+        count:
+          type: integer
+          example: 1
+        total:
+          type: integer
+          example: 1
+      required:
+        - per_page
+        - count
+        - total
+    CustomerFetchMandateAuthorizationsResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Mandate authorizations retrieved successfully'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerFetchMandateAuthorizationsResponseData'
+        meta:
+          $ref: '#/components/schemas/CustomerFetchMandateAuthorizationsResponseMeta'
+      required:
+        - status
+        - message
+        - data
+        - meta
   responses:
     TransactionInitializeSuccess:
       description: Transaction Initialize response
@@ -16532,3 +17186,39 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/MiscellaneousListStatesResponse'
+    CustomerInitializeDirectDebitSuccess:
+      description: Customer Initialize Direct Debit response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerInitializeDirectDebitResponse'
+    CustomerDirectDebitActivationChargeSuccess:
+      description: Customer Direct Debit Activation Charge response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerDirectDebitActivationChargeResponse'
+    CustomerFetchMandateAuthorizationsSuccess:
+      description: Customer Fetch Mandate Authorizations response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerFetchMandateAuthorizationsResponse'
+    CustomerAuthorizationVerifySuccess:
+      description: Customer Authorization Verify response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerAuthorizationVerifyResponse'
+    CustomerAuthorizationInitializeSuccess:
+      description: Customer Authorization Initialize response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerAuthorizationInitializeResponse'
+    DirectDebitActivationChargeSuccess:
+      description: Direct Debit Activation Charge response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DirectDebitActivationChargeResponse"
