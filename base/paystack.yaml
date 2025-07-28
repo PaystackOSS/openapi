@@ -23,6 +23,10 @@ tags:
     description: |
       A collection of endpoints for building delightful in-person payment experiences
     x-product-name: Terminal
+  - name: Virtual Terminal
+    description: |
+      A collection of endpoints for building in-person payments without a physical terminal
+    x-product-name: Virtual Terminal
   - name: Customer
     description: |
       A collection of endpoints for creating and managing customers on an integration
@@ -879,7 +883,7 @@ paths:
   /virtual_terminal:
     post:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Create Virtual Terminal
       operationId: virtualTerminal_create
       requestBody:
@@ -896,7 +900,7 @@ paths:
           description: Server error
     get:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: List Virtual Terminals
       operationId: virtualTerminal_list
       parameters:
@@ -924,7 +928,7 @@ paths:
           type: string
     get:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Fetch Virtual Terminal
       operationId: virtualTerminal_fetch
       responses:
@@ -936,7 +940,7 @@ paths:
           description: Server error
     put:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Update Virtual Terminal
       operationId: virtualTerminal_update
       requestBody:
@@ -960,7 +964,7 @@ paths:
           type: string
     put:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Deactivate Virtual Terminal
       operationId: virtualTerminal_deactivate
       responses:
@@ -979,7 +983,7 @@ paths:
           type: string
     post:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Assign Destination to Virtual Terminal
       operationId: virtualTerminal_destinationAssign
       requestBody:
@@ -1006,7 +1010,7 @@ paths:
           type: string
     post:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Unassign Destination from Virtual Terminal
       operationId: virtualTerminal_destinationUnassign
       requestBody:
@@ -1033,7 +1037,7 @@ paths:
           type: string
     put:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Add Split Code to Virtual Terminal
       operationId: virtualTerminal_addSplitCode
       requestBody:
@@ -1053,7 +1057,7 @@ paths:
           description: Server Error
     delete:
       tags:
-        - virtualTerminal
+        - Virtual Terminal
       summary: Remove Split Code from Virtual Terminal
       operationId: virtualTerminal_deleteSplitCode
       requestBody:
