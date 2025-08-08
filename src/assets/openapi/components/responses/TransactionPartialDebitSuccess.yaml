@@ -1,0 +1,5 @@
+description: Transaction Partial Debit response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransactionPartialDebitResponse.yaml

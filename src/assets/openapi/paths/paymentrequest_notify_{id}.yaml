@@ -1,0 +1,18 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+post:
+  tags:
+    - Payment Request
+  summary: Send Notification
+  operationId: paymentRequest_notify
+  responses:
+    '200':
+      $ref: ../components/responses/PaymentRequestSendNotificationSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

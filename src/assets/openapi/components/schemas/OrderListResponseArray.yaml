@@ -1,0 +1,83 @@
+type: object
+properties:
+  id:
+    type: integer
+  order_code:
+    type: string
+  integration:
+    type: integer
+  domain:
+    type: string
+  currency:
+    type: string
+  amount:
+    type: integer
+  transaction:
+    type: integer
+  page:
+    nullable: true
+  customer:
+    type: integer
+  customer_name:
+    type: string
+  status:
+    type: string
+  shipping_address:
+    nullable: true
+  metadata:
+    type: string
+  created_at:
+    type: string
+  updated_at:
+    type: string
+  email:
+    type: string
+  paid_at:
+    type: string
+  shipping:
+    nullable: true
+  shipping_fees:
+    type: integer
+  refunded:
+    type: boolean
+  is_viewed:
+    type: boolean
+  refunded_amount:
+    nullable: true
+  discount_amount:
+    nullable: true
+  discounts:
+    nullable: true
+  items:
+    type: array
+    items:
+      $ref: ./OrderItemsArray.yaml
+  fully_refunded:
+    type: boolean
+required:
+  - id
+  - order_code
+  - integration
+  - domain
+  - currency
+  - amount
+  - transaction
+  - page
+  - customer
+  - customer_name
+  - status
+  - shipping_address
+  - metadata
+  - created_at
+  - updated_at
+  - email
+  - paid_at
+  - shipping
+  - shipping_fees
+  - refunded
+  - is_viewed
+  - refunded_amount
+  - discount_amount
+  - discounts
+  - items
+  - fully_refunded

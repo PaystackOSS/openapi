@@ -1,0 +1,11 @@
+type: object
+required:
+  - phone
+  - reference
+properties:
+  phone:
+    description: Customer's mobile number
+    type: string
+  reference:
+    description: The reference of the ongoing transaction
+    type: string

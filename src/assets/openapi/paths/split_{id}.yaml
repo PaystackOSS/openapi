@@ -1,0 +1,56 @@
+get:
+  tags:
+    - Split
+  summary: Fetch Split
+  operationId: split_fetch
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SplitFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Split
+  summary: Update Split
+  operationId: split_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SplitUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/SplitUpdate.yaml
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SplitUpdateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

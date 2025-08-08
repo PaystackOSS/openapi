@@ -1,0 +1,16 @@
+post:
+  tags:
+    - Transfer
+  summary: Enable OTP requirement for Transfers
+  operationId: transfer_enableOtp
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferEnablesOtpResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

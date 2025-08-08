@@ -1,0 +1,151 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      domain:
+        type: string
+      status:
+        type: string
+      reference:
+        type: string
+      amount:
+        type: integer
+      message:
+        type: string
+      created_at:
+        type: string
+      released_at:
+        type: string
+        nullable: true
+      authorized_at:
+        type: string
+        nullable: true
+      expiry_date:
+        type: string
+        nullable: true
+      currency:
+        type: string
+      metadata:
+        type: object
+        nullable: true
+      fees:
+        type: integer
+      authorization:
+        type: object
+        properties:
+          authorization_code:
+            type: string
+          bin:
+            type: string
+          last4:
+            type: string
+          exp_month:
+            type: string
+          exp_year:
+            type: string
+          channel:
+            type: string
+          card_type:
+            type: string
+          bank:
+            type: string
+          country_code:
+            type: string
+          brand:
+            type: string
+          reusable:
+            type: boolean
+          signature:
+            type: string
+          account_name:
+            type: string
+            nullable: true
+        required:
+          - authorization_code
+          - bin
+          - last4
+          - exp_month
+          - exp_year
+          - channel
+          - card_type
+          - bank
+          - country_code
+          - brand
+          - reusable
+          - signature
+          - account_name
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          customer_code:
+            type: string
+          phone:
+            type: string
+          metadata:
+            type: object
+          risk_action:
+            type: string
+          international_format_phone:
+            type: string
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - customer_code
+          - phone
+          - metadata
+          - risk_action
+          - international_format_phone
+      merchant_id:
+        type: integer
+      merchant_name:
+        type: string
+      expire_action:
+        type: string
+      split_code:
+        type: string
+        nullable: true
+      split:
+        type: object
+        nullable: true
+    required:
+      - id
+      - domain
+      - status
+      - reference
+      - amount
+      - message
+      - created_at
+      - released_at
+      - authorized_at
+      - expiry_date
+      - currency
+      - metadata
+      - fees
+      - authorization
+      - customer
+      - merchant_id
+      - merchant_name
+      - expire_action
+      - split
+      - split_code
+required:
+  - status
+  - message
+  - data

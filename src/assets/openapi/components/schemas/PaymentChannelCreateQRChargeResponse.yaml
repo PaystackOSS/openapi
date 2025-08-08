@@ -1,0 +1,26 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      reference:
+        type: string
+      status:
+        type: string
+      qr_code:
+        type: string
+      url:
+        type: string
+      message:
+        type: string
+    required:
+      - reference
+      - status
+required:
+  - status
+  - message
+  - data

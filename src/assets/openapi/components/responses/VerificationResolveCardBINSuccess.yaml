@@ -1,0 +1,5 @@
+description: Verification Resolve Card B I N response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/VerificationResolveCardBINResponse.yaml

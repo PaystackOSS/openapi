@@ -1,0 +1,5 @@
+description: Miscellaneous List States response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/MiscellaneousListStatesResponse.yaml

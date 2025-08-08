@@ -1,0 +1,113 @@
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  description:
+    type: string
+  product_code:
+    type: string
+  slug:
+    type: string
+  currency:
+    type: string
+  price:
+    type: integer
+  quantity:
+    type: integer
+  quantity_sold:
+    type: integer
+  active:
+    type: boolean
+  domain:
+    type: string
+  type:
+    type: string
+  in_stock:
+    type: boolean
+  unlimited:
+    type: boolean
+  metadata:
+    type: object
+    properties:
+      background_color:
+        type: string
+    required:
+      - background_color
+  files:
+    type: array
+    items: {}
+  success_message:
+    nullable: true
+  redirect_url:
+    nullable: true
+  split_code:
+    nullable: true
+  notification_emails:
+    nullable: true
+  minimum_orderable:
+    type: integer
+  maximum_orderable:
+    nullable: true
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+  digital_assets:
+    type: array
+    items: {}
+  variant_options:
+    type: array
+    items: {}
+  is_shippable:
+    type: boolean
+  shipping_fields:
+    type: object
+    properties:
+      delivery_note:
+        type: string
+      shipping_address:
+        type: string
+      shipping_fees:
+        type: array
+        items: {}
+    required:
+      - delivery_note
+      - shipping_address
+      - shipping_fees
+  integration:
+    type: integer
+  low_stock_alert:
+    type: integer
+required:
+  - id
+  - name
+  - description
+  - product_code
+  - slug
+  - currency
+  - price
+  - quantity
+  - quantity_sold
+  - active
+  - domain
+  - type
+  - in_stock
+  - unlimited
+  - metadata
+  - files
+  - success_message
+  - redirect_url
+  - split_code
+  - notification_emails
+  - minimum_orderable
+  - maximum_orderable
+  - createdAt
+  - updatedAt
+  - digital_assets
+  - variant_options
+  - is_shippable
+  - shipping_fields
+  - integration
+  - low_stock_alert

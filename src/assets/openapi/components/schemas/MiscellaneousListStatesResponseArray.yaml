@@ -1,0 +1,12 @@
+type: object
+properties:
+  name:
+    type: string
+  slug:
+    type: string
+  abbreviation:
+    type: string
+required:
+  - name
+  - slug
+  - abbreviation

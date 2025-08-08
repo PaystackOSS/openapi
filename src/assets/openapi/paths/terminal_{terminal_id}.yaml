@@ -1,0 +1,43 @@
+parameters:
+  - name: terminal_id
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Terminal
+  summary: Fetch Terminal
+  description: Get the details of a Terminal
+  operationId: terminal_fetch
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalGetSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Terminal
+  summary: Update Terminal
+  operationId: terminal_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TerminalUpate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TerminalUpate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalUpdateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

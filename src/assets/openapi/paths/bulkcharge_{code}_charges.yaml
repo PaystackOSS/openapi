@@ -1,0 +1,46 @@
+get:
+  tags:
+    - Bulk Charge
+  summary: List Charges in a Batch
+  operationId: bulkCharge_charges
+  parameters:
+    - name: code
+      description: Batch code
+      in: path
+      required: true
+      schema:
+        type: string
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+      description: Number of records to fetch per page
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The offset to retrieve data from
+    - in: query
+      name: status
+      schema:
+        type: string
+        enum:
+          - success
+          - failed
+          - pending
+          - error
+          - inactive_authorization
+      description: Filter by the status of the charges
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BulkChargeFetchBulkBatchChargesResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

@@ -1,0 +1,363 @@
+openapi: 3.0.1
+info:
+  title: Paystack
+  description: >-
+    The OpenAPI specification of the Paystack API that merchants and developers
+    can harness to build financial solutions in Africa.
+  version: 1.0.0
+  contact:
+    email: techsupport@paystack.com
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+security:
+  - bearerAuth: []
+tags:
+  - name: Transaction
+    description: |
+      A collection of endpoints for managing payments
+    x-product-name: Transactions
+  - name: Split
+    description: >
+      A collection of endpoints for spliting a transaction and managing the
+      splits
+    x-product-name: Transaction Splits
+  - name: Terminal
+    description: >
+      A collection of endpoints for building delightful in-person payment
+      experiences
+    x-product-name: Terminal
+  - name: Customer
+    description: >
+      A collection of endpoints for creating and managing customers on an
+      integration
+    x-product-name: Transaction Splits
+  - name: Dedicated Virtual Account
+    description: >
+      A collection of endpoints for creating and managing payment accounts for
+      customers
+    x-product-name: Dedicated Virtual Accounts
+  - name: Apple Pay
+    description: >
+      A collection of endpoints for managing application's top-level domain or
+      subdomain accepting payment via Apple Pay
+    x-product-name: Apple Pay
+  - name: Subaccount
+    description: |
+      A collection of endpoints for creating and managing accounts for sharing a
+      transaction with
+    x-product-name: Subaccounts
+  - name: Plan
+    description: |
+      A collection of endpoints for creating and managing recurring payment
+      configuration
+    x-product-name: Plans
+  - name: Subscription
+    description: |
+      A collection of endpoints for creating and managing recurring payments
+    x-product-name: Subscriptions
+  - name: Product
+    description: |
+      A collection of endpoints for creating and managing inventories
+    x-product-name: Products
+  - name: Storefront
+    description: |
+      A collection of endpoints for creating and managing storefronts
+    x-product-name: Storefronts
+  - name: Order
+    description: |
+      A collection of endpoints for creating and managing orders
+    x-product-name: Orders
+  - name: Page
+    description: |
+      A collection of endpoints for creating and managing links for the
+      collection of payment for products
+    x-product-name: Payment Pages
+  - name: Payment Request
+    description: |
+      A collection of endpoints for managing invoices for the payment of goods
+      and services
+    x-product-name: Payment Requests
+  - name: Settlement
+    description: |
+      A collection of endpoints for gaining insights into payouts
+    x-product-name: Settlements
+  - name: Transfer Recipient
+    description: >
+      A collection of endpoints for creating and managing beneficiaries that you
+      send money to
+    x-product-name: Transfer Recipients
+  - name: Transfer
+    description: |
+      A collection of endpoints for automating sending money to beneficiaries
+    x-product-name: Transfers
+  - name: Balance
+    description: >
+      A collection of endpoints gaining insights into the amount on an
+      integration
+    x-product-name: Balance
+  - name: Charge
+    description: >
+      A collection of endpoints for configuring and managing the payment
+      channels when initiating a payment
+    x-product-name: Charges
+  - name: Bulk Charge
+    description: >
+      A collection of endpoints for creating and managing multiple recurring
+      payments
+    x-product-name: Bulk Charges
+  - name: Integration
+    description: |
+      A collection of endpoints for managing some settings on an integration
+    x-product-name: Integration
+  - name: Refund
+    description: >
+      A collection of endpoints for creating and managing transaction
+      reimbursement
+    x-product-name: Refunds
+  - name: Dispute
+    description: >
+      A collection of endpoints for managing transactions complaint made by
+      customers
+    x-product-name: Disputes
+  - name: Bank
+    description: |
+      A collection of endpoints for managing bank details
+    x-product-name: Banks
+  - name: Miscellaneous
+    description: |
+      A collection of endpoints that provides utility functions
+    x-product-name: Miscellaneous
+paths:
+  /transaction/initialize:
+    $ref: paths/transaction_initialize.yaml
+  /transaction/verify/{reference}:
+    $ref: paths/transaction_verify_{reference}.yaml
+  /transaction:
+    $ref: paths/transaction.yaml
+  /transaction/{id}:
+    $ref: paths/transaction_{id}.yaml
+  /transaction/timeline/{id}:
+    $ref: paths/transaction_timeline_{id}.yaml
+  /transaction/totals:
+    $ref: paths/transaction_totals.yaml
+  /transaction/export:
+    $ref: paths/transaction_export.yaml
+  /transaction/charge_authorization:
+    $ref: paths/transaction_charge_authorization.yaml
+  /transaction/partial_debit:
+    $ref: paths/transaction_partial_debit.yaml
+  /transaction/{id}/event:
+    $ref: paths/transaction_{id}_event.yaml
+  /transaction/{id}/session:
+    $ref: paths/transaction_{id}_session.yaml
+  /split:
+    $ref: paths/split.yaml
+  /split/{id}:
+    $ref: paths/split_{id}.yaml
+  /split/{id}/subaccount/add:
+    $ref: paths/split_{id}_subaccount_add.yaml
+  /split/{id}/subaccount/remove:
+    $ref: paths/split_{id}_subaccount_remove.yaml
+  /terminal/{id}/event:
+    $ref: paths/terminal_{id}_event.yaml
+  /terminal/{terminal_id}/event/{event_id}:
+    $ref: paths/terminal_{terminal_id}_event_{event_id}.yaml
+  /terminal/{terminal_id}/presence:
+    $ref: paths/terminal_{terminal_id}_presence.yaml
+  /terminal:
+    $ref: paths/terminal.yaml
+  /terminal/{terminal_id}:
+    $ref: paths/terminal_{terminal_id}.yaml
+  /terminal/commission_device:
+    $ref: paths/terminal_commission_device.yaml
+  /terminal/decommission_device:
+    $ref: paths/terminal_decommission_device.yaml
+  /customer:
+    $ref: paths/customer.yaml
+  /customer/{code}:
+    $ref: paths/customer_{code}.yaml
+  /customer/set_risk_action:
+    $ref: paths/customer_set_risk_action.yaml
+  /customer/deactivate_authorization:
+    $ref: paths/customer_deactivate_authorization.yaml
+  /customer/{code}/identification:
+    $ref: paths/customer_{code}_identification.yaml
+  /dedicated_account:
+    $ref: paths/dedicated_account.yaml
+  /dedicated_account/assign:
+    $ref: paths/dedicated_account_assign.yaml
+  /dedicated_account/{account_id}:
+    $ref: paths/dedicated_account_{account_id}.yaml
+  /dedicated_account/requery:
+    $ref: paths/dedicated_account_requery.yaml
+  /dedicated_account/split:
+    $ref: paths/dedicated_account_split.yaml
+  /dedicated_account/available_providers:
+    $ref: paths/dedicated_account_available_providers.yaml
+  /apple-pay/domain:
+    $ref: paths/apple-pay_domain.yaml
+  /subaccount:
+    $ref: paths/subaccount.yaml
+  /subaccount/{code}:
+    $ref: paths/subaccount_{code}.yaml
+  /plan:
+    $ref: paths/plan.yaml
+  /plan/{code}:
+    $ref: paths/plan_{code}.yaml
+  /subscription:
+    $ref: paths/subscription.yaml
+  /subscription/{code}:
+    $ref: paths/subscription_{code}.yaml
+  /subscription/disable:
+    $ref: paths/subscription_disable.yaml
+  /subscription/enable:
+    $ref: paths/subscription_enable.yaml
+  /subscription/{code}/manage/link:
+    $ref: paths/subscription_{code}_manage_link.yaml
+  /subscription/{code}/manage/email:
+    $ref: paths/subscription_{code}_manage_email.yaml
+  /product:
+    $ref: paths/product.yaml
+  /product/{id}:
+    $ref: paths/product_{id}.yaml
+  /storefront:
+    $ref: paths/storefront.yaml
+  /storefront/{id}:
+    $ref: paths/storefront_{id}.yaml
+  /storefront/verify/{slug}:
+    $ref: paths/storefront_verify_{slug}.yaml
+  /storefront/{id}/order:
+    $ref: paths/storefront_{id}_order.yaml
+  /storefront/{id}/product:
+    $ref: paths/storefront_{id}_product.yaml
+  /storefront/{id}/publish:
+    $ref: paths/storefront_{id}_publish.yaml
+  /storefront/{id}/duplicate:
+    $ref: paths/storefront_{id}_duplicate.yaml
+  /order:
+    $ref: paths/order.yaml
+  /order/{id}:
+    $ref: paths/order_{id}.yaml
+  /order/product/{id}:
+    $ref: paths/order_product_{id}.yaml
+  /order/{code}/validate:
+    $ref: paths/order_{code}_validate.yaml
+  /page:
+    $ref: paths/page.yaml
+  /page/{id}:
+    $ref: paths/page_{id}.yaml
+  /page/check_slug_availability/{slug}:
+    $ref: paths/page_check_slug_availability_{slug}.yaml
+  /page/{id}/product:
+    $ref: paths/page_{id}_product.yaml
+  /paymentrequest:
+    $ref: paths/paymentrequest.yaml
+  /paymentrequest/{id}:
+    $ref: paths/paymentrequest_{id}.yaml
+  /paymentrequest/verify/{id}:
+    $ref: paths/paymentrequest_verify_{id}.yaml
+  /paymentrequest/notify/{id}:
+    $ref: paths/paymentrequest_notify_{id}.yaml
+  /paymentrequest/totals:
+    $ref: paths/paymentrequest_totals.yaml
+  /paymentrequest/finalize/{id}:
+    $ref: paths/paymentrequest_finalize_{id}.yaml
+  /paymentrequest/archive/{id}:
+    $ref: paths/paymentrequest_archive_{id}.yaml
+  /settlement:
+    $ref: paths/settlement.yaml
+  /settlement/{id}/transaction:
+    $ref: paths/settlement_{id}_transaction.yaml
+  /transferrecipient:
+    $ref: paths/transferrecipient.yaml
+  /transferrecipient/bulk:
+    $ref: paths/transferrecipient_bulk.yaml
+  /transferrecipient/{code}:
+    $ref: paths/transferrecipient_{code}.yaml
+  /transfer:
+    $ref: paths/transfer.yaml
+  /transfer/finalize_transfer:
+    $ref: paths/transfer_finalize_transfer.yaml
+  /transfer/bulk:
+    $ref: paths/transfer_bulk.yaml
+  /transfer/{code}:
+    $ref: paths/transfer_{code}.yaml
+  /transfer/verify/{reference}:
+    $ref: paths/transfer_verify_{reference}.yaml
+  /transfer/export:
+    $ref: paths/transfer_export.yaml
+  /transfer/resend_otp:
+    $ref: paths/transfer_resend_otp.yaml
+  /transfer/disable_otp:
+    $ref: paths/transfer_disable_otp.yaml
+  /transfer/disable_otp_finalize:
+    $ref: paths/transfer_disable_otp_finalize.yaml
+  /transfer/enable_otp:
+    $ref: paths/transfer_enable_otp.yaml
+  /balance:
+    $ref: paths/balance.yaml
+  /balance/ledger:
+    $ref: paths/balance_ledger.yaml
+  /charge:
+    $ref: paths/charge.yaml
+  /charge/submit_pin:
+    $ref: paths/charge_submit_pin.yaml
+  /charge/submit_otp:
+    $ref: paths/charge_submit_otp.yaml
+  /charge/submit_phone:
+    $ref: paths/charge_submit_phone.yaml
+  /charge/submit_birthday:
+    $ref: paths/charge_submit_birthday.yaml
+  /charge/submit_address:
+    $ref: paths/charge_submit_address.yaml
+  /charge/{reference}:
+    $ref: paths/charge_{reference}.yaml
+  /bulkcharge:
+    $ref: paths/bulkcharge.yaml
+  /bulkcharge/{code}:
+    $ref: paths/bulkcharge_{code}.yaml
+  /bulkcharge/{code}/charges:
+    $ref: paths/bulkcharge_{code}_charges.yaml
+  /bulkcharge/pause/{code}:
+    $ref: paths/bulkcharge_pause_{code}.yaml
+  /bulkcharge/resume/{code}:
+    $ref: paths/bulkcharge_resume_{code}.yaml
+  /integration/payment_session_timeout:
+    $ref: paths/integration_payment_session_timeout.yaml
+  /refund:
+    $ref: paths/refund.yaml
+  /refund/{id}:
+    $ref: paths/refund_{id}.yaml
+  /dispute:
+    $ref: paths/dispute.yaml
+  /dispute/{id}:
+    $ref: paths/dispute_{id}.yaml
+  /dispute/{id}/upload_url:
+    $ref: paths/dispute_{id}_upload_url.yaml
+  /dispute/export:
+    $ref: paths/dispute_export.yaml
+  /dispute/transaction/{id}:
+    $ref: paths/dispute_transaction_{id}.yaml
+  /dispute/{id}/resolve:
+    $ref: paths/dispute_{id}_resolve.yaml
+  /dispute/{id}/evidence:
+    $ref: paths/dispute_{id}_evidence.yaml
+  /bank:
+    $ref: paths/bank.yaml
+  /bank/resolve:
+    $ref: paths/bank_resolve.yaml
+  /bank/validate:
+    $ref: paths/bank_validate.yaml
+  /decision/bin/{bin}:
+    $ref: paths/decision_bin_{bin}.yaml
+  /country:
+    $ref: paths/country.yaml
+  /address_verification/states:
+    $ref: paths/address_verification_states.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret key in the format sk_domain_xxxxxx

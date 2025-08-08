@@ -1,0 +1,11 @@
+type: object
+required:
+  - transfer_code
+  - reason
+properties:
+  transfer_code:
+    description: The transfer code that requires an OTP validation
+    type: string
+  reason:
+    description: Either resend_otp or transfer
+    type: string

@@ -1,0 +1,11 @@
+type: object
+properties:
+  message:
+    type: string
+  records:
+    type: array
+    items:
+      $ref: ./ErrorRecordsArray.yaml
+required:
+  - message
+  - records

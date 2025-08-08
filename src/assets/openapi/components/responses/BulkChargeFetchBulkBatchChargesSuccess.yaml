@@ -1,0 +1,5 @@
+description: Bulk Charge Fetch Bulk Batch Charges response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/BulkChargeFetchBulkBatchChargesResponse.yaml

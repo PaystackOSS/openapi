@@ -1,0 +1,15 @@
+type: object
+properties:
+  redirect_url:
+    type: string
+    example: https://checkout.paystack.com/82t4mp5b5mfn51h
+  access_code:
+    type: string
+    example: 82t4mp5b5mfn51h
+  reference:
+    type: string
+    example: dfbzfotsrbv4n5s82t4mp5b5mfn51h
+required:
+  - redirect_url
+  - access_code
+  - reference

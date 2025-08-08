@@ -1,0 +1,80 @@
+type: object
+properties:
+  subscriptions:
+    type: array
+    items: {}
+  pages:
+    type: array
+    items: {}
+  domain:
+    type: string
+  name:
+    type: string
+  plan_code:
+    type: string
+  description:
+    nullable: true
+  amount:
+    type: integer
+  interval:
+    type: string
+  invoice_limit:
+    type: integer
+  send_invoices:
+    type: boolean
+  send_sms:
+    type: boolean
+  hosted_page:
+    type: boolean
+  hosted_page_url:
+    nullable: true
+  hosted_page_summary:
+    nullable: true
+  currency:
+    type: string
+  migrate:
+    type: boolean
+  is_deleted:
+    type: boolean
+  is_archived:
+    type: boolean
+  id:
+    type: integer
+  integration:
+    type: integer
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+  total_subscriptions:
+    type: integer
+  active_subscriptions:
+    type: integer
+  total_subscriptions_revenue:
+    type: integer
+required:
+  - subscriptions
+  - pages
+  - domain
+  - name
+  - plan_code
+  - description
+  - amount
+  - interval
+  - invoice_limit
+  - send_invoices
+  - send_sms
+  - hosted_page
+  - hosted_page_url
+  - hosted_page_summary
+  - currency
+  - migrate
+  - is_deleted
+  - is_archived
+  - id
+  - integration
+  - createdAt
+  - updatedAt
+  - total_subscriptions
+  - active_subscriptions
+  - total_subscriptions_revenue

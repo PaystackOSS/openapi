@@ -1,0 +1,33 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      total_transactions:
+        type: integer
+      total_volume:
+        type: integer
+      total_volume_by_currency:
+        type: array
+        items:
+          $ref: ./TransactionTotalVolumeByCurrencyArray.yaml
+      pending_transfers:
+        type: integer
+      pending_transfers_by_currency:
+        type: array
+        items:
+          $ref: ./TransactionPendingTransfersByCurrencyArray.yaml
+    required:
+      - total_transactions
+      - total_volume
+      - total_volume_by_currency
+      - pending_transfers
+      - pending_transfers_by_currency
+required:
+  - status
+  - message
+  - data

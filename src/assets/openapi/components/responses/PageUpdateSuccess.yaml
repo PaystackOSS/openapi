@@ -1,0 +1,5 @@
+description: Page Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PageUpdateResponse.yaml

@@ -1,0 +1,121 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      integration:
+        type: integer
+      transaction:
+        type: integer
+      dispute:
+        nullable: true
+      settlement:
+        nullable: true
+      id:
+        type: integer
+      domain:
+        type: string
+      currency:
+        type: string
+      amount:
+        type: integer
+      status:
+        type: string
+      refunded_at:
+        nullable: true
+      refunded_by:
+        type: string
+      customer_note:
+        type: string
+      merchant_note:
+        type: string
+      deducted_amount:
+        type: integer
+      fully_deducted:
+        type: integer
+      createdAt:
+        type: string
+      bank_reference:
+        nullable: true
+      transaction_reference:
+        type: string
+      reason:
+        type: string
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          customer_code:
+            type: string
+          phone:
+            type: string
+          metadata:
+            type: string
+          risk_action:
+            type: string
+          international_format_phone:
+            type: string
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - customer_code
+          - phone
+          - metadata
+          - risk_action
+          - international_format_phone
+      refund_type:
+        type: string
+      transaction_amount:
+        type: integer
+      initiated_by:
+        type: string
+      refund_channel:
+        type: string
+      session_id:
+        nullable: true
+      collect_account_number:
+        type: boolean
+    required:
+      - integration
+      - transaction
+      - dispute
+      - settlement
+      - id
+      - domain
+      - currency
+      - amount
+      - status
+      - refunded_at
+      - refunded_by
+      - customer_note
+      - merchant_note
+      - deducted_amount
+      - fully_deducted
+      - createdAt
+      - bank_reference
+      - transaction_reference
+      - reason
+      - customer
+      - refund_type
+      - transaction_amount
+      - initiated_by
+      - refund_channel
+      - session_id
+      - collect_account_number
+required:
+  - status
+  - message
+  - data

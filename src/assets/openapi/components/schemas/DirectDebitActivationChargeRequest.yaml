@@ -1,0 +1,12 @@
+type: object
+required:
+  - customer_ids
+properties:
+  customer_ids:
+    type: array
+    description: Array of customer IDs to trigger activation charge for
+    items:
+      type: integer
+    example:
+      - 28958104
+      - 983697220

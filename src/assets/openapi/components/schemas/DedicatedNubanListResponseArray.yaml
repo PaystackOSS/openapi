@@ -1,0 +1,71 @@
+type: object
+properties:
+  customer:
+    type: object
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      customer_code:
+        type: string
+      phone:
+        type: string
+      risk_action:
+        type: string
+      international_format_phone:
+        type: string
+        nullable: true
+  bank:
+    type: object
+    properties:
+      name:
+        type: string
+      id:
+        type: integer
+      slug:
+        type: string
+    required:
+      - name
+      - id
+      - slug
+  id:
+    type: integer
+  account_name:
+    type: string
+  account_number:
+    type: string
+  created_at:
+    type: string
+  updated_at:
+    type: string
+  currency:
+    type: string
+  split_config:
+    type: object
+    properties:
+      subaccount:
+        type: string
+    required:
+      - subaccount
+    nullable: true
+  active:
+    type: boolean
+  assigned:
+    type: boolean
+required:
+  - customer
+  - bank
+  - id
+  - account_name
+  - account_number
+  - created_at
+  - updated_at
+  - currency
+  - split_config
+  - active
+  - assigned

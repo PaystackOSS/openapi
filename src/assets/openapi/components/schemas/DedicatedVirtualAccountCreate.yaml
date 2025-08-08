@@ -1,0 +1,20 @@
+type: object
+required:
+  - customer
+properties:
+  customer:
+    description: Customer ID or code
+    type: string
+  preferred_bank:
+    description: >-
+      The bank slug for preferred bank. To get a list of available banks, use
+      the List Providers endpoint
+    type: string
+  subaccount:
+    description: Subaccount code of the account you want to split the transaction with
+    type: string
+  split_code:
+    description: >-
+      Split code consisting of the lists of accounts you want to split the
+      transaction with
+    type: string

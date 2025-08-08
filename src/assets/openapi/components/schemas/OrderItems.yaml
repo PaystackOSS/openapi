@@ -1,0 +1,20 @@
+type: object
+description: The collection of items that make up the order
+required:
+  - item
+  - type
+  - quantity
+  - amount
+properties:
+  item:
+    description: The product ID of the item
+    type: string
+  type:
+    description: The type of the item. `product` is currently the acceptable value
+    type: string
+  quantity:
+    description: The number of items to get
+    type: integer
+  amount:
+    description: The cost of the item
+    type: integer

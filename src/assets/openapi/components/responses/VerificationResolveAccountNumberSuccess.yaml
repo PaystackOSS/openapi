@@ -1,0 +1,5 @@
+description: Verification Resolve Account Number response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/VerificationResolveAccountNumberResponse.yaml

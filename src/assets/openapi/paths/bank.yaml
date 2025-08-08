@@ -1,0 +1,43 @@
+get:
+  tags:
+    - Bank
+  summary: List Banks
+  operationId: bank_list
+  parameters:
+    - in: query
+      name: country
+      schema:
+        type: string
+    - in: query
+      name: pay_with_bank_transfer
+      schema:
+        type: boolean
+    - in: query
+      name: use_cursor
+      schema:
+        type: boolean
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+    - in: query
+      name: next
+      schema:
+        type: string
+    - in: query
+      name: previous
+      schema:
+        type: string
+    - in: query
+      name: gateway
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/MiscellaneousListBanksSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

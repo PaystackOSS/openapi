@@ -1,0 +1,5 @@
+description: Bulk Charge Resume response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/BulkChargeResumeResponse.yaml

@@ -1,0 +1,18 @@
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  slug:
+    type: string
+  gateway:
+    type: string
+  code:
+    type: string
+required:
+  - id
+  - name
+  - slug
+  - gateway
+  - code

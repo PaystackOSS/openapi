@@ -1,0 +1,5 @@
+description: Transfer Enables Otp response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferEnablesOtpResponse.yaml

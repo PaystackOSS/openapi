@@ -1,0 +1,5 @@
+description: Transaction List response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransactionListResponse.yaml

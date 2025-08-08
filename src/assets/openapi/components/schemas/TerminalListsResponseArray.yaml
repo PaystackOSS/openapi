@@ -1,0 +1,34 @@
+type: object
+properties:
+  id:
+    type: integer
+  serial_number:
+    type: string
+    nullable: true
+  device_make:
+    type: string
+    nullable: true
+  terminal_id:
+    type: string
+  integration:
+    type: integer
+  domain:
+    type: string
+  name:
+    type: string
+    nullable: true
+  address:
+    type: string
+    nullable: true
+  status:
+    type: string
+required:
+  - id
+  - serial_number
+  - device_make
+  - terminal_id
+  - integration
+  - domain
+  - name
+  - address
+  - status

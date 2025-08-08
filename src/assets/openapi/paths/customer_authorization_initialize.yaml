@@ -1,0 +1,24 @@
+post:
+  tags:
+    - Customer
+  summary: Initialize Authorization
+  description: >-
+    Initiate a request to create a reusable authorization code for recurring
+    transactions
+  operationId: customer_initializeAuthorization
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CustomerAuthorizationInitializeRequest.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/CustomerAuthorizationInitializeRequest.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/CustomerAuthorizationInitializeSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

@@ -1,0 +1,5 @@
+description: Transaction Initialize response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransactionInitializeResponse.yaml

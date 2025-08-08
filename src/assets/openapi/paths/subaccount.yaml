@@ -1,0 +1,58 @@
+post:
+  tags:
+    - Subaccount
+  summary: Create Subaccount
+  operationId: subaccount_create
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SubaccountCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/SubaccountCreate.yaml
+  responses:
+    '201':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SubaccountCreateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Subaccount
+  summary: List Subaccounts
+  operationId: subaccount_list
+  parameters:
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+      description: Number of records to fetch per request
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The offset to retrieve data from
+    - in: query
+      name: active
+      schema:
+        type: boolean
+      description: Filter by active or inactive subaccounts
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SubaccountListResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

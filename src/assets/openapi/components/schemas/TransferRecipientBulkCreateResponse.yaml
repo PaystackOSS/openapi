@@ -1,0 +1,23 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      success:
+        type: array
+        items: {}
+      errors:
+        type: array
+        items:
+          $ref: ./TransferRecipientErrorsArray.yaml
+    required:
+      - success
+      - errors
+required:
+  - status
+  - message
+  - data

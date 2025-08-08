@@ -1,0 +1,168 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      transactions:
+        type: array
+        items: {}
+      domain:
+        type: string
+      request_code:
+        type: string
+      description:
+        nullable: true
+      line_items:
+        type: array
+        items: {}
+      tax:
+        type: array
+        items: {}
+      amount:
+        type: integer
+      discount:
+        nullable: true
+      currency:
+        type: string
+      due_date:
+        type: string
+        nullable: true
+      status:
+        type: string
+      paid:
+        type: boolean
+      paid_at:
+        nullable: true
+      metadata:
+        nullable: true
+      has_invoice:
+        type: boolean
+      invoice_number:
+        type: integer
+        nullable: true
+      offline_reference:
+        type: string
+      pdf_url:
+        type: string
+        nullable: true
+      notifications:
+        type: array
+        items:
+          $ref: ./PaymentRequestNotificationsArray.yaml
+      archived:
+        type: boolean
+      source:
+        type: string
+      payment_method:
+        nullable: true
+      note:
+        nullable: true
+      amount_paid:
+        nullable: true
+      split_code:
+        nullable: true
+      id:
+        type: integer
+      integration:
+        type: integer
+      customer:
+        type: object
+        properties:
+          transactions:
+            type: array
+            items: {}
+          subscriptions:
+            type: array
+            items: {}
+          authorizations:
+            type: array
+            items: {}
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          phone:
+            type: string
+          metadata:
+            type: object
+            properties:
+              calling_code:
+                type: string
+          domain:
+            type: string
+          customer_code:
+            type: string
+          risk_action:
+            type: string
+          id:
+            type: integer
+          integration:
+            type: integer
+          createdAt:
+            type: string
+          updatedAt:
+            type: string
+        required:
+          - transactions
+          - subscriptions
+          - authorizations
+          - first_name
+          - last_name
+          - email
+          - phone
+          - metadata
+          - domain
+          - customer_code
+          - risk_action
+          - id
+          - integration
+          - createdAt
+          - updatedAt
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      pending_amount:
+        type: integer
+    required:
+      - transactions
+      - domain
+      - request_code
+      - description
+      - line_items
+      - tax
+      - amount
+      - discount
+      - currency
+      - due_date
+      - status
+      - paid
+      - paid_at
+      - metadata
+      - has_invoice
+      - invoice_number
+      - offline_reference
+      - pdf_url
+      - notifications
+      - archived
+      - source
+      - payment_method
+      - note
+      - amount_paid
+      - split_code
+      - id
+      - integration
+      - customer
+      - createdAt
+      - updatedAt
+      - pending_amount
+required:
+  - status
+  - message
+  - data

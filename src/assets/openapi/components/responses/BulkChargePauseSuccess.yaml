@@ -1,0 +1,5 @@
+description: Bulk Charge Pause response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/BulkChargePauseResponse.yaml

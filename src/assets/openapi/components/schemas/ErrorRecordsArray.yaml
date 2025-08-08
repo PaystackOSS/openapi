@@ -1,0 +1,24 @@
+type: object
+properties:
+  type:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
+  account_number:
+    type: string
+  bank_code:
+    type: string
+  currency:
+    type: string
+  email:
+    type: string
+required:
+  - type
+  - name
+  - description
+  - account_number
+  - bank_code
+  - currency
+  - email

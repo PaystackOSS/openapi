@@ -1,0 +1,30 @@
+parameters:
+  - name: account_number
+    description: Virtual account number to requery
+    in: query
+    schema:
+      type: string
+  - name: provider_slug
+    description: The bank's slug in lowercase, without spaces e.g. `wema-bank`
+    in: query
+    schema:
+      type: string
+  - name: date
+    description: The day the transfer was made in `YYYY-MM-DD` format
+    in: query
+    schema:
+      type: string
+get:
+  tags:
+    - Dedicated Virtual Account
+  summary: Requery Dedicated Account
+  operationId: dedicatedAccount_requery
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

@@ -1,0 +1,56 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Product
+  summary: Fetch Product
+  operationId: product_fetch
+  responses:
+    '200':
+      $ref: ../components/responses/ProductFetchSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Product
+  summary: Update product
+  operationId: product_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ProductUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/ProductUpdate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/ProductUpdateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+delete:
+  tags:
+    - Product
+  summary: Delete Product
+  operationId: product_delete
+  responses:
+    '200':
+      $ref: ../components/responses/ProductDeleteSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

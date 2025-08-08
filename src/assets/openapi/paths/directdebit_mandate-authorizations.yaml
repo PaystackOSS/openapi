@@ -1,0 +1,35 @@
+get:
+  tags:
+    - Direct Debit
+  summary: List Mandate Authorizations
+  description: Get a list of all the direct debit mandates on your integration
+  operationId: directdebit_listMandateAuthorizations
+  parameters:
+    - name: cursor
+      in: query
+      description: >-
+        The cursor value of the next set of authorizations to fetch. You can get
+        this from the meta object of the response
+      schema:
+        type: string
+    - name: status
+      in: query
+      description: Filter by the authorization status
+      schema:
+        type: string
+        enum:
+          - pending
+          - active
+          - revoked
+    - name: per_page
+      in: query
+      description: The number of authorizations to fetch per request
+      schema:
+        type: integer
+  responses:
+    '200':
+      $ref: ../components/responses/CustomerFetchMandateAuthorizationsSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

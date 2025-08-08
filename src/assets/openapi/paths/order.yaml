@@ -1,0 +1,57 @@
+post:
+  tags:
+    - Order
+  summary: Create Order
+  operationId: order_create
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/OrderCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/OrderCreate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/OrderCreateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Order
+  summary: List Orders
+  operationId: order_list
+  parameters:
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+      description: Number of records to fetch per page
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The section to retrieve
+    - in: query
+      name: from
+      schema:
+        type: string
+        format: date-time
+      description: The start date
+    - in: query
+      name: to
+      schema:
+        type: string
+        format: date-time
+      description: The end date
+  responses:
+    '200':
+      $ref: ../components/responses/OrderListSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

@@ -1,0 +1,12 @@
+type: object
+description: Model for updating a Terminal details
+properties:
+  name:
+    description: The new name for the Terminal
+    type: string
+  address:
+    description: The new address for the Terminal
+    type: string
+example:
+  name: Oreos
+  address: Somewhere on earth

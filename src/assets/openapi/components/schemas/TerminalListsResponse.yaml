@@ -1,0 +1,33 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: array
+    items:
+      $ref: ./TerminalListsResponseArray.yaml
+  meta:
+    type: object
+    properties:
+      next:
+        type: array
+        nullable: true
+        items: {}
+      previous:
+        type: array
+        nullable: true
+        items: {}
+      perPage:
+        type: integer
+    required:
+      - next
+      - previous
+      - perPage
+    additionalProperties: false
+required:
+  - status
+  - message
+  - data
+  - meta

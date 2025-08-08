@@ -1,0 +1,15 @@
+type: object
+required:
+  - source
+  - transfers
+properties:
+  source:
+    description: Where should we transfer from? Only balance is allowed for now
+    type: string
+  transfers:
+    description: >-
+      A list of transfer object. Each object should contain amount, recipient,
+      and reference
+    type: array
+    items:
+      $ref: ./TransferInitiate.yaml

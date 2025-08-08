@@ -1,0 +1,12 @@
+type: object
+properties:
+  name:
+    type: string
+  amount:
+    type: integer
+  quantity:
+    type: integer
+required:
+  - name
+  - amount
+  - quantity

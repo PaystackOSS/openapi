@@ -1,0 +1,14 @@
+get:
+  tags:
+    - Miscellaneous
+  summary: List Countries
+  operationId: miscellaneous_listCountries
+  responses:
+    '200':
+      $ref: ../components/responses/MiscellaneousListCountriesSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

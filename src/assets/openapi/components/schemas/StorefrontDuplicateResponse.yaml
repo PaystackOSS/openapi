@@ -1,0 +1,85 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      social_media:
+        type: array
+        items: {}
+      contacts:
+        type: array
+        items:
+          $ref: ./StorefrontContactsArray.yaml
+      name:
+        type: string
+      slug:
+        type: string
+      currency:
+        type: string
+      welcome_message:
+        nullable: true
+      success_message:
+        nullable: true
+      redirect_url:
+        nullable: true
+      description:
+        nullable: true
+      delivery_note:
+        type: string
+      background_color:
+        type: string
+      status:
+        type: string
+      shippable:
+        type: boolean
+      integration:
+        type: integer
+      domain:
+        type: string
+      digital_product_expiry:
+        nullable: true
+      metadata:
+        type: object
+        nullable: true
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      products:
+        type: array
+        items: {}
+      shipping_fees:
+        type: array
+        items: {}
+    required:
+      - social_media
+      - contacts
+      - name
+      - slug
+      - currency
+      - welcome_message
+      - success_message
+      - redirect_url
+      - description
+      - delivery_note
+      - background_color
+      - status
+      - shippable
+      - integration
+      - domain
+      - digital_product_expiry
+      - id
+      - createdAt
+      - updatedAt
+      - products
+      - shipping_fees
+required:
+  - status
+  - message
+  - data

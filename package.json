@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "The OpenAPI specification for the Paystack API",
   "author": "Damilola Odujoko",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "build": "pnpm build-main && pnpm build-wallet && pnpm build-membership && pnpm build-marketplace && pnpm build-betting && pnpm build-lending && pnpm build-savings",
     "build-main": "swagger-cli bundle main/paystack.yaml --outfile dist/paystack.yaml --type yaml",
@@ -15,7 +16,11 @@
     "build-savings": "swagger-cli bundle use_cases/savings.yaml --outfile dist/savings.yaml --type yaml",
     "lint": "pnpm lint-main && pnpm lint-sdk",
     "lint-main": "spectral lint dist/paystack.yaml",
-    "lint-sdk": "spectral lint ./sdk/paystack.yaml"
+    "lint-sdk": "spectral lint ./sdk/paystack.yaml",
+    "split:main": "redocly split ./src/assets/base/paystack.yaml --outDir=./src/assets/openapi",
+    "bundle:main": "redocly bundle ./src/assets/openapi/openapi.yaml --output temp/paystack.yaml --remove-unused-components",
+    "start": "nodemon src/index.js",
+    "dev": "pnpm bundle:main && pnpm start"
   },
   "repository": {
     "type": "git",
@@ -33,7 +38,11 @@
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
     "@quobix/vacuum": "^0.10.1",
-    "@redocly/cli": "^1.22.1",
-    "@stoplight/spectral-cli": "^6.5.1"
+    "@redocly/cli": "^2.0.2",
+    "@stoplight/spectral-cli": "^6.5.1",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "open": "^10.2.0",
+    "yaml": "^2.8.1"
   }
 }

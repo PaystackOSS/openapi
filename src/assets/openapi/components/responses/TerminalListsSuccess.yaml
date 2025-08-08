@@ -1,0 +1,5 @@
+description: Terminal Lists response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TerminalListsResponse.yaml

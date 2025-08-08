@@ -1,0 +1,14 @@
+type: object
+required:
+  - customer
+properties:
+  customer:
+    description: Customer's code, or email address
+    type: string
+  risk_action:
+    description: >
+      One of the possible risk actions [ default, allow, deny ]. allow to
+      whitelist. 
+
+      deny to blacklist. Customers start with a default risk action.
+    type: string

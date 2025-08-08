@@ -1,0 +1,70 @@
+post:
+  tags:
+    - Bulk Charge
+  summary: Initiate Bulk Charge
+  operationId: bulkCharge_initiate
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../components/schemas/BulkChargeInitiate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          type: array
+          items:
+            properties:
+              charges:
+                type: object
+                items:
+                  $ref: ../components/schemas/BulkChargeInitiate.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BulkChargeInitiateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Bulk Charge
+  summary: List Bulk Charge Batches
+  operationId: bulkCharge_list
+  parameters:
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+      description: Number of records to fetch per page
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The offset to retrieve data from
+    - in: query
+      name: status
+      schema:
+        type: string
+        enum:
+          - active
+          - paused
+          - complete
+      description: Filter by the status of the charges
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BulkChargeListResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

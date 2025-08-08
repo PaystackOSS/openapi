@@ -1,0 +1,5 @@
+description: Transfer Disables Otp response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferDisablesOtpResponse.yaml

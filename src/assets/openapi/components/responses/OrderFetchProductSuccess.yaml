@@ -1,0 +1,5 @@
+description: Order Fetch Product response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/OrderFetchProductResponse.yaml

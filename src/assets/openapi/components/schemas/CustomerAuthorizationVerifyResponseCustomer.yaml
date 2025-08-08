@@ -1,0 +1,11 @@
+type: object
+properties:
+  code:
+    type: string
+    example: CUS_24lze1c8i2zl76y
+  email:
+    type: string
+    example: ravi@demo.com
+required:
+  - code
+  - email

@@ -1,0 +1,5 @@
+description: Subaccount Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SubaccountUpdateResponse.yaml

@@ -1,0 +1,5 @@
+description: Transaction Charge response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransactionChargeResponse.yaml

@@ -1,0 +1,18 @@
+type: object
+properties:
+  street:
+    type: string
+    description: The customer's street
+    example: 123 Main Street
+  city:
+    type: string
+    description: The customer's city
+    example: Lagos
+  state:
+    type: string
+    description: The customer's state
+    example: Lagos
+required:
+  - street
+  - city
+  - state

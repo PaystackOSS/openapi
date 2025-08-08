@@ -1,0 +1,5 @@
+description: Subaccount Fetch response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SubaccountFetchResponse.yaml

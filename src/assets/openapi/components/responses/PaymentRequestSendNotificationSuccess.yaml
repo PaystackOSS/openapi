@@ -1,0 +1,5 @@
+description: Payment Request Send Notification response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PaymentRequestSendNotificationResponse.yaml

@@ -1,0 +1,5 @@
+type: object
+properties:
+  provider:
+    description: The EFT provider
+    type: string

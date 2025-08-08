@@ -1,0 +1,131 @@
+type: object
+properties:
+  integration:
+    type: integer
+  bulkcharge:
+    type: integer
+  customer:
+    type: object
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      customer_code:
+        type: string
+      phone:
+        type: string
+      metadata:
+        type: object
+        properties:
+          calling_code:
+            type: string
+      risk_action:
+        type: string
+      international_format_phone:
+        type: string
+    required:
+      - id
+      - first_name
+      - last_name
+      - email
+      - customer_code
+      - phone
+      - metadata
+      - risk_action
+      - international_format_phone
+  authorization:
+    type: object
+    properties:
+      authorization_code:
+        type: string
+      bin:
+        type: string
+      last4:
+        type: string
+      exp_month:
+        type: string
+      exp_year:
+        type: string
+      channel:
+        type: string
+      card_type:
+        type: string
+      bank:
+        type: string
+      country_code:
+        type: string
+      brand:
+        type: string
+      reusable:
+        type: boolean
+      signature:
+        type: string
+      account_name:
+        nullable: true
+    required:
+      - authorization_code
+      - bin
+      - last4
+      - exp_month
+      - exp_year
+      - channel
+      - card_type
+      - bank
+      - country_code
+      - brand
+      - reusable
+      - signature
+      - account_name
+  domain:
+    type: string
+  amount:
+    type: integer
+  at_least:
+    type: integer
+  currency:
+    type: string
+  reference:
+    type: string
+  metadata:
+    type: object
+    properties:
+      custom_fields:
+        type: array
+        items:
+          $ref: ./MetadataCustomFieldsArray.yaml
+    required:
+      - custom_fields
+  status:
+    type: string
+  message:
+    type: string
+  attempt_partial_debit:
+    type: boolean
+  id:
+    type: integer
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+required:
+  - integration
+  - bulkcharge
+  - customer
+  - authorization
+  - domain
+  - amount
+  - at_least
+  - currency
+  - reference
+  - metadata
+  - status
+  - message
+  - attempt_partial_debit
+  - id
+  - createdAt
+  - updatedAt

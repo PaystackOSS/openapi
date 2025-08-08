@@ -1,0 +1,5 @@
+description: Customer Direct Debit Activation Charge response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CustomerDirectDebitActivationChargeResponse.yaml

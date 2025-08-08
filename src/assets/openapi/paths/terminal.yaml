@@ -1,0 +1,28 @@
+get:
+  tags:
+    - Terminal
+  summary: List Terminals
+  operationId: terminal_list
+  description: List the Terminals available on your integration
+  parameters:
+    - name: next
+      in: query
+      schema:
+        type: string
+    - name: previous
+      in: query
+      schema:
+        type: string
+    - name: per_page
+      in: query
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalListsSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

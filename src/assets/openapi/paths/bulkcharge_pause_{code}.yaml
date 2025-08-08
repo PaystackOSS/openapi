@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Bulk Charge
+  summary: Pause Bulk Charge Batch
+  operationId: bulkCharge_pause
+  parameters:
+    - name: code
+      description: Batch code
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BulkChargePauseResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

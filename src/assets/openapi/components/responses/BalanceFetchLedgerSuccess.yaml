@@ -1,0 +1,5 @@
+description: Balance Fetch Ledger response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/BalanceFetchLedgerResponse.yaml

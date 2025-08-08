@@ -1,0 +1,5 @@
+description: Customer Authorization Initialize response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CustomerAuthorizationInitializeResponse.yaml

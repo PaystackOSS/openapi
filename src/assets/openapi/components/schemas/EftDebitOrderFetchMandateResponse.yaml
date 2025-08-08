@@ -1,0 +1,80 @@
+type: object
+properties:
+  status:
+    type: boolean
+  type:
+    type: string
+  code:
+    type: string
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      mandate_code:
+        type: string
+      domain:
+        type: string
+      customer_id:
+        type: integer
+      customer_email:
+        type: string
+      account_bank_name:
+        type: string
+      account_bank_code:
+        type: string
+      account_holder_name:
+        type: string
+      account_number:
+        type: string
+      account_type:
+        type: string
+      currency:
+        type: string
+      amount:
+        type: integer
+      entry_class:
+        type: string
+      frequency:
+        type: string
+      collection_day:
+        type: integer
+      contract_type:
+        type: string
+      contract_reference:
+        type: string
+      status:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+    required:
+      - id
+      - mandate_code
+      - domain
+      - customer_id
+      - customer_email
+      - account_bank_name
+      - account_bank_code
+      - account_holder_name
+      - account_number
+      - account_type
+      - currency
+      - amount
+      - entry_class
+      - frequency
+      - collection_day
+      - contract_type
+      - contract_reference
+      - status
+      - created_at
+      - updated_at
+required:
+  - status
+  - type
+  - code
+  - message
+  - data

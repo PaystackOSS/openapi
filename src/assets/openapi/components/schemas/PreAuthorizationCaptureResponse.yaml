@@ -1,0 +1,219 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      amount:
+        type: integer
+      status:
+        type: string
+      gateway_response:
+        type: string
+      transaction:
+        type: object
+        properties:
+          currency:
+            type: string
+          transaction_date:
+            type: string
+          status:
+            type: string
+          reference:
+            type: string
+          domain:
+            type: string
+          metadata:
+            type: integer
+          gateway_response:
+            type: string
+          message:
+            type: string
+            nullable: true
+          channel:
+            type: string
+          fees:
+            type: integer
+          authorization:
+            type: object
+            properties:
+              authorization_code:
+                type: string
+              bin:
+                type: string
+              last4:
+                type: string
+              exp_month:
+                type: string
+              exp_year:
+                type: string
+              channel:
+                type: string
+              card_type:
+                type: string
+              bank:
+                type: string
+              country_code:
+                type: string
+              brand:
+                type: string
+              reusable:
+                type: boolean
+              signature:
+                type: string
+              account_name:
+                type: string
+                nullable: true
+            required:
+              - authorization_code
+              - bin
+              - last4
+              - exp_month
+              - exp_year
+              - channel
+              - card_type
+              - bank
+              - country_code
+              - brand
+              - reusable
+              - signature
+              - account_name
+          customer:
+            type: object
+            properties:
+              id:
+                type: integer
+              first_name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+              customer_code:
+                type: string
+              phone:
+                type: string
+              metadata:
+                type: object
+              risk_action:
+                type: string
+              international_format_phone:
+                type: string
+            required:
+              - id
+              - first_name
+              - last_name
+              - email
+              - customer_code
+              - phone
+              - metadata
+              - risk_action
+              - international_format_phone
+          id:
+            type: integer
+          split:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              split_code:
+                type: string
+              formula:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  bearer_type:
+                    type: string
+                  bearer_subaccount:
+                    type: integer
+                  subaccounts:
+                    type: array
+                    items:
+                      $ref: ./FormulaSubaccountsArray.yaml
+                  integration:
+                    type: integer
+                required:
+                  - type
+                  - bearer_type
+                  - bearer_subaccount
+                  - subaccounts
+                  - integration
+              shares:
+                type: object
+                properties:
+                  paystack:
+                    type: integer
+                  subaccounts:
+                    type: array
+                    items:
+                      $ref: ./ShareSubaccountsArray.yaml
+                  integration:
+                    type: number
+                  original_share:
+                    type: integer
+                  fees:
+                    type: number
+                required:
+                  - paystack
+                  - subaccounts
+                  - integration
+                  - original_share
+                  - fees
+            required:
+              - id
+              - name
+              - split_code
+              - formula
+              - shares
+        required:
+          - currency
+          - transaction_date
+          - status
+          - reference
+          - domain
+          - metadata
+          - gateway_response
+          - message
+          - channel
+          - fees
+          - authorization
+          - customer
+          - id
+      amount_released:
+        type: integer
+      split_code:
+        type: string
+        nullable: true
+      split:
+        type: object
+        properties:
+          type:
+            type: string
+          bearer_type:
+            type: string
+          subaccounts:
+            type: array
+            items:
+              $ref: ./SplitSubaccountsArray.yaml
+        required:
+          - type
+          - bearer_type
+          - subaccounts
+        nullable: true
+    required:
+      - amount
+      - status
+      - gateway_response
+      - transaction
+      - split_code
+      - split
+required:
+  - status
+  - message
+  - data

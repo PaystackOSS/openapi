@@ -1,0 +1,72 @@
+post:
+  tags:
+    - Transfer Recipient
+  summary: Create Transfer Recipient
+  operationId: transferrecipient_create
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TransferRecipientCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TransferRecipientCreate.yaml
+  responses:
+    '201':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferRecipientCreateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Transfer Recipient
+  summary: List Transfer Recipients
+  operationId: transferrecipient_list
+  parameters:
+    - in: query
+      name: use_cursor
+      description: A flag to indicate if cursor based pagination should be used
+      schema:
+        type: boolean
+    - in: query
+      name: next
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the next set of data
+      schema:
+        type: string
+    - in: query
+      name: previous
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the previous set of data
+      schema:
+        type: string
+    - in: query
+      name: per_page
+      schema:
+        type: integer
+      description: The number of records to fetch per request
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The offset to retrieve data from
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferRecipientListResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

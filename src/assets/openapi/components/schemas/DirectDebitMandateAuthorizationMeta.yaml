@@ -1,0 +1,18 @@
+type: object
+properties:
+  per_page:
+    type: integer
+    example: 10
+  next:
+    type: string
+    example: MTI1OTc=
+  count:
+    type: integer
+    example: 10
+  total:
+    type: integer
+    example: 40
+required:
+  - per_page
+  - count
+  - total

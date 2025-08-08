@@ -1,0 +1,5 @@
+description: Storefront Delete response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/StorefrontDeleteResponse.yaml

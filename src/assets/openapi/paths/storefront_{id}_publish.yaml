@@ -1,0 +1,20 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+post:
+  tags:
+    - Storefront
+  summary: Publish Storefront
+  operationId: storefront_publish
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

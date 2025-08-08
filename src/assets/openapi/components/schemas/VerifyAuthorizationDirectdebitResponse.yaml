@@ -1,0 +1,87 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      authorization_code:
+        type: string
+      domain:
+        type: string
+      active:
+        type: boolean
+      last4:
+        type: string
+      channel:
+        type: string
+      card_type:
+        type: string
+      bank:
+        type: string
+      exp_month:
+        type: integer
+      exp_year:
+        type: integer
+      country_code:
+        type: string
+      brand:
+        type: string
+      reusable:
+        type: boolean
+      signature:
+        type: string
+      account_name:
+        type: string
+      customer:
+        type: object
+        properties:
+          first_name:
+            type: string
+            nullable: true
+          last_name:
+            type: string
+            nullable: true
+          code:
+            type: string
+          email:
+            type: string
+            description: The customer email used to initialize the authorization
+          phone:
+            type: string
+            nullable: true
+          metadata:
+            type: object
+            nullable: true
+          risk_action:
+            type: string
+        required:
+          - first_name
+          - last_name
+          - code
+          - email
+          - phone
+          - metadata
+          - risk_action
+    required:
+      - authorization_code
+      - domain
+      - active
+      - last4
+      - channel
+      - card_type
+      - bank
+      - exp_month
+      - exp_year
+      - country_code
+      - brand
+      - reusable
+      - signature
+      - account_name
+      - customer
+required:
+  - status
+  - message
+  - data

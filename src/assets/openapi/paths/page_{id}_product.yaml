@@ -1,0 +1,26 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+post:
+  tags:
+    - Page
+  summary: Add Products
+  operationId: page_addProducts
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PageProduct.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/PageProduct.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/PageAddProductsSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

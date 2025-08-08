@@ -1,0 +1,12 @@
+type: object
+properties:
+  value:
+    type: string
+  display_name:
+    type: string
+  variable_name:
+    type: string
+required:
+  - value
+  - display_name
+  - variable_name

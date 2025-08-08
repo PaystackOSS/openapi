@@ -1,0 +1,42 @@
+parameters:
+  - name: code
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Plan
+  summary: Fetch Plan
+  operationId: plan_fetch
+  responses:
+    '200':
+      $ref: ../components/responses/PlanFetchSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Plan
+  summary: Update Plan
+  operationId: plan_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PlanUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/PlanUpdate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/PlanUpdateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

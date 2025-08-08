@@ -1,0 +1,137 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      transaction:
+        type: object
+        properties:
+          id:
+            type: integer
+          domain:
+            type: string
+          reference:
+            type: string
+          amount:
+            type: integer
+          paid_at:
+            type: string
+          channel:
+            type: string
+          currency:
+            type: string
+          authorization:
+            type: object
+            properties:
+              exp_month:
+                nullable: true
+              exp_year:
+                nullable: true
+              account_name:
+                nullable: true
+            required:
+              - exp_month
+              - exp_year
+              - account_name
+          customer:
+            type: object
+            properties:
+              international_format_phone:
+                type: string
+                nullable: true
+            required:
+              - international_format_phone
+          plan:
+            type: object
+          subaccount:
+            type: object
+            properties:
+              currency:
+                nullable: true
+            required:
+              - currency
+          split:
+            type: object
+          order_id:
+            nullable: true
+          paidAt:
+            type: string
+          pos_transaction_data:
+            nullable: true
+          source:
+            nullable: true
+          fees_breakdown:
+            nullable: true
+        required:
+          - id
+          - domain
+          - reference
+          - amount
+          - paid_at
+          - channel
+          - currency
+          - authorization
+          - customer
+          - plan
+          - subaccount
+          - split
+          - order_id
+          - paidAt
+          - pos_transaction_data
+          - source
+          - fees_breakdown
+      integration:
+        type: integer
+      deducted_amount:
+        type: integer
+      channel:
+        nullable: true
+      merchant_note:
+        type: string
+      customer_note:
+        type: string
+      status:
+        type: string
+      refunded_by:
+        type: string
+      expected_at:
+        type: string
+      currency:
+        type: string
+      domain:
+        type: string
+      amount:
+        type: integer
+      fully_deducted:
+        type: boolean
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - transaction
+      - integration
+      - deducted_amount
+      - channel
+      - merchant_note
+      - customer_note
+      - status
+      - refunded_by
+      - expected_at
+      - currency
+      - domain
+      - amount
+      - fully_deducted
+      - id
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

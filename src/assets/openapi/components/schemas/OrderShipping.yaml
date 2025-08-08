@@ -1,0 +1,27 @@
+type: object
+description: The shipping details of the order
+required:
+  - street_line
+  - city
+  - state
+  - country
+  - shipping_fee
+properties:
+  street_line:
+    description: The address of for the delivery
+    type: string
+  city:
+    description: The city of the delivery address
+    type: string
+  state:
+    description: The state of the delivery address
+    type: string
+  country:
+    description: The country of the delivery address
+    type: string
+  shipping_fee:
+    description: The cost of delivery
+    type: integer
+  delivery_note:
+    description: Extra details to be aware of for the delivery
+    type: string

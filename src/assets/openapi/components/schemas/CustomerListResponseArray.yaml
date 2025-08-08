@@ -1,0 +1,43 @@
+type: object
+properties:
+  integration:
+    type: integer
+  first_name:
+    type: string
+    nullable: true
+  last_name:
+    type: string
+    nullable: true
+  email:
+    type: string
+  phone:
+    type: string
+    nullable: true
+  metadata:
+    type: object
+    nullable: true
+  domain:
+    type: string
+  customer_code:
+    type: string
+  risk_action:
+    type: string
+  id:
+    type: integer
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+required:
+  - integration
+  - first_name
+  - last_name
+  - email
+  - phone
+  - metadata
+  - domain
+  - customer_code
+  - risk_action
+  - id
+  - createdAt
+  - updatedAt

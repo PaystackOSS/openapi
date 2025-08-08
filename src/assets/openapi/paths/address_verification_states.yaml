@@ -1,0 +1,27 @@
+get:
+  tags:
+    - Miscellaneous
+  summary: List States (AVS)
+  operationId: miscellaneous_avs
+  parameters:
+    - in: query
+      name: type
+      schema:
+        type: string
+    - in: query
+      name: country
+      schema:
+        type: string
+    - in: query
+      name: currency
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/MiscellaneousListStatesSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

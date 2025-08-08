@@ -1,0 +1,29 @@
+put:
+  tags:
+    - Dispute
+  summary: Resolve a Dispute
+  operationId: dispute_resolve
+  parameters:
+    - name: id
+      description: Dispute ID
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DisputeResolve.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/DisputeResolve.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/DisputeResolveSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

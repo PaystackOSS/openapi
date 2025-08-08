@@ -1,0 +1,20 @@
+post:
+  tags:
+    - Bank
+  summary: Validate Bank Account
+  operationId: bank_validateAccountNumber
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/BankValidateRequest.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/BankValidateRequest.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/VerificationValidateAccountSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

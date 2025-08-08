@@ -1,0 +1,48 @@
+type: object
+properties:
+  product_id:
+    type: integer
+  name:
+    type: string
+  description:
+    type: string
+  product_code:
+    type: string
+  page:
+    type: integer
+  price:
+    type: integer
+  currency:
+    type: string
+  quantity:
+    type: integer
+  type:
+    type: string
+  features:
+    nullable: true
+  is_shippable:
+    type: integer
+  domain:
+    type: string
+  integration:
+    type: integer
+  active:
+    type: integer
+  in_stock:
+    type: integer
+required:
+  - product_id
+  - name
+  - description
+  - product_code
+  - page
+  - price
+  - currency
+  - quantity
+  - type
+  - features
+  - is_shippable
+  - domain
+  - integration
+  - active
+  - in_stock

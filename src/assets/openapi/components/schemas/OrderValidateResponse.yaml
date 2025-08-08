@@ -1,0 +1,130 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      order_code:
+        type: string
+      domain:
+        type: string
+      currency:
+        type: string
+      amount:
+        type: integer
+      email:
+        type: string
+      status:
+        type: string
+      refunded:
+        type: boolean
+      paid_at:
+        nullable: true
+      shipping_address:
+        nullable: true
+      metadata:
+        nullable: true
+      shipping_fees:
+        type: integer
+      shipping_method:
+        nullable: true
+      is_viewed:
+        type: boolean
+      expiration_date:
+        type: string
+      pay_for_me:
+        type: boolean
+      id:
+        type: integer
+      integration:
+        type: object
+        properties:
+          key:
+            type: string
+          name:
+            type: string
+          logo:
+            type: string
+          allowed_currencies:
+            type: array
+            items: {}
+        required:
+          - key
+          - name
+          - logo
+          - allowed_currencies
+      transaction:
+        nullable: true
+      page:
+        nullable: true
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          customer_code:
+            type: string
+          phone:
+            type: string
+          metadata:
+            type: object
+          risk_action:
+            type: string
+          international_format_phone:
+            type: string
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - customer_code
+          - phone
+          - metadata
+          - risk_action
+          - international_format_phone
+      shipping:
+        nullable: true
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      payer:
+        nullable: true
+    required:
+      - order_code
+      - domain
+      - currency
+      - amount
+      - email
+      - status
+      - refunded
+      - paid_at
+      - shipping_address
+      - metadata
+      - shipping_fees
+      - shipping_method
+      - is_viewed
+      - expiration_date
+      - pay_for_me
+      - id
+      - integration
+      - transaction
+      - page
+      - customer
+      - shipping
+      - createdAt
+      - updatedAt
+      - payer
+required:
+  - status
+  - message
+  - data

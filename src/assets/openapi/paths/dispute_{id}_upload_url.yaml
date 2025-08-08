@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Dispute
+  summary: Get Upload URL
+  operationId: dispute_uploadUrl
+  parameters:
+    - name: id
+      description: Dispute ID
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/DisputeUploadURLSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

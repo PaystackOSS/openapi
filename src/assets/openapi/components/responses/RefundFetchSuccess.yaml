@@ -1,0 +1,5 @@
+description: Refund Fetch response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/RefundFetchResponse.yaml

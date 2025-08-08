@@ -1,0 +1,5 @@
+description: Plan Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PlanCreateResponse.yaml

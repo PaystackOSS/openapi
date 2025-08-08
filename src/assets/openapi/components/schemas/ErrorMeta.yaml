@@ -1,0 +1,6 @@
+type: object
+description: Extra details to help with a resolution of the error
+properties:
+  nextStep:
+    type: string
+    description: A summarised solution for the error

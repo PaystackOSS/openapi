@@ -1,0 +1,9 @@
+type: object
+properties:
+  currency:
+    type: string
+  balance:
+    type: integer
+required:
+  - currency
+  - balance

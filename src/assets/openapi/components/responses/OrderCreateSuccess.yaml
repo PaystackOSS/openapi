@@ -1,0 +1,5 @@
+description: Order Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/OrderCreateResponse.yaml

@@ -1,0 +1,66 @@
+type: object
+properties:
+  order_item_id:
+    type: integer
+  orderId:
+    type: integer
+  type:
+    type: string
+  item:
+    type: integer
+  current_total_items_price:
+    type: integer
+  files:
+    type: string
+  order:
+    type: integer
+  amount:
+    type: integer
+  quantity:
+    type: integer
+  createdAt:
+    type: string
+  name:
+    type: string
+  product_level_type:
+    type: string
+  product_id:
+    type: integer
+  product_success_message:
+    nullable: true
+  product_redirect_url:
+    nullable: true
+  IFNULL(p1.expires_in, p2.expires_in):
+    nullable: true
+  product_quantity_sold:
+    type: integer
+  product_notification_emails:
+    nullable: true
+  IFNULL(p1.metadata, p2.metadata):
+    type: string
+  storefront_redirect_url:
+    nullable: true
+  storefront_success_message:
+    nullable: true
+required:
+  - order_item_id
+  - orderId
+  - type
+  - item
+  - current_total_items_price
+  - files
+  - order
+  - amount
+  - quantity
+  - createdAt
+  - name
+  - product_level_type
+  - product_id
+  - product_success_message
+  - product_redirect_url
+  - IFNULL(p1.expires_in, p2.expires_in)
+  - product_quantity_sold
+  - product_notification_emails
+  - IFNULL(p1.metadata, p2.metadata)
+  - storefront_redirect_url
+  - storefront_success_message

@@ -1,0 +1,30 @@
+type: object
+required:
+  - source
+  - amount
+  - recipient
+properties:
+  source:
+    description: Where should we transfer from? Only balance is allowed for now
+    type: string
+  amount:
+    description: >-
+      Amount to transfer in kobo if currency is NGN and pesewas if currency is
+      GHS.
+    type: string
+  recipient:
+    description: The transfer recipient's code
+    type: string
+  reason:
+    description: The reason or narration for the transfer.
+    type: string
+  currency:
+    description: Specify the currency of the transfer. Defaults to NGN.
+    type: string
+  reference:
+    description: >-
+      If specified, the field should be a unique identifier (in lowercase) for
+      the object. 
+
+      Only -,_ and alphanumeric characters are allowed.
+    type: string

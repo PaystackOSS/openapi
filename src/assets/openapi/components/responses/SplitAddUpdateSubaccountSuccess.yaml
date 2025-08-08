@@ -1,0 +1,5 @@
+description: Split Add Update Subaccount response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SplitAddUpdateSubaccountResponse.yaml

@@ -1,0 +1,132 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      digital_assets:
+        type: array
+        items: {}
+      integration:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      product_code:
+        type: string
+      price:
+        type: integer
+      currency:
+        type: string
+      quantity:
+        type: integer
+      quantity_sold:
+        nullable: true
+      type:
+        type: string
+      files:
+        type: array
+        items: {}
+      file_path:
+        nullable: true
+      is_shippable:
+        type: boolean
+      shipping_fields:
+        type: object
+        properties:
+          delivery_note:
+            type: string
+          shipping_address:
+            type: string
+          shipping_fees:
+            type: array
+            items: {}
+        required:
+          - delivery_note
+          - shipping_address
+          - shipping_fees
+      unlimited:
+        type: boolean
+      domain:
+        type: string
+      active:
+        type: boolean
+      features:
+        nullable: true
+      in_stock:
+        type: boolean
+      metadata:
+        type: object
+        properties:
+          background_color:
+            type: string
+        required:
+          - background_color
+      slug:
+        type: string
+      success_message:
+        nullable: true
+      redirect_url:
+        nullable: true
+      split_code:
+        nullable: true
+      notification_emails:
+        nullable: true
+      minimum_orderable:
+        type: integer
+      maximum_orderable:
+        nullable: true
+      low_stock_alert:
+        type: boolean
+      stock_threshold:
+        nullable: true
+      expires_in:
+        nullable: true
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - digital_assets
+      - integration
+      - name
+      - description
+      - product_code
+      - price
+      - currency
+      - quantity
+      - quantity_sold
+      - type
+      - files
+      - file_path
+      - is_shippable
+      - shipping_fields
+      - unlimited
+      - domain
+      - active
+      - features
+      - in_stock
+      - metadata
+      - slug
+      - success_message
+      - redirect_url
+      - split_code
+      - notification_emails
+      - minimum_orderable
+      - maximum_orderable
+      - low_stock_alert
+      - stock_threshold
+      - expires_in
+      - id
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

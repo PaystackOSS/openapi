@@ -1,0 +1,25 @@
+parameters:
+  - name: code
+    description: Batch code
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Bulk Charge
+  summary: Fetch Bulk Charge Batch
+  operationId: bulkCharge_fetch
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BulkChargeFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

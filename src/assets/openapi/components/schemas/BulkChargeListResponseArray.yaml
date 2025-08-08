@@ -1,0 +1,30 @@
+type: object
+properties:
+  integration:
+    type: integer
+  domain:
+    type: string
+  batch_code:
+    type: string
+  status:
+    type: string
+  easy_cron_id:
+    nullable: true
+  reference:
+    type: string
+  id:
+    type: integer
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+required:
+  - integration
+  - domain
+  - batch_code
+  - status
+  - easy_cron_id
+  - reference
+  - id
+  - createdAt
+  - updatedAt

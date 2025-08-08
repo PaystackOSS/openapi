@@ -1,0 +1,5 @@
+description: Payment Request Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PaymentRequestCreateResponse.yaml

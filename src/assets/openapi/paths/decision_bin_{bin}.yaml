@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Miscellaneous
+  summary: Resolve Card BIN
+  operationId: miscellaneous_resolveCardBin
+  parameters:
+    - name: bin
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/VerificationResolveCardBINSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

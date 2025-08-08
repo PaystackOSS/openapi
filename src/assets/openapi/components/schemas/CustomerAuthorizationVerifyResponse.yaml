@@ -1,0 +1,14 @@
+type: object
+properties:
+  status:
+    type: boolean
+    example: true
+  message:
+    type: string
+    example: Authorization retrieved successfully
+  data:
+    $ref: ./CustomerAuthorizationVerifyResponseData.yaml
+required:
+  - status
+  - message
+  - data

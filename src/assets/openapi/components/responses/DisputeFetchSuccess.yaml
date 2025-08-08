@@ -1,0 +1,5 @@
+description: Dispute Fetch response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/DisputeFetchResponse.yaml

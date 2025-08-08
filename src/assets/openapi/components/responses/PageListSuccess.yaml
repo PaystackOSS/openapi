@@ -1,0 +1,5 @@
+description: Page List response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PageListResponse.yaml

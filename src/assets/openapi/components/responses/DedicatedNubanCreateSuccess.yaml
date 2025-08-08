@@ -1,0 +1,5 @@
+description: Dedicated Nuban Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/DedicatedNubanCreateResponse.yaml

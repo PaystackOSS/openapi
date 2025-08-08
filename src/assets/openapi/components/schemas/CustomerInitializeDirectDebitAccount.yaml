@@ -1,0 +1,13 @@
+type: object
+properties:
+  number:
+    type: string
+    description: The customer's account number
+    example: '0123456789'
+  bank_code:
+    type: string
+    description: The code representing the customer's bank
+    example: '058'
+required:
+  - number
+  - bank_code

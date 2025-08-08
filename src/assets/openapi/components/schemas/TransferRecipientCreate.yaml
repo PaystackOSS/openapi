@@ -1,0 +1,33 @@
+type: object
+required:
+  - type
+  - name
+  - account_number
+  - bank_code
+properties:
+  type:
+    description: Recipient Type (Only nuban at this time)
+    type: string
+  name:
+    description: Recipient's name
+    type: string
+  account_number:
+    description: Recipient's bank account number
+    type: string
+  bank_code:
+    description: >-
+      Recipient's bank code. You can get the list of Bank Codes by calling the
+      List Banks endpoint
+    type: string
+  description:
+    description: A description for this recipient
+    type: string
+  currency:
+    description: Currency for the account receiving the transfer
+    type: string
+  authorization_code:
+    description: An authorization code from a previous transaction
+    type: string
+  metadata:
+    description: Stringified JSON object of custom data
+    type: string

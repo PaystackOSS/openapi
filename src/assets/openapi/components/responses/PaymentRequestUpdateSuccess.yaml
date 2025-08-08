@@ -1,0 +1,5 @@
+description: Payment Request Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PaymentRequestUpdateResponse.yaml

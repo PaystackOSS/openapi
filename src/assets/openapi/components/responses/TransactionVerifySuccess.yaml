@@ -1,0 +1,5 @@
+description: Transaction Verify response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransactionVerifyResponse.yaml

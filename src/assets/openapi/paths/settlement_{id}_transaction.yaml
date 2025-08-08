@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Settlement
+  summary: Settlement Transactions
+  operationId: settlements_transaction
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

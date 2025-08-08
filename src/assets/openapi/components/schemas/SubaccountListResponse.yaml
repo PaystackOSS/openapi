@@ -1,0 +1,35 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: array
+    items:
+      $ref: ./SubaccountListResponseArray.yaml
+  meta:
+    type: object
+    properties:
+      total:
+        type: integer
+      skipped:
+        type: integer
+      perPage:
+        type: integer
+      page:
+        type: integer
+      pageCount:
+        type: integer
+    required:
+      - total
+      - skipped
+      - perPage
+      - page
+      - pageCount
+    additionalProperties: false
+required:
+  - status
+  - message
+  - data
+  - meta

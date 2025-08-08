@@ -1,0 +1,5 @@
+description: Storefront Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/StorefrontUpdateResponse.yaml

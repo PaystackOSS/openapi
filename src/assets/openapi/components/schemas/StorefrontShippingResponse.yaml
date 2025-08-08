@@ -1,0 +1,38 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      fee:
+        type: integer
+      name:
+        type: string
+      currency:
+        type: string
+      id:
+        type: integer
+      isDeleted:
+        type: boolean
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      storefront:
+        type: integer
+    required:
+      - fee
+      - name
+      - currency
+      - id
+      - isDeleted
+      - createdAt
+      - updatedAt
+      - storefront
+required:
+  - status
+  - message
+  - data

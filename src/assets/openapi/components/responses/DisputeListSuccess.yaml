@@ -1,0 +1,5 @@
+description: Dispute List response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/DisputeListResponse.yaml

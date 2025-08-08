@@ -1,0 +1,5 @@
+description: Transfer Finalize Disables Otp response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferFinalizeDisablesOtpResponse.yaml

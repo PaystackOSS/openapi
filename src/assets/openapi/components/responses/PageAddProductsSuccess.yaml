@@ -1,0 +1,5 @@
+description: Page Add Products response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PageAddProductsResponse.yaml

@@ -1,0 +1,5 @@
+description: Responses from the Transaction Initialize endpoint
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ApplePayCreateOkModel.yaml

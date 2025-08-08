@@ -1,0 +1,44 @@
+type: object
+properties:
+  subaccount:
+    type: object
+    properties:
+      id:
+        type: integer
+      subaccount_code:
+        type: string
+      business_name:
+        type: string
+      description:
+        type: string
+      primary_contact_name:
+        type: string
+      primary_contact_email:
+        type: string
+      primary_contact_phone:
+        type: string
+      metadata:
+        type: string
+      settlement_bank:
+        type: string
+      currency:
+        type: string
+      account_number:
+        type: string
+    required:
+      - id
+      - subaccount_code
+      - business_name
+      - description
+      - primary_contact_name
+      - primary_contact_email
+      - primary_contact_phone
+      - metadata
+      - settlement_bank
+      - currency
+      - account_number
+  share:
+    type: integer
+required:
+  - subaccount
+  - share

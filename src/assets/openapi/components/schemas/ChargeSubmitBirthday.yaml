@@ -1,0 +1,11 @@
+type: object
+required:
+  - birthday
+  - reference
+properties:
+  birthday:
+    description: Customer's birthday in the format YYYY-MM-DD e.g 2016-09-21
+    type: string
+  reference:
+    description: The reference of the ongoing transaction
+    type: string

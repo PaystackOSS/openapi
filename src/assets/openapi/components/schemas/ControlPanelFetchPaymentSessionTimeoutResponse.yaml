@@ -1,0 +1,17 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      payment_session_timeout:
+        type: integer
+    required:
+      - payment_session_timeout
+required:
+  - status
+  - message
+  - data

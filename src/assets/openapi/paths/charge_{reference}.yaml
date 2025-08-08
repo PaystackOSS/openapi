@@ -1,0 +1,24 @@
+get:
+  tags:
+    - Charge
+  summary: Check pending charge
+  operationId: charge_check
+  parameters:
+    - name: reference
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChargeCheckPendingResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

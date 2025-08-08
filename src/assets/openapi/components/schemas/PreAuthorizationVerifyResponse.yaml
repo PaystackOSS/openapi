@@ -1,0 +1,37 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      domain:
+        type: string
+      status:
+        type: string
+      reference:
+        type: string
+      amount:
+        type: integer
+      message:
+        type: string
+      currency:
+        type: string
+      redirecturl:
+        type: string
+    required:
+      - id
+      - domain
+      - status
+      - reference
+      - amount
+      - message
+      - currency
+required:
+  - status
+  - message
+  - data

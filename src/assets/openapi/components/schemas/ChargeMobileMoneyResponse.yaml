@@ -1,0 +1,40 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      transaction:
+        type: integer
+      phone:
+        type: string
+      provider:
+        type: string
+      channel_name:
+        type: string
+      display:
+        type: object
+        properties:
+          type:
+            type: string
+          message:
+            type: string
+          timer:
+            type: integer
+        required:
+          - type
+          - message
+          - timer
+    required:
+      - transaction
+      - phone
+      - provider
+      - channel_name
+      - display
+required:
+  - status
+  - message
+  - data

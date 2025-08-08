@@ -1,0 +1,15 @@
+type: object
+properties:
+  redirect_url:
+    type: string
+    example: https://link.paystack.com/ll6b0szngj1f27k
+  access_code:
+    type: string
+    example: ll6b0szngj1f27k
+  reference:
+    type: string
+    example: 1er945lpy4txyki
+required:
+  - redirect_url
+  - access_code
+  - reference

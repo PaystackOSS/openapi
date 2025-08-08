@@ -1,0 +1,5 @@
+description: Charge Submit Phone response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ChargeSubmitPhoneResponse.yaml

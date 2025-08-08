@@ -1,0 +1,24 @@
+type: object
+properties:
+  original_share:
+    type: number
+  fees:
+    type: integer
+  share:
+    type: integer
+  subaccount_code:
+    type: string
+  id:
+    type: integer
+  name:
+    type: string
+  integration:
+    type: string
+required:
+  - original_share
+  - fees
+  - share
+  - subaccount_code
+  - id
+  - name
+  - integration

@@ -1,0 +1,75 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      bank:
+        type: object
+        properties:
+          name:
+            type: string
+          id:
+            type: integer
+          slug:
+            type: string
+        required:
+          - name
+          - id
+          - slug
+      account_name:
+        type: string
+      account_number:
+        type: string
+      assigned:
+        type: boolean
+      currency:
+        type: string
+      metadata:
+        nullable: true
+      active:
+        type: boolean
+      id:
+        type: integer
+      created_at:
+        type: string
+      updated_at:
+        type: string
+      assignment:
+        type: object
+        properties:
+          assignee_id:
+            type: integer
+          assignee_type:
+            type: string
+          assigned_at:
+            type: string
+          integration:
+            type: integer
+          account_type:
+            type: string
+        required:
+          - assignee_id
+          - assignee_type
+          - assigned_at
+          - integration
+          - account_type
+    required:
+      - bank
+      - account_name
+      - account_number
+      - assigned
+      - currency
+      - metadata
+      - active
+      - id
+      - created_at
+      - updated_at
+      - assignment
+required:
+  - status
+  - message
+  - data

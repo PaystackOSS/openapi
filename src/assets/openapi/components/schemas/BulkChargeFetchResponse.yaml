@@ -1,0 +1,44 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      batch_code:
+        type: string
+      reference:
+        type: string
+      id:
+        type: integer
+      integration:
+        type: integer
+      domain:
+        type: string
+      status:
+        type: string
+      total_charges:
+        type: integer
+      pending_charges:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - batch_code
+      - reference
+      - id
+      - integration
+      - domain
+      - status
+      - total_charges
+      - pending_charges
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

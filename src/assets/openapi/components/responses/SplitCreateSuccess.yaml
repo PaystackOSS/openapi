@@ -1,0 +1,5 @@
+description: Split Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SplitCreateResponse.yaml

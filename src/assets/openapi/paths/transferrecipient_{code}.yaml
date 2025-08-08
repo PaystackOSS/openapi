@@ -1,0 +1,69 @@
+parameters:
+  - name: code
+    description: Transfer recipient code
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Transfer Recipient
+  summary: Fetch Transfer recipient
+  operationId: transferrecipient_fetch
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferRecipientFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Transfer Recipient
+  summary: Update Transfer recipient
+  operationId: transferrecipient_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TransferRecipientUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TransferRecipientUpdate.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferRecipientUpdateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+delete:
+  tags:
+    - Transfer Recipient
+  summary: Delete Transfer Recipient
+  operationId: transferrecipient_delete
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferRecipientDeleteResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

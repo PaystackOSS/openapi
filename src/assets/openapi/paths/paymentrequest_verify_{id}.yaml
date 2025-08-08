@@ -1,0 +1,20 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Payment Request
+  summary: Verify Payment Request
+  operationId: paymentRequest_verify
+  responses:
+    '200':
+      $ref: ../components/responses/PaymentRequestVerifySuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
