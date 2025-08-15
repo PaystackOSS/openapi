@@ -1,0 +1,26 @@
+parameters:
+  - name: code
+    in: path
+    required: true
+    schema:
+      type: string
+post:
+  tags:
+    - Virtual Terminal
+  summary: Assign Destination to Virtual Terminal
+  operationId: virtualTerminal_destinationAssign
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalDestinationAssign.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalDestinationAssign.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalDestinationAssignSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

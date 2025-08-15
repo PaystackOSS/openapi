@@ -1,0 +1,5 @@
+description: Virtual Terminal unassign response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/VirtualTerminalDestinationUnassignResponse.yaml

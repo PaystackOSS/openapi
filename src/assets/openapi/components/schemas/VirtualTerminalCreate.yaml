@@ -1,0 +1,35 @@
+type: object
+required:
+  - name
+  - destinations
+properties:
+  name:
+    type: string
+    description: The name of the virtual terminal
+  destinations:
+    type: array
+    description: >-
+      Array of objects containing recipients for payment notifications for the
+      Virtual Terminal.
+    items:
+      type: object
+      properties:
+        target:
+          type: string
+          description: The WhatsApp number to receive payment notifications
+        name:
+          type: string
+          description: The name of the associated WhatsApp number
+  split_code:
+    type: string
+    description: Split code to associate with the virtual terminal
+  metadata:
+    type: object
+    description: Additional custom data as key-value pairs
+example:
+  name: Sample Terminal
+  destinations:
+    - target: '+2548012345678'
+      name: John Doe
+    - target: '+2548098765432'
+      name: Jane Smith

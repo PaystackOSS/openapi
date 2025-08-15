@@ -1,0 +1,18 @@
+parameters:
+  - name: code
+    in: path
+    required: true
+    schema:
+      type: string
+put:
+  tags:
+    - Virtual Terminal
+  summary: Deactivate Virtual Terminal
+  operationId: virtualTerminal_deactivate
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalDeactivateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

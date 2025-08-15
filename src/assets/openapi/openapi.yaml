@@ -27,6 +27,11 @@ tags:
       A collection of endpoints for building delightful in-person payment
       experiences
     x-product-name: Terminal
+  - name: Virtual Terminal
+    description: >
+      A collection of endpoints for building in-person payments without a
+      physical terminal
+    x-product-name: Virtual Terminal
   - name: Customer
     description: >
       A collection of endpoints for creating and managing customers on an
@@ -177,6 +182,18 @@ paths:
     $ref: paths/terminal_commission_device.yaml
   /terminal/decommission_device:
     $ref: paths/terminal_decommission_device.yaml
+  /virtual_terminal:
+    $ref: paths/virtual_terminal.yaml
+  /virtual_terminal/{code}:
+    $ref: paths/virtual_terminal_{code}.yaml
+  /virtual_terminal/{code}/deactivate:
+    $ref: paths/virtual_terminal_{code}_deactivate.yaml
+  /virtual_terminal/{code}/destination/assign:
+    $ref: paths/virtual_terminal_{code}_destination_assign.yaml
+  /virtual_terminal/{code}/destination/unassign:
+    $ref: paths/virtual_terminal_{code}_destination_unassign.yaml
+  /virtual_terminal/{code}/split_code:
+    $ref: paths/virtual_terminal_{code}_split_code.yaml
   /customer:
     $ref: paths/customer.yaml
   /customer/{code}:

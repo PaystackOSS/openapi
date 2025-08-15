@@ -1,0 +1,5 @@
+description: Virtual Terminal Split Remove response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/VirtualTerminalDeleteSplitCodeResponse.yaml

@@ -1,0 +1,61 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      type:
+        type: string
+      currency:
+        type: string
+      integration:
+        type: integer
+      domain:
+        type: string
+      split_code:
+        type: string
+      active:
+        type: boolean
+      bearer_type:
+        type: string
+      bearer_subaccount:
+        nullable: true
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      is_dynamic:
+        type: boolean
+      subaccounts:
+        type: array
+        items:
+          $ref: ./SplitSubaccountsArray.yaml
+      total_subaccounts:
+        type: integer
+    required:
+      - id
+      - name
+      - type
+      - currency
+      - integration
+      - domain
+      - split_code
+      - active
+      - bearer_type
+      - bearer_subaccount
+      - createdAt
+      - updatedAt
+      - is_dynamic
+      - subaccounts
+      - total_subaccounts
+required:
+  - status
+  - message
+  - data

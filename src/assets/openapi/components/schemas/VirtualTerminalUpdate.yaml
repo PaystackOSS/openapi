@@ -1,0 +1,7 @@
+type: object
+properties:
+  name:
+    description: Name of the virtual terminal
+    type: string
+required:
+  - name
