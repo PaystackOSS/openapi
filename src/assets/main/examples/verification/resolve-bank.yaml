@@ -1,7 +1,0 @@
-value:
-  status: true
-  message: Account number resolved
-  data:
-    account_number: 0001234567
-    account_name: Doe Jane Loren
-    bank_id: 9

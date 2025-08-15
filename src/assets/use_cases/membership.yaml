@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Create a membership app
-  description: >-
+  description: |
     The OpenAPI specification for creating a membership application using the [Paystack API](https://paystack.com/docs/api/).
     
     ### Prerequisites
@@ -17,80 +17,27 @@ info:
     
     While with the [Charge Authorization API](https://paystack.com/docs/payments/recurring-charges), you send Paystack the charge details at the due time.
   version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
 servers:
   - url: https://api.paystack.co
     description: Base API endpoint
 paths:
   /plan:
-    post:
-      $ref: '../main/resources/plan/create.yaml'
+    $ref: ../openapi/paths/plan.yaml
   /subscription:
-    post:
-      $ref: '../main/resources/subscription/create.yaml'
+    $ref: ../openapi/paths/subscription.yaml
   /transaction/initialize:
-    $ref: '../main/resources/transaction/initialize.yaml'
+    $ref: '../openapi/paths/transaction_initialize.yaml'
   /transaction/charge_authorization:
-    $ref: '../main/resources/transaction/charge-authorization.yaml'
+    $ref: '../openapi/paths/transaction_charge_authorization.yaml'
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-  schemas:
-    Customer:
-      $ref: '../main/schemas/customer/Customer.yaml'
-    Error:
-      type: object
-      properties:
-        status:
-          type:  boolean
-        message:
-          type: string
-    Response:
-      type: object
-      properties:
-        status:
-          type:  boolean
-        message:
-          type: string
-        data:
-          type: object
-  responses:
-    Ok:
-      description: Successful operation
-      content:
-        application/json:
-          schema:
-            $ref: '../main/responses/response.yaml'
-    Created:
-      description: Resource created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Response'
-    NotFound:
-      description: Entity not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:       
-            status: false
-            message: Entity not found
-    Unauthorized:
-      description: Unauthorized operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            status: false
-            message: Invalid key
-    GeneralError:
-      description: General Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
 security:
   - bearerAuth: []

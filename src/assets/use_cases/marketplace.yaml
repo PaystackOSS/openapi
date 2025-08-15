@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Create an online marketplace
-  description: >-
+  description: |
     The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
     
     ### Prerequisites
@@ -14,81 +14,27 @@ info:
     The [Split API](https://paystack.com/docs/payments/split-payments/) is useful in marketplace apps where the transactions are divided between the platform and the vendor.
     That way, the platform keeps a portion of each transaction.
   version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
 servers:
   - url: https://api.paystack.co
     description: Base API endpoint
 paths:
   /subaccount:
-    post:
-      $ref: '../main/resources/subaccount/create.yaml'
+    $ref: ../openapi/paths/subaccount.yaml
   /split:
-    post:
-      $ref: '../main/resources/split/create.yaml'
+    $ref: ../openapi/paths/split.yaml
   /transaction/initialize:
-    $ref: '../main/resources/transaction/initialize.yaml'
+    $ref: '../openapi/paths/transaction_initialize.yaml'
   /refund:
-    post:
-      $ref: '../main/resources/refund/create.yaml'
+    $ref: ../openapi/paths/refund.yaml
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-  schemas:
-    Customer:
-      $ref: '../main/schemas/customer/Customer.yaml'
-    Error:
-      type: object
-      properties:
-        status:
-          type:  boolean
-        message:
-          type: string
-    Response:
-      type: object
-      properties:
-        status:
-          type:  boolean
-        message:
-          type: string
-        data:
-          type: object
-  responses:
-    Ok:
-      description: Successful operation
-      content:
-        application/json:
-          schema:
-            $ref: '../main/responses/response.yaml'
-    Created:
-      description: Resource created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Response'
-    NotFound:
-      description: Entity not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:       
-            status: false
-            message: Entity not found
-    Unauthorized:
-      description: Unauthorized operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            status: false
-            message: Invalid key
-    GeneralError:
-      description: General Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
 security:
   - bearerAuth: []

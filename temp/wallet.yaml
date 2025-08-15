@@ -1,0 +1,1935 @@
+openapi: 3.0.1
+info:
+  title: Create a wallet app
+  description: |
+    The OpenAPI specification for creating a wallet application using the [Paystack API](https://paystack.com/docs/api/).
+
+    ### Prerequisites
+
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+
+    After setting up your secret API key, use the [Customers API](https://paystack.com/docs/api/#customer) to create and validate a customer. 
+    You then assign a [Dedicated Virtual Account](https://paystack.com/docs/payments/dedicated-virtual-accounts) to the customer. 
+
+
+    Transfers in this case refer to moving money to bank accounts and mobile money accounts using our [Transfers API](https://paystack.com/docs/transfers) rather than other wallet users.
+
+
+    *Dedicated Virtual Account is currently available for [registered businesses](https://support.paystack.com/hc/en-us/articles/360009881220-How-do-I-activate-my-Paystack-Registered-Business-) in Nigeria.*
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+security:
+  - bearerAuth: []
+paths:
+  /transaction/initialize:
+    post:
+      tags:
+        - Transaction
+      summary: Initialize Transaction
+      operationId: transaction_initialize
+      description: Create a new transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInitializeResponse'
+        '400':
+          $ref: '#/components/responses/TransactionInitializeBadRequestResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /transaction/charge_authorization:
+    post:
+      tags:
+        - Transaction
+      summary: Charge Authorization
+      operationId: transaction_chargeAuthorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeAuthorizationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer:
+    post:
+      tags:
+        - Customer
+      summary: Create Customer
+      operationId: customer_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Customer
+      summary: List Customers
+      operationId: customer_list
+      description: List customers on your integration
+      parameters:
+        - name: use_cursor
+          description: A flag to indicate if cursor based pagination should be used
+          in: query
+          schema:
+            type: boolean
+        - name: next
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the next set of data
+          in: query
+          schema:
+            type: string
+        - name: previous
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the previous set of data
+          in: query
+          schema:
+            type: string
+        - name: from
+          description: The start date
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          description: The end date
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: perPage
+          description: The number of records to fetch per request
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The offset to retrieve data from
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /customer/{code}/identification:
+    parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      tags:
+        - Customer
+      summary: Validate Customer
+      operationId: customer_validate
+      description: Validate a customer's identity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerValidate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerValidate'
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerValidateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /dedicated_account:
+    post:
+      tags:
+        - Dedicated Virtual Account
+      summary: Create Dedicated Account
+      operationId: dedicatedAccount_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DedicatedVirtualAccountCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedNubanCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Dedicated Virtual Account
+      summary: List Dedicated Accounts
+      operationId: dedicatedAccount_list
+      parameters:
+        - name: account_number
+          in: query
+          schema:
+            type: string
+        - name: customer
+          in: query
+          schema:
+            type: string
+        - name: active
+          in: query
+          schema:
+            type: boolean
+        - name: currency
+          in: query
+          schema:
+            type: string
+        - name: provider_slug
+          in: query
+          schema:
+            type: string
+        - name: bank_id
+          in: query
+          schema:
+            type: string
+        - name: perPage
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedNubanListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /transferrecipient:
+    post:
+      tags:
+        - Transfer Recipient
+      summary: Create Transfer Recipient
+      operationId: transferrecipient_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferRecipientCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Transfer Recipient
+      summary: List Transfer Recipients
+      operationId: transferrecipient_list
+      parameters:
+        - in: query
+          name: use_cursor
+          description: A flag to indicate if cursor based pagination should be used
+          schema:
+            type: boolean
+        - in: query
+          name: next
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the next set of data
+          schema:
+            type: string
+        - in: query
+          name: previous
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the previous set of data
+          schema:
+            type: string
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          description: The number of records to fetch per request
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferRecipientListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /transfer:
+    post:
+      tags:
+        - Transfer
+      summary: Initiate Transfer
+      operationId: transfer_initiate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferInitiate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferInitiate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Transfer
+      summary: List Transfers
+      operationId: transfer_list
+      parameters:
+        - in: query
+          name: use_cursor
+          description: A flag to indicate if cursor based pagination should be used
+          schema:
+            type: boolean
+        - in: query
+          name: next
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the next set of data
+          schema:
+            type: string
+        - in: query
+          name: previous
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the previous set of data
+          schema:
+            type: string
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          description: The number of records to fetch per request
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+        - in: query
+          name: from
+          description: The start date
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          description: The end date
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: recipient
+          description: Filter transfer by the recipient code
+          schema:
+            type: string
+        - in: query
+          name: status
+          description: Filter transfer by status
+          schema:
+            type: string
+            default: pending
+            enum:
+              - pending
+              - success
+              - failed
+              - otp
+              - abandoned
+              - reversed
+              - blocked
+              - rejected
+              - received
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Currency:
+      description: List of all support currencies
+      type: string
+      enum:
+        - GHS
+        - KES
+        - NGN
+        - ZAR
+        - USD
+      example: GHS
+    SplitSubaccounts:
+      type: object
+      properties:
+        subaccount:
+          description: Subaccount code of the customer or partner
+          type: string
+        share:
+          description: The percentage or flat quota of the customer or partner
+          type: string
+    SplitCreate:
+      type: object
+      description: |
+        Split configuration for transactions
+      properties:
+        name:
+          description: Name of the transaction split
+          type: string
+        type:
+          description: The type of transaction split you want to create.
+          type: string
+          enum:
+            - percentage
+            - flat
+        subaccounts:
+          description: A list of object containing subaccount code and number of shares
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitSubaccounts'
+        currency:
+          description: The transaction currency
+          type: string
+          enum:
+            - NGN
+            - GHS
+            - ZAR
+            - USD
+        bearer_type:
+          description: This allows you specify how the transaction charge should be processed
+          type: string
+          enum:
+            - subaccount
+            - account
+            - all-proportional
+            - all
+        bearer_subaccount:
+          description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
+          type: string
+      required:
+        - name
+        - type
+        - subaccounts
+        - currency
+    TransactionInitialize:
+      description: Initialize a transaction
+      type: object
+      required:
+        - email
+        - amount
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: |
+            Amount should be in smallest denomination of the currency. For example if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        currency:
+          $ref: '#/components/schemas/Currency'
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        channels:
+          description: An array of payment channels to control what channels you want to make available to the user to make a payment with
+          type: array
+          items:
+            type: string
+            enum:
+              - card
+              - bank
+              - ussd
+              - qr
+              - eft
+              - mobile_money
+              - bank_transfer
+        callback_url:
+          description: |
+            Fully qualified url, e.g. https://example.com/ to redirect your customers to after a successful payment. Use this to override the callback url provided on the dashboard for this transaction
+          type: string
+        plan:
+          description: |
+            If transaction is to create a subscription to a predefined plan, provide plan code here. 
+            This would invalidate the value provided in amount
+          type: string
+        invoice_limit:
+          description: Number of times to charge customer during subscription to plan
+          type: integer
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum:
+            - account
+            - subaccount
+        label:
+          description: Used to replace the email address shown on the Checkout
+          type: string
+        metadata:
+          description: JSON object of custom data
+          type: object
+      example:
+        email: test@demo.com
+        amount: 10000
+    TransactionInitializeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            authorization_url:
+              type: string
+            access_code:
+              type: string
+            reference:
+              type: string
+          required:
+            - authorization_url
+            - access_code
+            - reference
+      required:
+        - status
+        - message
+        - data
+    ErrorMeta:
+      type: object
+      description: Extra details to help with a resolution of the error
+      properties:
+        nextStep:
+          type: string
+          description: A summarised solution for the error
+    TransactionInitializeBadRequestModel:
+      type: object
+      description: |
+        Error response returned when a transaction is initialized with incorrect parameters
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        code:
+          type: string
+          description: The error code
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+      example:
+        status: false
+        message: Duplicate Transaction Reference
+        meta:
+          nextStep: Try and create the Transaction or Charge with a new reference
+        type: validation_error
+        code: duplicate_reference
+        errorCodeMappingNotFound: false
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+        code:
+          type: string
+          description: The error code
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+    TransactionChargeAuthorization:
+      type: object
+      required:
+        - email
+        - amount
+        - authorization_code
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: Amount in the lower denomination of your currency
+          type: integer
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        currency:
+          $ref: '#/components/schemas/Currency'
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |-
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum:
+            - account
+            - subaccount
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+        queue:
+          description: If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.
+          type: boolean
+      example:
+        email: jb@email.com
+        amount: 30000
+        authorization_code: AUTH_df1l5ehnym
+    ChargeAuthorizationResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            status:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            metadata:
+              type: string
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            ip_address:
+              nullable: true
+            log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
+              nullable: true
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                bin:
+                  type: string
+                  nullable: true
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+                account_name:
+                  nullable: true
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+                - account_name
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                metadata:
+                  type: object
+                  properties:
+                    calling_code:
+                      type: string
+                  nullable: true
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+                  nullable: true
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            plan:
+              nullable: true
+            id:
+              type: integer
+          required:
+            - amount
+            - currency
+            - transaction_date
+            - status
+            - reference
+            - domain
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - ip_address
+            - log
+            - fees
+            - authorization
+            - customer
+            - plan
+            - id
+      required:
+        - status
+        - message
+        - data
+    CustomerListResponseArray:
+      type: object
+      properties:
+        integration:
+          type: integer
+        first_name:
+          type: string
+          nullable: true
+        last_name:
+          type: string
+          nullable: true
+        email:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        metadata:
+          type: object
+          nullable: true
+        domain:
+          type: string
+        customer_code:
+          type: string
+        risk_action:
+          type: string
+        id:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - integration
+        - first_name
+        - last_name
+        - email
+        - phone
+        - metadata
+        - domain
+        - customer_code
+        - risk_action
+        - id
+        - createdAt
+        - updatedAt
+    CustomerListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              anyOf:
+                - type: string
+                - type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    CustomerCreate:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        first_name:
+          description: Customer's first name
+          type: string
+        last_name:
+          description: Customer's last name
+          type: string
+        phone:
+          description: Customer's phone number
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    CustomerCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            transactions:
+              type: array
+              items: {}
+            subscriptions:
+              type: array
+              items: {}
+            authorizations:
+              type: array
+              items: {}
+            email:
+              type: string
+            first_name:
+              type: string
+            last_name:
+              type: string
+            phone:
+              type: string
+            integration:
+              type: integer
+            domain:
+              type: string
+            metadata:
+              type: object
+              properties:
+                calling_code:
+                  type: string
+            customer_code:
+              type: string
+            risk_action:
+              type: string
+            id:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+            identified:
+              type: boolean
+            identifications:
+              nullable: true
+          required:
+            - transactions
+            - subscriptions
+            - authorizations
+            - email
+            - first_name
+            - last_name
+            - phone
+            - integration
+            - domain
+            - metadata
+            - customer_code
+            - risk_action
+            - id
+            - createdAt
+            - updatedAt
+            - identified
+            - identifications
+      required:
+        - status
+        - message
+        - data
+    CustomerValidate:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - type
+        - country
+        - bvn
+        - bank_code
+        - account_number
+      properties:
+        first_name:
+          description: Customer's first name
+          type: string
+        middle_name:
+          description: Customer's middle name
+          type: string
+        last_name:
+          description: Customer's last name
+          type: string
+        type:
+          description: Predefined types of identification.
+          type: string
+          default: bank_account
+        value:
+          description: Customer's identification number.
+          type: string
+        country:
+          description: Two-letter country code of identification issuer
+          type: string
+        bvn:
+          description: Customer's Bank Verification Number
+          type: string
+        bank_code:
+          description: You can get the list of bank codes by calling the List Banks endpoint (https://api.paystack.co/bank).
+          type: string
+        account_number:
+          description: Customer's bank account number.
+          type: string
+    CustomerValidateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+      required:
+        - status
+        - message
+    DedicatedNubanListResponseArray:
+      type: object
+      properties:
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            customer_code:
+              type: string
+            phone:
+              type: string
+            risk_action:
+              type: string
+            international_format_phone:
+              type: string
+              nullable: true
+        bank:
+          type: object
+          properties:
+            name:
+              type: string
+            id:
+              type: integer
+            slug:
+              type: string
+          required:
+            - name
+            - id
+            - slug
+        id:
+          type: integer
+        account_name:
+          type: string
+        account_number:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        currency:
+          type: string
+        split_config:
+          type: object
+          properties:
+            subaccount:
+              type: string
+          required:
+            - subaccount
+          nullable: true
+        active:
+          type: boolean
+        assigned:
+          type: boolean
+      required:
+        - customer
+        - bank
+        - id
+        - account_name
+        - account_number
+        - created_at
+        - updated_at
+        - currency
+        - split_config
+        - active
+        - assigned
+    DedicatedNubanListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DedicatedNubanListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    DedicatedVirtualAccountCreate:
+      type: object
+      required:
+        - customer
+      properties:
+        customer:
+          description: Customer ID or code
+          type: string
+        preferred_bank:
+          description: The bank slug for preferred bank. To get a list of available banks, use the List Providers endpoint
+          type: string
+        subaccount:
+          description: Subaccount code of the account you want to split the transaction with
+          type: string
+        split_code:
+          description: Split code consisting of the lists of accounts you want to split the transaction with
+          type: string
+    DedicatedNubanCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            bank:
+              type: object
+              properties:
+                name:
+                  type: string
+                id:
+                  type: integer
+                slug:
+                  type: string
+              required:
+                - name
+                - id
+                - slug
+            account_name:
+              type: string
+            account_number:
+              type: string
+            assigned:
+              type: boolean
+            currency:
+              type: string
+            metadata:
+              nullable: true
+            active:
+              type: boolean
+            id:
+              type: integer
+            created_at:
+              type: string
+            updated_at:
+              type: string
+            assignment:
+              type: object
+              properties:
+                integration:
+                  type: integer
+                assignee_id:
+                  type: integer
+                assignee_type:
+                  type: string
+                expired:
+                  type: boolean
+                account_type:
+                  type: string
+                assigned_at:
+                  type: string
+                expired_at:
+                  nullable: true
+              required:
+                - integration
+                - assignee_id
+                - assignee_type
+                - expired
+                - account_type
+                - assigned_at
+                - expired_at
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                metadata:
+                  type: object
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+                  nullable: true
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+          required:
+            - bank
+            - account_name
+            - account_number
+            - assigned
+            - currency
+            - metadata
+            - active
+            - id
+            - created_at
+            - updated_at
+            - assignment
+            - customer
+      required:
+        - status
+        - message
+        - data
+    TransferRecipientListResponseArray:
+      type: object
+      properties:
+        active:
+          type: boolean
+        createdAt:
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        domain:
+          type: string
+        email:
+          type: string
+          nullable: true
+        id:
+          type: integer
+        integration:
+          type: integer
+        metadata:
+          type: object
+          nullable: true
+        name:
+          type: string
+        recipient_code:
+          type: string
+        type:
+          type: string
+        updatedAt:
+          type: string
+        is_deleted:
+          type: boolean
+        isDeleted:
+          type: boolean
+        details:
+          type: object
+          properties:
+            authorization_code:
+              type: string
+              nullable: true
+            account_number:
+              type: string
+              nullable: true
+            account_name:
+              type: string
+              nullable: true
+            bank_code:
+              type: string
+            bank_name:
+              type: string
+          required:
+            - authorization_code
+            - account_number
+            - account_name
+            - bank_code
+            - bank_name
+      required:
+        - active
+        - createdAt
+        - currency
+        - description
+        - domain
+        - email
+        - id
+        - integration
+        - name
+        - recipient_code
+        - type
+        - updatedAt
+        - is_deleted
+        - isDeleted
+        - details
+    TransferRecipientListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransferRecipientListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    TransferRecipientCreate:
+      type: object
+      required:
+        - type
+        - name
+        - account_number
+        - bank_code
+      properties:
+        type:
+          description: Recipient Type
+          default: nuban
+          type: string
+        name:
+          description: Recipient's name
+          type: string
+        account_number:
+          description: Recipient's bank account number
+          type: string
+        bank_code:
+          description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
+          type: string
+        description:
+          description: A description for this recipient
+          type: string
+        currency:
+          description: Currency for the account receiving the transfer
+          type: string
+        authorization_code:
+          description: An authorization code from a previous transaction
+          type: string
+        metadata:
+          description: JSON object of custom data
+          type: object
+    TransferRecipientCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            active:
+              type: boolean
+            createdAt:
+              type: string
+            currency:
+              type: string
+            description:
+              type: string
+            domain:
+              type: string
+            email:
+              type: string
+            id:
+              type: integer
+            integration:
+              type: integer
+            metadata:
+              type: object
+              nullable: true
+            name:
+              type: string
+            recipient_code:
+              type: string
+            type:
+              type: string
+            updatedAt:
+              type: string
+            is_deleted:
+              type: boolean
+            isDeleted:
+              type: boolean
+            details:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                  nullable: true
+                account_number:
+                  type: string
+                  nullable: true
+                account_name:
+                  type: string
+                  nullable: true
+                bank_code:
+                  type: string
+                bank_name:
+                  type: string
+              required:
+                - authorization_code
+                - account_number
+                - account_name
+                - bank_code
+                - bank_name
+          required:
+            - active
+            - createdAt
+            - currency
+            - description
+            - domain
+            - email
+            - id
+            - integration
+            - name
+            - recipient_code
+            - type
+            - updatedAt
+            - is_deleted
+            - isDeleted
+            - details
+      required:
+        - status
+        - message
+        - data
+    TransferListResponseArray:
+      type: object
+      properties:
+        amount:
+          type: integer
+        createdAt:
+          type: string
+        currency:
+          type: string
+        domain:
+          type: string
+        failures:
+          nullable: true
+        id:
+          type: integer
+        integration:
+          type: integer
+        reason:
+          type: string
+        reference:
+          type: string
+        source:
+          type: string
+        source_details:
+          nullable: true
+        status:
+          type: string
+        titan_code:
+          nullable: true
+        transfer_code:
+          type: string
+        request:
+          type: integer
+        transferred_at:
+          nullable: true
+        updatedAt:
+          type: string
+        recipient:
+          type: object
+          properties:
+            active:
+              type: boolean
+            createdAt:
+              type: string
+            currency:
+              type: string
+            description:
+              type: string
+            domain:
+              type: string
+            email:
+              type: string
+            id:
+              type: integer
+            integration:
+              type: integer
+            metadata:
+              type: object
+              nullable: true
+            name:
+              type: string
+            recipient_code:
+              type: string
+            type:
+              type: string
+            updatedAt:
+              type: string
+            is_deleted:
+              type: boolean
+            isDeleted:
+              type: boolean
+            details:
+              type: object
+              properties:
+                authorization_code:
+                  nullable: true
+                account_number:
+                  type: string
+                account_name:
+                  type: string
+                  nullable: true
+                bank_code:
+                  type: string
+                bank_name:
+                  type: string
+              required:
+                - authorization_code
+                - account_number
+                - account_name
+                - bank_code
+                - bank_name
+          required:
+            - active
+            - createdAt
+            - currency
+            - description
+            - domain
+            - email
+            - id
+            - integration
+            - name
+            - recipient_code
+            - type
+            - updatedAt
+            - is_deleted
+            - isDeleted
+            - details
+        session:
+          type: object
+          properties:
+            provider:
+              nullable: true
+            id:
+              nullable: true
+          required:
+            - provider
+            - id
+        fee_charged:
+          type: integer
+        fees_breakdown:
+          type: integer
+          nullable: true
+      required:
+        - amount
+        - createdAt
+        - currency
+        - domain
+        - failures
+        - id
+        - integration
+        - reason
+        - reference
+        - source
+        - source_details
+        - status
+        - titan_code
+        - request
+        - transfer_code
+        - transferred_at
+        - updatedAt
+        - recipient
+        - session
+        - fee_charged
+        - fees_breakdown
+    TransferListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransferListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    TransferBase:
+      type: object
+      required:
+        - amount
+        - recipient
+        - reference
+      properties:
+        amount:
+          description: Amount to transfer in kobo if currency is NGN and pesewas if currency is GHS.
+          type: integer
+        recipient:
+          description: The transfer recipient's code
+          type: string
+        reference:
+          description: |
+            To ensure idempotency, you need to provide e a unique identifier for the request.  The identifier should be a lowercase alphanumeric string with only -,_  symbols allowed.
+          type: string
+          minimum: 16
+        reason:
+          description: The reason or narration for the transfer.
+          type: string
+    TransferInitiate:
+      description: Transfer initiation model
+      allOf:
+        - $ref: '#/components/schemas/TransferBase'
+        - type: object
+          required:
+            - source
+            - amount
+            - recipient
+            - reference
+          properties:
+            source:
+              description: The origin of the funds to send from
+              type: string
+              default: balance
+            currency:
+              description: Specify the currency of the transfer.
+              type: string
+              default: NGN
+              enum:
+                - NGN
+                - ZAR
+                - KES
+                - GHS
+    TransferCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            transfersessionid:
+              type: array
+              items: {}
+            transfertrials:
+              type: array
+              items: {}
+            domain:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            reference:
+              type: string
+            source:
+              type: string
+            source_details:
+              nullable: true
+            reason:
+              type: string
+            status:
+              type: string
+            failures:
+              nullable: true
+            transfer_code:
+              type: string
+            titan_code:
+              nullable: true
+            transferred_at:
+              nullable: true
+            id:
+              type: integer
+            integration:
+              type: integer
+            request:
+              type: integer
+            recipient:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - transfersessionid
+            - transfertrials
+            - domain
+            - amount
+            - currency
+            - reference
+            - source
+            - source_details
+            - reason
+            - status
+            - failures
+            - transfer_code
+            - titan_code
+            - transferred_at
+            - id
+            - integration
+            - request
+            - recipient
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+  responses:
+    TransactionInitializeBadRequestResponse:
+      description: Responses from the Transaction Initialize endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionInitializeBadRequestModel'
+    Unauthorized:
+      description: Unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Invalid key
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Entity not found

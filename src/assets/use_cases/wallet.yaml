@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Create a wallet app
-  description: >-
+  description: |
     The OpenAPI specification for creating a wallet application using the [Paystack API](https://paystack.com/docs/api/).
     
     ### Prerequisites
@@ -20,88 +20,33 @@ info:
 
     *Dedicated Virtual Account is currently available for [registered businesses](https://support.paystack.com/hc/en-us/articles/360009881220-How-do-I-activate-my-Paystack-Registered-Business-) in Nigeria.*
   version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
 servers:
   - url: https://api.paystack.co
     description: Base API endpoint
 paths:
   /transaction/initialize:
-    $ref: '../main/resources/transaction/initialize.yaml'
+    $ref: '../openapi/paths/transaction_initialize.yaml'
   /transaction/charge_authorization:
-    $ref: '../main/resources/transaction/charge-authorization.yaml'
+    $ref: '../openapi/paths/transaction_charge_authorization.yaml'
   /customer:
-    post:
-      $ref: '../main/resources/customer/create.yaml'
+    $ref: ../openapi/paths/customer.yaml
   /customer/{code}/identification:
-    $ref: '../main/resources/customer/identification.yaml'
+    $ref: ../openapi/paths/customer_{code}_identification.yaml
   /dedicated_account:
-    post:
-      $ref: '../main/resources/dedicated-virtual-account/create.yaml'
+    $ref: ../openapi/paths/dedicated_account.yaml
   /transferrecipient:
-    post:
-      $ref: '../main/resources/transfer-recipient/create.yaml'
+    $ref: '../openapi/paths/transferrecipient.yaml'
   /transfer:
-    post:
-      $ref: '../main/resources/transfer/initiate.yaml'
+    $ref: ../openapi/paths/transfer.yaml
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-  schemas:
-    Customer:
-      $ref: '../main/schemas/customer/Customer.yaml'
-    Error:
-      type: object
-      properties:
-        status:
-          type:  boolean
-        message:
-          type: string
-    Response:
-      type: object
-      properties:
-        status:
-          type:  boolean
-        message:
-          type: string
-        data:
-          type: object
-  responses:
-    Ok:
-      description: Successful operation
-      content:
-        application/json:
-          schema:
-            $ref: '../main/responses/response.yaml'
-    Created:
-      description: Resource created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Response'
-    NotFound:
-      description: Entity not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:       
-            status: false
-            message: Entity not found
-    Unauthorized:
-      description: Unauthorized operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            status: false
-            message: Invalid key
-    GeneralError:
-      description: General Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
 security:
   - bearerAuth: []

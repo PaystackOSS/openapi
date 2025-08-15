@@ -1,0 +1,1571 @@
+openapi: 3.0.1
+info:
+  title: Create a lending application
+  description: |
+    The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
+
+    ### Prerequisites
+
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+
+    The [Partial Debits](https://paystack.com/docs/payments/partial-debits) feature allows you to recover some revenue that would have otherwise been lost. It is currently available on request.
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+security:
+  - bearerAuth: []
+paths:
+  /transaction/initialize:
+    post:
+      tags:
+        - Transaction
+      summary: Initialize Transaction
+      operationId: transaction_initialize
+      description: Create a new transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInitializeResponse'
+        '400':
+          $ref: '#/components/responses/TransactionInitializeBadRequestResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /transaction/charge_authorization:
+    post:
+      tags:
+        - Transaction
+      summary: Charge Authorization
+      operationId: transaction_chargeAuthorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeAuthorizationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /transaction/partial_debit:
+    post:
+      tags:
+        - Transaction
+      summary: Partial Debit
+      operationId: transaction_partialDebit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionPartialDebit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionPartialDebit'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionPartialDebitResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /bank/resolve:
+    get:
+      tags:
+        - Bank
+      summary: Resolve Account Number
+      operationId: bank_resolveAccountNumber
+      parameters:
+        - name: account_number
+          in: query
+          schema:
+            type: integer
+          example: 22728151
+        - name: bank_code
+          in: query
+          schema:
+            type: integer
+          example: 63
+      responses:
+        '200':
+          $ref: '#/components/responses/VerificationResolveAccountNumberSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /transferrecipient:
+    post:
+      tags:
+        - Transfer Recipient
+      summary: Create Transfer Recipient
+      operationId: transferrecipient_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferRecipientCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferRecipientCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Transfer Recipient
+      summary: List Transfer Recipients
+      operationId: transferrecipient_list
+      parameters:
+        - in: query
+          name: use_cursor
+          description: A flag to indicate if cursor based pagination should be used
+          schema:
+            type: boolean
+        - in: query
+          name: next
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the next set of data
+          schema:
+            type: string
+        - in: query
+          name: previous
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the previous set of data
+          schema:
+            type: string
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          description: The number of records to fetch per request
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferRecipientListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /transfer:
+    post:
+      tags:
+        - Transfer
+      summary: Initiate Transfer
+      operationId: transfer_initiate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferInitiate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransferInitiate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Transfer
+      summary: List Transfers
+      operationId: transfer_list
+      parameters:
+        - in: query
+          name: use_cursor
+          description: A flag to indicate if cursor based pagination should be used
+          schema:
+            type: boolean
+        - in: query
+          name: next
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the next set of data
+          schema:
+            type: string
+        - in: query
+          name: previous
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the previous set of data
+          schema:
+            type: string
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          description: The number of records to fetch per request
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+        - in: query
+          name: from
+          description: The start date
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          description: The end date
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: recipient
+          description: Filter transfer by the recipient code
+          schema:
+            type: string
+        - in: query
+          name: status
+          description: Filter transfer by status
+          schema:
+            type: string
+            default: pending
+            enum:
+              - pending
+              - success
+              - failed
+              - otp
+              - abandoned
+              - reversed
+              - blocked
+              - rejected
+              - received
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret key in the format sk_domain_xxxxxx
+  schemas:
+    Currency:
+      description: List of all support currencies
+      type: string
+      enum:
+        - GHS
+        - KES
+        - NGN
+        - ZAR
+        - USD
+      example: GHS
+    SplitSubaccounts:
+      type: object
+      properties:
+        subaccount:
+          description: Subaccount code of the customer or partner
+          type: string
+        share:
+          description: The percentage or flat quota of the customer or partner
+          type: string
+    SplitCreate:
+      type: object
+      description: |
+        Split configuration for transactions
+      properties:
+        name:
+          description: Name of the transaction split
+          type: string
+        type:
+          description: The type of transaction split you want to create.
+          type: string
+          enum:
+            - percentage
+            - flat
+        subaccounts:
+          description: A list of object containing subaccount code and number of shares
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitSubaccounts'
+        currency:
+          description: The transaction currency
+          type: string
+          enum:
+            - NGN
+            - GHS
+            - ZAR
+            - USD
+        bearer_type:
+          description: This allows you specify how the transaction charge should be processed
+          type: string
+          enum:
+            - subaccount
+            - account
+            - all-proportional
+            - all
+        bearer_subaccount:
+          description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
+          type: string
+      required:
+        - name
+        - type
+        - subaccounts
+        - currency
+    TransactionInitialize:
+      description: Initialize a transaction
+      type: object
+      required:
+        - email
+        - amount
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: |
+            Amount should be in smallest denomination of the currency. For example if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        currency:
+          $ref: '#/components/schemas/Currency'
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        channels:
+          description: An array of payment channels to control what channels you want to make available to the user to make a payment with
+          type: array
+          items:
+            type: string
+            enum:
+              - card
+              - bank
+              - ussd
+              - qr
+              - eft
+              - mobile_money
+              - bank_transfer
+        callback_url:
+          description: |
+            Fully qualified url, e.g. https://example.com/ to redirect your customers to after a successful payment. Use this to override the callback url provided on the dashboard for this transaction
+          type: string
+        plan:
+          description: |
+            If transaction is to create a subscription to a predefined plan, provide plan code here. 
+            This would invalidate the value provided in amount
+          type: string
+        invoice_limit:
+          description: Number of times to charge customer during subscription to plan
+          type: integer
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum:
+            - account
+            - subaccount
+        label:
+          description: Used to replace the email address shown on the Checkout
+          type: string
+        metadata:
+          description: JSON object of custom data
+          type: object
+      example:
+        email: test@demo.com
+        amount: 10000
+    TransactionInitializeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            authorization_url:
+              type: string
+            access_code:
+              type: string
+            reference:
+              type: string
+          required:
+            - authorization_url
+            - access_code
+            - reference
+      required:
+        - status
+        - message
+        - data
+    ErrorMeta:
+      type: object
+      description: Extra details to help with a resolution of the error
+      properties:
+        nextStep:
+          type: string
+          description: A summarised solution for the error
+    TransactionInitializeBadRequestModel:
+      type: object
+      description: |
+        Error response returned when a transaction is initialized with incorrect parameters
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        code:
+          type: string
+          description: The error code
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+      example:
+        status: false
+        message: Duplicate Transaction Reference
+        meta:
+          nextStep: Try and create the Transaction or Charge with a new reference
+        type: validation_error
+        code: duplicate_reference
+        errorCodeMappingNotFound: false
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+        code:
+          type: string
+          description: The error code
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+    TransactionChargeAuthorization:
+      type: object
+      required:
+        - email
+        - amount
+        - authorization_code
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: Amount in the lower denomination of your currency
+          type: integer
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        currency:
+          $ref: '#/components/schemas/Currency'
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |-
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum:
+            - account
+            - subaccount
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+        queue:
+          description: If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.
+          type: boolean
+      example:
+        email: jb@email.com
+        amount: 30000
+        authorization_code: AUTH_df1l5ehnym
+    ChargeAuthorizationResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            status:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            metadata:
+              type: string
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            ip_address:
+              nullable: true
+            log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
+              nullable: true
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                bin:
+                  type: string
+                  nullable: true
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+                account_name:
+                  nullable: true
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+                - account_name
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                metadata:
+                  type: object
+                  properties:
+                    calling_code:
+                      type: string
+                  nullable: true
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+                  nullable: true
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            plan:
+              nullable: true
+            id:
+              type: integer
+          required:
+            - amount
+            - currency
+            - transaction_date
+            - status
+            - reference
+            - domain
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - ip_address
+            - log
+            - fees
+            - authorization
+            - customer
+            - plan
+            - id
+      required:
+        - status
+        - message
+        - data
+    TransactionPartialDebit:
+      type: object
+      required:
+        - email
+        - amount
+        - authorization_code
+        - currency
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: Specified in the lowest denomination of your currency
+          type: integer
+          format: int64
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        currency:
+          $ref: '#/components/schemas/Currency'
+        at_least:
+          description: Minimum amount to charge
+          type: string
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+      example:
+        email: tap@email.com
+        amount: 40510
+        authorization_code: AUTH_df1l5ehnym
+        currency: ZAR
+    TransactionPartialDebitResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            status:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            metadata:
+              type: string
+            gateway_response:
+              type: string
+            message:
+              nullable: true
+            channel:
+              type: string
+            ip_address:
+              nullable: true
+            log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
+              nullable: true
+            fees:
+              type: integer
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                bin:
+                  type: string
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+                account_name:
+                  nullable: true
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+                - account_name
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                metadata:
+                  type: object
+                  nullable: true
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+                  nullable: true
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            plan:
+              type: integer
+            requested_amount:
+              type: integer
+            id:
+              type: integer
+          required:
+            - amount
+            - currency
+            - transaction_date
+            - status
+            - reference
+            - domain
+            - gateway_response
+            - message
+            - channel
+            - ip_address
+            - log
+            - fees
+            - authorization
+            - customer
+            - metadata
+            - plan
+            - requested_amount
+            - id
+      required:
+        - status
+        - message
+        - data
+    VerificationResolveAccountNumberResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            account_number:
+              type: string
+            account_name:
+              type: string
+            bank_id:
+              type: integer
+          required:
+            - account_number
+            - account_name
+            - bank_id
+      required:
+        - status
+        - message
+        - data
+    TransferRecipientListResponseArray:
+      type: object
+      properties:
+        active:
+          type: boolean
+        createdAt:
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        domain:
+          type: string
+        email:
+          type: string
+          nullable: true
+        id:
+          type: integer
+        integration:
+          type: integer
+        metadata:
+          type: object
+          nullable: true
+        name:
+          type: string
+        recipient_code:
+          type: string
+        type:
+          type: string
+        updatedAt:
+          type: string
+        is_deleted:
+          type: boolean
+        isDeleted:
+          type: boolean
+        details:
+          type: object
+          properties:
+            authorization_code:
+              type: string
+              nullable: true
+            account_number:
+              type: string
+              nullable: true
+            account_name:
+              type: string
+              nullable: true
+            bank_code:
+              type: string
+            bank_name:
+              type: string
+          required:
+            - authorization_code
+            - account_number
+            - account_name
+            - bank_code
+            - bank_name
+      required:
+        - active
+        - createdAt
+        - currency
+        - description
+        - domain
+        - email
+        - id
+        - integration
+        - name
+        - recipient_code
+        - type
+        - updatedAt
+        - is_deleted
+        - isDeleted
+        - details
+    TransferRecipientListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransferRecipientListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    TransferRecipientCreate:
+      type: object
+      required:
+        - type
+        - name
+        - account_number
+        - bank_code
+      properties:
+        type:
+          description: Recipient Type
+          default: nuban
+          type: string
+        name:
+          description: Recipient's name
+          type: string
+        account_number:
+          description: Recipient's bank account number
+          type: string
+        bank_code:
+          description: Recipient's bank code. You can get the list of Bank Codes by calling the List Banks endpoint
+          type: string
+        description:
+          description: A description for this recipient
+          type: string
+        currency:
+          description: Currency for the account receiving the transfer
+          type: string
+        authorization_code:
+          description: An authorization code from a previous transaction
+          type: string
+        metadata:
+          description: JSON object of custom data
+          type: object
+    TransferRecipientCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            active:
+              type: boolean
+            createdAt:
+              type: string
+            currency:
+              type: string
+            description:
+              type: string
+            domain:
+              type: string
+            email:
+              type: string
+            id:
+              type: integer
+            integration:
+              type: integer
+            metadata:
+              type: object
+              nullable: true
+            name:
+              type: string
+            recipient_code:
+              type: string
+            type:
+              type: string
+            updatedAt:
+              type: string
+            is_deleted:
+              type: boolean
+            isDeleted:
+              type: boolean
+            details:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                  nullable: true
+                account_number:
+                  type: string
+                  nullable: true
+                account_name:
+                  type: string
+                  nullable: true
+                bank_code:
+                  type: string
+                bank_name:
+                  type: string
+              required:
+                - authorization_code
+                - account_number
+                - account_name
+                - bank_code
+                - bank_name
+          required:
+            - active
+            - createdAt
+            - currency
+            - description
+            - domain
+            - email
+            - id
+            - integration
+            - name
+            - recipient_code
+            - type
+            - updatedAt
+            - is_deleted
+            - isDeleted
+            - details
+      required:
+        - status
+        - message
+        - data
+    TransferListResponseArray:
+      type: object
+      properties:
+        amount:
+          type: integer
+        createdAt:
+          type: string
+        currency:
+          type: string
+        domain:
+          type: string
+        failures:
+          nullable: true
+        id:
+          type: integer
+        integration:
+          type: integer
+        reason:
+          type: string
+        reference:
+          type: string
+        source:
+          type: string
+        source_details:
+          nullable: true
+        status:
+          type: string
+        titan_code:
+          nullable: true
+        transfer_code:
+          type: string
+        request:
+          type: integer
+        transferred_at:
+          nullable: true
+        updatedAt:
+          type: string
+        recipient:
+          type: object
+          properties:
+            active:
+              type: boolean
+            createdAt:
+              type: string
+            currency:
+              type: string
+            description:
+              type: string
+            domain:
+              type: string
+            email:
+              type: string
+            id:
+              type: integer
+            integration:
+              type: integer
+            metadata:
+              type: object
+              nullable: true
+            name:
+              type: string
+            recipient_code:
+              type: string
+            type:
+              type: string
+            updatedAt:
+              type: string
+            is_deleted:
+              type: boolean
+            isDeleted:
+              type: boolean
+            details:
+              type: object
+              properties:
+                authorization_code:
+                  nullable: true
+                account_number:
+                  type: string
+                account_name:
+                  type: string
+                  nullable: true
+                bank_code:
+                  type: string
+                bank_name:
+                  type: string
+              required:
+                - authorization_code
+                - account_number
+                - account_name
+                - bank_code
+                - bank_name
+          required:
+            - active
+            - createdAt
+            - currency
+            - description
+            - domain
+            - email
+            - id
+            - integration
+            - name
+            - recipient_code
+            - type
+            - updatedAt
+            - is_deleted
+            - isDeleted
+            - details
+        session:
+          type: object
+          properties:
+            provider:
+              nullable: true
+            id:
+              nullable: true
+          required:
+            - provider
+            - id
+        fee_charged:
+          type: integer
+        fees_breakdown:
+          type: integer
+          nullable: true
+      required:
+        - amount
+        - createdAt
+        - currency
+        - domain
+        - failures
+        - id
+        - integration
+        - reason
+        - reference
+        - source
+        - source_details
+        - status
+        - titan_code
+        - request
+        - transfer_code
+        - transferred_at
+        - updatedAt
+        - recipient
+        - session
+        - fee_charged
+        - fees_breakdown
+    TransferListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransferListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    TransferBase:
+      type: object
+      required:
+        - amount
+        - recipient
+        - reference
+      properties:
+        amount:
+          description: Amount to transfer in kobo if currency is NGN and pesewas if currency is GHS.
+          type: integer
+        recipient:
+          description: The transfer recipient's code
+          type: string
+        reference:
+          description: |
+            To ensure idempotency, you need to provide e a unique identifier for the request.  The identifier should be a lowercase alphanumeric string with only -,_  symbols allowed.
+          type: string
+          minimum: 16
+        reason:
+          description: The reason or narration for the transfer.
+          type: string
+    TransferInitiate:
+      description: Transfer initiation model
+      allOf:
+        - $ref: '#/components/schemas/TransferBase'
+        - type: object
+          required:
+            - source
+            - amount
+            - recipient
+            - reference
+          properties:
+            source:
+              description: The origin of the funds to send from
+              type: string
+              default: balance
+            currency:
+              description: Specify the currency of the transfer.
+              type: string
+              default: NGN
+              enum:
+                - NGN
+                - ZAR
+                - KES
+                - GHS
+    TransferCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            transfersessionid:
+              type: array
+              items: {}
+            transfertrials:
+              type: array
+              items: {}
+            domain:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            reference:
+              type: string
+            source:
+              type: string
+            source_details:
+              nullable: true
+            reason:
+              type: string
+            status:
+              type: string
+            failures:
+              nullable: true
+            transfer_code:
+              type: string
+            titan_code:
+              nullable: true
+            transferred_at:
+              nullable: true
+            id:
+              type: integer
+            integration:
+              type: integer
+            request:
+              type: integer
+            recipient:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - transfersessionid
+            - transfertrials
+            - domain
+            - amount
+            - currency
+            - reference
+            - source
+            - source_details
+            - reason
+            - status
+            - failures
+            - transfer_code
+            - titan_code
+            - transferred_at
+            - id
+            - integration
+            - request
+            - recipient
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+  responses:
+    TransactionInitializeBadRequestResponse:
+      description: Responses from the Transaction Initialize endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionInitializeBadRequestModel'
+    Unauthorized:
+      description: Unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Invalid key
+    VerificationResolveAccountNumberSuccess:
+      description: Verification Resolve Account Number response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VerificationResolveAccountNumberResponse'
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Entity not found

@@ -1,0 +1,1274 @@
+openapi: 3.0.1
+info:
+  title: Create a membership app
+  description: |
+    The OpenAPI specification for creating a membership application using the [Paystack API](https://paystack.com/docs/api/).
+
+    ### Prerequisites
+
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+
+    When using the [Subscriptions API](https://paystack.com/docs/payments/subscriptions), Paystack automatically charges the customer at the due time.
+    This saves you the need to run scheduled tasks for every customer.
+
+
+    While with the [Charge Authorization API](https://paystack.com/docs/payments/recurring-charges), you send Paystack the charge details at the due time.
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+security:
+  - bearerAuth: []
+paths:
+  /plan:
+    post:
+      tags:
+        - Plan
+      summary: Create Plan
+      operationId: plan_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/PlanCreateSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Plan
+      summary: List Plans
+      operationId: plan_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: interval
+          schema:
+            type: string
+          description: Specify interval of the plan
+        - in: query
+          name: amount
+          schema:
+            type: integer
+          description: The amount on the plans to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/PlanListSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /subscription:
+    post:
+      tags:
+        - Subscription
+      summary: Create Subscription
+      operationId: subscription_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/SubscriptionCreateSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Subscription
+      summary: List Subscriptions
+      operationId: subscription_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: plan
+          schema:
+            type: string
+          description: Plan ID
+        - in: query
+          name: customer
+          schema:
+            type: string
+          description: Customer ID
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/SubscriptionListSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /transaction/initialize:
+    post:
+      tags:
+        - Transaction
+      summary: Initialize Transaction
+      operationId: transaction_initialize
+      description: Create a new transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInitializeResponse'
+        '400':
+          $ref: '#/components/responses/TransactionInitializeBadRequestResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /transaction/charge_authorization:
+    post:
+      tags:
+        - Transaction
+      summary: Charge Authorization
+      operationId: transaction_chargeAuthorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionChargeAuthorization'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeAuthorizationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    PlanListResponseArray:
+      type: object
+      properties:
+        subscriptions:
+          type: array
+          items: {}
+        pages:
+          type: array
+          items: {}
+        domain:
+          type: string
+        name:
+          type: string
+        plan_code:
+          type: string
+        description:
+          nullable: true
+        amount:
+          type: integer
+        interval:
+          type: string
+        invoice_limit:
+          type: integer
+        send_invoices:
+          type: boolean
+        send_sms:
+          type: boolean
+        hosted_page:
+          type: boolean
+        hosted_page_url:
+          nullable: true
+        hosted_page_summary:
+          nullable: true
+        currency:
+          type: string
+        migrate:
+          type: boolean
+        is_deleted:
+          type: boolean
+        is_archived:
+          type: boolean
+        id:
+          type: integer
+        integration:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        total_subscriptions:
+          type: integer
+        active_subscriptions:
+          type: integer
+        total_subscriptions_revenue:
+          type: integer
+      required:
+        - subscriptions
+        - pages
+        - domain
+        - name
+        - plan_code
+        - description
+        - amount
+        - interval
+        - invoice_limit
+        - send_invoices
+        - send_sms
+        - hosted_page
+        - hosted_page_url
+        - hosted_page_summary
+        - currency
+        - migrate
+        - is_deleted
+        - is_archived
+        - id
+        - integration
+        - createdAt
+        - updatedAt
+        - total_subscriptions
+        - active_subscriptions
+        - total_subscriptions_revenue
+    PlanListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    ErrorMeta:
+      type: object
+      description: Extra details to help with a resolution of the error
+      properties:
+        nextStep:
+          type: string
+          description: A summarised solution for the error
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+        code:
+          type: string
+          description: The error code
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+    PlanCreate:
+      type: object
+      required:
+        - name
+        - amount
+        - interval
+      properties:
+        name:
+          description: Name of plan
+          type: string
+        amount:
+          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        interval:
+          description: Interval in words. Valid intervals are daily, weekly, monthly,biannually, annually
+          type: string
+        description:
+          description: A description for this plan
+          type: string
+        send_invoices:
+          description: Set to false if you don't want invoices to be sent to your customers
+          type: boolean
+        send_sms:
+          description: Set to false if you don't want text messages to be sent to your customers
+          type: boolean
+        currency:
+          description: Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD
+          type: string
+        invoice_limit:
+          description: |-
+            Number of invoices to raise during subscription to this plan. 
+            Can be overridden by specifying an invoice_limit while subscribing.
+          type: integer
+    PlanCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            currency:
+              type: string
+            name:
+              type: string
+            amount:
+              type: integer
+            interval:
+              type: string
+            integration:
+              type: integer
+            domain:
+              type: string
+            plan_code:
+              type: string
+            invoice_limit:
+              type: integer
+            send_invoices:
+              type: boolean
+            send_sms:
+              type: boolean
+            hosted_page:
+              type: boolean
+            migrate:
+              type: boolean
+            is_archived:
+              type: boolean
+            id:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - currency
+            - name
+            - amount
+            - interval
+            - integration
+            - domain
+            - plan_code
+            - invoice_limit
+            - send_invoices
+            - send_sms
+            - hosted_page
+            - migrate
+            - is_archived
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+    SubscriptionListResponseArray:
+      type: object
+      properties:
+        id:
+          type: integer
+        domain:
+          type: string
+        status:
+          type: string
+        start:
+          type: integer
+        quantity:
+          type: integer
+        subscription_code:
+          type: string
+        email_token:
+          type: string
+        amount:
+          type: integer
+        cron_expression:
+          type: string
+          nullable: true
+        next_payment_date:
+          type: string
+          nullable: true
+        open_invoice:
+          nullable: true
+        createdAt:
+          type: string
+        integration:
+          type: integer
+        plan:
+          type: object
+          properties:
+            id:
+              type: integer
+            domain:
+              type: string
+            name:
+              type: string
+            plan_code:
+              type: string
+            description:
+              nullable: true
+            amount:
+              type: integer
+            interval:
+              type: string
+            send_invoices:
+              type: boolean
+            send_sms:
+              type: boolean
+            currency:
+              type: string
+            integration:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - id
+            - domain
+            - name
+            - plan_code
+            - description
+            - amount
+            - interval
+            - send_invoices
+            - send_sms
+            - currency
+            - integration
+            - createdAt
+            - updatedAt
+        authorization:
+          type: object
+          properties:
+            authorization_code:
+              type: string
+            bin:
+              type: string
+              nullable: true
+            last4:
+              type: string
+            exp_month:
+              type: string
+            exp_year:
+              type: string
+            channel:
+              type: string
+            card_type:
+              type: string
+              nullable: true
+            bank:
+              type: string
+            country_code:
+              type: string
+            brand:
+              type: string
+            reusable:
+              type: integer
+            signature:
+              type: string
+              nullable: true
+            account_name:
+              nullable: true
+          required:
+            - authorization_code
+            - bin
+            - last4
+            - exp_month
+            - exp_year
+            - channel
+            - card_type
+            - bank
+            - country_code
+            - brand
+            - reusable
+            - signature
+            - account_name
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            customer_code:
+              type: string
+            phone:
+              type: string
+              nullable: true
+            metadata:
+              type: string
+            risk_action:
+              type: string
+            international_format_phone:
+              type: string
+          required:
+            - id
+            - first_name
+            - last_name
+            - email
+            - customer_code
+            - phone
+            - metadata
+            - risk_action
+            - international_format_phone
+        invoice_limit:
+          type: integer
+        split_code:
+          nullable: true
+        payments_count:
+          type: integer
+        most_recent_invoice:
+          nullable: true
+        metadata:
+          type: object
+          nullable: true
+      required:
+        - id
+        - domain
+        - status
+        - start
+        - quantity
+        - subscription_code
+        - email_token
+        - amount
+        - cron_expression
+        - next_payment_date
+        - open_invoice
+        - createdAt
+        - integration
+        - plan
+        - authorization
+        - customer
+        - invoice_limit
+        - split_code
+        - payments_count
+        - most_recent_invoice
+        - metadata
+    SubscriptionListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    SubscriptionCreate:
+      type: object
+      required:
+        - customer
+        - plan
+      properties:
+        customer:
+          description: Customer's email address or customer code
+          type: string
+        plan:
+          description: Plan code
+          type: string
+        authorization:
+          description: |-
+            If customer has multiple authorizations, you can set the desired authorization you wish to use for this subscription here. 
+            If this is not supplied, the customer's most recent authorization would be used
+          type: string
+        start_date:
+          description: Set the date for the first debit. (ISO 8601 format) e.g. 2017-05-16T00:30:13+01:00
+          type: string
+          format: date-time
+    SubscriptionCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            customer:
+              type: integer
+            plan:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            start:
+              type: integer
+            status:
+              type: string
+            quantity:
+              type: integer
+            amount:
+              type: integer
+            authorization:
+              type: integer
+            invoice_limit:
+              type: integer
+            split_code:
+              nullable: true
+            subscription_code:
+              type: string
+            email_token:
+              type: string
+            id:
+              type: integer
+            cancelledAt:
+              nullable: true
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+            cron_expression:
+              type: string
+            next_payment_date:
+              type: string
+            easy_cron_id:
+              type: string
+              nullable: true
+            open_invoice:
+              type: string
+              nullable: true
+            metadata:
+              type: object
+              nullable: true
+          required:
+            - customer
+            - plan
+            - integration
+            - domain
+            - start
+            - status
+            - quantity
+            - amount
+            - authorization
+            - invoice_limit
+            - split_code
+            - subscription_code
+            - email_token
+            - id
+            - cancelledAt
+            - createdAt
+            - updatedAt
+            - cron_expression
+            - next_payment_date
+            - easy_cron_id
+            - open_invoice
+            - metadata
+      required:
+        - status
+        - message
+        - data
+    Currency:
+      description: List of all support currencies
+      type: string
+      enum:
+        - GHS
+        - KES
+        - NGN
+        - ZAR
+        - USD
+      example: GHS
+    SplitSubaccounts:
+      type: object
+      properties:
+        subaccount:
+          description: Subaccount code of the customer or partner
+          type: string
+        share:
+          description: The percentage or flat quota of the customer or partner
+          type: string
+    SplitCreate:
+      type: object
+      description: |
+        Split configuration for transactions
+      properties:
+        name:
+          description: Name of the transaction split
+          type: string
+        type:
+          description: The type of transaction split you want to create.
+          type: string
+          enum:
+            - percentage
+            - flat
+        subaccounts:
+          description: A list of object containing subaccount code and number of shares
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitSubaccounts'
+        currency:
+          description: The transaction currency
+          type: string
+          enum:
+            - NGN
+            - GHS
+            - ZAR
+            - USD
+        bearer_type:
+          description: This allows you specify how the transaction charge should be processed
+          type: string
+          enum:
+            - subaccount
+            - account
+            - all-proportional
+            - all
+        bearer_subaccount:
+          description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
+          type: string
+      required:
+        - name
+        - type
+        - subaccounts
+        - currency
+    TransactionInitialize:
+      description: Initialize a transaction
+      type: object
+      required:
+        - email
+        - amount
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: |
+            Amount should be in smallest denomination of the currency. For example if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        currency:
+          $ref: '#/components/schemas/Currency'
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        channels:
+          description: An array of payment channels to control what channels you want to make available to the user to make a payment with
+          type: array
+          items:
+            type: string
+            enum:
+              - card
+              - bank
+              - ussd
+              - qr
+              - eft
+              - mobile_money
+              - bank_transfer
+        callback_url:
+          description: |
+            Fully qualified url, e.g. https://example.com/ to redirect your customers to after a successful payment. Use this to override the callback url provided on the dashboard for this transaction
+          type: string
+        plan:
+          description: |
+            If transaction is to create a subscription to a predefined plan, provide plan code here. 
+            This would invalidate the value provided in amount
+          type: string
+        invoice_limit:
+          description: Number of times to charge customer during subscription to plan
+          type: integer
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum:
+            - account
+            - subaccount
+        label:
+          description: Used to replace the email address shown on the Checkout
+          type: string
+        metadata:
+          description: JSON object of custom data
+          type: object
+      example:
+        email: test@demo.com
+        amount: 10000
+    TransactionInitializeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            authorization_url:
+              type: string
+            access_code:
+              type: string
+            reference:
+              type: string
+          required:
+            - authorization_url
+            - access_code
+            - reference
+      required:
+        - status
+        - message
+        - data
+    TransactionInitializeBadRequestModel:
+      type: object
+      description: |
+        Error response returned when a transaction is initialized with incorrect parameters
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        code:
+          type: string
+          description: The error code
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+      example:
+        status: false
+        message: Duplicate Transaction Reference
+        meta:
+          nextStep: Try and create the Transaction or Charge with a new reference
+        type: validation_error
+        code: duplicate_reference
+        errorCodeMappingNotFound: false
+    TransactionChargeAuthorization:
+      type: object
+      required:
+        - email
+        - amount
+        - authorization_code
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: Amount in the lower denomination of your currency
+          type: integer
+        authorization_code:
+          description: Valid authorization code to charge
+          type: string
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        currency:
+          $ref: '#/components/schemas/Currency'
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |-
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum:
+            - account
+            - subaccount
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+        queue:
+          description: If you are making a scheduled charge call, it is a good idea to queue them so the processing system does not get overloaded causing transaction processing errors.
+          type: boolean
+      example:
+        email: jb@email.com
+        amount: 30000
+        authorization_code: AUTH_df1l5ehnym
+    ChargeAuthorizationResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            status:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            metadata:
+              type: string
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            ip_address:
+              nullable: true
+            log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
+              nullable: true
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                bin:
+                  type: string
+                  nullable: true
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+                account_name:
+                  nullable: true
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+                - account_name
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                metadata:
+                  type: object
+                  properties:
+                    calling_code:
+                      type: string
+                  nullable: true
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+                  nullable: true
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            plan:
+              nullable: true
+            id:
+              type: integer
+          required:
+            - amount
+            - currency
+            - transaction_date
+            - status
+            - reference
+            - domain
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - ip_address
+            - log
+            - fees
+            - authorization
+            - customer
+            - plan
+            - id
+      required:
+        - status
+        - message
+        - data
+  responses:
+    PlanListSuccess:
+      description: Plan List response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PlanListResponse'
+    Unauthorized:
+      description: Unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Invalid key
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Entity not found
+    PlanCreateSuccess:
+      description: Plan Create response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PlanCreateResponse'
+    SubscriptionListSuccess:
+      description: Subscription List response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubscriptionListResponse'
+    SubscriptionCreateSuccess:
+      description: Subscription Create response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubscriptionCreateResponse'
+    TransactionInitializeBadRequestResponse:
+      description: Responses from the Transaction Initialize endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionInitializeBadRequestModel'

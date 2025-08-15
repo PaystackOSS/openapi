@@ -1,0 +1,1233 @@
+openapi: 3.0.1
+info:
+  title: Create an online marketplace
+  description: |
+    The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
+
+    ### Prerequisites
+
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+
+    The [Split API](https://paystack.com/docs/payments/split-payments/) is useful in marketplace apps where the transactions are divided between the platform and the vendor.
+    That way, the platform keeps a portion of each transaction.
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+security:
+  - bearerAuth: []
+paths:
+  /subaccount:
+    post:
+      tags:
+        - Subaccount
+      summary: Create Subaccount
+      operationId: subaccount_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubaccountCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubaccountCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubaccountCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Subaccount
+      summary: List Subaccounts
+      operationId: subaccount_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per request
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+        - in: query
+          name: active
+          schema:
+            type: boolean
+          description: Filter by active or inactive subaccounts
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubaccountListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /split:
+    post:
+      tags:
+        - Split
+      summary: Create Split
+      operationId: split_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SplitCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Split
+      summary: List Splits
+      operationId: split_list
+      parameters:
+        - name: name
+          description: The name of the split
+          in: query
+          schema:
+            type: string
+        - name: active
+          description: The status of the split
+          in: query
+          schema:
+            type: boolean
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          description: The number of records to fetch per request
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+        - in: query
+          name: from
+          description: The start date
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          description: The end date
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: subaccount_code
+          description: Filter by subaccount code
+          schema:
+            type: string
+          example: ACCT_dskvlw3y3dMukmt
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /transaction/initialize:
+    post:
+      tags:
+        - Transaction
+      summary: Initialize Transaction
+      operationId: transaction_initialize
+      description: Create a new transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionInitialize'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInitializeResponse'
+        '400':
+          $ref: '#/components/responses/TransactionInitializeBadRequestResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /refund:
+    post:
+      tags:
+        - Refund
+      summary: Create Refund
+      operationId: refund_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefundCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/RefundCreateSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Refund
+      summary: List Refunds
+      operationId: refund_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/RefundListSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    SubaccountListResponseArray:
+      type: object
+      properties:
+        id:
+          type: integer
+        subaccount_code:
+          type: string
+        business_name:
+          type: string
+        description:
+          type: string
+        primary_contact_name:
+          type: string
+        primary_contact_email:
+          type: string
+        primary_contact_phone:
+          type: string
+        metadata:
+          type: string
+        percentage_charge:
+          type: number
+        settlement_bank:
+          type: string
+        bank_id:
+          type: integer
+        account_number:
+          type: string
+        currency:
+          type: string
+        active:
+          type: integer
+        is_verified:
+          type: boolean
+      required:
+        - id
+        - subaccount_code
+        - business_name
+        - description
+        - primary_contact_name
+        - primary_contact_email
+        - primary_contact_phone
+        - metadata
+        - percentage_charge
+        - settlement_bank
+        - bank_id
+        - account_number
+        - currency
+        - active
+        - is_verified
+    SubaccountListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubaccountListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    ErrorMeta:
+      type: object
+      description: Extra details to help with a resolution of the error
+      properties:
+        nextStep:
+          type: string
+          description: A summarised solution for the error
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+        code:
+          type: string
+          description: The error code
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+    SubaccountCreate:
+      type: object
+      required:
+        - business_name
+        - settlement_bank
+        - account_number
+        - percentage_charge
+      properties:
+        business_name:
+          description: Name of business for subaccount
+          type: string
+        settlement_bank:
+          description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
+          type: string
+        account_number:
+          description: Bank account number
+          type: string
+        percentage_charge:
+          description: Customer's phone number
+          type: number
+          format: float
+        description:
+          description: A description for this subaccount
+          type: string
+        primary_contact_email:
+          description: A contact email for the subaccount
+          type: string
+        primary_contact_name:
+          description: The name of the contact person for this subaccount
+          type: string
+        primary_contact_phone:
+          description: A phone number to call for this subaccount
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+    SubaccountCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            business_name:
+              type: string
+            account_name:
+              type: string
+              nullable: true
+            description:
+              type: string
+            primary_contact_name:
+              type: string
+            primary_contact_email:
+              type: string
+            primary_contact_phone:
+              type: string
+            metadata:
+              type: string
+            account_number:
+              type: string
+            percentage_charge:
+              type: number
+            settlement_bank:
+              type: string
+            currency:
+              type: string
+            bank:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            product:
+              type: string
+            managed_by_integration:
+              type: integer
+            subaccount_code:
+              type: string
+            is_verified:
+              type: boolean
+            settlement_schedule:
+              type: string
+            active:
+              type: boolean
+            migrate:
+              type: boolean
+            id:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - business_name
+            - description
+            - primary_contact_name
+            - primary_contact_email
+            - primary_contact_phone
+            - metadata
+            - account_number
+            - percentage_charge
+            - settlement_bank
+            - currency
+            - bank
+            - integration
+            - domain
+            - managed_by_integration
+            - product
+            - subaccount_code
+            - is_verified
+            - settlement_schedule
+            - active
+            - migrate
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+    SplitSubaccountsArray:
+      type: object
+      properties:
+        subaccount:
+          type: object
+          properties:
+            id:
+              type: integer
+            subaccount_code:
+              type: string
+            business_name:
+              type: string
+            description:
+              type: string
+            primary_contact_name:
+              type: string
+            primary_contact_email:
+              type: string
+            primary_contact_phone:
+              type: string
+            metadata:
+              type: string
+            settlement_bank:
+              type: string
+            currency:
+              type: string
+            account_number:
+              type: string
+          required:
+            - id
+            - subaccount_code
+            - business_name
+            - description
+            - primary_contact_name
+            - primary_contact_email
+            - primary_contact_phone
+            - metadata
+            - settlement_bank
+            - currency
+            - account_number
+        share:
+          type: integer
+      required:
+        - subaccount
+        - share
+    SplitListResponseArray:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        currency:
+          type: string
+        integration:
+          type: integer
+        domain:
+          type: string
+        split_code:
+          type: string
+        active:
+          type: boolean
+        bearer_type:
+          type: string
+        bearer_subaccount:
+          type: integer
+          nullable: true
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        is_dynamic:
+          type: boolean
+        subaccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitSubaccountsArray'
+        total_subaccounts:
+          type: integer
+      required:
+        - id
+        - name
+        - type
+        - currency
+        - integration
+        - domain
+        - split_code
+        - active
+        - bearer_type
+        - bearer_subaccount
+        - createdAt
+        - updatedAt
+        - is_dynamic
+        - subaccounts
+        - total_subaccounts
+    SplitListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    SplitSubaccounts:
+      type: object
+      properties:
+        subaccount:
+          description: Subaccount code of the customer or partner
+          type: string
+        share:
+          description: The percentage or flat quota of the customer or partner
+          type: string
+    SplitCreate:
+      type: object
+      description: |
+        Split configuration for transactions
+      properties:
+        name:
+          description: Name of the transaction split
+          type: string
+        type:
+          description: The type of transaction split you want to create.
+          type: string
+          enum:
+            - percentage
+            - flat
+        subaccounts:
+          description: A list of object containing subaccount code and number of shares
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitSubaccounts'
+        currency:
+          description: The transaction currency
+          type: string
+          enum:
+            - NGN
+            - GHS
+            - ZAR
+            - USD
+        bearer_type:
+          description: This allows you specify how the transaction charge should be processed
+          type: string
+          enum:
+            - subaccount
+            - account
+            - all-proportional
+            - all
+        bearer_subaccount:
+          description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
+          type: string
+      required:
+        - name
+        - type
+        - subaccounts
+        - currency
+    SplitCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            type:
+              type: string
+            currency:
+              type: string
+            integration:
+              type: integer
+            domain:
+              type: string
+            split_code:
+              type: string
+            active:
+              type: boolean
+            bearer_type:
+              type: string
+            bearer_subaccount:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+            is_dynamic:
+              type: boolean
+            subaccounts:
+              type: array
+              items:
+                $ref: '#/components/schemas/SplitSubaccountsArray'
+            total_subaccounts:
+              type: integer
+          required:
+            - id
+            - name
+            - type
+            - currency
+            - integration
+            - domain
+            - split_code
+            - active
+            - bearer_type
+            - createdAt
+            - updatedAt
+            - is_dynamic
+            - subaccounts
+            - total_subaccounts
+      required:
+        - status
+        - message
+        - data
+    Currency:
+      description: List of all support currencies
+      type: string
+      enum:
+        - GHS
+        - KES
+        - NGN
+        - ZAR
+        - USD
+      example: GHS
+    TransactionInitialize:
+      description: Initialize a transaction
+      type: object
+      required:
+        - email
+        - amount
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: |
+            Amount should be in smallest denomination of the currency. For example if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        currency:
+          $ref: '#/components/schemas/Currency'
+        reference:
+          description: Unique transaction reference. Only -, ., = and alphanumeric characters allowed.
+          type: string
+        channels:
+          description: An array of payment channels to control what channels you want to make available to the user to make a payment with
+          type: array
+          items:
+            type: string
+            enum:
+              - card
+              - bank
+              - ussd
+              - qr
+              - eft
+              - mobile_money
+              - bank_transfer
+        callback_url:
+          description: |
+            Fully qualified url, e.g. https://example.com/ to redirect your customers to after a successful payment. Use this to override the callback url provided on the dashboard for this transaction
+          type: string
+        plan:
+          description: |
+            If transaction is to create a subscription to a predefined plan, provide plan code here. 
+            This would invalidate the value provided in amount
+          type: string
+        invoice_limit:
+          description: Number of times to charge customer during subscription to plan
+          type: integer
+        split_code:
+          description: The split code of the transaction split
+          type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
+        subaccount:
+          description: The code for the subaccount that owns the payment
+          type: string
+        transaction_charge:
+          description: |
+            A flat fee to charge the subaccount for a transaction. 
+            This overrides the split percentage set when the subaccount was created
+          type: string
+        bearer:
+          description: The bearer of the transaction charge
+          type: string
+          enum:
+            - account
+            - subaccount
+        label:
+          description: Used to replace the email address shown on the Checkout
+          type: string
+        metadata:
+          description: JSON object of custom data
+          type: object
+      example:
+        email: test@demo.com
+        amount: 10000
+    TransactionInitializeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            authorization_url:
+              type: string
+            access_code:
+              type: string
+            reference:
+              type: string
+          required:
+            - authorization_url
+            - access_code
+            - reference
+      required:
+        - status
+        - message
+        - data
+    TransactionInitializeBadRequestModel:
+      type: object
+      description: |
+        Error response returned when a transaction is initialized with incorrect parameters
+      properties:
+        status:
+          type: boolean
+          description: An indicator for the state of the request
+        message:
+          type: string
+          description: A short description of the error
+        meta:
+          $ref: '#/components/schemas/ErrorMeta'
+        type:
+          type: string
+          description: A tag to indicate the type of the error
+          enum:
+            - validation_error
+            - processor_error
+            - api_error
+        code:
+          type: string
+          description: The error code
+        errorCodeMappingNotFound:
+          type: boolean
+          description: An indicator for error mapping for the request
+      example:
+        status: false
+        message: Duplicate Transaction Reference
+        meta:
+          nextStep: Try and create the Transaction or Charge with a new reference
+        type: validation_error
+        code: duplicate_reference
+        errorCodeMappingNotFound: false
+    RefundListResponseArray:
+      type: object
+      properties:
+        integration:
+          type: integer
+        transaction:
+          type: integer
+        dispute:
+          nullable: true
+        settlement:
+          nullable: true
+        id:
+          type: integer
+        domain:
+          type: string
+        currency:
+          type: string
+        amount:
+          type: integer
+        status:
+          type: string
+        refunded_at:
+          nullable: true
+        refunded_by:
+          type: string
+        customer_note:
+          type: string
+        merchant_note:
+          type: string
+        deducted_amount:
+          type: integer
+        fully_deducted:
+          type: integer
+        createdAt:
+          type: string
+        bank_reference:
+          nullable: true
+        transaction_reference:
+          type: string
+        reason:
+          type: string
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            customer_code:
+              type: string
+            phone:
+              type: string
+              nullable: true
+            metadata:
+              type: string
+            risk_action:
+              type: string
+            international_format_phone:
+              type: string
+          required:
+            - id
+            - first_name
+            - last_name
+            - email
+            - customer_code
+            - phone
+            - metadata
+            - risk_action
+            - international_format_phone
+        refund_type:
+          type: string
+        transaction_amount:
+          type: integer
+        initiated_by:
+          type: string
+        refund_channel:
+          type: string
+        session_id:
+          nullable: true
+        collect_account_number:
+          type: boolean
+      required:
+        - integration
+        - transaction
+        - dispute
+        - settlement
+        - id
+        - domain
+        - currency
+        - amount
+        - status
+        - refunded_at
+        - refunded_by
+        - customer_note
+        - merchant_note
+        - deducted_amount
+        - fully_deducted
+        - createdAt
+        - bank_reference
+        - transaction_reference
+        - reason
+        - customer
+        - refund_type
+        - transaction_amount
+        - initiated_by
+        - refund_channel
+        - session_id
+        - collect_account_number
+    RefundListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RefundListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: string
+            page:
+              type: integer
+            pageCount:
+              type: integer
+            failedRefundCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+            - failedRefundCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    RefundCreate:
+      type: object
+      required:
+        - transaction
+      properties:
+        transaction:
+          description: Transaction reference or id
+          type: string
+        amount:
+          description: |-
+            Amount ( in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR ) to be refunded to the customer. 
+            Amount cannot be more than the original transaction amount
+          type: integer
+        currency:
+          description: Three-letter ISO currency. Allowed values are NGN, GHS, ZAR or USD
+          type: string
+        customer_note:
+          description: Customer reason
+          type: string
+        merchant_note:
+          description: Merchant reason
+          type: string
+    RefundCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            transaction:
+              type: object
+              properties:
+                id:
+                  type: integer
+                domain:
+                  type: string
+                reference:
+                  type: string
+                amount:
+                  type: integer
+                paid_at:
+                  type: string
+                channel:
+                  type: string
+                currency:
+                  type: string
+                authorization:
+                  type: object
+                  properties:
+                    exp_month:
+                      nullable: true
+                    exp_year:
+                      nullable: true
+                    account_name:
+                      nullable: true
+                  required:
+                    - exp_month
+                    - exp_year
+                    - account_name
+                customer:
+                  type: object
+                  properties:
+                    international_format_phone:
+                      type: string
+                      nullable: true
+                  required:
+                    - international_format_phone
+                plan:
+                  type: object
+                subaccount:
+                  type: object
+                  properties:
+                    currency:
+                      nullable: true
+                  required:
+                    - currency
+                split:
+                  type: object
+                order_id:
+                  nullable: true
+                paidAt:
+                  type: string
+                pos_transaction_data:
+                  nullable: true
+                source:
+                  nullable: true
+                fees_breakdown:
+                  nullable: true
+              required:
+                - id
+                - domain
+                - reference
+                - amount
+                - paid_at
+                - channel
+                - currency
+                - authorization
+                - customer
+                - plan
+                - subaccount
+                - split
+                - order_id
+                - paidAt
+                - pos_transaction_data
+                - source
+                - fees_breakdown
+            integration:
+              type: integer
+            deducted_amount:
+              type: integer
+            channel:
+              nullable: true
+            merchant_note:
+              type: string
+            customer_note:
+              type: string
+            status:
+              type: string
+            refunded_by:
+              type: string
+            expected_at:
+              type: string
+            currency:
+              type: string
+            domain:
+              type: string
+            amount:
+              type: integer
+            fully_deducted:
+              type: boolean
+            id:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - transaction
+            - integration
+            - deducted_amount
+            - channel
+            - merchant_note
+            - customer_note
+            - status
+            - refunded_by
+            - expected_at
+            - currency
+            - domain
+            - amount
+            - fully_deducted
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+  responses:
+    Unauthorized:
+      description: Unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Invalid key
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: false
+            message: Entity not found
+    TransactionInitializeBadRequestResponse:
+      description: Responses from the Transaction Initialize endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionInitializeBadRequestModel'
+    RefundListSuccess:
+      description: Refund List response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RefundListResponse'
+    RefundCreateSuccess:
+      description: Refund Create response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RefundCreateResponse'

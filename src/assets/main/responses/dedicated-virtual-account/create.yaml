@@ -1,8 +1,0 @@
-description: Creation Successful
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Create Dedicated Account:
-        $ref: '../../examples/dedicated-virtual-account/create.yaml'

@@ -1,8 +1,0 @@
-description: Resolve Account Number
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Resolve Bank:
-        $ref: '../../examples/verification/resolve-bank.yaml'
