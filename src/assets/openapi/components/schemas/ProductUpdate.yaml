@@ -27,5 +27,5 @@ properties:
     description: The split code if sharing the transaction with partners
     type: string
   metadata:
-    description: Stringified JSON object of custom data
-    type: string
+    description: JSON object of custom data
+    type: object

@@ -157,6 +157,9 @@ properties:
     type: integer
   most_recent_invoice:
     nullable: true
+  metadata:
+    type: object
+    nullable: true
 required:
   - id
   - domain
@@ -178,3 +181,4 @@ required:
   - split_code
   - payments_count
   - most_recent_invoice
+  - metadata

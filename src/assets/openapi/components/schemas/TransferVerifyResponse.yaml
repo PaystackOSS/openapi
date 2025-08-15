@@ -59,6 +59,7 @@ properties:
           integration:
             type: integer
           metadata:
+            type: object
             nullable: true
           name:
             type: string
@@ -98,7 +99,6 @@ properties:
           - email
           - id
           - integration
-          - metadata
           - name
           - recipient_code
           - type

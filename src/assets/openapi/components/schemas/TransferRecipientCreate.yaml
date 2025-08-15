@@ -6,7 +6,8 @@ required:
   - bank_code
 properties:
   type:
-    description: Recipient Type (Only nuban at this time)
+    description: Recipient Type
+    default: nuban
     type: string
   name:
     description: Recipient's name
@@ -29,5 +30,5 @@ properties:
     description: An authorization code from a previous transaction
     type: string
   metadata:
-    description: Stringified JSON object of custom data
-    type: string
+    description: JSON object of custom data
+    type: object

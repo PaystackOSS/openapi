@@ -3,11 +3,7 @@ required:
   - batch
 properties:
   batch:
-    description: >-
-      A list of transfer recipient object. Each object should contain type,
-      name, and bank_code. 
-
-      Any Create Transfer Recipient param can also be passed.
+    description: A list of transfer recipient object.
     type: array
     items:
       $ref: ./TransferRecipientCreate.yaml

@@ -24,6 +24,7 @@ properties:
       integration:
         type: integer
       metadata:
+        type: object
         nullable: true
       name:
         type: string
@@ -41,9 +42,11 @@ properties:
         type: object
         properties:
           authorization_code:
+            type: string
             nullable: true
           account_number:
             type: string
+            nullable: true
           account_name:
             type: string
             nullable: true
@@ -66,7 +69,6 @@ properties:
       - email
       - id
       - integration
-      - metadata
       - name
       - recipient_code
       - type

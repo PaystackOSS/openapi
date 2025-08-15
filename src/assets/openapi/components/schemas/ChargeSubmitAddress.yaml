@@ -4,7 +4,7 @@ required:
   - reference
   - city
   - state
-  - zipcode
+  - zip_code
 properties:
   address:
     description: Customer's address
@@ -15,7 +15,7 @@ properties:
   state:
     description: Customer's state
     type: string
-  zipcode:
+  zip_code:
     description: Customer's zipcode
     type: string
   reference:

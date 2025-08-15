@@ -45,6 +45,15 @@ properties:
         type: string
       next_payment_date:
         type: string
+      easy_cron_id:
+        type: string
+        nullable: true
+      open_invoice:
+        type: string
+        nullable: true
+      metadata:
+        type: object
+        nullable: true
     required:
       - customer
       - plan
@@ -65,6 +74,9 @@ properties:
       - updatedAt
       - cron_expression
       - next_payment_date
+      - easy_cron_id
+      - open_invoice
+      - metadata
 required:
   - status
   - message

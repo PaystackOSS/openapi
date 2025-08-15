@@ -1,5 +1,0 @@
-description: Transaction Timeline response
-content:
-  application/json:
-    schema:
-      $ref: ../schemas/TransactionTimelineResponse.yaml

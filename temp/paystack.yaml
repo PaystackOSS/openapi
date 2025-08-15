@@ -26,7 +26,11 @@ tags:
   - name: Customer
     description: |
       A collection of endpoints for creating and managing customers on an integration
-    x-product-name: Transaction Splits
+    x-product-name: Customers
+  - name: Direct Debit
+    description: |
+      A collection of endpoints for managing Direct Debit
+    x-product-name: Direct Debit
   - name: Dedicated Virtual Account
     description: |
       A collection of endpoints for creating and managing payment accounts for customers
@@ -1167,6 +1171,185 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerValidateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/authorization/initialize:
+    post:
+      tags:
+        - Customer
+      summary: Initialize Authorization
+      description: Initiate a request to create a reusable authorization code for recurring transactions
+      operationId: customer_initializeAuthorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAuthorizationInitializeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerAuthorizationInitializeRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerAuthorizationInitializeSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/authorization/verify/{reference}:
+    get:
+      tags:
+        - Customer
+      summary: Verify Authorization
+      description: Check the status of an authorization request
+      operationId: customer_verifyAuthorization
+      parameters:
+        - name: reference
+          in: path
+          description: The reference returned in the initialization response
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerAuthorizationVerifySuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /customer/{id}/initialize-direct-debit:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the customer to initialize the direct debit for
+    post:
+      tags:
+        - Customer
+      summary: Initialize Direct Debit
+      operationId: customer_initializeDirectDebit
+      description: Initialize the process of linking an account to a customer for Direct Debit transactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInitializeDirectDebitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerInitializeDirectDebitRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerInitializeDirectDebitSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/{id}/directdebit-activation-charge:
+    put:
+      tags:
+        - Customer
+      summary: Direct Debit Activation Charge
+      operationId: customer_directDebitActivationCharge
+      description: Trigger an activation charge on an inactive mandate on behalf of your customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: The customer ID attached to the authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDirectDebitActivationChargeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerDirectDebitActivationChargeRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerDirectDebitActivationChargeSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /customer/{id}/directdebit-mandate-authorizations:
+    get:
+      tags:
+        - Customer
+      summary: Fetch Mandate Authorizations
+      operationId: customer_fetchMandateAuthorizations
+      description: Get the list of direct debit mandates associated with a customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The customer ID for the authorizations to fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerFetchMandateAuthorizationsSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /directdebit/activation-charge:
+    put:
+      tags:
+        - Direct Debit
+      summary: Trigger Activation Charge
+      description: Trigger activation charge for specified customers
+      operationId: directdebit_triggerActivationCharge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectDebitActivationChargeRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/DirectDebitActivationChargeSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /directdebit/mandate-authorizations:
+    get:
+      tags:
+        - Direct Debit
+      summary: List Mandate Authorizations
+      description: Get a list of all the direct debit mandates on your integration
+      operationId: directdebit_listMandateAuthorizations
+      parameters:
+        - name: cursor
+          in: query
+          description: The cursor value of the next set of authorizations to fetch. You can get this from the meta object of the response
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by the authorization status
+          schema:
+            type: string
+            enum:
+              - pending
+              - active
+              - revoked
+        - name: per_page
+          in: query
+          description: The number of authorizations to fetch per request
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomerFetchMandateAuthorizationsSuccess'
         '401':
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -3525,11 +3708,7 @@ paths:
             schema:
               type: array
               items:
-                properties:
-                  charges:
-                    type: object
-                    items:
-                      $ref: '#/components/schemas/BulkChargeInitiate'
+                $ref: '#/components/schemas/BulkChargeInitiate'
       responses:
         '200':
           description: ''
@@ -4352,8 +4531,8 @@ components:
           description: Used to replace the email address shown on the Checkout
           type: string
         metadata:
-          description: Stringified JSON object of custom data
-          type: string
+          description: JSON object of custom data
+          type: object
       example:
         email: test@demo.com
         amount: 10000
@@ -4741,6 +4920,47 @@ components:
           type: object
           nullable: true
         log:
+          type: object
+          properties:
+            start_time:
+              type: integer
+            time_spent:
+              type: integer
+            attempts:
+              type: integer
+            errors:
+              type: integer
+            success:
+              type: boolean
+            mobile:
+              type: boolean
+            input:
+              type: array
+              items: {}
+            history:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  message:
+                    type: string
+                  time:
+                    type: integer
+                required:
+                  - type
+                  - message
+                  - time
+          required:
+            - start_time
+            - time_spent
+            - attempts
+            - errors
+            - success
+            - mobile
+            - input
+            - history
           nullable: true
         fees:
           type: integer
@@ -4785,29 +5005,41 @@ components:
           properties:
             authorization_code:
               type: string
+              nullable: true
             bin:
               type: string
+              nullable: true
             last4:
               type: string
+              nullable: true
             exp_month:
               type: string
+              nullable: true
             exp_year:
               type: string
+              nullable: true
             channel:
               type: string
+              nullable: true
             card_type:
               type: string
+              nullable: true
             bank:
               type: string
+              nullable: true
             country_code:
               type: string
+              nullable: true
             brand:
               type: string
+              nullable: true
             reusable:
               type: boolean
             signature:
               type: string
+              nullable: true
             account_name:
+              type: string
               nullable: true
           required:
             - authorization_code
@@ -4990,10 +5222,52 @@ components:
               required:
                 - custom_fields
             log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
               nullable: true
             fees:
               type: integer
             fees_split:
+              type: integer
               nullable: true
             authorization:
               type: object
@@ -5256,6 +5530,8 @@ components:
         split_code:
           description: The split code of the transaction split
           type: string
+        split:
+          $ref: '#/components/schemas/SplitCreate'
         subaccount:
           description: The code for the subaccount that owns the payment
           type: string
@@ -5532,6 +5808,47 @@ components:
             ip_address:
               nullable: true
             log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
               nullable: true
             fees:
               type: integer
@@ -5720,6 +6037,7 @@ components:
           type: string
         bearer_subaccount:
           type: integer
+          nullable: true
         createdAt:
           type: string
         updatedAt:
@@ -5836,7 +6154,6 @@ components:
             - split_code
             - active
             - bearer_type
-            - bearer_subaccount
             - createdAt
             - updatedAt
             - is_dynamic
@@ -6167,13 +6484,11 @@ components:
           type: object
           properties:
             next:
-              type: array
+              type: string
               nullable: true
-              items: {}
             previous:
-              type: array
+              type: string
               nullable: true
-              items: {}
             perPage:
               type: integer
           required:
@@ -6637,10 +6952,13 @@ components:
           description: Customer's code, or email address
           type: string
         risk_action:
-          description: |
-            One of the possible risk actions [ default, allow, deny ]. allow to whitelist. 
-            deny to blacklist. Customers start with a default risk action.
+          description: This determines the fraud rules that should be applied to the customer
           type: string
+          default: default
+          enum:
+            - allow
+            - deny
+            - default
     CustomerWhitelistBlacklistResponse:
       type: object
       properties:
@@ -6751,8 +7069,9 @@ components:
         type:
           description: Predefined types of identification.
           type: string
+          default: bank_account
         value:
-          description: Customer's identification number. Required if type is bvn
+          description: Customer's identification number.
           type: string
         country:
           description: Two-letter country code of identification issuer
@@ -6773,6 +7092,366 @@ components:
           type: boolean
         message:
           type: string
+      required:
+        - status
+        - message
+    CustomerAuthorizationInitializeAccount:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The customer's account number
+          example: '0123456789'
+        bank_code:
+          type: string
+          description: The code representing the customer's bank
+          example: '058'
+      required:
+        - number
+        - bank_code
+    CustomerAuthorizationInitializeAddress:
+      type: object
+      properties:
+        street:
+          type: string
+          description: The customer's street
+          example: 123 Main Street
+        city:
+          type: string
+          description: The customer's city
+          example: Lagos
+        state:
+          type: string
+          description: The customer's state
+          example: Lagos
+      required:
+        - street
+        - city
+        - state
+    CustomerAuthorizationInitializeRequest:
+      type: object
+      required:
+        - email
+        - channel
+      properties:
+        email:
+          type: string
+          description: Customer's email address
+          example: ravi@demo.com
+        channel:
+          type: string
+          description: direct_debit is the only supported option for now
+          enum:
+            - direct_debit
+          example: direct_debit
+        callback_url:
+          type: string
+          description: Fully qualified url (e.g. https://example.com/) to redirect your customer to
+          example: http://test.url.com
+        account:
+          $ref: '#/components/schemas/CustomerAuthorizationInitializeAccount'
+        address:
+          $ref: '#/components/schemas/CustomerAuthorizationInitializeAddress'
+    CustomerAuthorizationInitializeResponseData:
+      type: object
+      properties:
+        redirect_url:
+          type: string
+          example: https://checkout.paystack.com/82t4mp5b5mfn51h
+        access_code:
+          type: string
+          example: 82t4mp5b5mfn51h
+        reference:
+          type: string
+          example: dfbzfotsrbv4n5s82t4mp5b5mfn51h
+      required:
+        - redirect_url
+        - access_code
+        - reference
+    CustomerAuthorizationInitializeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Authorization initialized
+        data:
+          $ref: '#/components/schemas/CustomerAuthorizationInitializeResponseData'
+      required:
+        - status
+        - message
+        - data
+    CustomerAuthorizationVerifyResponseCustomer:
+      type: object
+      properties:
+        code:
+          type: string
+          example: CUS_24lze1c8i2zl76y
+        email:
+          type: string
+          example: ravi@demo.com
+      required:
+        - code
+        - email
+    CustomerAuthorizationVerifyResponseData:
+      type: object
+      properties:
+        authorization_code:
+          type: string
+          example: AUTH_JV4T9Wawdj
+        channel:
+          type: string
+          example: direct_debit
+        bank:
+          type: string
+          example: Guaranty Trust Bank
+        active:
+          type: boolean
+          example: true
+        customer:
+          $ref: '#/components/schemas/CustomerAuthorizationVerifyResponseCustomer'
+      required:
+        - authorization_code
+        - channel
+        - bank
+        - active
+        - customer
+    CustomerAuthorizationVerifyResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Authorization retrieved successfully
+        data:
+          $ref: '#/components/schemas/CustomerAuthorizationVerifyResponseData'
+      required:
+        - status
+        - message
+        - data
+    CustomerInitializeDirectDebitAccount:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The customer's account number
+          example: '0123456789'
+        bank_code:
+          type: string
+          description: The code representing the customer's bank
+          example: '058'
+      required:
+        - number
+        - bank_code
+    CustomerInitializeDirectDebitAddress:
+      type: object
+      properties:
+        street:
+          type: string
+          description: The customer's street
+          example: Some Where
+        city:
+          type: string
+          description: The customer's city
+          example: Ikeja
+        state:
+          type: string
+          description: The customer's state
+          example: Lagos
+      required:
+        - street
+        - city
+        - state
+    CustomerInitializeDirectDebitRequest:
+      type: object
+      required:
+        - account
+        - address
+      properties:
+        account:
+          $ref: '#/components/schemas/CustomerInitializeDirectDebitAccount'
+        address:
+          $ref: '#/components/schemas/CustomerInitializeDirectDebitAddress'
+    CustomerInitializeDirectDebitResponseData:
+      type: object
+      properties:
+        redirect_url:
+          type: string
+          example: https://link.paystack.com/ll6b0szngj1f27k
+        access_code:
+          type: string
+          example: ll6b0szngj1f27k
+        reference:
+          type: string
+          example: 1er945lpy4txyki
+      required:
+        - redirect_url
+        - access_code
+        - reference
+    CustomerInitializeDirectDebitResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Authorization initialized
+        data:
+          $ref: '#/components/schemas/CustomerInitializeDirectDebitResponseData'
+      required:
+        - status
+        - message
+        - data
+    CustomerDirectDebitActivationChargeRequest:
+      type: object
+      required:
+        - authorization_id
+      properties:
+        authorization_id:
+          type: integer
+          description: The authorization ID gotten from the initiation response
+          example: 1069309917
+    CustomerDirectDebitActivationChargeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Mandate is queued for retry
+      required:
+        - status
+        - message
+    CustomerFetchMandateAuthorizationsResponseData:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 164098
+        status:
+          type: string
+          example: active
+        mandate_id:
+          type: integer
+          example: 512003
+        authorization_id:
+          type: integer
+          example: 110049014
+        authorization_code:
+          type: string
+          example: AUTH_8Lol0pNt14
+        integration_id:
+          type: integer
+          example: 463433
+        account_number:
+          type: string
+          example: '0123456789'
+        bank_code:
+          type: string
+          example: '032'
+        bank_name:
+          type: string
+          example: null
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 43975700
+            customer_code:
+              type: string
+              example: CUS_2eusy8uwe34s23fy
+            email:
+              type: string
+              example: customer@email.com
+            first_name:
+              type: string
+              example: Smith
+            last_name:
+              type: string
+              example: Bel
+        authorized_at:
+          type: string
+          format: date-time
+          example: '2024-09-27T10:57:53.824Z'
+      required:
+        - id
+        - status
+        - mandate_id
+        - authorization_id
+        - authorization_code
+        - integration_id
+        - account_number
+        - bank_code
+        - customer
+        - authorized_at
+    CustomerFetchMandateAuthorizationsResponseMeta:
+      type: object
+      properties:
+        per_page:
+          type: integer
+          example: 50
+        next:
+          type: string
+          example: null
+        count:
+          type: integer
+          example: 1
+        total:
+          type: integer
+          example: 1
+      required:
+        - per_page
+        - count
+        - total
+    CustomerFetchMandateAuthorizationsResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Mandate authorizations retrieved successfully
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerFetchMandateAuthorizationsResponseData'
+        meta:
+          $ref: '#/components/schemas/CustomerFetchMandateAuthorizationsResponseMeta'
+      required:
+        - status
+        - message
+        - data
+        - meta
+    DirectDebitActivationChargeRequest:
+      type: object
+      required:
+        - customer_ids
+      properties:
+        customer_ids:
+          type: array
+          description: Array of customer IDs to trigger activation charge for
+          items:
+            type: integer
+          example:
+            - 28958104
+            - 983697220
+    DirectDebitActivationChargeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Mandate is queued for retry
       required:
         - status
         - message
@@ -7293,6 +7972,8 @@ components:
           type: string
         active:
           type: integer
+        is_verified:
+          type: boolean
       required:
         - id
         - subaccount_code
@@ -7308,6 +7989,7 @@ components:
         - account_number
         - currency
         - active
+        - is_verified
     SubaccountListResponse:
       type: object
       properties:
@@ -8190,6 +8872,9 @@ components:
           type: integer
         most_recent_invoice:
           nullable: true
+        metadata:
+          type: object
+          nullable: true
       required:
         - id
         - domain
@@ -8211,6 +8896,7 @@ components:
         - split_code
         - payments_count
         - most_recent_invoice
+        - metadata
     SubscriptionListResponse:
       type: object
       properties:
@@ -8316,6 +9002,15 @@ components:
               type: string
             next_payment_date:
               type: string
+            easy_cron_id:
+              type: string
+              nullable: true
+            open_invoice:
+              type: string
+              nullable: true
+            metadata:
+              type: object
+              nullable: true
           required:
             - customer
             - plan
@@ -8336,6 +9031,9 @@ components:
             - updatedAt
             - cron_expression
             - next_payment_date
+            - easy_cron_id
+            - open_invoice
+            - metadata
       required:
         - status
         - message
@@ -8493,6 +9191,9 @@ components:
               nullable: true
             payments_count:
               type: integer
+            metadata:
+              type: object
+              nullable: true
           required:
             - id
             - domain
@@ -8515,6 +9216,7 @@ components:
             - split_code
             - most_recent_invoice
             - payments_count
+            - metadata
       required:
         - status
         - message
@@ -9011,8 +9713,8 @@ components:
           description: The split code if sharing the transaction with partners
           type: string
         metadata:
-          description: Stringified JSON object of custom data
-          type: string
+          description: JSON object of custom data
+          type: object
     ProductUpdateResponse:
       type: object
       properties:
@@ -10527,8 +11229,8 @@ components:
           description: The split code of the transaction split. e.g. `SPL_98WF13Eb3w`
           type: string
         metadata:
-          description: Stringified JSON object of custom data
-          type: string
+          description: JSON object of custom data
+          type: object
         redirect_url:
           description: |
             If you would like Paystack to redirect to a URL upon successful payment, specify the URL here.
@@ -11191,8 +11893,10 @@ components:
             has_invoice:
               type: boolean
             invoice_number:
+              type: integer
               nullable: true
             description:
+              type: string
               nullable: true
             line_items:
               type: array
@@ -11207,6 +11911,7 @@ components:
             paid:
               type: boolean
             metadata:
+              type: object
               nullable: true
             notifications:
               type: array
@@ -11220,6 +11925,7 @@ components:
             discount:
               nullable: true
             split_code:
+              type: string
               nullable: true
           required:
             - id
@@ -11815,6 +12521,7 @@ components:
         integration:
           type: integer
         metadata:
+          type: object
           nullable: true
         name:
           type: string
@@ -11832,9 +12539,11 @@ components:
           type: object
           properties:
             authorization_code:
+              type: string
               nullable: true
             account_number:
               type: string
+              nullable: true
             account_name:
               type: string
               nullable: true
@@ -11857,7 +12566,6 @@ components:
         - email
         - id
         - integration
-        - metadata
         - name
         - recipient_code
         - type
@@ -11910,7 +12618,8 @@ components:
         - bank_code
       properties:
         type:
-          description: Recipient Type (Only nuban at this time)
+          description: Recipient Type
+          default: nuban
           type: string
         name:
           description: Recipient's name
@@ -11931,8 +12640,8 @@ components:
           description: An authorization code from a previous transaction
           type: string
         metadata:
-          description: Stringified JSON object of custom data
-          type: string
+          description: JSON object of custom data
+          type: object
     TransferRecipientCreateResponse:
       type: object
       properties:
@@ -11960,6 +12669,7 @@ components:
             integration:
               type: integer
             metadata:
+              type: object
               nullable: true
             name:
               type: string
@@ -11977,9 +12687,11 @@ components:
               type: object
               properties:
                 authorization_code:
+                  type: string
                   nullable: true
                 account_number:
                   type: string
+                  nullable: true
                 account_name:
                   type: string
                   nullable: true
@@ -12002,7 +12714,6 @@ components:
             - email
             - id
             - integration
-            - metadata
             - name
             - recipient_code
             - type
@@ -12020,9 +12731,7 @@ components:
         - batch
       properties:
         batch:
-          description: |-
-            A list of transfer recipient object. Each object should contain type, name, and bank_code. 
-            Any Create Transfer Recipient param can also be passed.
+          description: A list of transfer recipient object.
           type: array
           items:
             $ref: '#/components/schemas/TransferRecipientCreate'
@@ -12112,8 +12821,10 @@ components:
               properties:
                 account_number:
                   type: string
+                  nullable: true
                 account_name:
                   type: string
+                  nullable: true
                 bank_code:
                   type: string
                 bank_name:
@@ -12126,6 +12837,7 @@ components:
             description:
               type: string
             metadata:
+              type: object
               nullable: true
             recipient_code:
               type: string
@@ -12153,7 +12865,6 @@ components:
             - name
             - details
             - description
-            - metadata
             - recipient_code
             - active
             - recipient_account
@@ -12227,6 +12938,8 @@ components:
           nullable: true
         transfer_code:
           type: string
+        request:
+          type: integer
         transferred_at:
           nullable: true
         updatedAt:
@@ -12251,6 +12964,7 @@ components:
             integration:
               type: integer
             metadata:
+              type: object
               nullable: true
             name:
               type: string
@@ -12273,6 +12987,7 @@ components:
                   type: string
                 account_name:
                   type: string
+                  nullable: true
                 bank_code:
                   type: string
                 bank_name:
@@ -12292,7 +13007,6 @@ components:
             - email
             - id
             - integration
-            - metadata
             - name
             - recipient_code
             - type
@@ -12312,6 +13026,9 @@ components:
             - id
         fee_charged:
           type: integer
+        fees_breakdown:
+          type: integer
+          nullable: true
       required:
         - amount
         - createdAt
@@ -12326,12 +13043,14 @@ components:
         - source_details
         - status
         - titan_code
+        - request
         - transfer_code
         - transferred_at
         - updatedAt
         - recipient
         - session
         - fee_charged
+        - fees_breakdown
     TransferListResponse:
       type: object
       properties:
@@ -12368,33 +13087,51 @@ components:
         - message
         - data
         - meta
-    TransferInitiate:
+    TransferBase:
       type: object
       required:
-        - source
         - amount
         - recipient
+        - reference
       properties:
-        source:
-          description: Where should we transfer from? Only balance is allowed for now
-          type: string
         amount:
           description: Amount to transfer in kobo if currency is NGN and pesewas if currency is GHS.
-          type: string
+          type: integer
         recipient:
           description: The transfer recipient's code
           type: string
+        reference:
+          description: |
+            To ensure idempotency, you need to provide e a unique identifier for the request.  The identifier should be a lowercase alphanumeric string with only -,_  symbols allowed.
+          type: string
+          minimum: 16
         reason:
           description: The reason or narration for the transfer.
           type: string
-        currency:
-          description: Specify the currency of the transfer. Defaults to NGN.
-          type: string
-        reference:
-          description: |-
-            If specified, the field should be a unique identifier (in lowercase) for the object. 
-            Only -,_ and alphanumeric characters are allowed.
-          type: string
+    TransferInitiate:
+      description: Transfer initiation model
+      allOf:
+        - $ref: '#/components/schemas/TransferBase'
+        - type: object
+          required:
+            - source
+            - amount
+            - recipient
+            - reference
+          properties:
+            source:
+              description: The origin of the funds to send from
+              type: string
+              default: balance
+            currency:
+              description: Specify the currency of the transfer.
+              type: string
+              default: NGN
+              enum:
+                - NGN
+                - ZAR
+                - KES
+                - GHS
     TransferCreateResponse:
       type: object
       properties:
@@ -12406,6 +13143,9 @@ components:
           type: object
           properties:
             transfersessionid:
+              type: array
+              items: {}
+            transfertrials:
               type: array
               items: {}
             domain:
@@ -12446,6 +13186,7 @@ components:
               type: string
           required:
             - transfersessionid
+            - transfertrials
             - domain
             - amount
             - currency
@@ -12489,11 +13230,20 @@ components:
         source:
           description: Where should we transfer from? Only balance is allowed for now
           type: string
+        currency:
+          description: Specify the currency of the transfer.
+          type: string
+          default: NGN
+          enum:
+            - NGN
+            - ZAR
+            - KES
+            - GHS
         transfers:
-          description: A list of transfer object. Each object should contain amount, recipient, and reference
+          description: A list of transfer object
           type: array
           items:
-            $ref: '#/components/schemas/TransferInitiate'
+            $ref: '#/components/schemas/TransferBase'
     TransferBulkResponseArray:
       type: object
       properties:
@@ -12608,6 +13358,7 @@ components:
                 integration:
                   type: integer
                 metadata:
+                  type: object
                   nullable: true
                 name:
                   type: string
@@ -12650,7 +13401,6 @@ components:
                 - email
                 - id
                 - integration
-                - metadata
                 - name
                 - recipient_code
                 - type
@@ -12767,6 +13517,7 @@ components:
                 integration:
                   type: integer
                 metadata:
+                  type: object
                   nullable: true
                 name:
                   type: string
@@ -12806,7 +13557,6 @@ components:
                 - email
                 - id
                 - integration
-                - metadata
                 - name
                 - recipient_code
                 - type
@@ -12860,8 +13610,12 @@ components:
           description: The transfer code that requires an OTP validation
           type: string
         reason:
-          description: Either resend_otp or transfer
+          description: Specify the flag to indicate the purpose of the OTP
           type: string
+          default: transfer
+          enum:
+            - disable_otp
+            - transfer
     TransferResendsOtpResponse:
       type: object
       properties:
@@ -13039,8 +13793,8 @@ components:
             Only -, .`, = and alphanumeric characters are allowed.
           type: string
         metadata:
-          description: Stringified JSON object of custom data
-          type: string
+          description: JSON object of custom data
+          type: object
     Bank:
       type: object
       properties:
@@ -13066,10 +13820,10 @@ components:
           description: The three-digit USSD code.
           type: string
           enum:
-            - 737
-            - 919
-            - 822
-            - 966
+            - '737'
+            - '919'
+            - '822'
+            - '966'
     EFT:
       type: object
       properties:
@@ -13123,10 +13877,52 @@ components:
               required:
                 - custom_fields
             log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
               nullable: true
             fees:
               type: integer
             fees_split:
+              type: integer
               nullable: true
             authorization:
               type: object
@@ -13278,7 +14074,7 @@ components:
         - reference
       properties:
         pin:
-          description: Customer's PIN
+          description: Customer's PIN for the ongoing transaction
           type: string
         reference:
           description: Transaction reference that requires the PIN
@@ -13293,52 +14089,39 @@ components:
         data:
           type: object
           properties:
-            id:
-              type: integer
-            domain:
-              type: string
             status:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
               type: string
             reference:
               type: string
-            receipt_number:
+            domain:
+              type: string
+            redirect_url:
+              type: string
               nullable: true
-            amount:
-              type: integer
-            message:
-              nullable: true
-            gateway_response:
-              type: string
-            paid_at:
-              type: string
-            created_at:
-              type: string
-            channel:
-              type: string
-            currency:
-              type: string
-            ip_address:
-              type: string
             metadata:
               type: object
-              properties:
-                custom_fields:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/MetadataCustomFieldsArray'
-              required:
-                - custom_fields
-            log:
+            gateway_response:
+              type: string
+            message:
+              type: string
               nullable: true
+            channel:
+              type: string
             fees:
               type: integer
-            fees_split:
               nullable: true
             authorization:
               type: object
               properties:
                 authorization_code:
                   type: string
+                  nullable: true
                 bin:
                   type: string
                 last4:
@@ -13361,12 +14144,6 @@ components:
                   type: boolean
                 signature:
                   type: string
-                account_name:
-                  nullable: true
-                receiver_bank_account_number:
-                  nullable: true
-                receiver_bank:
-                  nullable: true
               required:
                 - authorization_code
                 - bin
@@ -13380,99 +14157,46 @@ components:
                 - brand
                 - reusable
                 - signature
-                - account_name
-                - receiver_bank_account_number
-                - receiver_bank
             customer:
               type: object
               properties:
-                id:
-                  type: integer
                 first_name:
                   type: string
+                  nullable: true
                 last_name:
                   type: string
+                  nullable: true
                 email:
                   type: string
                 customer_code:
                   type: string
                 phone:
                   type: string
-                metadata:
-                  type: object
+                  nullable: true
                 risk_action:
                   type: string
-                international_format_phone:
-                  type: string
               required:
-                - id
                 - first_name
                 - last_name
                 - email
                 - customer_code
                 - phone
-                - metadata
                 - risk_action
-                - international_format_phone
-            plan:
-              nullable: true
-            split:
-              type: object
-            order_id:
-              nullable: true
-            paidAt:
-              type: string
-            createdAt:
-              type: string
-            requested_amount:
-              type: integer
-            pos_transaction_data:
-              nullable: true
-            source:
-              nullable: true
-            fees_breakdown:
-              nullable: true
-            connect:
-              nullable: true
-            transaction_date:
-              type: string
-            plan_object:
-              type: object
-            subaccount:
-              type: object
           required:
-            - id
-            - domain
             - status
-            - reference
-            - receipt_number
             - amount
-            - message
-            - gateway_response
-            - paid_at
-            - created_at
-            - channel
             - currency
-            - ip_address
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
             - metadata
-            - log
+            - gateway_response
+            - message
+            - channel
             - fees
-            - fees_split
             - authorization
             - customer
-            - plan
-            - split
-            - order_id
-            - paidAt
-            - createdAt
-            - requested_amount
-            - pos_transaction_data
-            - source
-            - fees_breakdown
-            - connect
-            - transaction_date
-            - plan_object
-            - subaccount
       required:
         - status
         - message
@@ -13484,7 +14208,7 @@ components:
         - reference
       properties:
         otp:
-          description: Customer's OTP
+          description: Customer's OTP for ongoing transaction
           type: string
         reference:
           description: The reference of the ongoing transaction
@@ -13499,52 +14223,39 @@ components:
         data:
           type: object
           properties:
-            id:
-              type: integer
-            domain:
-              type: string
             status:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
               type: string
             reference:
               type: string
-            receipt_number:
+            domain:
+              type: string
+            redirect_url:
+              type: string
               nullable: true
-            amount:
-              type: integer
-            message:
-              nullable: true
-            gateway_response:
-              type: string
-            paid_at:
-              type: string
-            created_at:
-              type: string
-            channel:
-              type: string
-            currency:
-              type: string
-            ip_address:
-              type: string
             metadata:
               type: object
-              properties:
-                custom_fields:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/MetadataCustomFieldsArray'
-              required:
-                - custom_fields
-            log:
+            gateway_response:
+              type: string
+            message:
+              type: string
               nullable: true
+            channel:
+              type: string
             fees:
               type: integer
-            fees_split:
               nullable: true
             authorization:
               type: object
               properties:
                 authorization_code:
                   type: string
+                  nullable: true
                 bin:
                   type: string
                 last4:
@@ -13567,12 +14278,6 @@ components:
                   type: boolean
                 signature:
                   type: string
-                account_name:
-                  nullable: true
-                receiver_bank_account_number:
-                  nullable: true
-                receiver_bank:
-                  nullable: true
               required:
                 - authorization_code
                 - bin
@@ -13586,99 +14291,46 @@ components:
                 - brand
                 - reusable
                 - signature
-                - account_name
-                - receiver_bank_account_number
-                - receiver_bank
             customer:
               type: object
               properties:
-                id:
-                  type: integer
                 first_name:
                   type: string
+                  nullable: true
                 last_name:
                   type: string
+                  nullable: true
                 email:
                   type: string
                 customer_code:
                   type: string
                 phone:
                   type: string
-                metadata:
-                  type: object
+                  nullable: true
                 risk_action:
                   type: string
-                international_format_phone:
-                  type: string
               required:
-                - id
                 - first_name
                 - last_name
                 - email
                 - customer_code
                 - phone
-                - metadata
                 - risk_action
-                - international_format_phone
-            plan:
-              nullable: true
-            split:
-              type: object
-            order_id:
-              nullable: true
-            paidAt:
-              type: string
-            createdAt:
-              type: string
-            requested_amount:
-              type: integer
-            pos_transaction_data:
-              nullable: true
-            source:
-              nullable: true
-            fees_breakdown:
-              nullable: true
-            connect:
-              nullable: true
-            transaction_date:
-              type: string
-            plan_object:
-              type: object
-            subaccount:
-              type: object
           required:
-            - id
-            - domain
             - status
-            - reference
-            - receipt_number
             - amount
-            - message
-            - gateway_response
-            - paid_at
-            - created_at
-            - channel
             - currency
-            - ip_address
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
             - metadata
-            - log
+            - gateway_response
+            - message
+            - channel
             - fees
-            - fees_split
             - authorization
             - customer
-            - plan
-            - split
-            - order_id
-            - paidAt
-            - createdAt
-            - requested_amount
-            - pos_transaction_data
-            - source
-            - fees_breakdown
-            - connect
-            - transaction_date
-            - plan_object
-            - subaccount
       required:
         - status
         - message
@@ -13705,15 +14357,116 @@ components:
         data:
           type: object
           properties:
-            reference:
-              type: string
             status:
               type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            redirect_url:
+              type: string
+              nullable: true
+            metadata:
+              type: object
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                  nullable: true
+                bin:
+                  type: string
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+            customer:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                risk_action:
+                  type: string
+              required:
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - risk_action
             display_text:
               type: string
           required:
-            - reference
             - status
+            - amount
+            - currency
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - fees
+            - authorization
+            - customer
             - display_text
       required:
         - status
@@ -13759,7 +14512,7 @@ components:
         - reference
         - city
         - state
-        - zipcode
+        - zip_code
       properties:
         address:
           description: Customer's address
@@ -13770,7 +14523,7 @@ components:
         state:
           description: Customer's state
           type: string
-        zipcode:
+        zip_code:
           description: Customer's zipcode
           type: string
         reference:
@@ -13786,58 +14539,41 @@ components:
         data:
           type: object
           properties:
-            id:
-              type: integer
-            domain:
-              type: string
             status:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
               type: string
             reference:
               type: string
-            receipt_number:
+            domain:
+              type: string
+            redirect_url:
               type: string
               nullable: true
-            amount:
-              type: integer
+            metadata:
+              type: object
+            gateway_response:
+              type: string
             message:
               type: string
               nullable: true
-            gateway_response:
-              type: string
-            paid_at:
-              type: string
-            created_at:
-              type: string
             channel:
               type: string
-            currency:
-              type: string
-            ip_address:
-              type: string
-            metadata:
-              type: object
-              properties:
-                custom_fields:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/MetadataCustomFieldsArray'
-              required:
-                - custom_fields
-            log:
-              nullable: true
             fees:
               type: integer
-              nullable: true
-            fees_split:
               nullable: true
             authorization:
               type: object
               properties:
                 authorization_code:
                   type: string
+                  nullable: true
                 bin:
                   type: string
-                  nullable: true
                 last4:
                   type: string
                 exp_month:
@@ -13858,12 +14594,6 @@ components:
                   type: boolean
                 signature:
                   type: string
-                account_name:
-                  nullable: true
-                receiver_bank_account_number:
-                  nullable: true
-                receiver_bank:
-                  nullable: true
               required:
                 - authorization_code
                 - bin
@@ -13877,14 +14607,9 @@ components:
                 - brand
                 - reusable
                 - signature
-                - account_name
-                - receiver_bank_account_number
-                - receiver_bank
             customer:
               type: object
               properties:
-                id:
-                  type: integer
                 first_name:
                   type: string
                   nullable: true
@@ -13898,83 +14623,30 @@ components:
                 phone:
                   type: string
                   nullable: true
-                metadata:
-                  type: object
-                  nullable: true
                 risk_action:
                   type: string
-                international_format_phone:
-                  type: string
-                  nullable: true
               required:
-                - id
                 - first_name
                 - last_name
                 - email
                 - customer_code
                 - phone
-                - metadata
                 - risk_action
-                - international_format_phone
-            plan:
-              nullable: true
-            split:
-              type: object
-            order_id:
-              nullable: true
-            paidAt:
-              type: string
-            createdAt:
-              type: string
-            requested_amount:
-              type: integer
-            pos_transaction_data:
-              nullable: true
-            source:
-              nullable: true
-            fees_breakdown:
-              nullable: true
-            connect:
-              nullable: true
-            transaction_date:
-              type: string
-            plan_object:
-              type: object
-            subaccount:
-              type: object
           required:
-            - id
-            - domain
             - status
-            - reference
-            - receipt_number
             - amount
-            - message
-            - gateway_response
-            - paid_at
-            - created_at
-            - channel
             - currency
-            - ip_address
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
             - metadata
-            - log
+            - gateway_response
+            - message
+            - channel
             - fees
-            - fees_split
             - authorization
             - customer
-            - plan
-            - split
-            - order_id
-            - paidAt
-            - createdAt
-            - requested_amount
-            - pos_transaction_data
-            - source
-            - fees_breakdown
-            - connect
-            - transaction_date
-            - plan_object
-            - subaccount
       required:
         - status
         - message
@@ -14059,7 +14731,19 @@ components:
           type: string
         amount:
           description: Amount to charge on the authorization
+          type: integer
+        reference:
+          description: Unique reference containing only -, .`, = and alphanumeric characters.
           type: string
+        attempt_partial_debit:
+          description: A flag to indicate if you want us to try recouping lower amounts when the customer has insufficient fund
+          type: boolean
+        at_least:
+          description: Minimum amount to charge if the attempt_partial_debit flag is set
+          type: integer
+        metadata:
+          description: JSON object of custom data
+          type: object
     BulkChargeInitiateResponse:
       type: object
       properties:
@@ -14894,10 +15578,52 @@ components:
               required:
                 - custom_fields
             log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
               nullable: true
             fees:
               type: integer
             fees_split:
+              type: integer
               nullable: true
             authorization:
               type: object
@@ -15134,10 +15860,52 @@ components:
                   required:
                     - custom_fields
                 log:
+                  type: object
+                  properties:
+                    start_time:
+                      type: integer
+                    time_spent:
+                      type: integer
+                    attempts:
+                      type: integer
+                    errors:
+                      type: integer
+                    success:
+                      type: boolean
+                    mobile:
+                      type: boolean
+                    input:
+                      type: array
+                      items: {}
+                    history:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          message:
+                            type: string
+                          time:
+                            type: integer
+                        required:
+                          - type
+                          - message
+                          - time
+                  required:
+                    - start_time
+                    - time_spent
+                    - attempts
+                    - errors
+                    - success
+                    - mobile
+                    - input
+                    - history
                   nullable: true
                 fees:
                   type: integer
                 fees_split:
+                  type: integer
                   nullable: true
                 authorization:
                   type: object
@@ -15368,10 +16136,52 @@ components:
                   required:
                     - custom_fields
                 log:
+                  type: object
+                  properties:
+                    start_time:
+                      type: integer
+                    time_spent:
+                      type: integer
+                    attempts:
+                      type: integer
+                    errors:
+                      type: integer
+                    success:
+                      type: boolean
+                    mobile:
+                      type: boolean
+                    input:
+                      type: array
+                      items: {}
+                    history:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          message:
+                            type: string
+                          time:
+                            type: integer
+                        required:
+                          - type
+                          - message
+                          - time
+                  required:
+                    - start_time
+                    - time_spent
+                    - attempts
+                    - errors
+                    - success
+                    - mobile
+                    - input
+                    - history
                   nullable: true
                 fees:
                   type: integer
                 fees_split:
+                  type: integer
                   nullable: true
                 authorization:
                   type: object
@@ -15657,10 +16467,52 @@ components:
                   required:
                     - custom_fields
                 log:
+                  type: object
+                  properties:
+                    start_time:
+                      type: integer
+                    time_spent:
+                      type: integer
+                    attempts:
+                      type: integer
+                    errors:
+                      type: integer
+                    success:
+                      type: boolean
+                    mobile:
+                      type: boolean
+                    input:
+                      type: array
+                      items: {}
+                    history:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          message:
+                            type: string
+                          time:
+                            type: integer
+                        required:
+                          - type
+                          - message
+                          - time
+                  required:
+                    - start_time
+                    - time_spent
+                    - attempts
+                    - errors
+                    - success
+                    - mobile
+                    - input
+                    - history
                   nullable: true
                 fees:
                   type: integer
                 fees_split:
+                  type: integer
                   nullable: true
                 authorization:
                   type: object
@@ -15986,6 +16838,8 @@ components:
           type: boolean
         supports_transfer:
           type: boolean
+        available_for_direct_debit:
+          type: boolean
         active:
           type: boolean
         is_deleted:
@@ -16011,6 +16865,7 @@ components:
         - gateway
         - pay_with_bank
         - supports_transfer
+        - available_for_direct_debit
         - active
         - is_deleted
         - country
@@ -16110,9 +16965,24 @@ components:
               type: boolean
             verificationMessage:
               type: string
+            accountAcceptsDebits:
+              type: boolean
+            accountAcceptsCredits:
+              type: boolean
+            accountOpenForMoreThanThreeMonths:
+              type: boolean
+            accountHolderMatch:
+              type: boolean
+            accountOpen:
+              type: boolean
           required:
             - verified
             - verificationMessage
+            - accountAcceptsDebits
+            - accountAcceptsCredits
+            - accountOpenForMoreThanThreeMonths
+            - accountHolderMatch
+            - accountOpen
       required:
         - status
         - message
@@ -16457,6 +17327,42 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/TerminalDecommissionDeviceResponse'
+    CustomerAuthorizationInitializeSuccess:
+      description: Customer Authorization Initialize response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerAuthorizationInitializeResponse'
+    CustomerAuthorizationVerifySuccess:
+      description: Customer Authorization Verify response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerAuthorizationVerifyResponse'
+    CustomerInitializeDirectDebitSuccess:
+      description: Customer Initialize Direct Debit response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerInitializeDirectDebitResponse'
+    CustomerDirectDebitActivationChargeSuccess:
+      description: Customer Direct Debit Activation Charge response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerDirectDebitActivationChargeResponse'
+    CustomerFetchMandateAuthorizationsSuccess:
+      description: Customer Fetch Mandate Authorizations response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerFetchMandateAuthorizationsResponse'
+    DirectDebitActivationChargeSuccess:
+      description: Direct Debit Activation Charge response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DirectDebitActivationChargeResponse'
     ApplePayOkResponse:
       description: Responses from the Transaction Initialize endpoint
       content:

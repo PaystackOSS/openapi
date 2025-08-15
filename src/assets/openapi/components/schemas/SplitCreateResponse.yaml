@@ -49,7 +49,6 @@ properties:
       - split_code
       - active
       - bearer_type
-      - bearer_subaccount
       - createdAt
       - updatedAt
       - is_dynamic

@@ -51,8 +51,8 @@ properties:
     description: The split code of the transaction split. e.g. `SPL_98WF13Eb3w`
     type: string
   metadata:
-    description: Stringified JSON object of custom data
-    type: string
+    description: JSON object of custom data
+    type: object
   redirect_url:
     description: >
       If you would like Paystack to redirect to a URL upon successful payment,

@@ -2,4 +2,4 @@ description: Customer Whitelist Blacklist response
 content:
   application/json:
     schema:
-      $ref: ../schemas/CustomerWhitelistBlacklistResponse.yaml
+      $ref: ../schemas/CustomerRiskActionResponse.yaml

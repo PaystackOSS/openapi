@@ -1,5 +1,0 @@
-description: Transaction Fetch response
-content:
-  application/json:
-    schema:
-      $ref: ../schemas/TransactionFetchResponse.yaml

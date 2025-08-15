@@ -23,6 +23,8 @@ properties:
   split_code:
     description: The split code of the transaction split
     type: string
+  split:
+    $ref: ./SplitCreate.yaml
   subaccount:
     description: The code for the subaccount that owns the payment
     type: string

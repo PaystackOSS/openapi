@@ -59,10 +59,52 @@ properties:
             required:
               - custom_fields
           log:
+            type: object
+            properties:
+              start_time:
+                type: integer
+              time_spent:
+                type: integer
+              attempts:
+                type: integer
+              errors:
+                type: integer
+              success:
+                type: boolean
+              mobile:
+                type: boolean
+              input:
+                type: array
+                items: {}
+              history:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    message:
+                      type: string
+                    time:
+                      type: integer
+                  required:
+                    - type
+                    - message
+                    - time
+            required:
+              - start_time
+              - time_spent
+              - attempts
+              - errors
+              - success
+              - mobile
+              - input
+              - history
             nullable: true
           fees:
             type: integer
           fees_split:
+            type: integer
             nullable: true
           authorization:
             type: object

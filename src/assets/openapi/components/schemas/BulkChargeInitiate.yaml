@@ -8,4 +8,18 @@ properties:
     type: string
   amount:
     description: Amount to charge on the authorization
+    type: integer
+  reference:
+    description: Unique reference containing only -, .`, = and alphanumeric characters.
     type: string
+  attempt_partial_debit:
+    description: >-
+      A flag to indicate if you want us to try recouping lower amounts when the
+      customer has insufficient fund
+    type: boolean
+  at_least:
+    description: Minimum amount to charge if the attempt_partial_debit flag is set
+    type: integer
+  metadata:
+    description: JSON object of custom data
+    type: object

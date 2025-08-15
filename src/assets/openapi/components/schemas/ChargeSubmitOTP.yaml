@@ -4,7 +4,7 @@ required:
   - reference
 properties:
   otp:
-    description: Customer's OTP
+    description: Customer's OTP for ongoing transaction
     type: string
   reference:
     description: The reference of the ongoing transaction

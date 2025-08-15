@@ -6,9 +6,10 @@ properties:
     description: Customer's code, or email address
     type: string
   risk_action:
-    description: >
-      One of the possible risk actions [ default, allow, deny ]. allow to
-      whitelist. 
-
-      deny to blacklist. Customers start with a default risk action.
+    description: This determines the fraud rules that should be applied to the customer
     type: string
+    default: default
+    enum:
+      - allow
+      - deny
+      - default

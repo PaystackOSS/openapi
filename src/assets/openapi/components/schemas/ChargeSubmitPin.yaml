@@ -4,7 +4,7 @@ required:
   - reference
 properties:
   pin:
-    description: Customer's PIN
+    description: Customer's PIN for the ongoing transaction
     type: string
   reference:
     description: Transaction reference that requires the PIN

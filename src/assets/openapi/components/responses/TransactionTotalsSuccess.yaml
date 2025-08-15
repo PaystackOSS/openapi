@@ -1,5 +1,0 @@
-description: Transaction Totals response
-content:
-  application/json:
-    schema:
-      $ref: ../schemas/TransactionTotalsResponse.yaml

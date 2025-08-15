@@ -9,7 +9,7 @@ properties:
     example: ravi@demo.com
   channel:
     type: string
-    description: direct-debit is the only supported option for now
+    description: direct_debit is the only supported option for now
     enum:
       - direct_debit
     example: direct_debit

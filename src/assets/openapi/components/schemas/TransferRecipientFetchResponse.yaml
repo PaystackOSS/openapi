@@ -22,8 +22,10 @@ properties:
         properties:
           account_number:
             type: string
+            nullable: true
           account_name:
             type: string
+            nullable: true
           bank_code:
             type: string
           bank_name:
@@ -36,6 +38,7 @@ properties:
       description:
         type: string
       metadata:
+        type: object
         nullable: true
       recipient_code:
         type: string
@@ -63,7 +66,6 @@ properties:
       - name
       - details
       - description
-      - metadata
       - recipient_code
       - active
       - recipient_account

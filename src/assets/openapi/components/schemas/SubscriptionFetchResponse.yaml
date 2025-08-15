@@ -150,6 +150,9 @@ properties:
         nullable: true
       payments_count:
         type: integer
+      metadata:
+        type: object
+        nullable: true
     required:
       - id
       - domain
@@ -172,6 +175,7 @@ properties:
       - split_code
       - most_recent_invoice
       - payments_count
+      - metadata
 required:
   - status
   - message

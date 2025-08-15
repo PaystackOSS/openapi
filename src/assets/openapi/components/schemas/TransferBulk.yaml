@@ -6,10 +6,17 @@ properties:
   source:
     description: Where should we transfer from? Only balance is allowed for now
     type: string
+  currency:
+    description: Specify the currency of the transfer.
+    type: string
+    default: NGN
+    enum:
+      - NGN
+      - ZAR
+      - KES
+      - GHS
   transfers:
-    description: >-
-      A list of transfer object. Each object should contain amount, recipient,
-      and reference
+    description: A list of transfer object
     type: array
     items:
-      $ref: ./TransferInitiate.yaml
+      $ref: ./TransferBase.yaml

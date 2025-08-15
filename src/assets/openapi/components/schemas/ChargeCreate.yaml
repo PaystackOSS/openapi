@@ -34,5 +34,5 @@ properties:
       Only -, .`, = and alphanumeric characters are allowed.
     type: string
   metadata:
-    description: Stringified JSON object of custom data
-    type: string
+    description: JSON object of custom data
+    type: object

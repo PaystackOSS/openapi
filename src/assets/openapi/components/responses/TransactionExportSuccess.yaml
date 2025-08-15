@@ -1,5 +1,0 @@
-description: Transaction Export response
-content:
-  application/json:
-    schema:
-      $ref: ../schemas/TransactionExportResponse.yaml

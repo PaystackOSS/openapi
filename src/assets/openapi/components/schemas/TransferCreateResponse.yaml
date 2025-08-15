@@ -10,6 +10,9 @@ properties:
       transfersessionid:
         type: array
         items: {}
+      transfertrials:
+        type: array
+        items: {}
       domain:
         type: string
       amount:
@@ -48,6 +51,7 @@ properties:
         type: string
     required:
       - transfersessionid
+      - transfertrials
       - domain
       - amount
       - currency

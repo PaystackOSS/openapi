@@ -12,13 +12,11 @@ properties:
     type: object
     properties:
       next:
-        type: array
+        type: string
         nullable: true
-        items: {}
       previous:
-        type: array
+        type: string
         nullable: true
-        items: {}
       perPage:
         type: integer
     required:

@@ -7,5 +7,9 @@ properties:
     description: The transfer code that requires an OTP validation
     type: string
   reason:
-    description: Either resend_otp or transfer
+    description: Specify the flag to indicate the purpose of the OTP
     type: string
+    default: transfer
+    enum:
+      - disable_otp
+      - transfer

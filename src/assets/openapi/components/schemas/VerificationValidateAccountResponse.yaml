@@ -11,9 +11,24 @@ properties:
         type: boolean
       verificationMessage:
         type: string
+      accountAcceptsDebits:
+        type: boolean
+      accountAcceptsCredits:
+        type: boolean
+      accountOpenForMoreThanThreeMonths:
+        type: boolean
+      accountHolderMatch:
+        type: boolean
+      accountOpen:
+        type: boolean
     required:
       - verified
       - verificationMessage
+      - accountAcceptsDebits
+      - accountAcceptsCredits
+      - accountOpenForMoreThanThreeMonths
+      - accountHolderMatch
+      - accountOpen
 required:
   - status
   - message

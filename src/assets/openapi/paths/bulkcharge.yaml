@@ -14,11 +14,7 @@ post:
         schema:
           type: array
           items:
-            properties:
-              charges:
-                type: object
-                items:
-                  $ref: ../components/schemas/BulkChargeInitiate.yaml
+            $ref: ../components/schemas/BulkChargeInitiate.yaml
   responses:
     '200':
       description: ''

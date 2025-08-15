@@ -20,8 +20,9 @@ properties:
   type:
     description: Predefined types of identification.
     type: string
+    default: bank_account
   value:
-    description: Customer's identification number. Required if type is bvn
+    description: Customer's identification number.
     type: string
   country:
     description: Two-letter country code of identification issuer

@@ -31,7 +31,11 @@ tags:
     description: >
       A collection of endpoints for creating and managing customers on an
       integration
-    x-product-name: Transaction Splits
+    x-product-name: Customers
+  - name: Direct Debit
+    description: |
+      A collection of endpoints for managing Direct Debit
+    x-product-name: Direct Debit
   - name: Dedicated Virtual Account
     description: >
       A collection of endpoints for creating and managing payment accounts for
@@ -183,6 +187,20 @@ paths:
     $ref: paths/customer_deactivate_authorization.yaml
   /customer/{code}/identification:
     $ref: paths/customer_{code}_identification.yaml
+  /customer/authorization/initialize:
+    $ref: paths/customer_authorization_initialize.yaml
+  /customer/authorization/verify/{reference}:
+    $ref: paths/customer_authorization_verify_{reference}.yaml
+  /customer/{id}/initialize-direct-debit:
+    $ref: paths/customer_{id}_initialize-direct-debit.yaml
+  /customer/{id}/directdebit-activation-charge:
+    $ref: paths/customer_{id}_directdebit-activation-charge.yaml
+  /customer/{id}/directdebit-mandate-authorizations:
+    $ref: paths/customer_{id}_directdebit-mandate-authorizations.yaml
+  /directdebit/activation-charge:
+    $ref: paths/directdebit_activation-charge.yaml
+  /directdebit/mandate-authorizations:
+    $ref: paths/directdebit_mandate-authorizations.yaml
   /dedicated_account:
     $ref: paths/dedicated_account.yaml
   /dedicated_account/assign:
