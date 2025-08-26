@@ -2,6 +2,7 @@ post:
   tags:
     - Virtual Terminal
   summary: Create Virtual Terminal
+  description: Create a Virtual Terminal on your integration
   operationId: virtualTerminal_create
   requestBody:
     content:
@@ -19,14 +20,18 @@ get:
   tags:
     - Virtual Terminal
   summary: List Virtual Terminals
+  description: List Virtual Terminals on your integration
   operationId: virtualTerminal_list
   parameters:
     - name: perPage
       in: query
+      description: The number of records to fetch per request
       schema:
         type: integer
+      example: 75
     - name: page
       in: query
+      description: The offset to retrieve data from
       schema:
         type: integer
   responses:

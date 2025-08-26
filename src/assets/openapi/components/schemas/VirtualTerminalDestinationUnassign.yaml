@@ -2,6 +2,7 @@ type: object
 properties:
   targets:
     type: array
+    description: Array of destination targets to unassign
     items:
       type: string
 required:

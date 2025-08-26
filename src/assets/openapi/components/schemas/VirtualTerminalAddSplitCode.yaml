@@ -6,4 +6,4 @@ properties:
     description: The split code to assign to the virtual terminal
     type: string
 example:
-  split_code: SPL_1234567890abcdef
+  split_code: "SPL_1234567890abcdef"

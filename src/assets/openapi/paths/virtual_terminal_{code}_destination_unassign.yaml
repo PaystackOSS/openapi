@@ -1,14 +1,17 @@
 parameters:
   - name: code
     in: path
+    description: Code of the Virtual Terminal
     required: true
     schema:
       type: string
+    example: "VT_MCK5292Z"
 post:
   tags:
     - Virtual Terminal
   summary: Unassign Destination from Virtual Terminal
   operationId: virtualTerminal_destinationUnassign
+  description: Unassign a destination (WhatsApp Number) from a Virtual Terminal on your integration
   requestBody:
     content:
       application/json:

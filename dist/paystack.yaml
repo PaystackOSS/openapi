@@ -949,6 +949,7 @@ paths:
       tags:
         - Virtual Terminal
       summary: Create Virtual Terminal
+      description: Create a Virtual Terminal on your integration
       operationId: virtualTerminal_create
       requestBody:
         content:
@@ -966,14 +967,18 @@ paths:
       tags:
         - Virtual Terminal
       summary: List Virtual Terminals
+      description: List Virtual Terminals on your integration
       operationId: virtualTerminal_list
       parameters:
         - name: perPage
           in: query
+          description: The number of records to fetch per request
           schema:
             type: integer
+          example: 75
         - name: page
           in: query
+          description: The offset to retrieve data from
           schema:
             type: integer
       responses:
@@ -987,13 +992,16 @@ paths:
     parameters:
       - name: code
         in: path
+        description: Code of the Virtual Terminal
         required: true
         schema:
           type: string
+        example: VT_MCK5292Z
     get:
       tags:
         - Virtual Terminal
       summary: Fetch Virtual Terminal
+      description: Fetch a Virtual Terminal on your integration
       operationId: virtualTerminal_fetch
       responses:
         '200':
@@ -1006,6 +1014,7 @@ paths:
       tags:
         - Virtual Terminal
       summary: Update Virtual Terminal
+      description: Update a Virtual Terminal on your integration
       operationId: virtualTerminal_update
       requestBody:
         content:
@@ -1023,14 +1032,17 @@ paths:
     parameters:
       - name: code
         in: path
+        description: Code of the Virtual Terminal
         required: true
         schema:
           type: string
+        example: VT_MCK5292Z
     put:
       tags:
         - Virtual Terminal
       summary: Deactivate Virtual Terminal
       operationId: virtualTerminal_deactivate
+      description: Deactivate a Virtual Terminal on your integration
       responses:
         '200':
           $ref: '#/components/responses/VirtualTerminalDeactivateSuccess'
@@ -1042,14 +1054,17 @@ paths:
     parameters:
       - name: code
         in: path
+        description: Code of the Virtual Terminal
         required: true
         schema:
           type: string
+        example: VT_MCK5292Z
     post:
       tags:
         - Virtual Terminal
       summary: Assign Destination to Virtual Terminal
       operationId: virtualTerminal_destinationAssign
+      description: Add a destination (WhatsApp number) to a Virtual Terminal on your integration
       requestBody:
         content:
           application/json:
@@ -1069,14 +1084,17 @@ paths:
     parameters:
       - name: code
         in: path
+        description: Code of the Virtual Terminal
         required: true
         schema:
           type: string
+        example: VT_MCK5292Z
     post:
       tags:
         - Virtual Terminal
       summary: Unassign Destination from Virtual Terminal
       operationId: virtualTerminal_destinationUnassign
+      description: Unassign a destination (WhatsApp Number) from a Virtual Terminal on your integration
       requestBody:
         content:
           application/json:
@@ -1096,13 +1114,16 @@ paths:
     parameters:
       - name: code
         in: path
+        description: Code of the Virtual Terminal
         required: true
         schema:
           type: string
+        example: VT_MCK5292Z
     put:
       tags:
         - Virtual Terminal
       summary: Add Split Code to Virtual Terminal
+      description: Add Split Code to Virtual Terminal
       operationId: virtualTerminal_addSplitCode
       requestBody:
         content:
@@ -1123,6 +1144,7 @@ paths:
       tags:
         - Virtual Terminal
       summary: Remove Split Code from Virtual Terminal
+      description: Remove Split Code from Virtual Terminal
       operationId: virtualTerminal_deleteSplitCode
       requestBody:
         content:
@@ -7018,12 +7040,14 @@ components:
         - data
     VirtualTerminalUpdate:
       type: object
+      required:
+        - name
       properties:
         name:
           description: Name of the virtual terminal
           type: string
-      required:
-        - name
+      example:
+        name: Lagos_Mainland_Zone_1
     VirtualTerminalUpdateResponse:
       type: object
       properties:
@@ -7163,6 +7187,7 @@ components:
       properties:
         targets:
           type: array
+          description: Array of destination targets to unassign
           items:
             type: string
       required:
@@ -7255,14 +7280,14 @@ components:
         - data
     VirtualTerminalDeleteSplitCode:
       type: object
+      required:
+        - split_code
       properties:
         split_code:
           description: The split code to assign to the virtual terminal
           type: string
       example:
         split_code: SPL_1234567890abcdef
-      required:
-        - split_code
     VirtualTerminalDeleteSplitCodeResponse:
       type: object
       properties:
