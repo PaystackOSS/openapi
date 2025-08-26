@@ -10,6 +10,7 @@ get:
       description: A flag to indicate if cursor based pagination should be used
       schema:
         type: boolean
+      example: true
     - in: query
       name: next
       description: >

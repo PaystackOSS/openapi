@@ -9,9 +9,7 @@ properties:
     type: string
   amount:
     description: >
-      Amount should be in smallest denomination of the currency. For example if
-      currency is NGN, pesewas, if currency is GHS, and cents, if currency is
-      ZAR
+      Amount should be in smallest denomination of the currency.
     type: integer
   currency:
     $ref: ./Currency.yaml

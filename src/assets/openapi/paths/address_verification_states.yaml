@@ -3,19 +3,14 @@ get:
     - Miscellaneous
   summary: List States (AVS)
   operationId: miscellaneous_avs
+  description: Get a list of states for a country for address verification
   parameters:
     - in: query
-      name: type
-      schema:
-        type: string
-    - in: query
       name: country
+      description: The country code of the states to list. It is gotten after the charge request
       schema:
         type: string
-    - in: query
-      name: currency
-      schema:
-        type: string
+        example: CA
   responses:
     '200':
       $ref: ../components/responses/MiscellaneousListStatesSuccess.yaml

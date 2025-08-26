@@ -140,6 +140,10 @@ tags:
 paths:
   /transaction/initialize:
     $ref: paths/transaction_initialize.yaml
+  /transaction/charge_authorization:
+    $ref: paths/transaction_charge_authorization.yaml
+  /transaction/partial_debit:
+    $ref: paths/transaction_partial_debit.yaml
   /transaction/verify/{reference}:
     $ref: paths/transaction_verify_{reference}.yaml
   /transaction:
@@ -152,14 +156,6 @@ paths:
     $ref: paths/transaction_totals.yaml
   /transaction/export:
     $ref: paths/transaction_export.yaml
-  /transaction/charge_authorization:
-    $ref: paths/transaction_charge_authorization.yaml
-  /transaction/partial_debit:
-    $ref: paths/transaction_partial_debit.yaml
-  /transaction/{id}/event:
-    $ref: paths/transaction_{id}_event.yaml
-  /transaction/{id}/session:
-    $ref: paths/transaction_{id}_session.yaml
   /split:
     $ref: paths/split.yaml
   /split/{id}:

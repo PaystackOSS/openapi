@@ -10,7 +10,9 @@ get:
       description: The ID of the transaction to fetch
       required: true
       schema:
-        type: string
+        type: integer
+        format: int64
+      example: 4099260516
   responses:
     '200':
       description: ''

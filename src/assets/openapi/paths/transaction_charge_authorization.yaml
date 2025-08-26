@@ -3,6 +3,7 @@ post:
     - Transaction
   summary: Charge Authorization
   operationId: transaction_chargeAuthorization
+  description: Charge all authorizations marked as reusable with this endpoint whenever you need to receive payments
   requestBody:
     content:
       application/json:

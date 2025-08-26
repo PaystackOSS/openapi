@@ -6,8 +6,15 @@ get:
   parameters:
     - in: query
       name: country
+      description: | 
+        The country from which to obtain the list of supported banks.
       schema:
         type: string
+        enum:
+          - ghana
+          - kenya
+          - nigeria
+          - south africa
     - in: query
       name: pay_with_bank_transfer
       schema:

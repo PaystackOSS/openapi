@@ -3,6 +3,7 @@ post:
     - Transaction
   summary: Partial Debit
   operationId: transaction_partialDebit
+  description: Retrieve part of a payment from a customer
   requestBody:
     content:
       application/json:

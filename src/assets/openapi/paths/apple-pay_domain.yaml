@@ -2,7 +2,10 @@ post:
   tags:
     - Apple Pay
   summary: Register Domain
-  description: Register a top-level domain or subdomain for your Apple Pay integration.
+  description: |
+    Register a top-level domain or subdomain for your Apple Pay integration.
+
+    > This endpoint can only be called with one domain or subdomain at a time.
   operationId: applePay_registerDomain
   requestBody:
     content:
@@ -23,7 +26,7 @@ get:
   tags:
     - Apple Pay
   summary: List Domains
-  description: Lists all registered domains on your integration
+  description: Lists all registered domains on your integration. Returns an empty array if no domains have been added.
   operationId: applePay_listDomain
   parameters:
     - name: use_cursor
@@ -51,7 +54,7 @@ delete:
   tags:
     - Apple Pay
   summary: Unregister Domain
-  description: >-
+  description: |
     Unregister a top-level domain or subdomain previously used for your Apple
     Pay integration.
   operationId: applePay_unregisterDomain

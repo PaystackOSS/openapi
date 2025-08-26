@@ -4,12 +4,12 @@ get:
   summary: Fetch Transaction Timeline
   operationId: transaction_timeline
   description: >-
-    Get the details about the lifecycle of a transaction from initiation to
-    completion
+    Fetch the steps taken from the initiation to the completion of a transaction
   parameters:
     - name: id
       in: path
       required: true
+      description: The ID of the transaction to fetch
       schema:
         type: integer
         format: int64
