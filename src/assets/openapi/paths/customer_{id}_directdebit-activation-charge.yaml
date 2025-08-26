@@ -10,9 +10,10 @@ put:
     - name: id
       in: path
       required: true
+      description: The customer ID attached to the authorization
       schema:
         type: integer
-        description: The customer ID attached to the authorization
+      example: 463433
   requestBody:
     content:
       application/json:

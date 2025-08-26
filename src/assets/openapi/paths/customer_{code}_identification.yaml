@@ -2,8 +2,10 @@ parameters:
   - name: code
     in: path
     required: true
+    description: The code for the customer gotten from the response of the customer creation
     schema:
       type: string
+    example: "CUS_c6wqvwmvwopw4ms"
 post:
   tags:
     - Customer

@@ -3,6 +3,7 @@ post:
     - Customer
   summary: Create Customer
   operationId: customer_create
+  description: Create a customer on your integration
   requestBody:
     content:
       application/json:

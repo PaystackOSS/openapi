@@ -1167,6 +1167,7 @@ paths:
         - Customer
       summary: Create Customer
       operationId: customer_create
+      description: Create a customer on your integration
       requestBody:
         content:
           application/json:
@@ -1250,13 +1251,16 @@ paths:
       - name: code
         in: path
         required: true
+        description: The code for the customer gotten from the response of the customer creation
         schema:
           type: string
+        example: CUS_c6wqvwmvwopw4ms
     get:
       tags:
         - Customer
       summary: Fetch Customer
       operationId: customer_fetch
+      description: Get details of a customer on your integration.
       responses:
         '200':
           description: ''
@@ -1275,6 +1279,7 @@ paths:
         - Customer
       summary: Update Customer
       operationId: customer_update
+      description: Update a customer's details on your integration
       requestBody:
         content:
           application/json:
@@ -1322,39 +1327,15 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
-  /customer/deactivate_authorization:
-    post:
-      tags:
-        - Customer
-      summary: Deactivate Authorization
-      operationId: customer_deactivateAuthorization
-      description: Deactivate a customer's card
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CustomerDeactivateAuthorization'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CustomerDeactivateAuthorization'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CustomerDeactivateAuthorizationResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
   /customer/{code}/identification:
     parameters:
       - name: code
         in: path
         required: true
+        description: The code for the customer gotten from the response of the customer creation
         schema:
           type: string
+        example: CUS_c6wqvwmvwopw4ms
     post:
       tags:
         - Customer
@@ -1417,6 +1398,7 @@ paths:
           required: true
           schema:
             type: string
+          example: dfbzfotsrbv4n5s82t4mp5b5mfn51h
       responses:
         '200':
           $ref: '#/components/responses/CustomerAuthorizationVerifySuccess'
@@ -1426,14 +1408,41 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
+  /customer/authorization/deactivate:
+    post:
+      tags:
+        - Customer
+      summary: Deactivate Authorization
+      operationId: customer_deactivateAuthorization
+      description: Deactivate an authorization for any payment channel.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDeactivateAuthorization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerDeactivateAuthorization'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDeactivateAuthorizationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /customer/{id}/initialize-direct-debit:
     parameters:
       - name: id
         in: path
         required: true
+        description: The ID of the customer to initialize the direct debit for
         schema:
-          type: string
-          description: The ID of the customer to initialize the direct debit for
+          type: integer
+        example: 463433
     post:
       tags:
         - Customer
@@ -1466,9 +1475,10 @@ paths:
         - name: id
           in: path
           required: true
+          description: The customer ID attached to the authorization
           schema:
             type: integer
-            description: The customer ID attached to the authorization
+          example: 463433
       requestBody:
         content:
           application/json:
@@ -1495,9 +1505,10 @@ paths:
         - name: id
           in: path
           required: true
+          description: The customer ID for the authorizations to fetch
           schema:
-            type: string
-            description: The customer ID for the authorizations to fetch
+            type: integer
+          example: 463433
       responses:
         '200':
           $ref: '#/components/responses/CustomerFetchMandateAuthorizationsSuccess'
@@ -7400,6 +7411,10 @@ components:
         metadata:
           description: Stringified JSON object of custom data
           type: string
+      example:
+        email: rock@sandy.com
+        first_name: Rock
+        last_name: Sandy
     CustomerCreateResponse:
       type: object
       properties:
@@ -7580,6 +7595,9 @@ components:
         metadata:
           description: Stringified JSON object of custom data
           type: string
+      example:
+        first_name: Cecilia
+        last_name: Jones
     CustomerUpdateResponse:
       type: object
       properties:
@@ -7643,7 +7661,7 @@ components:
         - customer
       properties:
         customer:
-          description: Customer's code, or email address
+          description: The customer code from the response of the customer creation
           type: string
         risk_action:
           description: This determines the fraud rules that should be applied to the customer
@@ -7653,6 +7671,9 @@ components:
             - allow
             - deny
             - default
+      example:
+        customer: CUS_c6wqvwmvwopw4ms
+        risk_action: deny
     CustomerWhitelistBlacklistResponse:
       type: object
       properties:
@@ -7722,24 +7743,6 @@ components:
         - status
         - message
         - data
-    CustomerDeactivateAuthorization:
-      type: object
-      required:
-        - authorization_code
-      properties:
-        authorization_code:
-          description: Authorization code to be deactivated
-          type: string
-    CustomerDeactivateAuthorizationResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-      required:
-        - status
-        - message
     CustomerValidate:
       type: object
       required:
@@ -7779,6 +7782,14 @@ components:
         account_number:
           description: Customer's bank account number.
           type: string
+      example:
+        first_name: Jabal
+        last_name: Cedar
+        country: NG
+        type: bank_account
+        account_number: '0123456789'
+        bank_code: '007'
+        bvn: '20012345677'
     CustomerValidateResponse:
       type: object
       properties:
@@ -7927,6 +7938,26 @@ components:
         - status
         - message
         - data
+    CustomerDeactivateAuthorization:
+      type: object
+      required:
+        - authorization_code
+      properties:
+        authorization_code:
+          description: Authorization code to be deactivated
+          type: string
+      example:
+        authorization_code: AUTH_xxxIjkZVj5
+    CustomerDeactivateAuthorizationResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+      required:
+        - status
+        - message
     CustomerInitializeDirectDebitAccount:
       type: object
       properties:
@@ -8051,6 +8082,7 @@ components:
           example: '032'
         bank_name:
           type: string
+          nullable: true
           example: null
         customer:
           type: object
@@ -8093,6 +8125,7 @@ components:
           example: 50
         next:
           type: string
+          nullable: true
           example: null
         count:
           type: integer

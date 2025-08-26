@@ -3,7 +3,7 @@ post:
     - Customer
   summary: Deactivate Authorization
   operationId: customer_deactivateAuthorization
-  description: Deactivate a customer's card
+  description: Deactivate an authorization for any payment channel.
   requestBody:
     content:
       application/json:

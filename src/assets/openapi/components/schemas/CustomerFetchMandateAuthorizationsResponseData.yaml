@@ -23,9 +23,10 @@ properties:
     example: '0123456789'
   bank_code:
     type: string
-    example: '032'
+    example: "032"
   bank_name:
     type: string
+    nullable: true
     example: null
   customer:
     type: object

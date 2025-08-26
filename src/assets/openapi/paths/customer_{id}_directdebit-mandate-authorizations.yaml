@@ -8,9 +8,10 @@ get:
     - name: id
       in: path
       required: true
+      description: The customer ID for the authorizations to fetch
       schema:
-        type: string
-        description: The customer ID for the authorizations to fetch
+        type: integer
+      example: 463433
   responses:
     '200':
       $ref: ../components/responses/CustomerFetchMandateAuthorizationsSuccess.yaml

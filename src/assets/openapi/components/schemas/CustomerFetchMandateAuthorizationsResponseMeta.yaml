@@ -5,6 +5,7 @@ properties:
     example: 50
   next:
     type: string
+    nullable: true
     example: null
   count:
     type: integer

@@ -11,6 +11,7 @@ get:
       required: true
       schema:
         type: string
+      example: "dfbzfotsrbv4n5s82t4mp5b5mfn51h"
   responses:
     '200':
       $ref: ../components/responses/CustomerAuthorizationVerifySuccess.yaml

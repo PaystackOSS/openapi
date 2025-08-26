@@ -12,3 +12,6 @@ properties:
   metadata:
     description: Stringified JSON object of custom data
     type: string
+example:
+  first_name: Cecilia
+  last_name: Jones

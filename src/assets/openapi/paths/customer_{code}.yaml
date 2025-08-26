@@ -2,13 +2,16 @@ parameters:
   - name: code
     in: path
     required: true
+    description: The code for the customer gotten from the response of the customer creation
     schema:
       type: string
+    example: "CUS_c6wqvwmvwopw4ms"
 get:
   tags:
     - Customer
   summary: Fetch Customer
   operationId: customer_fetch
+  description: Get details of a customer on your integration.
   responses:
     '200':
       description: ''
@@ -27,6 +30,7 @@ put:
     - Customer
   summary: Update Customer
   operationId: customer_update
+  description: Update a customer's details on your integration
   requestBody:
     content:
       application/json:

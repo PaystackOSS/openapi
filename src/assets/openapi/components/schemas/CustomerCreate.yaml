@@ -17,3 +17,7 @@ properties:
   metadata:
     description: Stringified JSON object of custom data
     type: string
+example:
+  email: rock@sandy.com
+  first_name: Rock
+  last_name: Sandy

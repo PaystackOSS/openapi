@@ -3,7 +3,7 @@ required:
   - customer
 properties:
   customer:
-    description: Customer's code, or email address
+    description: The customer code from the response of the customer creation
     type: string
   risk_action:
     description: This determines the fraud rules that should be applied to the customer
@@ -13,3 +13,6 @@ properties:
       - allow
       - deny
       - default
+example:
+  customer: "CUS_c6wqvwmvwopw4ms"
+  risk_action: "deny"

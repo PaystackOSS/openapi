@@ -196,14 +196,14 @@ paths:
     $ref: paths/customer_{code}.yaml
   /customer/set_risk_action:
     $ref: paths/customer_set_risk_action.yaml
-  /customer/deactivate_authorization:
-    $ref: paths/customer_deactivate_authorization.yaml
   /customer/{code}/identification:
     $ref: paths/customer_{code}_identification.yaml
   /customer/authorization/initialize:
-    $ref: paths/customer_authorization_initialize.yaml
+      $ref: paths/customer_authorization_initialize.yaml
   /customer/authorization/verify/{reference}:
     $ref: paths/customer_authorization_verify_{reference}.yaml
+  /customer/authorization/deactivate:
+    $ref: paths/customer_authorization_deactivate.yaml
   /customer/{id}/initialize-direct-debit:
     $ref: paths/customer_{id}_initialize-direct-debit.yaml
   /customer/{id}/directdebit-activation-charge:

@@ -38,3 +38,11 @@ properties:
   account_number:
     description: Customer's bank account number.
     type: string
+example:
+  first_name: "Jabal"
+  last_name: "Cedar"
+  country: "NG"
+  type: "bank_account"
+  account_number: "0123456789"
+  bank_code: "007"
+  bvn: "20012345677"

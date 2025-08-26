@@ -2,9 +2,10 @@ parameters:
   - name: id
     in: path
     required: true
+    description: The ID of the customer to initialize the direct debit for
     schema:
-      type: string
-      description: The ID of the customer to initialize the direct debit for
+      type: integer
+    example: 463433
 post:
   tags:
     - Customer
