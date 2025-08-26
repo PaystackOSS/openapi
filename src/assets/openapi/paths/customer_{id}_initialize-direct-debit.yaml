@@ -5,7 +5,7 @@ parameters:
     description: The ID of the customer to initialize the direct debit for
     schema:
       type: integer
-    example: 463433
+    example: 297346561
 post:
   tags:
     - Customer

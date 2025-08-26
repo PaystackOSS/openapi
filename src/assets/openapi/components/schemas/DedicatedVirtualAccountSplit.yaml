@@ -13,3 +13,6 @@ properties:
       Split code consisting of the lists of accounts you want to split the
       transaction with
     type: string
+example:
+  account_number: "0033322211"
+  split_code: "SPL_e7jnRLtzla"

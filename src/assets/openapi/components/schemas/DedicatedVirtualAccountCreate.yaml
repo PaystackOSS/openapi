@@ -3,7 +3,7 @@ required:
   - customer
 properties:
   customer:
-    description: Customer ID or code
+    description: The code for the previously created customer
     type: string
   preferred_bank:
     description: >-
@@ -18,3 +18,6 @@ properties:
       Split code consisting of the lists of accounts you want to split the
       transaction with
     type: string
+example:
+  customer: "CUS_bo732eugpb2qrg6"
+  preferred_bank: "titan-paystack"

@@ -11,7 +11,7 @@ get:
       description: The customer ID for the authorizations to fetch
       schema:
         type: integer
-      example: 463433
+      example: 297346561
   responses:
     '200':
       $ref: ../components/responses/CustomerFetchMandateAuthorizationsSuccess.yaml

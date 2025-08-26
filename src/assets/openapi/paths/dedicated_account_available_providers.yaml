@@ -3,6 +3,7 @@ get:
     - Dedicated Virtual Account
   summary: Fetch Bank Providers
   operationId: dedicatedAccount_availableProviders
+  description: Get available bank providers for a dedicated virtual account
   responses:
     '200':
       $ref: ../components/responses/Ok.yaml

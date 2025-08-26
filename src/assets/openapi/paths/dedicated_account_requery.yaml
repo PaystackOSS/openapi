@@ -4,21 +4,25 @@ parameters:
     in: query
     schema:
       type: string
+    example: "0033322211"
   - name: provider_slug
-    description: The bank's slug in lowercase, without spaces e.g. `wema-bank`
+    description: The bank's slug in lowercase, without spaces.
     in: query
     schema:
       type: string
+    example: "titan-paystack"
   - name: date
-    description: The day the transfer was made in `YYYY-MM-DD` format
+    description: The day the transfer was made
     in: query
     schema:
       type: string
+      format: date-time
 get:
   tags:
     - Dedicated Virtual Account
   summary: Requery Dedicated Account
   operationId: dedicatedAccount_requery
+  description: Requery Dedicated Virtual Account for new transactions
   responses:
     '200':
       $ref: ../components/responses/Ok.yaml

@@ -218,8 +218,8 @@ paths:
     $ref: paths/dedicated_account.yaml
   /dedicated_account/assign:
     $ref: paths/dedicated_account_assign.yaml
-  /dedicated_account/{account_id}:
-    $ref: paths/dedicated_account_{account_id}.yaml
+  /dedicated_account/{id}:
+    $ref: paths/dedicated_account_{id}.yaml
   /dedicated_account/requery:
     $ref: paths/dedicated_account_requery.yaml
   /dedicated_account/split:

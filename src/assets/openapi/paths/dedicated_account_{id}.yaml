@@ -1,7 +1,8 @@
 parameters:
-  - name: account_id
+  - name: id
     in: path
     required: true
+    description: ID of dedicated virtual account
     schema:
       type: string
 get:
@@ -9,6 +10,7 @@ get:
     - Dedicated Virtual Account
   summary: Fetch Dedicated Account
   operationId: dedicatedAccount_fetch
+  description: Get details of a dedicated virtual account on your integration.
   responses:
     '200':
       description: ''
@@ -27,6 +29,7 @@ delete:
     - Dedicated Virtual Account
   summary: Deactivate Dedicated Account
   operationId: dedicatedAccount_deactivate
+  description: Deactivate a dedicated virtual account on your integration.
   responses:
     '200':
       description: ''

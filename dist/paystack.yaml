@@ -1442,7 +1442,7 @@ paths:
         description: The ID of the customer to initialize the direct debit for
         schema:
           type: integer
-        example: 463433
+        example: 297346561
     post:
       tags:
         - Customer
@@ -1478,7 +1478,7 @@ paths:
           description: The customer ID attached to the authorization
           schema:
             type: integer
-          example: 463433
+          example: 297346561
       requestBody:
         content:
           application/json:
@@ -1508,7 +1508,7 @@ paths:
           description: The customer ID for the authorizations to fetch
           schema:
             type: integer
-          example: 463433
+          example: 297346561
       responses:
         '200':
           $ref: '#/components/responses/CustomerFetchMandateAuthorizationsSuccess'
@@ -1576,6 +1576,7 @@ paths:
         - Dedicated Virtual Account
       summary: Create Dedicated Account
       operationId: dedicatedAccount_create
+      description: Create a dedicated virtual account for an existing customer
       requestBody:
         content:
           application/json:
@@ -1600,39 +1601,52 @@ paths:
         - Dedicated Virtual Account
       summary: List Dedicated Accounts
       operationId: dedicatedAccount_list
+      description: List dedicated virtual accounts available on your integration.
       parameters:
-        - name: account_number
-          in: query
-          schema:
-            type: string
-        - name: customer
-          in: query
-          schema:
-            type: string
         - name: active
           in: query
+          description: Status of the dedicated virtual account
           schema:
             type: boolean
+          example: true
+        - name: customer
+          in: query
+          description: The customer's ID
+          schema:
+            type: integer
+          example: 297346561
         - name: currency
           in: query
+          description: The currency of the dedicated virtual account
           schema:
             type: string
+            enum:
+              - NGN
+              - GHS
         - name: provider_slug
           in: query
+          description: The bank's slug in lowercase, without spaces
           schema:
             type: string
+          example: titan-paystack
         - name: bank_id
           in: query
+          description: The bank's ID
           schema:
             type: string
+          example: '035'
         - name: perPage
           in: query
+          description: The number of records to fetch per request
           schema:
-            type: string
+            type: integer
+            default: 50
         - name: page
           in: query
+          description: The offset to retrieve data from
           schema:
-            type: string
+            type: integer
+            default: 1
       responses:
         '200':
           description: ''
@@ -1652,6 +1666,7 @@ paths:
         - Dedicated Virtual Account
       summary: Assign Dedicated Account
       operationId: dedicatedAccount_assign
+      description: With this endpoint, you can create a customer, validate the customer, and assign a DVA to the customer.
       requestBody:
         content:
           application/json:
@@ -1667,11 +1682,12 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
-  /dedicated_account/{account_id}:
+  /dedicated_account/{id}:
     parameters:
-      - name: account_id
+      - name: id
         in: path
         required: true
+        description: ID of dedicated virtual account
         schema:
           type: string
     get:
@@ -1679,6 +1695,7 @@ paths:
         - Dedicated Virtual Account
       summary: Fetch Dedicated Account
       operationId: dedicatedAccount_fetch
+      description: Get details of a dedicated virtual account on your integration.
       responses:
         '200':
           description: ''
@@ -1697,6 +1714,7 @@ paths:
         - Dedicated Virtual Account
       summary: Deactivate Dedicated Account
       operationId: dedicatedAccount_deactivate
+      description: Deactivate a dedicated virtual account on your integration.
       responses:
         '200':
           description: ''
@@ -1717,21 +1735,25 @@ paths:
         in: query
         schema:
           type: string
+        example: '0033322211'
       - name: provider_slug
-        description: The bank's slug in lowercase, without spaces e.g. `wema-bank`
+        description: The bank's slug in lowercase, without spaces.
         in: query
         schema:
           type: string
+        example: titan-paystack
       - name: date
-        description: The day the transfer was made in `YYYY-MM-DD` format
+        description: The day the transfer was made
         in: query
         schema:
           type: string
+          format: date-time
     get:
       tags:
         - Dedicated Virtual Account
       summary: Requery Dedicated Account
       operationId: dedicatedAccount_requery
+      description: Requery Dedicated Virtual Account for new transactions
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -1747,6 +1769,7 @@ paths:
         - Dedicated Virtual Account
       summary: Split Dedicated Account Transaction
       operationId: dedicatedAccount_addSplit
+      description: Split a dedicated virtual account transaction with one or more accounts
       requestBody:
         content:
           application/json:
@@ -1767,14 +1790,15 @@ paths:
         - Dedicated Virtual Account
       summary: Remove Split from Dedicated Account
       operationId: dedicatedAccount_removeSplit
+      description: If you've previously set up split payment for transactions on a dedicated virtual account, you can remove it with this endpoint
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
+              $ref: '#/components/schemas/DedicatedVirtualAccountRemoveSplit'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DedicatedVirtualAccountSplit'
+              $ref: '#/components/schemas/DedicatedVirtualAccountRemoveSplit'
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -1790,6 +1814,7 @@ paths:
         - Dedicated Virtual Account
       summary: Fetch Bank Providers
       operationId: dedicatedAccount_availableProviders
+      description: Get available bank providers for a dedicated virtual account
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -8296,7 +8321,7 @@ components:
         - customer
       properties:
         customer:
-          description: Customer ID or code
+          description: The code for the previously created customer
           type: string
         preferred_bank:
           description: The bank slug for preferred bank. To get a list of available banks, use the List Providers endpoint
@@ -8307,6 +8332,9 @@ components:
         split_code:
           description: Split code consisting of the lists of accounts you want to split the transaction with
           type: string
+      example:
+        customer: CUS_bo732eugpb2qrg6
+        preferred_bank: titan-paystack
     DedicatedNubanCreateResponse:
       type: object
       properties:
@@ -8450,8 +8478,11 @@ components:
             use the List Banks endpoint, passing `pay_with_bank_transfer=true` query parameter
           type: string
         country:
-          description: Currently accepts NG only
+          description: The two letter code country
           type: string
+          enum:
+            - NG
+            - GH
         account_number:
           description: Customer's account number
           type: string
@@ -8467,6 +8498,13 @@ components:
         split_code:
           description: Split code consisting of the lists of accounts you want to split the transaction with
           type: string
+      example:
+        email: salmon.orange@email.com
+        first_name: Salmon
+        last_name: Orange
+        phone: '+2348100000000'
+        preferred_bank: titan-paystack
+        country: NG
     DedicatedNubanFetchResponse:
       type: object
       properties:
@@ -8646,6 +8684,19 @@ components:
         split_code:
           description: Split code consisting of the lists of accounts you want to split the transaction with
           type: string
+      example:
+        account_number: '0033322211'
+        split_code: SPL_e7jnRLtzla
+    DedicatedVirtualAccountRemoveSplit:
+      type: object
+      required:
+        - account_number
+      properties:
+        account_number:
+          description: Valid Dedicated virtual account
+          type: string
+      example:
+        account_number: '0033322211'
     ApplePayParam:
       type: object
       required:

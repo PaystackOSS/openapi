@@ -27,8 +27,11 @@ properties:
       parameter
     type: string
   country:
-    description: Currently accepts NG only
+    description: The two letter code country
     type: string
+    enum:
+      - NG
+      - GH
   account_number:
     description: Customer's account number
     type: string
@@ -46,3 +49,10 @@ properties:
       Split code consisting of the lists of accounts you want to split the
       transaction with
     type: string
+example:
+  email: salmon.orange@email.com
+  first_name: Salmon
+  last_name: Orange
+  phone: "+2348100000000"
+  preferred_bank: "titan-paystack"
+  country: NG

@@ -13,7 +13,7 @@ put:
       description: The customer ID attached to the authorization
       schema:
         type: integer
-      example: 463433
+      example: 297346561
   requestBody:
     content:
       application/json:
