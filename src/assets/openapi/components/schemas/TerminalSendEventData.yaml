@@ -10,4 +10,4 @@ properties:
     type: string
 example:
   id: 7895939
-  reference: '4634337895939'
+  reference: "4634337895939"

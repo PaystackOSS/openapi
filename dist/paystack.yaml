@@ -746,6 +746,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: The ID of the Terminal the event should be sent to.
           schema:
             type: string
           example: Z0R4orOU
@@ -775,12 +776,14 @@ paths:
         - name: terminal_id
           in: path
           required: true
+          description: The ID of the Terminal the event should be sent to.
           schema:
             type: string
           example: Z0R4orOU
         - name: event_id
           in: path
           required: true
+          description: The ID of the event that was sent to the Terminal
           schema:
             type: string
           example: 616d721e8c5cd40a0cdd54a6
@@ -804,6 +807,7 @@ paths:
         - name: terminal_id
           in: path
           required: true
+          description: The ID of the Terminal the event should be sent to.
           schema:
             type: string
           example: Z0R4orOU
@@ -826,16 +830,20 @@ paths:
       parameters:
         - name: next
           in: query
+          description: A cursor that indicates your place in the list. It can be used to fetch the next page of the list
           schema:
             type: string
         - name: previous
           in: query
+          description: A cursor that indicates your place in the list. It should be used to fetch the previous page of the list after an intial next request
           schema:
             type: string
         - name: per_page
           in: query
+          description: Specify how many records you want to retrieve per page
           schema:
-            type: string
+            type: integer
+            default: 50
       responses:
         '200':
           $ref: '#/components/responses/TerminalListsSuccess'
@@ -849,9 +857,11 @@ paths:
     parameters:
       - name: terminal_id
         in: path
+        description: The ID of the Terminal the event should be sent to.
         required: true
         schema:
           type: string
+        example: Z0R4orOU
     get:
       tags:
         - Terminal
@@ -872,6 +882,7 @@ paths:
         - Terminal
       summary: Update Terminal
       operationId: terminal_update
+      description: Update the details of a Terminal
       requestBody:
         content:
           application/json:
@@ -6593,6 +6604,12 @@ components:
             - print
         data:
           $ref: '#/components/schemas/TerminalSendEventData'
+      example:
+        type: invoice
+        action: process
+        data:
+          id: 7895939
+          reference: '4634337895939'
     Response:
       type: object
       properties:
@@ -6741,7 +6758,6 @@ components:
         - data
     TerminalUpate:
       type: object
-      description: Model for updating a Terminal details
       properties:
         name:
           description: The new name for the Terminal

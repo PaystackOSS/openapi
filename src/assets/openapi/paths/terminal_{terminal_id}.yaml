@@ -1,9 +1,11 @@
 parameters:
   - name: terminal_id
     in: path
+    description: The ID of the Terminal the event should be sent to.
     required: true
     schema:
       type: string
+    example: Z0R4orOU
 get:
   tags:
     - Terminal
@@ -24,6 +26,7 @@ put:
     - Terminal
   summary: Update Terminal
   operationId: terminal_update
+  description: Update the details of a Terminal
   requestBody:
     content:
       application/json:

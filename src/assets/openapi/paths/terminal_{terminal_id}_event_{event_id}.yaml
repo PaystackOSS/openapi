@@ -8,12 +8,14 @@ get:
     - name: terminal_id
       in: path
       required: true
+      description: The ID of the Terminal the event should be sent to.
       schema:
         type: string
       example: Z0R4orOU
     - name: event_id
       in: path
       required: true
+      description: The ID of the event that was sent to the Terminal
       schema:
         type: string
       example: 616d721e8c5cd40a0cdd54a6

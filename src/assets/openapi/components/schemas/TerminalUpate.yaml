@@ -1,5 +1,4 @@
 type: object
-description: Model for updating a Terminal details
 properties:
   name:
     description: The new name for the Terminal

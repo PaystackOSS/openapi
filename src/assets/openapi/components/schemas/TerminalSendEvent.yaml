@@ -19,3 +19,9 @@ properties:
       - print
   data:
     $ref: ./TerminalSendEventData.yaml
+example:
+  type: invoice
+  action: process
+  data:
+    id: 7895939
+    reference: "4634337895939"
