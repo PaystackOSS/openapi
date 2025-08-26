@@ -33,3 +33,5 @@ properties:
   metadata:
     description: Stringified JSON object of custom data
     type: string
+example:
+  business_name: "Sandalwood"

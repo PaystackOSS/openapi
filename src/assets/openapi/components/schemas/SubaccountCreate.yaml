@@ -35,3 +35,8 @@ properties:
   metadata:
     description: Stringified JSON object of custom data
     type: string
+example:
+  business_name: "Oasis"
+  account_number: "0123456047"
+  settlement_bank: "058"
+  percentage_charge: 30

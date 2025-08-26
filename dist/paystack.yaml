@@ -1914,6 +1914,7 @@ paths:
         - Subaccount
       summary: Create Subaccount
       operationId: subaccount_create
+      description: Create a subacount for a partner
       requestBody:
         content:
           application/json:
@@ -1938,22 +1939,25 @@ paths:
         - Subaccount
       summary: List Subaccounts
       operationId: subaccount_list
+      description: List subaccounts available on your integration
       parameters:
         - in: query
           name: perPage
+          description: Number of records to fetch per request
           schema:
             type: integer
-          description: Number of records to fetch per request
+            default: 50
         - in: query
           name: page
+          description: The offset to retrieve data from
           schema:
             type: integer
-          description: The offset to retrieve data from
+            default: 1
         - in: query
           name: active
+          description: Filter by the state of the subaccounts
           schema:
             type: boolean
-          description: Filter by active or inactive subaccounts
       responses:
         '200':
           description: ''
@@ -1971,14 +1975,17 @@ paths:
     parameters:
       - name: code
         in: path
+        description: The subaccount code you want to fetch
         required: true
         schema:
           type: string
+        example: ACCT_6uujpqtzmnufzkw
     get:
       tags:
         - Subaccount
       summary: Fetch Subaccount
       operationId: subaccount_fetch
+      description: Get details of a subaccount on your integration
       responses:
         '200':
           description: ''
@@ -1997,6 +2004,7 @@ paths:
         - Subaccount
       summary: Update Subaccount
       operationId: subaccount_update
+      description: Update a subaccount details on your integration
       requestBody:
         content:
           application/json:
@@ -8846,6 +8854,11 @@ components:
         metadata:
           description: Stringified JSON object of custom data
           type: string
+      example:
+        business_name: Oasis
+        account_number: '0123456047'
+        settlement_bank: '058'
+        percentage_charge: 30
     SubaccountCreateResponse:
       type: object
       properties:
@@ -9054,6 +9067,8 @@ components:
         metadata:
           description: Stringified JSON object of custom data
           type: string
+      example:
+        business_name: Sandalwood
     SubaccountUpdateResponse:
       type: object
       properties:
