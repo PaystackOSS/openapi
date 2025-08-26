@@ -402,6 +402,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: The ID of the transaction to fetch
           schema:
             type: integer
             format: int64
@@ -527,6 +528,7 @@ paths:
         - Split
       summary: Create Split
       operationId: split_create
+      description: Create a split configuration for transactions
       requestBody:
         content:
           application/json:
@@ -551,7 +553,14 @@ paths:
         - Split
       summary: List Splits
       operationId: split_list
+      description: List the transaction splits available on your integration
       parameters:
+        - in: query
+          name: subaccount_code
+          description: Filter by subaccount code
+          schema:
+            type: string
+          example: ACCT_dskvlw3y3dMukmt
         - name: name
           description: The name of the split
           in: query
@@ -584,12 +593,6 @@ paths:
           schema:
             type: string
             format: date-time
-        - in: query
-          name: subaccount_code
-          description: Filter by subaccount code
-          schema:
-            type: string
-          example: ACCT_dskvlw3y3dMukmt
       responses:
         '200':
           description: ''
@@ -609,12 +612,15 @@ paths:
         - Split
       summary: Fetch Split
       operationId: split_fetch
+      description: Get details of a split configuration for a transaction
       parameters:
         - name: id
           in: path
+          description: The ID of the split configuration to fetch
           required: true
           schema:
-            type: string
+            type: integer
+          example: 4896895
       responses:
         '200':
           description: ''
@@ -633,6 +639,7 @@ paths:
         - Split
       summary: Update Split
       operationId: split_update
+      description: Update a split configuration for transactions
       requestBody:
         content:
           application/json:
@@ -666,6 +673,7 @@ paths:
         - Split
       summary: Add Subaccount to Split
       operationId: split_addSubaccount
+      description: Add a subaccount to a split configuration, or update the share of an existing subaccount
       requestBody:
         content:
           application/json:
@@ -678,9 +686,10 @@ paths:
         - name: id
           in: path
           required: true
+          description: The ID of the split configuration to fetch
           schema:
-            type: string
-          example: application/json
+            type: integer
+          example: 4896895
       responses:
         '200':
           description: ''
@@ -698,6 +707,7 @@ paths:
         - Split
       summary: Remove Subaccount from split
       operationId: split_removeSubaccount
+      description: Remove a subaccount from a split configuration
       requestBody:
         content:
           application/json:
@@ -709,9 +719,11 @@ paths:
       parameters:
         - name: id
           in: path
+          description: The ID of the split configuration to fetch
           required: true
           schema:
-            type: string
+            type: integer
+          example: 4896895
       responses:
         '200':
           description: ''
@@ -4587,11 +4599,19 @@ components:
           type: string
         share:
           description: The percentage or flat quota of the customer or partner
-          type: string
+          type: integer
+      example:
+        subaccount: ACCT_6uujpqtzmnufzkw
+        share: 50
     SplitCreate:
       type: object
       description: |
         Split configuration for transactions
+      required:
+        - name
+        - type
+        - subaccounts
+        - currency
       properties:
         name:
           description: Name of the transaction split
@@ -4626,11 +4646,13 @@ components:
         bearer_subaccount:
           description: This is the subaccount code of the customer or partner that would bear the transaction charge if you specified subaccount as the bearer type
           type: string
-      required:
-        - name
-        - type
-        - subaccounts
-        - currency
+      example:
+        name: Halfsies
+        type: percentage
+        currency: NGN
+        subaccounts:
+          - subaccount: ACCT_6uujpqtzmnufzkw
+            share: 50
     TransactionInitialize:
       description: Initialize a transaction
       type: object

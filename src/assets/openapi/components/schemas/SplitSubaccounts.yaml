@@ -5,4 +5,7 @@ properties:
     type: string
   share:
     description: The percentage or flat quota of the customer or partner
-    type: string
+    type: integer
+example:
+  subaccount: ACCT_6uujpqtzmnufzkw
+  share: 50

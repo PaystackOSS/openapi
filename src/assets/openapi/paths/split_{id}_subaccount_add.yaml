@@ -3,6 +3,7 @@ post:
     - Split
   summary: Add Subaccount to Split
   operationId: split_addSubaccount
+  description: Add a subaccount to a split configuration, or update the share of an existing subaccount
   requestBody:
     content:
       application/json:
@@ -15,9 +16,10 @@ post:
     - name: id
       in: path
       required: true
+      description: The ID of the split configuration to fetch
       schema:
-        type: string
-      example: application/json
+        type: integer
+      example: 4896895
   responses:
     '200':
       description: ''

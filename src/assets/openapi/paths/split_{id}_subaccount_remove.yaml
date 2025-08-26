@@ -3,6 +3,7 @@ post:
     - Split
   summary: Remove Subaccount from split
   operationId: split_removeSubaccount
+  description: Remove a subaccount from a split configuration
   requestBody:
     content:
       application/json:
@@ -14,9 +15,11 @@ post:
   parameters:
     - name: id
       in: path
+      description: The ID of the split configuration to fetch
       required: true
       schema:
-        type: string
+        type: integer
+      example: 4896895
   responses:
     '200':
       description: ''

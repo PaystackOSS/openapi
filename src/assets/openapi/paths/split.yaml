@@ -3,6 +3,7 @@ post:
     - Split
   summary: Create Split
   operationId: split_create
+  description: Create a split configuration for transactions
   requestBody:
     content:
       application/json:
@@ -27,7 +28,14 @@ get:
     - Split
   summary: List Splits
   operationId: split_list
+  description: List the transaction splits available on your integration
   parameters:
+    - in: query
+      name: subaccount_code
+      description: Filter by subaccount code
+      schema:
+        type: string
+      example: ACCT_dskvlw3y3dMukmt
     - name: name
       description: The name of the split
       in: query
@@ -60,12 +68,6 @@ get:
       schema:
         type: string
         format: date-time
-    - in: query
-      name: subaccount_code
-      description: Filter by subaccount code
-      schema:
-        type: string
-      example: ACCT_dskvlw3y3dMukmt
   responses:
     '200':
       description: ''

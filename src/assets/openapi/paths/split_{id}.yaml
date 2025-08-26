@@ -3,12 +3,15 @@ get:
     - Split
   summary: Fetch Split
   operationId: split_fetch
+  description: Get details of a split configuration for a transaction
   parameters:
     - name: id
       in: path
+      description: The ID of the split configuration to fetch
       required: true
       schema:
-        type: string
+        type: integer
+      example: 4896895
   responses:
     '200':
       description: ''
@@ -27,6 +30,7 @@ put:
     - Split
   summary: Update Split
   operationId: split_update
+  description: Update a split configuration for transactions
   requestBody:
     content:
       application/json:
