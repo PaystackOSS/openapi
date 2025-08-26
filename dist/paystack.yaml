@@ -1858,14 +1858,20 @@ paths:
       parameters:
         - name: use_cursor
           in: query
+          description: A flag to indicate if cursor based pagination should be used
           schema:
             type: boolean
+          example: true
         - name: next
           in: query
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the next set of data
           schema:
             type: string
         - name: previous
           in: query
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to retrieve the previous set of data
           schema:
             type: string
       responses:
