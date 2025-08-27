@@ -3,25 +3,28 @@ get:
     - Bulk Charge
   summary: List Charges in a Batch
   operationId: bulkCharge_charges
+  description: This endpoint retrieves the charges associated with a specified batch code
   parameters:
     - name: code
-      description: Batch code
+      description: An code for the batch whose charges you want to retrieve
       in: path
       required: true
       schema:
         type: string
+      example: "BCH_180tl7oq7cayggh"
     - in: query
       name: perPage
+      description: Number of records to fetch per page
       schema:
         type: integer
-      description: Number of records to fetch per page
     - in: query
       name: page
+      description: The offset to retrieve data from
       schema:
         type: integer
-      description: The offset to retrieve data from
     - in: query
       name: status
+      description: Filter by the status of the charges
       schema:
         type: string
         enum:
@@ -30,7 +33,6 @@ get:
           - pending
           - error
           - inactive_authorization
-      description: Filter by the status of the charges
   responses:
     '200':
       description: ''

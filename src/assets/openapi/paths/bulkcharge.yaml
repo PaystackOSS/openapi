@@ -3,6 +3,7 @@ post:
     - Bulk Charge
   summary: Initiate Bulk Charge
   operationId: bulkCharge_initiate
+  description: Charge multiple customers in batches
   requestBody:
     content:
       application/json:
@@ -31,26 +32,27 @@ get:
     - Bulk Charge
   summary: List Bulk Charge Batches
   operationId: bulkCharge_list
+  description: List all bulk charge batches. 
   parameters:
     - in: query
       name: perPage
+      description: Number of records to fetch per page
       schema:
         type: integer
-      description: Number of records to fetch per page
     - in: query
       name: page
+      description: The offset to retrieve data from
       schema:
         type: integer
-      description: The offset to retrieve data from
     - in: query
       name: status
+      description: Filter by the status of the charges
       schema:
         type: string
         enum:
           - active
           - paused
           - complete
-      description: Filter by the status of the charges
   responses:
     '200':
       description: ''

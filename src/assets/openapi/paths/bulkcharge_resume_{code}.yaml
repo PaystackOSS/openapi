@@ -3,13 +3,15 @@ get:
     - Bulk Charge
   summary: Resume Bulk Charge Batch
   operationId: bulkCharge_resume
+  description: Resume the processing of a previously paused charge batch
   parameters:
     - name: code
-      description: Batch code
+      description: The batch code for the bulk charge you want to pause
       in: path
       required: true
       schema:
         type: string
+      example: "BCH_180tl7oq7cayggh"
   responses:
     '200':
       description: ''

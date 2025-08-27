@@ -743,6 +743,7 @@ paths:
         - Bulk Charge
       summary: Initiate Bulk Charge
       operationId: bulkCharge_initiate
+      description: Charge multiple customers in batches
       requestBody:
         content:
           application/json:
@@ -771,26 +772,27 @@ paths:
         - Bulk Charge
       summary: List Bulk Charge Batches
       operationId: bulkCharge_list
+      description: List all bulk charge batches.
       parameters:
         - in: query
           name: perPage
+          description: Number of records to fetch per page
           schema:
             type: integer
-          description: Number of records to fetch per page
         - in: query
           name: page
+          description: The offset to retrieve data from
           schema:
             type: integer
-          description: The offset to retrieve data from
         - in: query
           name: status
+          description: Filter by the status of the charges
           schema:
             type: string
             enum:
               - active
               - paused
               - complete
-          description: Filter by the status of the charges
       responses:
         '200':
           description: ''
@@ -807,16 +809,20 @@ paths:
   /bulkcharge/{code}:
     parameters:
       - name: code
-        description: Batch code
+        description: The code for the charge whose batches you want to retrieve
         in: path
         required: true
         schema:
           type: string
+        example: BCH_180tl7oq7cayggh
     get:
       tags:
         - Bulk Charge
       summary: Fetch Bulk Charge Batch
       operationId: bulkCharge_fetch
+      description: |
+        This endpoint retrieves a specific batch code. It also returns useful information on its progress by 
+        way of the `total_charges` and `pending_charges` attributes.
       responses:
         '200':
           description: ''
@@ -836,25 +842,28 @@ paths:
         - Bulk Charge
       summary: List Charges in a Batch
       operationId: bulkCharge_charges
+      description: This endpoint retrieves the charges associated with a specified batch code
       parameters:
         - name: code
-          description: Batch code
+          description: An code for the batch whose charges you want to retrieve
           in: path
           required: true
           schema:
             type: string
+          example: BCH_180tl7oq7cayggh
         - in: query
           name: perPage
+          description: Number of records to fetch per page
           schema:
             type: integer
-          description: Number of records to fetch per page
         - in: query
           name: page
+          description: The offset to retrieve data from
           schema:
             type: integer
-          description: The offset to retrieve data from
         - in: query
           name: status
+          description: Filter by the status of the charges
           schema:
             type: string
             enum:
@@ -863,7 +872,6 @@ paths:
               - pending
               - error
               - inactive_authorization
-          description: Filter by the status of the charges
       responses:
         '200':
           description: ''
@@ -883,13 +891,15 @@ paths:
         - Bulk Charge
       summary: Pause Bulk Charge Batch
       operationId: bulkCharge_pause
+      description: Pause the processing of a charge batch
       parameters:
         - name: code
-          description: Batch code
+          description: The batch code for the bulk charge you want to pause
           in: path
           required: true
           schema:
             type: string
+          example: BCH_180tl7oq7cayggh
       responses:
         '200':
           description: ''
@@ -909,13 +919,15 @@ paths:
         - Bulk Charge
       summary: Resume Bulk Charge Batch
       operationId: bulkCharge_resume
+      description: Resume the processing of a previously paused charge batch
       parameters:
         - name: code
-          description: Batch code
+          description: The batch code for the bulk charge you want to pause
           in: path
           required: true
           schema:
             type: string
+          example: BCH_180tl7oq7cayggh
       responses:
         '200':
           description: ''
@@ -7238,6 +7250,7 @@ components:
         - meta
     BulkChargeInitiate:
       type: object
+      description: A list of charge object
       required:
         - authorization
         - amount
@@ -7249,7 +7262,8 @@ components:
           description: Amount to charge on the authorization
           type: integer
         reference:
-          description: Unique reference containing only -, .`, = and alphanumeric characters.
+          description: |
+            A unique identifier containing lowercase letters `(a-z)`, digits `(0-9)` and these symbols: dash (`-`), underscore(`_`)
           type: string
         attempt_partial_debit:
           description: A flag to indicate if you want us to try recouping lower amounts when the customer has insufficient fund
@@ -7260,6 +7274,10 @@ components:
         metadata:
           description: JSON object of custom data
           type: object
+      example:
+        authorization: AUTH_ncx8hews93
+        amount: 250000
+        reference: dam1266638dhhd
     BulkChargeInitiateResponse:
       type: object
       properties:
