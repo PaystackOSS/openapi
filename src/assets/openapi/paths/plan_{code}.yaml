@@ -2,13 +2,16 @@ parameters:
   - name: code
     in: path
     required: true
+    description: The plan code you want to fetch
     schema:
       type: string
+    example: "PLN_gx2wn530m0i3w3m"
 get:
   tags:
     - Plan
   summary: Fetch Plan
   operationId: plan_fetch
+  description: Get the details of a payment plan
   responses:
     '200':
       $ref: ../components/responses/PlanFetchSuccess.yaml

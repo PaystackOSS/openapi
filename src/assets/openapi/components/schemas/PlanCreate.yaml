@@ -13,10 +13,14 @@ properties:
       and cents, if currency is ZAR
     type: integer
   interval:
-    description: >-
-      Interval in words. Valid intervals are daily, weekly, monthly,biannually,
-      annually
+    description: Payment interval
     type: string
+    enum:
+      - daily
+      - weekly
+      - monthly
+      - biannually
+      - annually
   description:
     description: A description for this plan
     type: string
@@ -34,3 +38,7 @@ properties:
       Number of invoices to raise during subscription to this plan. 
       Can be overridden by specifying an invoice_limit while subscribing.
     type: integer
+example:
+  name: Basic
+  amount: 150000
+  interval: monthly

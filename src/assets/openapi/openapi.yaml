@@ -75,6 +75,15 @@ tags:
     description: |
       A collection of endpoints for creating and managing recurring payments
     x-product-name: Subscriptions
+  - name: Transfer Recipient
+    description: >
+      A collection of endpoints for creating and managing beneficiaries that you
+      send money to
+    x-product-name: Transfer Recipients
+  - name: Transfer
+    description: |
+      A collection of endpoints for automating sending money to beneficiaries
+    x-product-name: Transfers
   - name: Product
     description: |
       A collection of endpoints for creating and managing inventories
@@ -101,15 +110,6 @@ tags:
     description: |
       A collection of endpoints for gaining insights into payouts
     x-product-name: Settlements
-  - name: Transfer Recipient
-    description: >
-      A collection of endpoints for creating and managing beneficiaries that you
-      send money to
-    x-product-name: Transfer Recipients
-  - name: Transfer
-    description: |
-      A collection of endpoints for automating sending money to beneficiaries
-    x-product-name: Transfers
   - name: Balance
     description: >
       A collection of endpoints gaining insights into the amount on an
@@ -272,6 +272,32 @@ paths:
     $ref: paths/subscription_{code}_manage_link.yaml
   /subscription/{code}/manage/email:
     $ref: paths/subscription_{code}_manage_email.yaml
+  /transferrecipient:
+    $ref: paths/transferrecipient.yaml
+  /transferrecipient/bulk:
+    $ref: paths/transferrecipient_bulk.yaml
+  /transferrecipient/{code}:
+    $ref: paths/transferrecipient_{code}.yaml
+  /transfer:
+    $ref: paths/transfer.yaml
+  /transfer/finalize_transfer:
+    $ref: paths/transfer_finalize_transfer.yaml
+  /transfer/bulk:
+    $ref: paths/transfer_bulk.yaml
+  /transfer/{code}:
+    $ref: paths/transfer_{code}.yaml
+  /transfer/verify/{reference}:
+    $ref: paths/transfer_verify_{reference}.yaml
+  /transfer/export:
+    $ref: paths/transfer_export.yaml
+  /transfer/resend_otp:
+    $ref: paths/transfer_resend_otp.yaml
+  /transfer/disable_otp:
+    $ref: paths/transfer_disable_otp.yaml
+  /transfer/disable_otp_finalize:
+    $ref: paths/transfer_disable_otp_finalize.yaml
+  /transfer/enable_otp:
+    $ref: paths/transfer_enable_otp.yaml
   /product:
     $ref: paths/product.yaml
   /product/{id}:
@@ -324,32 +350,6 @@ paths:
     $ref: paths/settlement.yaml
   /settlement/{id}/transaction:
     $ref: paths/settlement_{id}_transaction.yaml
-  /transferrecipient:
-    $ref: paths/transferrecipient.yaml
-  /transferrecipient/bulk:
-    $ref: paths/transferrecipient_bulk.yaml
-  /transferrecipient/{code}:
-    $ref: paths/transferrecipient_{code}.yaml
-  /transfer:
-    $ref: paths/transfer.yaml
-  /transfer/finalize_transfer:
-    $ref: paths/transfer_finalize_transfer.yaml
-  /transfer/bulk:
-    $ref: paths/transfer_bulk.yaml
-  /transfer/{code}:
-    $ref: paths/transfer_{code}.yaml
-  /transfer/verify/{reference}:
-    $ref: paths/transfer_verify_{reference}.yaml
-  /transfer/export:
-    $ref: paths/transfer_export.yaml
-  /transfer/resend_otp:
-    $ref: paths/transfer_resend_otp.yaml
-  /transfer/disable_otp:
-    $ref: paths/transfer_disable_otp.yaml
-  /transfer/disable_otp_finalize:
-    $ref: paths/transfer_disable_otp_finalize.yaml
-  /transfer/enable_otp:
-    $ref: paths/transfer_enable_otp.yaml
   /balance:
     $ref: paths/balance.yaml
   /balance/ledger:

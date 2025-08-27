@@ -3,6 +3,7 @@ post:
     - Plan
   summary: Create Plan
   operationId: plan_create
+  description: Create a plan for recurring payments
   requestBody:
     content:
       application/json:
@@ -23,22 +24,29 @@ get:
     - Plan
   summary: List Plans
   operationId: plan_list
+  description: List all recurring payment plans
   parameters:
     - in: query
       name: perPage
+      description: Number of records to fetch per page
       schema:
         type: integer
-      description: Number of records to fetch per page
     - in: query
       name: page
+      description: The section to retrieve
       schema:
         type: integer
-      description: The section to retrieve
     - in: query
       name: interval
+      description: Specify interval of the plan
       schema:
         type: string
-      description: Specify interval of the plan
+        enum:
+        - daily
+        - weekly
+        - monthly
+        - biannually
+        - annually
     - in: query
       name: amount
       schema:
