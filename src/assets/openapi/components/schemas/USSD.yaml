@@ -1,4 +1,5 @@
 type: object
+description: The USSD code for the provider to charge
 properties:
   type:
     description: The three-digit USSD code.

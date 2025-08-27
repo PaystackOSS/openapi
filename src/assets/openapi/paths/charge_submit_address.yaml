@@ -3,6 +3,7 @@ post:
     - Charge
   summary: Submit Address
   operationId: charge_submitAddress
+  description: Send the details of the customer's address for address verification
   requestBody:
     content:
       application/json:

@@ -15,6 +15,19 @@ tags:
     description: |
       A collection of endpoints for managing payments
     x-product-name: Transactions
+  - name: Charge
+    description: |
+      A collection of endpoints for configuring and managing the payment channels when initiating a payment
+    x-product-name: Charges
+  - name: Bulk Charge
+    description: |
+      A collection of endpoints for creating and managing multiple recurring payments
+    x-product-name: Bulk Charges
+  - name: Subaccount
+    description: |
+      A collection of endpoints for creating and managing accounts for sharing a
+      transaction with
+    x-product-name: Subaccounts
   - name: Split
     description: |
       A collection of endpoints for spliting a transaction and managing the splits
@@ -43,11 +56,6 @@ tags:
     description: |
       A collection of endpoints for managing application's top-level domain or subdomain accepting payment via Apple Pay
     x-product-name: Apple Pay
-  - name: Subaccount
-    description: |
-      A collection of endpoints for creating and managing accounts for sharing a
-      transaction with
-    x-product-name: Subaccounts
   - name: Plan
     description: |
       A collection of endpoints for creating and managing recurring payment
@@ -95,14 +103,6 @@ tags:
     description: |
       A collection of endpoints gaining insights into the amount on an integration
     x-product-name: Balance
-  - name: Charge
-    description: |
-      A collection of endpoints for configuring and managing the payment channels when initiating a payment
-    x-product-name: Charges
-  - name: Bulk Charge
-    description: |
-      A collection of endpoints for creating and managing multiple recurring payments
-    x-product-name: Bulk Charges
   - name: Integration
     description: |
       A collection of endpoints for managing some settings on an integration
@@ -516,6 +516,531 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionExportResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /charge:
+    post:
+      tags:
+        - Charge
+      summary: Create Charge
+      operationId: charge_create
+      description: Initiate a payment by integrating the payment channel of your choice.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ChargeCreate'
+                - type: object
+                  properties:
+                    bank:
+                      $ref: '#/components/schemas/Bank'
+                - type: object
+                  properties:
+                    mobile_money:
+                      $ref: '#/components/schemas/MobileMoney'
+                - type: object
+                  properties:
+                    ussd:
+                      $ref: '#/components/schemas/USSD'
+                - type: object
+                  properties:
+                    eft:
+                      $ref: '#/components/schemas/EFT'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ChargeCreate'
+                - type: object
+                  properties:
+                    bank:
+                      $ref: '#/components/schemas/Bank'
+                - type: object
+                  properties:
+                    mobile_money:
+                      $ref: '#/components/schemas/MobileMoney'
+                - type: object
+                  properties:
+                    ussd:
+                      $ref: '#/components/schemas/USSD'
+                - type: object
+                  properties:
+                    eft:
+                      $ref: '#/components/schemas/EFT'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /charge/submit_pin:
+    post:
+      tags:
+        - Charge
+      summary: Submit PIN
+      operationId: charge_submitPin
+      description: Submit PIN to continue a charge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPin'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeSubmitPinResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /charge/submit_otp:
+    post:
+      tags:
+        - Charge
+      summary: Submit OTP
+      operationId: charge_submitOtp
+      description: Submit OTP to complete a charge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitOTP'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitOTP'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeSubmitOtpResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /charge/submit_phone:
+    post:
+      tags:
+        - Charge
+      summary: Submit Phone
+      operationId: charge_submitPhone
+      description: Submit phone number when requested
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPhone'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitPhone'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeSubmitPhoneResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /charge/submit_birthday:
+    post:
+      tags:
+        - Charge
+      summary: Submit Birthday
+      operationId: charge_submitBirthday
+      description: Submit the customer's birthday when requested
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitBirthday'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitBirthday'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeSubmitBirthdayResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /charge/submit_address:
+    post:
+      tags:
+        - Charge
+      summary: Submit Address
+      operationId: charge_submitAddress
+      description: Send the details of the customer's address for address verification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitAddress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChargeSubmitAddress'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /charge/{reference}:
+    get:
+      tags:
+        - Charge
+      summary: Check pending charge
+      operationId: charge_check
+      description: |
+        When you get `pending` as a charge status or if there was an exception when calling any of the `/charge` endpoints, wait 10 seconds or more, then make a check to see if its status has changed. Don't call too early as you may get a lot more pending than you should.
+      parameters:
+        - name: reference
+          in: path
+          required: true
+          description: The reference of the ongoing transaction
+          schema:
+            type: string
+          example: 5bwib5v6anhe9xa
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeCheckPendingResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /bulkcharge:
+    post:
+      tags:
+        - Bulk Charge
+      summary: Initiate Bulk Charge
+      operationId: bulkCharge_initiate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkChargeInitiate'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkChargeInitiate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkChargeInitiateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Bulk Charge
+      summary: List Bulk Charge Batches
+      operationId: bulkCharge_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum:
+              - active
+              - paused
+              - complete
+          description: Filter by the status of the charges
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkChargeListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /bulkcharge/{code}:
+    parameters:
+      - name: code
+        description: Batch code
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Bulk Charge
+      summary: Fetch Bulk Charge Batch
+      operationId: bulkCharge_fetch
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkChargeFetchResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /bulkcharge/{code}/charges:
+    get:
+      tags:
+        - Bulk Charge
+      summary: List Charges in a Batch
+      operationId: bulkCharge_charges
+      parameters:
+        - name: code
+          description: Batch code
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The offset to retrieve data from
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum:
+              - success
+              - failed
+              - pending
+              - error
+              - inactive_authorization
+          description: Filter by the status of the charges
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkChargeFetchBulkBatchChargesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /bulkcharge/pause/{code}:
+    get:
+      tags:
+        - Bulk Charge
+      summary: Pause Bulk Charge Batch
+      operationId: bulkCharge_pause
+      parameters:
+        - name: code
+          description: Batch code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkChargePauseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /bulkcharge/resume/{code}:
+    get:
+      tags:
+        - Bulk Charge
+      summary: Resume Bulk Charge Batch
+      operationId: bulkCharge_resume
+      parameters:
+        - name: code
+          description: Batch code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkChargeResumeResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /subaccount:
+    post:
+      tags:
+        - Subaccount
+      summary: Create Subaccount
+      operationId: subaccount_create
+      description: Create a subacount for a partner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubaccountCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubaccountCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubaccountCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Subaccount
+      summary: List Subaccounts
+      operationId: subaccount_list
+      description: List subaccounts available on your integration
+      parameters:
+        - in: query
+          name: perPage
+          description: Number of records to fetch per request
+          schema:
+            type: integer
+            default: 50
+        - in: query
+          name: page
+          description: The offset to retrieve data from
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: active
+          description: Filter by the state of the subaccounts
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubaccountListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /subaccount/{code}:
+    parameters:
+      - name: code
+        in: path
+        description: The subaccount code you want to fetch
+        required: true
+        schema:
+          type: string
+        example: ACCT_6uujpqtzmnufzkw
+    get:
+      tags:
+        - Subaccount
+      summary: Fetch Subaccount
+      operationId: subaccount_fetch
+      description: Get details of a subaccount on your integration
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubaccountFetchResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Subaccount
+      summary: Update Subaccount
+      operationId: subaccount_update
+      description: Update a subaccount details on your integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubaccountUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubaccountUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubaccountUpdateResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -1902,124 +2427,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Ok'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /subaccount:
-    post:
-      tags:
-        - Subaccount
-      summary: Create Subaccount
-      operationId: subaccount_create
-      description: Create a subacount for a partner
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SubaccountCreate'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SubaccountCreate'
-      responses:
-        '201':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubaccountCreateResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-    get:
-      tags:
-        - Subaccount
-      summary: List Subaccounts
-      operationId: subaccount_list
-      description: List subaccounts available on your integration
-      parameters:
-        - in: query
-          name: perPage
-          description: Number of records to fetch per request
-          schema:
-            type: integer
-            default: 50
-        - in: query
-          name: page
-          description: The offset to retrieve data from
-          schema:
-            type: integer
-            default: 1
-        - in: query
-          name: active
-          description: Filter by the state of the subaccounts
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubaccountListResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /subaccount/{code}:
-    parameters:
-      - name: code
-        in: path
-        description: The subaccount code you want to fetch
-        required: true
-        schema:
-          type: string
-        example: ACCT_6uujpqtzmnufzkw
-    get:
-      tags:
-        - Subaccount
-      summary: Fetch Subaccount
-      operationId: subaccount_fetch
-      description: Get details of a subaccount on your integration
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubaccountFetchResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-    put:
-      tags:
-        - Subaccount
-      summary: Update Subaccount
-      operationId: subaccount_update
-      description: Update a subaccount details on your integration
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SubaccountUpdate'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SubaccountUpdate'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubaccountUpdateResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -3740,403 +4147,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BalanceFetchLedgerResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /charge:
-    post:
-      tags:
-        - Charge
-      summary: Create Charge
-      operationId: charge_create
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/ChargeCreate'
-                - type: object
-                  properties:
-                    bank:
-                      $ref: '#/components/schemas/Bank'
-                - type: object
-                  properties:
-                    mobile_money:
-                      $ref: '#/components/schemas/MobileMoney'
-                - type: object
-                  properties:
-                    ussd:
-                      $ref: '#/components/schemas/USSD'
-                - type: object
-                  properties:
-                    eft:
-                      $ref: '#/components/schemas/EFT'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/ChargeCreate'
-                - type: object
-                  properties:
-                    bank:
-                      $ref: '#/components/schemas/Bank'
-                - type: object
-                  properties:
-                    mobile_money:
-                      $ref: '#/components/schemas/MobileMoney'
-                - type: object
-                  properties:
-                    ussd:
-                      $ref: '#/components/schemas/USSD'
-                - type: object
-                  properties:
-                    eft:
-                      $ref: '#/components/schemas/EFT'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChargeCreateResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /charge/submit_pin:
-    post:
-      tags:
-        - Charge
-      summary: Submit PIN
-      operationId: charge_submitPin
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitPin'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitPin'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChargeSubmitPinResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /charge/submit_otp:
-    post:
-      tags:
-        - Charge
-      summary: Submit OTP
-      operationId: charge_submitOtp
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitOTP'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitOTP'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChargeSubmitOtpResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /charge/submit_phone:
-    post:
-      tags:
-        - Charge
-      summary: Submit Phone
-      operationId: charge_submitPhone
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitPhone'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitPhone'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChargeSubmitPhoneResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /charge/submit_birthday:
-    post:
-      tags:
-        - Charge
-      summary: Submit Birthday
-      operationId: charge_submitBirthday
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitBirthday'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitBirthday'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChargeSubmitBirthdayResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /charge/submit_address:
-    post:
-      tags:
-        - Charge
-      summary: Submit Address
-      operationId: charge_submitAddress
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitAddress'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChargeSubmitAddress'
-      responses:
-        '200':
-          $ref: '#/components/responses/Ok'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /charge/{reference}:
-    get:
-      tags:
-        - Charge
-      summary: Check pending charge
-      operationId: charge_check
-      parameters:
-        - name: reference
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChargeCheckPendingResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /bulkcharge:
-    post:
-      tags:
-        - Bulk Charge
-      summary: Initiate Bulk Charge
-      operationId: bulkCharge_initiate
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/BulkChargeInitiate'
-          application/x-www-form-urlencoded:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/BulkChargeInitiate'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkChargeInitiateResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-    get:
-      tags:
-        - Bulk Charge
-      summary: List Bulk Charge Batches
-      operationId: bulkCharge_list
-      parameters:
-        - in: query
-          name: perPage
-          schema:
-            type: integer
-          description: Number of records to fetch per page
-        - in: query
-          name: page
-          schema:
-            type: integer
-          description: The offset to retrieve data from
-        - in: query
-          name: status
-          schema:
-            type: string
-            enum:
-              - active
-              - paused
-              - complete
-          description: Filter by the status of the charges
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkChargeListResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /bulkcharge/{code}:
-    parameters:
-      - name: code
-        description: Batch code
-        in: path
-        required: true
-        schema:
-          type: string
-    get:
-      tags:
-        - Bulk Charge
-      summary: Fetch Bulk Charge Batch
-      operationId: bulkCharge_fetch
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkChargeFetchResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /bulkcharge/{code}/charges:
-    get:
-      tags:
-        - Bulk Charge
-      summary: List Charges in a Batch
-      operationId: bulkCharge_charges
-      parameters:
-        - name: code
-          description: Batch code
-          in: path
-          required: true
-          schema:
-            type: string
-        - in: query
-          name: perPage
-          schema:
-            type: integer
-          description: Number of records to fetch per page
-        - in: query
-          name: page
-          schema:
-            type: integer
-          description: The offset to retrieve data from
-        - in: query
-          name: status
-          schema:
-            type: string
-            enum:
-              - success
-              - failed
-              - pending
-              - error
-              - inactive_authorization
-          description: Filter by the status of the charges
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkChargeFetchBulkBatchChargesResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /bulkcharge/pause/{code}:
-    get:
-      tags:
-        - Bulk Charge
-      summary: Pause Bulk Charge Batch
-      operationId: bulkCharge_pause
-      parameters:
-        - name: code
-          description: Batch code
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkChargePauseResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /bulkcharge/resume/{code}:
-    get:
-      tags:
-        - Bulk Charge
-      summary: Resume Bulk Charge Batch
-      operationId: bulkCharge_resume
-      parameters:
-        - name: code
-          description: Batch code
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkChargeResumeResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -6232,6 +6242,1725 @@ components:
         - status
         - message
         - data
+    ChargeCreate:
+      type: object
+      required:
+        - email
+        - amount
+      properties:
+        email:
+          description: Customer's email address
+          type: string
+        amount:
+          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          type: integer
+        authorization_code:
+          description: An authorization code to charge.
+          type: string
+        pin:
+          description: 4-digit PIN (send with a non-reusable authorization code)
+          type: string
+        reference:
+          description: Unique transaction reference. Only -, .`, = and alphanumeric characters allowed.
+          type: string
+        birthday:
+          description: The customer's birthday in the format YYYY-MM-DD e.g 2017-05-16
+          type: string
+          format: date
+        device_id:
+          description: |-
+            This is the unique identifier of the device a user uses in making payment. 
+            Only -, .`, = and alphanumeric characters are allowed.
+          type: string
+        metadata:
+          description: JSON object of custom data
+          type: object
+      example:
+        email: customer@email.com
+        amount: 350000
+        authorization_code: AUTH_df1l5ehnym
+    Bank:
+      type: object
+      description: The bank object if charging a bank account
+      properties:
+        code:
+          description: Customer's bank code
+          type: string
+        account_number:
+          description: Customer's account number
+          type: string
+    MobileMoney:
+      type: object
+      description: Details of the mobile service provider
+      properties:
+        phone:
+          description: Customer's phone number
+          type: string
+        provider:
+          description: The telco provider of customer's phone number. This can be fetched from the List Bank endpoint
+          type: string
+    USSD:
+      type: object
+      description: The USSD code for the provider to charge
+      properties:
+        type:
+          description: The three-digit USSD code.
+          type: string
+          enum:
+            - '737'
+            - '919'
+            - '822'
+            - '966'
+    EFT:
+      type: object
+      description: Details of the EFT provider
+      properties:
+        provider:
+          description: The EFT provider
+          type: string
+    ChargeCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            domain:
+              type: string
+            status:
+              type: string
+            reference:
+              type: string
+            receipt_number:
+              nullable: true
+            amount:
+              type: integer
+            message:
+              type: string
+              nullable: true
+            gateway_response:
+              type: string
+            paid_at:
+              type: string
+            created_at:
+              type: string
+            channel:
+              type: string
+            currency:
+              type: string
+            ip_address:
+              type: string
+            metadata:
+              type: object
+              properties:
+                custom_fields:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/MetadataCustomFieldsArray'
+              required:
+                - custom_fields
+            log:
+              type: object
+              properties:
+                start_time:
+                  type: integer
+                time_spent:
+                  type: integer
+                attempts:
+                  type: integer
+                errors:
+                  type: integer
+                success:
+                  type: boolean
+                mobile:
+                  type: boolean
+                input:
+                  type: array
+                  items: {}
+                history:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      message:
+                        type: string
+                      time:
+                        type: integer
+                    required:
+                      - type
+                      - message
+                      - time
+              required:
+                - start_time
+                - time_spent
+                - attempts
+                - errors
+                - success
+                - mobile
+                - input
+                - history
+              nullable: true
+            fees:
+              type: integer
+            fees_split:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                bin:
+                  type: string
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+                account_name:
+                  nullable: true
+                receiver_bank_account_number:
+                  nullable: true
+                receiver_bank:
+                  nullable: true
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+                - account_name
+                - receiver_bank_account_number
+                - receiver_bank
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                metadata:
+                  type: object
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            plan:
+              nullable: true
+            split:
+              type: object
+            order_id:
+              nullable: true
+            paidAt:
+              type: string
+            createdAt:
+              type: string
+            requested_amount:
+              type: integer
+            pos_transaction_data:
+              nullable: true
+            source:
+              nullable: true
+            fees_breakdown:
+              nullable: true
+            connect:
+              nullable: true
+            transaction_date:
+              type: string
+            plan_object:
+              type: object
+            subaccount:
+              type: object
+          required:
+            - id
+            - domain
+            - status
+            - reference
+            - receipt_number
+            - amount
+            - message
+            - gateway_response
+            - paid_at
+            - created_at
+            - channel
+            - currency
+            - ip_address
+            - metadata
+            - log
+            - fees
+            - fees_split
+            - authorization
+            - customer
+            - plan
+            - split
+            - order_id
+            - paidAt
+            - createdAt
+            - requested_amount
+            - pos_transaction_data
+            - source
+            - fees_breakdown
+            - connect
+            - transaction_date
+            - plan_object
+            - subaccount
+      required:
+        - status
+        - message
+        - data
+    ChargeSubmitPin:
+      type: object
+      required:
+        - pin
+        - reference
+      properties:
+        pin:
+          description: Customer's PIN for the ongoing transaction
+          type: string
+        reference:
+          description: Transaction reference that requires the PIN
+          type: string
+      example:
+        pin: '1234'
+        reference: 5bwib5v6anhe9xa
+    ChargeSubmitPinResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            redirect_url:
+              type: string
+              nullable: true
+            metadata:
+              type: object
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                  nullable: true
+                bin:
+                  type: string
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+            customer:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                risk_action:
+                  type: string
+              required:
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - risk_action
+          required:
+            - status
+            - amount
+            - currency
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - fees
+            - authorization
+            - customer
+      required:
+        - status
+        - message
+        - data
+    ChargeSubmitOTP:
+      type: object
+      required:
+        - otp
+        - reference
+      properties:
+        otp:
+          description: Customer's OTP for ongoing transaction
+          type: string
+        reference:
+          description: The reference of the ongoing transaction
+          type: string
+      example:
+        otp: '123456'
+        reference: 5bwib5v6anhe9xa
+    ChargeSubmitOtpResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            redirect_url:
+              type: string
+              nullable: true
+            metadata:
+              type: object
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                  nullable: true
+                bin:
+                  type: string
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+            customer:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                risk_action:
+                  type: string
+              required:
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - risk_action
+          required:
+            - status
+            - amount
+            - currency
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - fees
+            - authorization
+            - customer
+      required:
+        - status
+        - message
+        - data
+    ChargeSubmitPhone:
+      type: object
+      required:
+        - phone
+        - reference
+      properties:
+        phone:
+          description: Customer's mobile number
+          type: string
+        reference:
+          description: The reference of the ongoing transaction
+          type: string
+      example:
+        phone: '08012345678'
+        reference: 5bwib5v6anhe9xa
+    ChargeSubmitPhoneResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            redirect_url:
+              type: string
+              nullable: true
+            metadata:
+              type: object
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                  nullable: true
+                bin:
+                  type: string
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+            customer:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                risk_action:
+                  type: string
+              required:
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - risk_action
+            display_text:
+              type: string
+          required:
+            - status
+            - amount
+            - currency
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - fees
+            - authorization
+            - customer
+            - display_text
+      required:
+        - status
+        - message
+        - data
+    ChargeSubmitBirthday:
+      type: object
+      required:
+        - birthday
+        - reference
+      properties:
+        birthday:
+          description: Customer's birthday in the format YYYY-MM-DD e.g 2016-09-21
+          type: string
+          format: date
+        reference:
+          description: The reference of the ongoing transaction
+          type: string
+      example:
+        birthday: '1961-09-21'
+        reference: 5bwib5v6anhe9xa
+    ChargeSubmitBirthdayResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+            display_text:
+              type: string
+          required:
+            - status
+            - display_text
+      required:
+        - status
+        - message
+        - data
+    ChargeSubmitAddress:
+      type: object
+      required:
+        - address
+        - reference
+        - city
+        - state
+        - zip_code
+      properties:
+        address:
+          description: Customer's address
+          type: string
+        city:
+          description: Customer's city
+          type: string
+        state:
+          description: Customer's state
+          type: string
+        zip_code:
+          description: Customer's zipcode
+          type: string
+        reference:
+          description: The reference of the ongoing transaction
+          type: string
+      example:
+        address: 140 N 2ND ST
+        city: Stroudsburg
+        state: PA
+        zip_code: '18360'
+        reference: 5bwib5v6anhe9xa
+    Response:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+    ChargeCheckPendingResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            transaction_date:
+              type: string
+            reference:
+              type: string
+            domain:
+              type: string
+            redirect_url:
+              type: string
+              nullable: true
+            metadata:
+              type: object
+            gateway_response:
+              type: string
+            message:
+              type: string
+              nullable: true
+            channel:
+              type: string
+            fees:
+              type: integer
+              nullable: true
+            authorization:
+              type: object
+              properties:
+                authorization_code:
+                  type: string
+                  nullable: true
+                bin:
+                  type: string
+                last4:
+                  type: string
+                exp_month:
+                  type: string
+                exp_year:
+                  type: string
+                channel:
+                  type: string
+                card_type:
+                  type: string
+                bank:
+                  type: string
+                country_code:
+                  type: string
+                brand:
+                  type: string
+                reusable:
+                  type: boolean
+                signature:
+                  type: string
+              required:
+                - authorization_code
+                - bin
+                - last4
+                - exp_month
+                - exp_year
+                - channel
+                - card_type
+                - bank
+                - country_code
+                - brand
+                - reusable
+                - signature
+            customer:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                  nullable: true
+                risk_action:
+                  type: string
+              required:
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - risk_action
+          required:
+            - status
+            - amount
+            - currency
+            - transaction_date
+            - reference
+            - domain
+            - redirect_url
+            - metadata
+            - gateway_response
+            - message
+            - channel
+            - fees
+            - authorization
+            - customer
+      required:
+        - status
+        - message
+        - data
+    BulkChargeListResponseArray:
+      type: object
+      properties:
+        integration:
+          type: integer
+        domain:
+          type: string
+        batch_code:
+          type: string
+        status:
+          type: string
+        easy_cron_id:
+          nullable: true
+        reference:
+          type: string
+        id:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - integration
+        - domain
+        - batch_code
+        - status
+        - easy_cron_id
+        - reference
+        - id
+        - createdAt
+        - updatedAt
+    BulkChargeListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkChargeListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              anyOf:
+                - type: integer
+                - type: string
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    BulkChargeInitiate:
+      type: object
+      required:
+        - authorization
+        - amount
+      properties:
+        authorization:
+          description: Customer's card authorization code
+          type: string
+        amount:
+          description: Amount to charge on the authorization
+          type: integer
+        reference:
+          description: Unique reference containing only -, .`, = and alphanumeric characters.
+          type: string
+        attempt_partial_debit:
+          description: A flag to indicate if you want us to try recouping lower amounts when the customer has insufficient fund
+          type: boolean
+        at_least:
+          description: Minimum amount to charge if the attempt_partial_debit flag is set
+          type: integer
+        metadata:
+          description: JSON object of custom data
+          type: object
+    BulkChargeInitiateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            batch_code:
+              type: string
+            reference:
+              type: string
+            id:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            status:
+              type: string
+            total_charges:
+              type: integer
+            pending_charges:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - batch_code
+            - reference
+            - id
+            - integration
+            - domain
+            - status
+            - total_charges
+            - pending_charges
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+    BulkChargeFetchResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            batch_code:
+              type: string
+            reference:
+              type: string
+            id:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            status:
+              type: string
+            total_charges:
+              type: integer
+            pending_charges:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - batch_code
+            - reference
+            - id
+            - integration
+            - domain
+            - status
+            - total_charges
+            - pending_charges
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+    BulkChargeFetchBulkBatchChargesResponseArray:
+      type: object
+      properties:
+        integration:
+          type: integer
+        bulkcharge:
+          type: integer
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            customer_code:
+              type: string
+            phone:
+              type: string
+            metadata:
+              type: object
+              properties:
+                calling_code:
+                  type: string
+            risk_action:
+              type: string
+            international_format_phone:
+              type: string
+          required:
+            - id
+            - first_name
+            - last_name
+            - email
+            - customer_code
+            - phone
+            - metadata
+            - risk_action
+            - international_format_phone
+        authorization:
+          type: object
+          properties:
+            authorization_code:
+              type: string
+            bin:
+              type: string
+            last4:
+              type: string
+            exp_month:
+              type: string
+            exp_year:
+              type: string
+            channel:
+              type: string
+            card_type:
+              type: string
+            bank:
+              type: string
+            country_code:
+              type: string
+            brand:
+              type: string
+            reusable:
+              type: boolean
+            signature:
+              type: string
+            account_name:
+              nullable: true
+          required:
+            - authorization_code
+            - bin
+            - last4
+            - exp_month
+            - exp_year
+            - channel
+            - card_type
+            - bank
+            - country_code
+            - brand
+            - reusable
+            - signature
+            - account_name
+        domain:
+          type: string
+        amount:
+          type: integer
+        at_least:
+          type: integer
+        currency:
+          type: string
+        reference:
+          type: string
+        metadata:
+          type: object
+          properties:
+            custom_fields:
+              type: array
+              items:
+                $ref: '#/components/schemas/MetadataCustomFieldsArray'
+          required:
+            - custom_fields
+        status:
+          type: string
+        message:
+          type: string
+        attempt_partial_debit:
+          type: boolean
+        id:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - integration
+        - bulkcharge
+        - customer
+        - authorization
+        - domain
+        - amount
+        - at_least
+        - currency
+        - reference
+        - metadata
+        - status
+        - message
+        - attempt_partial_debit
+        - id
+        - createdAt
+        - updatedAt
+    BulkChargeFetchBulkBatchChargesResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkChargeFetchBulkBatchChargesResponseArray'
+        meta:
+          type: object
+          properties:
+            perPage:
+              type: string
+            total:
+              type: integer
+            skipped:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - perPage
+            - total
+            - skipped
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    BulkChargePauseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+      required:
+        - status
+        - message
+    BulkChargeResumeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+      required:
+        - status
+        - message
+    SubaccountListResponseArray:
+      type: object
+      properties:
+        id:
+          type: integer
+        subaccount_code:
+          type: string
+        business_name:
+          type: string
+        description:
+          type: string
+        primary_contact_name:
+          type: string
+        primary_contact_email:
+          type: string
+        primary_contact_phone:
+          type: string
+        metadata:
+          type: string
+        percentage_charge:
+          type: number
+        settlement_bank:
+          type: string
+        bank_id:
+          type: integer
+        account_number:
+          type: string
+        currency:
+          type: string
+        active:
+          type: integer
+        is_verified:
+          type: boolean
+      required:
+        - id
+        - subaccount_code
+        - business_name
+        - description
+        - primary_contact_name
+        - primary_contact_email
+        - primary_contact_phone
+        - metadata
+        - percentage_charge
+        - settlement_bank
+        - bank_id
+        - account_number
+        - currency
+        - active
+        - is_verified
+    SubaccountListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubaccountListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    SubaccountCreate:
+      type: object
+      required:
+        - business_name
+        - settlement_bank
+        - account_number
+        - percentage_charge
+      properties:
+        business_name:
+          description: Name of business for subaccount
+          type: string
+        settlement_bank:
+          description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
+          type: string
+        account_number:
+          description: Bank account number
+          type: string
+        percentage_charge:
+          description: Customer's phone number
+          type: number
+          format: float
+        description:
+          description: A description for this subaccount
+          type: string
+        primary_contact_email:
+          description: A contact email for the subaccount
+          type: string
+        primary_contact_name:
+          description: The name of the contact person for this subaccount
+          type: string
+        primary_contact_phone:
+          description: A phone number to call for this subaccount
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+      example:
+        business_name: Oasis
+        account_number: '0123456047'
+        settlement_bank: '058'
+        percentage_charge: 30
+    SubaccountCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            business_name:
+              type: string
+            account_name:
+              type: string
+              nullable: true
+            description:
+              type: string
+            primary_contact_name:
+              type: string
+            primary_contact_email:
+              type: string
+            primary_contact_phone:
+              type: string
+            metadata:
+              type: string
+            account_number:
+              type: string
+            percentage_charge:
+              type: number
+            settlement_bank:
+              type: string
+            currency:
+              type: string
+            bank:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            product:
+              type: string
+            managed_by_integration:
+              type: integer
+            subaccount_code:
+              type: string
+            is_verified:
+              type: boolean
+            settlement_schedule:
+              type: string
+            active:
+              type: boolean
+            migrate:
+              type: boolean
+            id:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - business_name
+            - description
+            - primary_contact_name
+            - primary_contact_email
+            - primary_contact_phone
+            - metadata
+            - account_number
+            - percentage_charge
+            - settlement_bank
+            - currency
+            - bank
+            - integration
+            - domain
+            - managed_by_integration
+            - product
+            - subaccount_code
+            - is_verified
+            - settlement_schedule
+            - active
+            - migrate
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+    SubaccountFetchResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            integration:
+              type: integer
+            account_name:
+              type: string
+              nullable: true
+            bank:
+              type: integer
+            managed_by_integration:
+              type: integer
+            domain:
+              type: string
+            subaccount_code:
+              type: string
+            business_name:
+              type: string
+            description:
+              type: string
+            primary_contact_name:
+              type: string
+            primary_contact_email:
+              type: string
+            primary_contact_phone:
+              type: string
+            metadata:
+              type: string
+            percentage_charge:
+              type: number
+            is_verified:
+              type: boolean
+            settlement_bank:
+              type: string
+            account_number:
+              type: string
+            settlement_schedule:
+              type: string
+            active:
+              type: boolean
+            migrate:
+              type: boolean
+            currency:
+              type: string
+            product:
+              type: string
+            id:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - integration
+            - bank
+            - managed_by_integration
+            - domain
+            - subaccount_code
+            - business_name
+            - description
+            - primary_contact_name
+            - primary_contact_email
+            - primary_contact_phone
+            - metadata
+            - percentage_charge
+            - is_verified
+            - settlement_bank
+            - account_number
+            - settlement_schedule
+            - active
+            - migrate
+            - currency
+            - product
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
+    SubaccountUpdate:
+      type: object
+      properties:
+        business_name:
+          description: Name of business for subaccount
+          type: string
+        settlement_bank:
+          description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
+          type: string
+        account_number:
+          description: Bank account number
+          type: string
+        active:
+          description: Activate or deactivate a subaccount
+          type: boolean
+        percentage_charge:
+          description: Customer's phone number
+          type: number
+          format: float
+        description:
+          description: A description for this subaccount
+          type: string
+        primary_contact_email:
+          description: A contact email for the subaccount
+          type: string
+        primary_contact_name:
+          description: The name of the contact person for this subaccount
+          type: string
+        primary_contact_phone:
+          description: A phone number to call for this subaccount
+          type: string
+        metadata:
+          description: Stringified JSON object of custom data
+          type: string
+      example:
+        business_name: Sandalwood
+    SubaccountUpdateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            domain:
+              type: string
+            subaccount_code:
+              type: string
+            account_name:
+              type: string
+              nullable: true
+            business_name:
+              type: string
+            description:
+              type: string
+            primary_contact_name:
+              type: string
+            primary_contact_email:
+              type: string
+            primary_contact_phone:
+              type: string
+            metadata:
+              type: string
+            percentage_charge:
+              type: number
+            is_verified:
+              type: boolean
+            settlement_bank:
+              type: string
+            account_number:
+              type: string
+            settlement_schedule:
+              type: string
+            active:
+              type: boolean
+            migrate:
+              type: boolean
+            currency:
+              type: string
+            product:
+              type: string
+            id:
+              type: integer
+            integration:
+              type: integer
+            bank:
+              type: integer
+            managed_by_integration:
+              type: integer
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+          required:
+            - domain
+            - subaccount_code
+            - business_name
+            - description
+            - primary_contact_name
+            - primary_contact_email
+            - primary_contact_phone
+            - metadata
+            - percentage_charge
+            - is_verified
+            - settlement_bank
+            - account_number
+            - settlement_schedule
+            - active
+            - migrate
+            - currency
+            - product
+            - id
+            - integration
+            - bank
+            - managed_by_integration
+            - createdAt
+            - updatedAt
+      required:
+        - status
+        - message
+        - data
     SplitSubaccountsArray:
       type: object
       properties:
@@ -6682,15 +8411,6 @@ components:
         data:
           id: 7895939
           reference: '4634337895939'
-    Response:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
     TerminalGetStatusResponse:
       type: object
       properties:
@@ -8733,429 +10453,6 @@ components:
       example:
         status: true
         message: Domain successfully registered on Apple Pay
-    SubaccountListResponseArray:
-      type: object
-      properties:
-        id:
-          type: integer
-        subaccount_code:
-          type: string
-        business_name:
-          type: string
-        description:
-          type: string
-        primary_contact_name:
-          type: string
-        primary_contact_email:
-          type: string
-        primary_contact_phone:
-          type: string
-        metadata:
-          type: string
-        percentage_charge:
-          type: number
-        settlement_bank:
-          type: string
-        bank_id:
-          type: integer
-        account_number:
-          type: string
-        currency:
-          type: string
-        active:
-          type: integer
-        is_verified:
-          type: boolean
-      required:
-        - id
-        - subaccount_code
-        - business_name
-        - description
-        - primary_contact_name
-        - primary_contact_email
-        - primary_contact_phone
-        - metadata
-        - percentage_charge
-        - settlement_bank
-        - bank_id
-        - account_number
-        - currency
-        - active
-        - is_verified
-    SubaccountListResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubaccountListResponseArray'
-        meta:
-          type: object
-          properties:
-            total:
-              type: integer
-            skipped:
-              type: integer
-            perPage:
-              type: integer
-            page:
-              type: integer
-            pageCount:
-              type: integer
-          required:
-            - total
-            - skipped
-            - perPage
-            - page
-            - pageCount
-          additionalProperties: false
-      required:
-        - status
-        - message
-        - data
-        - meta
-    SubaccountCreate:
-      type: object
-      required:
-        - business_name
-        - settlement_bank
-        - account_number
-        - percentage_charge
-      properties:
-        business_name:
-          description: Name of business for subaccount
-          type: string
-        settlement_bank:
-          description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
-          type: string
-        account_number:
-          description: Bank account number
-          type: string
-        percentage_charge:
-          description: Customer's phone number
-          type: number
-          format: float
-        description:
-          description: A description for this subaccount
-          type: string
-        primary_contact_email:
-          description: A contact email for the subaccount
-          type: string
-        primary_contact_name:
-          description: The name of the contact person for this subaccount
-          type: string
-        primary_contact_phone:
-          description: A phone number to call for this subaccount
-          type: string
-        metadata:
-          description: Stringified JSON object of custom data
-          type: string
-      example:
-        business_name: Oasis
-        account_number: '0123456047'
-        settlement_bank: '058'
-        percentage_charge: 30
-    SubaccountCreateResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            business_name:
-              type: string
-            account_name:
-              type: string
-              nullable: true
-            description:
-              type: string
-            primary_contact_name:
-              type: string
-            primary_contact_email:
-              type: string
-            primary_contact_phone:
-              type: string
-            metadata:
-              type: string
-            account_number:
-              type: string
-            percentage_charge:
-              type: number
-            settlement_bank:
-              type: string
-            currency:
-              type: string
-            bank:
-              type: integer
-            integration:
-              type: integer
-            domain:
-              type: string
-            product:
-              type: string
-            managed_by_integration:
-              type: integer
-            subaccount_code:
-              type: string
-            is_verified:
-              type: boolean
-            settlement_schedule:
-              type: string
-            active:
-              type: boolean
-            migrate:
-              type: boolean
-            id:
-              type: integer
-            createdAt:
-              type: string
-            updatedAt:
-              type: string
-          required:
-            - business_name
-            - description
-            - primary_contact_name
-            - primary_contact_email
-            - primary_contact_phone
-            - metadata
-            - account_number
-            - percentage_charge
-            - settlement_bank
-            - currency
-            - bank
-            - integration
-            - domain
-            - managed_by_integration
-            - product
-            - subaccount_code
-            - is_verified
-            - settlement_schedule
-            - active
-            - migrate
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - status
-        - message
-        - data
-    SubaccountFetchResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            integration:
-              type: integer
-            account_name:
-              type: string
-              nullable: true
-            bank:
-              type: integer
-            managed_by_integration:
-              type: integer
-            domain:
-              type: string
-            subaccount_code:
-              type: string
-            business_name:
-              type: string
-            description:
-              type: string
-            primary_contact_name:
-              type: string
-            primary_contact_email:
-              type: string
-            primary_contact_phone:
-              type: string
-            metadata:
-              type: string
-            percentage_charge:
-              type: number
-            is_verified:
-              type: boolean
-            settlement_bank:
-              type: string
-            account_number:
-              type: string
-            settlement_schedule:
-              type: string
-            active:
-              type: boolean
-            migrate:
-              type: boolean
-            currency:
-              type: string
-            product:
-              type: string
-            id:
-              type: integer
-            createdAt:
-              type: string
-            updatedAt:
-              type: string
-          required:
-            - integration
-            - bank
-            - managed_by_integration
-            - domain
-            - subaccount_code
-            - business_name
-            - description
-            - primary_contact_name
-            - primary_contact_email
-            - primary_contact_phone
-            - metadata
-            - percentage_charge
-            - is_verified
-            - settlement_bank
-            - account_number
-            - settlement_schedule
-            - active
-            - migrate
-            - currency
-            - product
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - status
-        - message
-        - data
-    SubaccountUpdate:
-      type: object
-      properties:
-        business_name:
-          description: Name of business for subaccount
-          type: string
-        settlement_bank:
-          description: Bank code for the bank. You can get the list of Bank Codes by calling the List Banks endpoint.
-          type: string
-        account_number:
-          description: Bank account number
-          type: string
-        active:
-          description: Activate or deactivate a subaccount
-          type: boolean
-        percentage_charge:
-          description: Customer's phone number
-          type: number
-          format: float
-        description:
-          description: A description for this subaccount
-          type: string
-        primary_contact_email:
-          description: A contact email for the subaccount
-          type: string
-        primary_contact_name:
-          description: The name of the contact person for this subaccount
-          type: string
-        primary_contact_phone:
-          description: A phone number to call for this subaccount
-          type: string
-        metadata:
-          description: Stringified JSON object of custom data
-          type: string
-      example:
-        business_name: Sandalwood
-    SubaccountUpdateResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            domain:
-              type: string
-            subaccount_code:
-              type: string
-            account_name:
-              type: string
-              nullable: true
-            business_name:
-              type: string
-            description:
-              type: string
-            primary_contact_name:
-              type: string
-            primary_contact_email:
-              type: string
-            primary_contact_phone:
-              type: string
-            metadata:
-              type: string
-            percentage_charge:
-              type: number
-            is_verified:
-              type: boolean
-            settlement_bank:
-              type: string
-            account_number:
-              type: string
-            settlement_schedule:
-              type: string
-            active:
-              type: boolean
-            migrate:
-              type: boolean
-            currency:
-              type: string
-            product:
-              type: string
-            id:
-              type: integer
-            integration:
-              type: integer
-            bank:
-              type: integer
-            managed_by_integration:
-              type: integer
-            createdAt:
-              type: string
-            updatedAt:
-              type: string
-          required:
-            - domain
-            - subaccount_code
-            - business_name
-            - description
-            - primary_contact_name
-            - primary_contact_email
-            - primary_contact_phone
-            - metadata
-            - percentage_charge
-            - is_verified
-            - settlement_bank
-            - account_number
-            - settlement_schedule
-            - active
-            - migrate
-            - currency
-            - product
-            - id
-            - integration
-            - bank
-            - managed_by_integration
-            - createdAt
-            - updatedAt
-      required:
-        - status
-        - message
-        - data
     PlanListResponseArray:
       type: object
       properties:
@@ -14561,1266 +15858,6 @@ components:
         - message
         - data
         - meta
-    ChargeCreate:
-      type: object
-      required:
-        - email
-        - amount
-      properties:
-        email:
-          description: Customer's email address
-          type: string
-        amount:
-          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
-          type: string
-        authorization_code:
-          description: An authorization code to charge.
-          type: string
-        pin:
-          description: 4-digit PIN (send with a non-reusable authorization code)
-          type: string
-        reference:
-          description: Unique transaction reference. Only -, .`, = and alphanumeric characters allowed.
-          type: string
-        birthday:
-          description: The customer's birthday in the format YYYY-MM-DD e.g 2017-05-16
-          type: string
-          format: date-time
-        device_id:
-          description: |-
-            This is the unique identifier of the device a user uses in making payment. 
-            Only -, .`, = and alphanumeric characters are allowed.
-          type: string
-        metadata:
-          description: JSON object of custom data
-          type: object
-    Bank:
-      type: object
-      properties:
-        code:
-          description: Customer's bank code
-          type: string
-        account_number:
-          description: Customer's account number
-          type: string
-    MobileMoney:
-      type: object
-      properties:
-        phone:
-          description: Customer's phone number
-          type: string
-        provider:
-          description: The telco provider of customer's phone number. This can be fetched from the List Bank endpoint
-          type: string
-    USSD:
-      type: object
-      properties:
-        type:
-          description: The three-digit USSD code.
-          type: string
-          enum:
-            - '737'
-            - '919'
-            - '822'
-            - '966'
-    EFT:
-      type: object
-      properties:
-        provider:
-          description: The EFT provider
-          type: string
-    ChargeCreateResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-            domain:
-              type: string
-            status:
-              type: string
-            reference:
-              type: string
-            receipt_number:
-              nullable: true
-            amount:
-              type: integer
-            message:
-              type: string
-              nullable: true
-            gateway_response:
-              type: string
-            paid_at:
-              type: string
-            created_at:
-              type: string
-            channel:
-              type: string
-            currency:
-              type: string
-            ip_address:
-              type: string
-            metadata:
-              type: object
-              properties:
-                custom_fields:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/MetadataCustomFieldsArray'
-              required:
-                - custom_fields
-            log:
-              type: object
-              properties:
-                start_time:
-                  type: integer
-                time_spent:
-                  type: integer
-                attempts:
-                  type: integer
-                errors:
-                  type: integer
-                success:
-                  type: boolean
-                mobile:
-                  type: boolean
-                input:
-                  type: array
-                  items: {}
-                history:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                      message:
-                        type: string
-                      time:
-                        type: integer
-                    required:
-                      - type
-                      - message
-                      - time
-              required:
-                - start_time
-                - time_spent
-                - attempts
-                - errors
-                - success
-                - mobile
-                - input
-                - history
-              nullable: true
-            fees:
-              type: integer
-            fees_split:
-              type: integer
-              nullable: true
-            authorization:
-              type: object
-              properties:
-                authorization_code:
-                  type: string
-                bin:
-                  type: string
-                last4:
-                  type: string
-                exp_month:
-                  type: string
-                exp_year:
-                  type: string
-                channel:
-                  type: string
-                card_type:
-                  type: string
-                bank:
-                  type: string
-                country_code:
-                  type: string
-                brand:
-                  type: string
-                reusable:
-                  type: boolean
-                signature:
-                  type: string
-                account_name:
-                  nullable: true
-                receiver_bank_account_number:
-                  nullable: true
-                receiver_bank:
-                  nullable: true
-              required:
-                - authorization_code
-                - bin
-                - last4
-                - exp_month
-                - exp_year
-                - channel
-                - card_type
-                - bank
-                - country_code
-                - brand
-                - reusable
-                - signature
-                - account_name
-                - receiver_bank_account_number
-                - receiver_bank
-            customer:
-              type: object
-              properties:
-                id:
-                  type: integer
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                metadata:
-                  type: object
-                risk_action:
-                  type: string
-                international_format_phone:
-                  type: string
-              required:
-                - id
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - metadata
-                - risk_action
-                - international_format_phone
-            plan:
-              nullable: true
-            split:
-              type: object
-            order_id:
-              nullable: true
-            paidAt:
-              type: string
-            createdAt:
-              type: string
-            requested_amount:
-              type: integer
-            pos_transaction_data:
-              nullable: true
-            source:
-              nullable: true
-            fees_breakdown:
-              nullable: true
-            connect:
-              nullable: true
-            transaction_date:
-              type: string
-            plan_object:
-              type: object
-            subaccount:
-              type: object
-          required:
-            - id
-            - domain
-            - status
-            - reference
-            - receipt_number
-            - amount
-            - message
-            - gateway_response
-            - paid_at
-            - created_at
-            - channel
-            - currency
-            - ip_address
-            - metadata
-            - log
-            - fees
-            - fees_split
-            - authorization
-            - customer
-            - plan
-            - split
-            - order_id
-            - paidAt
-            - createdAt
-            - requested_amount
-            - pos_transaction_data
-            - source
-            - fees_breakdown
-            - connect
-            - transaction_date
-            - plan_object
-            - subaccount
-      required:
-        - status
-        - message
-        - data
-    ChargeSubmitPin:
-      type: object
-      required:
-        - pin
-        - reference
-      properties:
-        pin:
-          description: Customer's PIN for the ongoing transaction
-          type: string
-        reference:
-          description: Transaction reference that requires the PIN
-          type: string
-    ChargeSubmitPinResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            status:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            transaction_date:
-              type: string
-            reference:
-              type: string
-            domain:
-              type: string
-            redirect_url:
-              type: string
-              nullable: true
-            metadata:
-              type: object
-            gateway_response:
-              type: string
-            message:
-              type: string
-              nullable: true
-            channel:
-              type: string
-            fees:
-              type: integer
-              nullable: true
-            authorization:
-              type: object
-              properties:
-                authorization_code:
-                  type: string
-                  nullable: true
-                bin:
-                  type: string
-                last4:
-                  type: string
-                exp_month:
-                  type: string
-                exp_year:
-                  type: string
-                channel:
-                  type: string
-                card_type:
-                  type: string
-                bank:
-                  type: string
-                country_code:
-                  type: string
-                brand:
-                  type: string
-                reusable:
-                  type: boolean
-                signature:
-                  type: string
-              required:
-                - authorization_code
-                - bin
-                - last4
-                - exp_month
-                - exp_year
-                - channel
-                - card_type
-                - bank
-                - country_code
-                - brand
-                - reusable
-                - signature
-            customer:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                  nullable: true
-                last_name:
-                  type: string
-                  nullable: true
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                  nullable: true
-                risk_action:
-                  type: string
-              required:
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - risk_action
-          required:
-            - status
-            - amount
-            - currency
-            - transaction_date
-            - reference
-            - domain
-            - redirect_url
-            - metadata
-            - gateway_response
-            - message
-            - channel
-            - fees
-            - authorization
-            - customer
-      required:
-        - status
-        - message
-        - data
-    ChargeSubmitOTP:
-      type: object
-      required:
-        - otp
-        - reference
-      properties:
-        otp:
-          description: Customer's OTP for ongoing transaction
-          type: string
-        reference:
-          description: The reference of the ongoing transaction
-          type: string
-    ChargeSubmitOtpResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            status:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            transaction_date:
-              type: string
-            reference:
-              type: string
-            domain:
-              type: string
-            redirect_url:
-              type: string
-              nullable: true
-            metadata:
-              type: object
-            gateway_response:
-              type: string
-            message:
-              type: string
-              nullable: true
-            channel:
-              type: string
-            fees:
-              type: integer
-              nullable: true
-            authorization:
-              type: object
-              properties:
-                authorization_code:
-                  type: string
-                  nullable: true
-                bin:
-                  type: string
-                last4:
-                  type: string
-                exp_month:
-                  type: string
-                exp_year:
-                  type: string
-                channel:
-                  type: string
-                card_type:
-                  type: string
-                bank:
-                  type: string
-                country_code:
-                  type: string
-                brand:
-                  type: string
-                reusable:
-                  type: boolean
-                signature:
-                  type: string
-              required:
-                - authorization_code
-                - bin
-                - last4
-                - exp_month
-                - exp_year
-                - channel
-                - card_type
-                - bank
-                - country_code
-                - brand
-                - reusable
-                - signature
-            customer:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                  nullable: true
-                last_name:
-                  type: string
-                  nullable: true
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                  nullable: true
-                risk_action:
-                  type: string
-              required:
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - risk_action
-          required:
-            - status
-            - amount
-            - currency
-            - transaction_date
-            - reference
-            - domain
-            - redirect_url
-            - metadata
-            - gateway_response
-            - message
-            - channel
-            - fees
-            - authorization
-            - customer
-      required:
-        - status
-        - message
-        - data
-    ChargeSubmitPhone:
-      type: object
-      required:
-        - phone
-        - reference
-      properties:
-        phone:
-          description: Customer's mobile number
-          type: string
-        reference:
-          description: The reference of the ongoing transaction
-          type: string
-    ChargeSubmitPhoneResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            status:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            transaction_date:
-              type: string
-            reference:
-              type: string
-            domain:
-              type: string
-            redirect_url:
-              type: string
-              nullable: true
-            metadata:
-              type: object
-            gateway_response:
-              type: string
-            message:
-              type: string
-              nullable: true
-            channel:
-              type: string
-            fees:
-              type: integer
-              nullable: true
-            authorization:
-              type: object
-              properties:
-                authorization_code:
-                  type: string
-                  nullable: true
-                bin:
-                  type: string
-                last4:
-                  type: string
-                exp_month:
-                  type: string
-                exp_year:
-                  type: string
-                channel:
-                  type: string
-                card_type:
-                  type: string
-                bank:
-                  type: string
-                country_code:
-                  type: string
-                brand:
-                  type: string
-                reusable:
-                  type: boolean
-                signature:
-                  type: string
-              required:
-                - authorization_code
-                - bin
-                - last4
-                - exp_month
-                - exp_year
-                - channel
-                - card_type
-                - bank
-                - country_code
-                - brand
-                - reusable
-                - signature
-            customer:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                  nullable: true
-                last_name:
-                  type: string
-                  nullable: true
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                  nullable: true
-                risk_action:
-                  type: string
-              required:
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - risk_action
-            display_text:
-              type: string
-          required:
-            - status
-            - amount
-            - currency
-            - transaction_date
-            - reference
-            - domain
-            - redirect_url
-            - metadata
-            - gateway_response
-            - message
-            - channel
-            - fees
-            - authorization
-            - customer
-            - display_text
-      required:
-        - status
-        - message
-        - data
-    ChargeSubmitBirthday:
-      type: object
-      required:
-        - birthday
-        - reference
-      properties:
-        birthday:
-          description: Customer's birthday in the format YYYY-MM-DD e.g 2016-09-21
-          type: string
-        reference:
-          description: The reference of the ongoing transaction
-          type: string
-    ChargeSubmitBirthdayResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            status:
-              type: string
-            display_text:
-              type: string
-          required:
-            - status
-            - display_text
-      required:
-        - status
-        - message
-        - data
-    ChargeSubmitAddress:
-      type: object
-      required:
-        - address
-        - reference
-        - city
-        - state
-        - zip_code
-      properties:
-        address:
-          description: Customer's address
-          type: string
-        city:
-          description: Customer's city
-          type: string
-        state:
-          description: Customer's state
-          type: string
-        zip_code:
-          description: Customer's zipcode
-          type: string
-        reference:
-          description: The reference of the ongoing transaction
-          type: string
-    ChargeCheckPendingResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            status:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            transaction_date:
-              type: string
-            reference:
-              type: string
-            domain:
-              type: string
-            redirect_url:
-              type: string
-              nullable: true
-            metadata:
-              type: object
-            gateway_response:
-              type: string
-            message:
-              type: string
-              nullable: true
-            channel:
-              type: string
-            fees:
-              type: integer
-              nullable: true
-            authorization:
-              type: object
-              properties:
-                authorization_code:
-                  type: string
-                  nullable: true
-                bin:
-                  type: string
-                last4:
-                  type: string
-                exp_month:
-                  type: string
-                exp_year:
-                  type: string
-                channel:
-                  type: string
-                card_type:
-                  type: string
-                bank:
-                  type: string
-                country_code:
-                  type: string
-                brand:
-                  type: string
-                reusable:
-                  type: boolean
-                signature:
-                  type: string
-              required:
-                - authorization_code
-                - bin
-                - last4
-                - exp_month
-                - exp_year
-                - channel
-                - card_type
-                - bank
-                - country_code
-                - brand
-                - reusable
-                - signature
-            customer:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                  nullable: true
-                last_name:
-                  type: string
-                  nullable: true
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                  nullable: true
-                risk_action:
-                  type: string
-              required:
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - risk_action
-          required:
-            - status
-            - amount
-            - currency
-            - transaction_date
-            - reference
-            - domain
-            - redirect_url
-            - metadata
-            - gateway_response
-            - message
-            - channel
-            - fees
-            - authorization
-            - customer
-      required:
-        - status
-        - message
-        - data
-    BulkChargeListResponseArray:
-      type: object
-      properties:
-        integration:
-          type: integer
-        domain:
-          type: string
-        batch_code:
-          type: string
-        status:
-          type: string
-        easy_cron_id:
-          nullable: true
-        reference:
-          type: string
-        id:
-          type: integer
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      required:
-        - integration
-        - domain
-        - batch_code
-        - status
-        - easy_cron_id
-        - reference
-        - id
-        - createdAt
-        - updatedAt
-    BulkChargeListResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkChargeListResponseArray'
-        meta:
-          type: object
-          properties:
-            total:
-              type: integer
-            skipped:
-              type: integer
-            perPage:
-              anyOf:
-                - type: integer
-                - type: string
-            page:
-              type: integer
-            pageCount:
-              type: integer
-          required:
-            - total
-            - skipped
-            - perPage
-            - page
-            - pageCount
-          additionalProperties: false
-      required:
-        - status
-        - message
-        - data
-        - meta
-    BulkChargeInitiate:
-      type: object
-      required:
-        - authorization
-        - amount
-      properties:
-        authorization:
-          description: Customer's card authorization code
-          type: string
-        amount:
-          description: Amount to charge on the authorization
-          type: integer
-        reference:
-          description: Unique reference containing only -, .`, = and alphanumeric characters.
-          type: string
-        attempt_partial_debit:
-          description: A flag to indicate if you want us to try recouping lower amounts when the customer has insufficient fund
-          type: boolean
-        at_least:
-          description: Minimum amount to charge if the attempt_partial_debit flag is set
-          type: integer
-        metadata:
-          description: JSON object of custom data
-          type: object
-    BulkChargeInitiateResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            batch_code:
-              type: string
-            reference:
-              type: string
-            id:
-              type: integer
-            integration:
-              type: integer
-            domain:
-              type: string
-            status:
-              type: string
-            total_charges:
-              type: integer
-            pending_charges:
-              type: integer
-            createdAt:
-              type: string
-            updatedAt:
-              type: string
-          required:
-            - batch_code
-            - reference
-            - id
-            - integration
-            - domain
-            - status
-            - total_charges
-            - pending_charges
-            - createdAt
-            - updatedAt
-      required:
-        - status
-        - message
-        - data
-    BulkChargeFetchResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            batch_code:
-              type: string
-            reference:
-              type: string
-            id:
-              type: integer
-            integration:
-              type: integer
-            domain:
-              type: string
-            status:
-              type: string
-            total_charges:
-              type: integer
-            pending_charges:
-              type: integer
-            createdAt:
-              type: string
-            updatedAt:
-              type: string
-          required:
-            - batch_code
-            - reference
-            - id
-            - integration
-            - domain
-            - status
-            - total_charges
-            - pending_charges
-            - createdAt
-            - updatedAt
-      required:
-        - status
-        - message
-        - data
-    BulkChargeFetchBulkBatchChargesResponseArray:
-      type: object
-      properties:
-        integration:
-          type: integer
-        bulkcharge:
-          type: integer
-        customer:
-          type: object
-          properties:
-            id:
-              type: integer
-            first_name:
-              type: string
-            last_name:
-              type: string
-            email:
-              type: string
-            customer_code:
-              type: string
-            phone:
-              type: string
-            metadata:
-              type: object
-              properties:
-                calling_code:
-                  type: string
-            risk_action:
-              type: string
-            international_format_phone:
-              type: string
-          required:
-            - id
-            - first_name
-            - last_name
-            - email
-            - customer_code
-            - phone
-            - metadata
-            - risk_action
-            - international_format_phone
-        authorization:
-          type: object
-          properties:
-            authorization_code:
-              type: string
-            bin:
-              type: string
-            last4:
-              type: string
-            exp_month:
-              type: string
-            exp_year:
-              type: string
-            channel:
-              type: string
-            card_type:
-              type: string
-            bank:
-              type: string
-            country_code:
-              type: string
-            brand:
-              type: string
-            reusable:
-              type: boolean
-            signature:
-              type: string
-            account_name:
-              nullable: true
-          required:
-            - authorization_code
-            - bin
-            - last4
-            - exp_month
-            - exp_year
-            - channel
-            - card_type
-            - bank
-            - country_code
-            - brand
-            - reusable
-            - signature
-            - account_name
-        domain:
-          type: string
-        amount:
-          type: integer
-        at_least:
-          type: integer
-        currency:
-          type: string
-        reference:
-          type: string
-        metadata:
-          type: object
-          properties:
-            custom_fields:
-              type: array
-              items:
-                $ref: '#/components/schemas/MetadataCustomFieldsArray'
-          required:
-            - custom_fields
-        status:
-          type: string
-        message:
-          type: string
-        attempt_partial_debit:
-          type: boolean
-        id:
-          type: integer
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      required:
-        - integration
-        - bulkcharge
-        - customer
-        - authorization
-        - domain
-        - amount
-        - at_least
-        - currency
-        - reference
-        - metadata
-        - status
-        - message
-        - attempt_partial_debit
-        - id
-        - createdAt
-        - updatedAt
-    BulkChargeFetchBulkBatchChargesResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkChargeFetchBulkBatchChargesResponseArray'
-        meta:
-          type: object
-          properties:
-            perPage:
-              type: string
-            total:
-              type: integer
-            skipped:
-              type: integer
-            page:
-              type: integer
-            pageCount:
-              type: integer
-          required:
-            - perPage
-            - total
-            - skipped
-            - page
-            - pageCount
-          additionalProperties: false
-      required:
-        - status
-        - message
-        - data
-        - meta
-    BulkChargePauseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-      required:
-        - status
-        - message
-    BulkChargeResumeResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-      required:
-        - status
-        - message
     ControlPanelFetchPaymentSessionTimeoutResponse:
       type: object
       properties:

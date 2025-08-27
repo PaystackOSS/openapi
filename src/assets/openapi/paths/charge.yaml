@@ -3,6 +3,7 @@ post:
     - Charge
   summary: Create Charge
   operationId: charge_create
+  description: Initiate a payment by integrating the payment channel of your choice.
   requestBody:
     content:
       application/json:

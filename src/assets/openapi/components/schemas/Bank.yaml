@@ -1,4 +1,5 @@
 type: object
+description: The bank object if charging a bank account
 properties:
   code:
     description: Customer's bank code

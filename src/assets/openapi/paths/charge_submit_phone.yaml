@@ -3,6 +3,7 @@ post:
     - Charge
   summary: Submit Phone
   operationId: charge_submitPhone
+  description: Submit phone number when requested
   requestBody:
     content:
       application/json:

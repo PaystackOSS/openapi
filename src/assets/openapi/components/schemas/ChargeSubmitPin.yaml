@@ -9,3 +9,6 @@ properties:
   reference:
     description: Transaction reference that requires the PIN
     type: string
+example:
+  pin: "1234"
+  reference: "5bwib5v6anhe9xa"

@@ -1,4 +1,5 @@
 type: object
+description: Details of the mobile service provider
 properties:
   phone:
     description: Customer's phone number

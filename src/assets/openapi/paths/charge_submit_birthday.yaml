@@ -3,6 +3,7 @@ post:
     - Charge
   summary: Submit Birthday
   operationId: charge_submitBirthday
+  description: Submit the customer's birthday when requested
   requestBody:
     content:
       application/json:

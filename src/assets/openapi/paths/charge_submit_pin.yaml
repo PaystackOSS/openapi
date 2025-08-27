@@ -3,6 +3,7 @@ post:
     - Charge
   summary: Submit PIN
   operationId: charge_submitPin
+  description: Submit PIN to continue a charge
   requestBody:
     content:
       application/json:

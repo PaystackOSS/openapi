@@ -9,3 +9,6 @@ properties:
   reference:
     description: The reference of the ongoing transaction
     type: string
+example:
+  phone: "08012345678"
+  reference: "5bwib5v6anhe9xa"

@@ -3,6 +3,7 @@ post:
     - Charge
   summary: Submit OTP
   operationId: charge_submitOtp
+  description: Submit OTP to complete a charge
   requestBody:
     content:
       application/json:

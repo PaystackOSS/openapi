@@ -17,6 +17,21 @@ tags:
     description: |
       A collection of endpoints for managing payments
     x-product-name: Transactions
+  - name: Charge
+    description: >
+      A collection of endpoints for configuring and managing the payment
+      channels when initiating a payment
+    x-product-name: Charges
+  - name: Bulk Charge
+    description: >
+      A collection of endpoints for creating and managing multiple recurring
+      payments
+    x-product-name: Bulk Charges
+  - name: Subaccount
+    description: |
+      A collection of endpoints for creating and managing accounts for sharing a
+      transaction with
+    x-product-name: Subaccounts
   - name: Split
     description: >
       A collection of endpoints for spliting a transaction and managing the
@@ -51,11 +66,6 @@ tags:
       A collection of endpoints for managing application's top-level domain or
       subdomain accepting payment via Apple Pay
     x-product-name: Apple Pay
-  - name: Subaccount
-    description: |
-      A collection of endpoints for creating and managing accounts for sharing a
-      transaction with
-    x-product-name: Subaccounts
   - name: Plan
     description: |
       A collection of endpoints for creating and managing recurring payment
@@ -105,16 +115,6 @@ tags:
       A collection of endpoints gaining insights into the amount on an
       integration
     x-product-name: Balance
-  - name: Charge
-    description: >
-      A collection of endpoints for configuring and managing the payment
-      channels when initiating a payment
-    x-product-name: Charges
-  - name: Bulk Charge
-    description: >
-      A collection of endpoints for creating and managing multiple recurring
-      payments
-    x-product-name: Bulk Charges
   - name: Integration
     description: |
       A collection of endpoints for managing some settings on an integration
@@ -156,6 +156,34 @@ paths:
     $ref: paths/transaction_totals.yaml
   /transaction/export:
     $ref: paths/transaction_export.yaml
+  /charge:
+    $ref: paths/charge.yaml
+  /charge/submit_pin:
+    $ref: paths/charge_submit_pin.yaml
+  /charge/submit_otp:
+    $ref: paths/charge_submit_otp.yaml
+  /charge/submit_phone:
+    $ref: paths/charge_submit_phone.yaml
+  /charge/submit_birthday:
+    $ref: paths/charge_submit_birthday.yaml
+  /charge/submit_address:
+    $ref: paths/charge_submit_address.yaml
+  /charge/{reference}:
+    $ref: paths/charge_{reference}.yaml
+  /bulkcharge:
+    $ref: paths/bulkcharge.yaml
+  /bulkcharge/{code}:
+    $ref: paths/bulkcharge_{code}.yaml
+  /bulkcharge/{code}/charges:
+    $ref: paths/bulkcharge_{code}_charges.yaml
+  /bulkcharge/pause/{code}:
+    $ref: paths/bulkcharge_pause_{code}.yaml
+  /bulkcharge/resume/{code}:
+    $ref: paths/bulkcharge_resume_{code}.yaml
+  /subaccount:
+    $ref: paths/subaccount.yaml
+  /subaccount/{code}:
+    $ref: paths/subaccount_{code}.yaml
   /split:
     $ref: paths/split.yaml
   /split/{id}:
@@ -228,10 +256,6 @@ paths:
     $ref: paths/dedicated_account_available_providers.yaml
   /apple-pay/domain:
     $ref: paths/apple-pay_domain.yaml
-  /subaccount:
-    $ref: paths/subaccount.yaml
-  /subaccount/{code}:
-    $ref: paths/subaccount_{code}.yaml
   /plan:
     $ref: paths/plan.yaml
   /plan/{code}:
@@ -330,30 +354,6 @@ paths:
     $ref: paths/balance.yaml
   /balance/ledger:
     $ref: paths/balance_ledger.yaml
-  /charge:
-    $ref: paths/charge.yaml
-  /charge/submit_pin:
-    $ref: paths/charge_submit_pin.yaml
-  /charge/submit_otp:
-    $ref: paths/charge_submit_otp.yaml
-  /charge/submit_phone:
-    $ref: paths/charge_submit_phone.yaml
-  /charge/submit_birthday:
-    $ref: paths/charge_submit_birthday.yaml
-  /charge/submit_address:
-    $ref: paths/charge_submit_address.yaml
-  /charge/{reference}:
-    $ref: paths/charge_{reference}.yaml
-  /bulkcharge:
-    $ref: paths/bulkcharge.yaml
-  /bulkcharge/{code}:
-    $ref: paths/bulkcharge_{code}.yaml
-  /bulkcharge/{code}/charges:
-    $ref: paths/bulkcharge_{code}_charges.yaml
-  /bulkcharge/pause/{code}:
-    $ref: paths/bulkcharge_pause_{code}.yaml
-  /bulkcharge/resume/{code}:
-    $ref: paths/bulkcharge_resume_{code}.yaml
   /integration/payment_session_timeout:
     $ref: paths/integration_payment_session_timeout.yaml
   /refund:

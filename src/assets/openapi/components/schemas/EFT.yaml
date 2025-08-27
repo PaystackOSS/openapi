@@ -1,4 +1,5 @@
 type: object
+description: Details of the EFT provider
 properties:
   provider:
     description: The EFT provider
