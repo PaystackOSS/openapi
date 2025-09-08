@@ -1,8 +1,0 @@
-description: Create Subscription
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Create Subscription:
-        $ref: '../../examples/subscription/create.yaml'

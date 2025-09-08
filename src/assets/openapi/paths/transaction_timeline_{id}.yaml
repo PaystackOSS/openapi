@@ -1,0 +1,29 @@
+get:
+  tags:
+    - Transaction
+  summary: Fetch Transaction Timeline
+  operationId: transaction_timeline
+  description: >-
+    Fetch the steps taken from the initiation to the completion of a transaction
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the transaction to fetch
+      schema:
+        type: integer
+        format: int64
+      example: 3936799950
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransactionTimelineResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

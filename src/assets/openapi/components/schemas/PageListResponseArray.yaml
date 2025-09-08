@@ -1,0 +1,76 @@
+type: object
+properties:
+  integration:
+    type: integer
+  plan:
+    nullable: true
+  domain:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
+    nullable: true
+  amount:
+    type: integer
+    nullable: true
+  currency:
+    type: string
+  slug:
+    type: string
+  custom_fields:
+    type: array
+    nullable: true
+    items: {}
+  type:
+    type: string
+  redirect_url:
+    type: string
+    nullable: true
+  success_message:
+    type: string
+    nullable: true
+  collect_phone:
+    type: boolean
+  active:
+    type: boolean
+  published:
+    type: boolean
+  migrate:
+    type: boolean
+  notification_email:
+    nullable: true
+  metadata:
+    type: object
+    nullable: true
+  split_code:
+    nullable: true
+  id:
+    type: integer
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+required:
+  - integration
+  - plan
+  - domain
+  - name
+  - description
+  - amount
+  - currency
+  - slug
+  - custom_fields
+  - type
+  - redirect_url
+  - success_message
+  - collect_phone
+  - active
+  - published
+  - migrate
+  - notification_email
+  - metadata
+  - split_code
+  - id
+  - createdAt
+  - updatedAt

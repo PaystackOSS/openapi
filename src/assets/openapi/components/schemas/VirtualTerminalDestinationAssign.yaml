@@ -1,0 +1,27 @@
+type: object
+required:
+  - destinations
+properties:
+  destinations:
+    type: array
+    description: >-
+      Array of objects containing recipients for payment notifications for the
+      Virtual Terminal.
+    items:
+      type: object
+      properties:
+        target:
+          type: string
+          description: The WhatsApp number to receive payment notifications
+        name:
+          type: string
+          description: The name of the associated WhatsApp number
+    required:
+      - target
+      - name
+example:
+  destinations:
+    - target: '+2548012345678'
+      name: John Doe
+    - target: '+2548098765432'
+      name: Jane Smith

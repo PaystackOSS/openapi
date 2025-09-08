@@ -1,0 +1,28 @@
+get:
+  tags:
+    - Transaction
+  summary: Fetch Transaction
+  operationId: transaction_fetch
+  description: Fetch a transaction to get its details
+  parameters:
+    - name: id
+      in: path
+      description: The ID of the transaction to fetch
+      required: true
+      schema:
+        type: integer
+        format: int64
+      example: 4099260516
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransactionFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

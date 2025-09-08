@@ -1,0 +1,15 @@
+type: object
+properties:
+  name:
+    description: Name of the storefront
+    type: string
+  slug:
+    description: >
+      A unique identifier to access your store. Once the storefront is created,
+      it can be accessed from
+
+      https://paystack.shop/your-slug
+    type: string
+  description:
+    description: The description of the storefront
+    type: string

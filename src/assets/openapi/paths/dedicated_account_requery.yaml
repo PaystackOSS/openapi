@@ -1,0 +1,34 @@
+parameters:
+  - name: account_number
+    description: Virtual account number to requery
+    in: query
+    schema:
+      type: string
+    example: "0033322211"
+  - name: provider_slug
+    description: The bank's slug in lowercase, without spaces.
+    in: query
+    schema:
+      type: string
+    example: "titan-paystack"
+  - name: date
+    description: The day the transfer was made
+    in: query
+    schema:
+      type: string
+      format: date-time
+get:
+  tags:
+    - Dedicated Virtual Account
+  summary: Requery Dedicated Account
+  operationId: dedicatedAccount_requery
+  description: Requery Dedicated Virtual Account for new transactions
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

@@ -1,0 +1,58 @@
+type: object
+required:
+  - email
+  - first_name
+  - last_name
+  - phone
+  - preferred_bank
+  - country
+properties:
+  email:
+    description: Customer's email address
+    type: string
+  first_name:
+    description: Customer's first name
+    type: string
+  last_name:
+    description: Customer's last name
+    type: string
+  phone:
+    description: Customer's phone name
+    type: string
+  preferred_bank:
+    description: >
+      The bank slug for preferred bank. To get a list of available banks, 
+
+      use the List Banks endpoint, passing `pay_with_bank_transfer=true` query
+      parameter
+    type: string
+  country:
+    description: The two letter code country
+    type: string
+    enum:
+      - NG
+      - GH
+  account_number:
+    description: Customer's account number
+    type: string
+  bvn:
+    description: Customer's Bank Verification Number
+    type: string
+  bank_code:
+    description: Customer's bank code
+    type: string
+  subaccount:
+    description: Subaccount code of the account you want to split the transaction with
+    type: string
+  split_code:
+    description: >-
+      Split code consisting of the lists of accounts you want to split the
+      transaction with
+    type: string
+example:
+  email: salmon.orange@email.com
+  first_name: Salmon
+  last_name: Orange
+  phone: "+2348100000000"
+  preferred_bank: "titan-paystack"
+  country: NG

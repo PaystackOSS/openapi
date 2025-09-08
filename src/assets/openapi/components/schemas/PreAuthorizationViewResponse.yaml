@@ -1,0 +1,110 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      domain:
+        type: string
+      status:
+        type: string
+      reference:
+        type: string
+      amount:
+        type: integer
+      message:
+        type: string
+      created_at:
+        type: string
+      released_at:
+        type: string
+        nullable: true
+      authorized_at:
+        type: string
+        nullable: true
+      expiry_date:
+        type: string
+        nullable: true
+      currency:
+        type: string
+        nullable: true
+      metadata:
+        type: string
+        nullable: true
+      fees:
+        type: integer
+      authorization:
+        type: object
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          customer_code:
+            type: string
+          phone:
+            type: string
+          metadata:
+            type: object
+          risk_action:
+            type: string
+          international_format_phone:
+            type: string
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - customer_code
+          - phone
+          - metadata
+          - risk_action
+          - international_format_phone
+      merchant_id:
+        type: integer
+      merchant_name:
+        type: string
+      expire_action:
+        type: string
+      split_code:
+        type: string
+        nullable: true
+      split:
+        type: object
+        nullable: true
+    required:
+      - id
+      - domain
+      - status
+      - reference
+      - amount
+      - message
+      - created_at
+      - released_at
+      - authorized_at
+      - expiry_date
+      - currency
+      - metadata
+      - fees
+      - authorization
+      - customer
+      - merchant_id
+      - merchant_name
+      - expire_action
+      - split
+      - split_code
+required:
+  - status
+  - message
+  - data

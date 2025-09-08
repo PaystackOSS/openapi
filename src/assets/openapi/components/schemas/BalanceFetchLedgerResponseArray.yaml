@@ -1,0 +1,36 @@
+type: object
+properties:
+  integration:
+    type: integer
+  domain:
+    type: string
+  balance:
+    type: integer
+  currency:
+    type: string
+  difference:
+    type: integer
+  reason:
+    type: string
+  model_responsible:
+    type: string
+  model_row:
+    type: integer
+  id:
+    type: integer
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+required:
+  - integration
+  - domain
+  - balance
+  - currency
+  - difference
+  - reason
+  - model_responsible
+  - model_row
+  - id
+  - createdAt
+  - updatedAt

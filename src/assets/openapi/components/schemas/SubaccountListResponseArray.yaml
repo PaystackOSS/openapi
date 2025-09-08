@@ -1,0 +1,48 @@
+type: object
+properties:
+  id:
+    type: integer
+  subaccount_code:
+    type: string
+  business_name:
+    type: string
+  description:
+    type: string
+  primary_contact_name:
+    type: string
+  primary_contact_email:
+    type: string
+  primary_contact_phone:
+    type: string
+  metadata:
+    type: string
+  percentage_charge:
+    type: number
+  settlement_bank:
+    type: string
+  bank_id:
+    type: integer
+  account_number:
+    type: string
+  currency:
+    type: string
+  active:
+    type: integer
+  is_verified:
+    type: boolean
+required:
+  - id
+  - subaccount_code
+  - business_name
+  - description
+  - primary_contact_name
+  - primary_contact_email
+  - primary_contact_phone
+  - metadata
+  - percentage_charge
+  - settlement_bank
+  - bank_id
+  - account_number
+  - currency
+  - active
+  - is_verified

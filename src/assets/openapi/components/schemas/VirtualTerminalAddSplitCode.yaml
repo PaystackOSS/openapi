@@ -1,0 +1,9 @@
+type: object
+required:
+  - split_code
+properties:
+  split_code:
+    description: The split code to assign to the virtual terminal
+    type: string
+example:
+  split_code: "SPL_1234567890abcdef"

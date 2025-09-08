@@ -1,0 +1,5 @@
+description: Page Fetch response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PageFetchResponse.yaml

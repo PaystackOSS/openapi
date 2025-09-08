@@ -1,0 +1,9 @@
+type: object
+required:
+  - domainName
+properties:
+  domainName:
+    description: The domain or subdomain for your application
+    type: string
+example:
+  domainName: example.com

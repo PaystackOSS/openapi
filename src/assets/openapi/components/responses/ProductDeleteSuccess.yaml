@@ -1,0 +1,5 @@
+description: Product Delete response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ProductDeleteResponse.yaml

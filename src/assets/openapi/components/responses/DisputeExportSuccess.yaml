@@ -1,0 +1,5 @@
+description: Dispute Export response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/DisputeExportResponse.yaml

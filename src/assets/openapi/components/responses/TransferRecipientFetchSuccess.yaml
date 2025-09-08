@@ -1,0 +1,5 @@
+description: Transfer Recipient Fetch response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferRecipientFetchResponse.yaml

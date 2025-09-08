@@ -1,0 +1,43 @@
+parameters:
+  - name: id
+    description: Dispute ID
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Dispute
+  summary: Fetch Dispute
+  operationId: dispute_fetch
+  responses:
+    '200':
+      $ref: ../components/responses/DisputeFetchSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Dispute
+  summary: Update Dispute
+  operationId: dispute_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DisputeUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/DisputeUpdate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/DisputeUpdateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

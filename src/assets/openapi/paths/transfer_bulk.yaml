@@ -1,0 +1,24 @@
+post:
+  tags:
+    - Transfer
+  summary: Initiate Bulk Transfer
+  operationId: transfer_bulk
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TransferBulk.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TransferBulk.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferBulkResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

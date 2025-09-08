@@ -1,0 +1,44 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      customer_email:
+        type: string
+      customer_name:
+        type: string
+      customer_phone:
+        type: string
+      service_details:
+        type: string
+      delivery_address:
+        type: string
+      delivery_date:
+        type: string
+      dispute:
+        type: integer
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - customer_email
+      - customer_name
+      - customer_phone
+      - service_details
+      - delivery_address
+      - delivery_date
+      - dispute
+      - id
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

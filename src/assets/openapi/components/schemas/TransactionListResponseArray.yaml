@@ -1,0 +1,232 @@
+type: object
+properties:
+  id:
+    type: integer
+  domain:
+    type: string
+  status:
+    type: string
+  reference:
+    type: string
+  amount:
+    type: integer
+  message:
+    nullable: true
+  gateway_response:
+    type: string
+  paid_at:
+    type: string
+    nullable: true
+  created_at:
+    type: string
+  channel:
+    type: string
+  currency:
+    type: string
+  ip_address:
+    type: string
+    nullable: true
+  metadata:
+    type: object
+    nullable: true
+  log:
+    type: object
+    properties:
+      start_time:
+        type: integer
+      time_spent:
+        type: integer
+      attempts:
+        type: integer
+      errors:
+        type: integer
+      success:
+        type: boolean
+      mobile:
+        type: boolean
+      input:
+        type: array
+        items: {}
+      history:
+        type: array
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            time:
+              type: integer
+          required:
+            - type
+            - message
+            - time
+    required:
+      - start_time
+      - time_spent
+      - attempts
+      - errors
+      - success
+      - mobile
+      - input
+      - history
+    nullable: true
+  fees:
+    type: integer
+    nullable: true
+  fees_split:
+    type: integer
+    nullable: true
+  customer:
+    type: object
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+        nullable: true
+      last_name:
+        type: string
+        nullable: true
+      email:
+        type: string
+      phone:
+        type: string
+        nullable: true
+      metadata:
+        type: object
+        nullable: true
+      customer_code:
+        type: string
+      risk_action:
+        type: string
+    required:
+      - id
+      - first_name
+      - last_name
+      - email
+      - phone
+      - metadata
+      - customer_code
+      - risk_action
+  authorization:
+    type: object
+    properties:
+      authorization_code:
+        type: string
+        nullable: true
+      bin:
+        type: string
+        nullable: true
+      last4:
+        type: string
+        nullable: true
+      exp_month:
+        type: string
+        nullable: true
+      exp_year:
+        type: string
+        nullable: true
+      channel:
+        type: string
+        nullable: true
+      card_type:
+        type: string
+        nullable: true
+      bank:
+        type: string
+        nullable: true
+      country_code:
+        type: string
+        nullable: true
+      brand:
+        type: string
+        nullable: true
+      reusable:
+        type: boolean
+      signature:
+        type: string
+        nullable: true
+      account_name:
+        type: string
+        nullable: true
+    required:
+      - authorization_code
+      - bin
+      - last4
+      - exp_month
+      - exp_year
+      - channel
+      - card_type
+      - bank
+      - country_code
+      - brand
+      - reusable
+      - signature
+      - account_name
+  plan:
+    type: object
+  split:
+    type: object
+  subaccount:
+    type: object
+  order_id:
+    nullable: true
+  paidAt:
+    type: string
+  createdAt:
+    type: string
+  requested_amount:
+    type: integer
+  source:
+    type: object
+    properties:
+      source:
+        type: string
+      type:
+        type: string
+      identifier:
+        nullable: true
+      entry_point:
+        type: string
+    required:
+      - source
+      - type
+      - identifier
+      - entry_point
+    nullable: true
+  connect:
+    type: object
+    nullable: true
+  pos_transaction_data:
+    nullable: true
+required:
+  - id
+  - domain
+  - status
+  - reference
+  - amount
+  - message
+  - gateway_response
+  - paid_at
+  - created_at
+  - channel
+  - currency
+  - ip_address
+  - metadata
+  - log
+  - fees
+  - fees_split
+  - customer
+  - authorization
+  - plan
+  - split
+  - subaccount
+  - order_id
+  - paidAt
+  - createdAt
+  - requested_amount
+  - source
+  - connect
+  - pos_transaction_data

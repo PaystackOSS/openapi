@@ -1,0 +1,5 @@
+description: Charge Submit Otp response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ChargeSubmitOtpResponse.yaml

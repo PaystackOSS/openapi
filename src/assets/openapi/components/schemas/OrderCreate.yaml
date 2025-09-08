@@ -1,0 +1,39 @@
+type: object
+required:
+  - email
+  - first_name
+  - last_name
+  - phone
+  - currency
+  - items
+  - shipping
+properties:
+  email:
+    description: The email of the customer placing the order
+    type: string
+  first_name:
+    description: The customer's first name
+    type: string
+  last_name:
+    description: The customer's last name
+    type: string
+  phone:
+    description: The customer's mobile number
+    type: string
+  currency:
+    description: Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD
+    type: string
+  items:
+    type: array
+    items:
+      $ref: ./OrderItems.yaml
+  shipping:
+    $ref: ./OrderShipping.yaml
+  is_gift:
+    description: |
+      A flag to indicate if the order is for someone else
+    type: boolean
+  pay_for_me:
+    description: |
+      A flag to indicate if the someone else should pay for the order
+    type: boolean

@@ -1,0 +1,9 @@
+type: object
+required:
+  - account_number
+properties:
+  account_number:
+    description: Valid Dedicated virtual account
+    type: string
+example:
+  account_number: "0033322211"

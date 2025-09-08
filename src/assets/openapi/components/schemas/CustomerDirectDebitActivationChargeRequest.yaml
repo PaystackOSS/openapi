@@ -1,0 +1,8 @@
+type: object
+required:
+  - authorization_id
+properties:
+  authorization_id:
+    type: integer
+    description: The authorization ID gotten from the initiation response
+    example: 1069309917

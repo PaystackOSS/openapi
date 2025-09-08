@@ -1,0 +1,131 @@
+get:
+  tags:
+    - Transaction
+  summary: List Transactions
+  operationId: transaction_list
+  description: List transactions that has occurred on your integration
+  parameters:
+    - in: query
+      name: use_cursor
+      description: A flag to indicate if cursor based pagination should be used
+      schema:
+        type: boolean
+      example: true
+    - in: query
+      name: next
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the next set of data
+      schema:
+        type: string
+    - in: query
+      name: previous
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the previous set of data
+      schema:
+        type: string
+    - in: query
+      name: per_page
+      schema:
+        type: integer
+      description: The number of records to fetch per request
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The offset to retrieve data from
+    - in: query
+      name: from
+      description: The start date
+      schema:
+        type: string
+        format: date-time
+    - in: query
+      name: to
+      description: The end date
+      schema:
+        type: string
+        format: date-time
+    - in: query
+      name: status
+      description: Filter transaction by status
+      schema:
+        type: string
+        enum:
+          - success
+          - failed
+          - abandoned
+          - reversed
+    - in: query
+      name: source
+      description: The origin of the payment
+      schema:
+        type: string
+        enum:
+          - merchantApi
+          - checkout
+          - pos
+          - virtualTerminal
+    - in: query
+      name: terminal_id
+      description: Filter transactions by a terminal ID
+      schema:
+        type: string
+    - in: query
+      name: virtual_account_number
+      description: Filter transactions by a virtual account number
+      schema:
+        type: string
+    - in: query
+      name: customer_code
+      description: Filter transactions by a customer code
+      schema:
+        type: string
+    - in: query
+      name: amount
+      description: Filter transactions by a specific amount
+      schema:
+        type: integer
+        format: int64
+    - in: query
+      name: settlement
+      description: The settlement ID to filter for settled transactions
+      schema:
+        type: integer
+        format: int64
+    - in: query
+      name: channel
+      description: The payment method the customer used to complete the transaction
+      schema:
+        type: string
+        enum:
+          - card
+          - pos
+          - bank
+          - dedicated_nuban
+          - ussd
+          - bank_transfer
+    - in: query
+      name: subaccount_code
+      description: Filter transaction by subaccount code
+      schema:
+        type: string
+    - in: query
+      name: split_code
+      description: Filter transaction by split code
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransactionListResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

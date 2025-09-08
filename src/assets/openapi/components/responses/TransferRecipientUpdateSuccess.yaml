@@ -1,0 +1,5 @@
+description: Transfer Recipient Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferRecipientUpdateResponse.yaml

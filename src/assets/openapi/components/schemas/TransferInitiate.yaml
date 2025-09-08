@@ -1,0 +1,23 @@
+description: Transfer initiation model
+allOf:
+  - $ref: ./TransferBase.yaml
+  - type: object
+    required:
+      - source
+      - amount
+      - recipient
+      - reference
+    properties:
+      source:
+        description: The origin of the funds to send from
+        type: string
+        default: balance
+      currency:
+        description: Specify the currency of the transfer.
+        type: string
+        default: NGN
+        enum:
+          - NGN
+          - ZAR
+          - KES
+          - GHS

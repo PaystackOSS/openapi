@@ -1,0 +1,32 @@
+type: object
+required:
+  - email
+  - amount
+  - authorization_code
+  - currency
+properties:
+  email:
+    description: Customer's email address
+    type: string
+  amount:
+    description: Specified in the lowest denomination of your currency
+    type: integer
+    format: int64
+  authorization_code:
+    description: Valid authorization code to charge
+    type: string
+  currency:
+    $ref: ./Currency.yaml
+  at_least:
+    description: Minimum amount to charge
+    type: string
+  reference:
+    description: >-
+      Unique transaction reference. Only -, ., = and alphanumeric characters
+      allowed.
+    type: string
+example:
+  email: tap@email.com
+  amount: 40510
+  authorization_code: AUTH_df1l5ehnym
+  currency: ZAR

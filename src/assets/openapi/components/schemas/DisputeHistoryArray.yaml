@@ -1,0 +1,12 @@
+type: object
+properties:
+  status:
+    type: string
+  by:
+    type: string
+  createdAt:
+    type: string
+required:
+  - status
+  - by
+  - createdAt

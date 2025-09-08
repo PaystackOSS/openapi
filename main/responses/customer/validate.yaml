@@ -1,8 +1,0 @@
-description: Customer Validation
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Validate Customer:
-        $ref: '../../examples/customer/validate.yaml'

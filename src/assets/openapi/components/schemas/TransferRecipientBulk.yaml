@@ -1,0 +1,9 @@
+type: object
+required:
+  - batch
+properties:
+  batch:
+    description: A list of transfer recipient object.
+    type: array
+    items:
+      $ref: ./TransferRecipientCreate.yaml

@@ -1,0 +1,18 @@
+type: object
+properties:
+  key:
+    type: string
+  value:
+    type: string
+  isNew:
+    type: boolean
+  phoneNumberRegex:
+    type: string
+  phoneNumberPlaceholder:
+    type: string
+required:
+  - key
+  - value
+  - isNew
+  - phoneNumberRegex
+  - phoneNumberPlaceholder

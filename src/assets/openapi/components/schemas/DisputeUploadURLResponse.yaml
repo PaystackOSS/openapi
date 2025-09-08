@@ -1,0 +1,20 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      signedUrl:
+        type: string
+      fileName:
+        type: string
+    required:
+      - signedUrl
+      - fileName
+required:
+  - status
+  - message
+  - data

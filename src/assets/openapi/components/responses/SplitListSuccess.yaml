@@ -1,0 +1,5 @@
+description: Split List response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SplitListResponse.yaml

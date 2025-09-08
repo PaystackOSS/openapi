@@ -1,0 +1,16 @@
+post:
+  tags:
+    - Transfer
+  summary: Disable OTP for Transfers
+  operationId: transfer_disableOtp
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransferDisablesOtpResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

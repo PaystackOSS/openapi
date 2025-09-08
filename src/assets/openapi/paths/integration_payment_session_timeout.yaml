@@ -1,0 +1,43 @@
+get:
+  tags:
+    - Integration
+  summary: Fetch Payment Session Timeout
+  operationId: integration_fetchPaymentSessionTimeout
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: >-
+              ../components/schemas/ControlPanelFetchPaymentSessionTimeoutResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Integration
+  summary: Update Payment Session Timeout
+  operationId: integration_updatePaymentSessionTimeout
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PaymentSession.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: >-
+              ../components/schemas/ControlPanelUpdatePaymentSessionTimeoutResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

@@ -1,0 +1,8 @@
+description: Entity not found
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/Error.yaml
+    example:
+      status: false
+      message: Entity not found

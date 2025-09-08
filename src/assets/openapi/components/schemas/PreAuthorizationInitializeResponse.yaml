@@ -1,0 +1,23 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      authorization_url:
+        type: string
+      access_code:
+        type: string
+      reference:
+        type: string
+    required:
+      - authorization_url
+      - access_code
+      - reference
+required:
+  - status
+  - message
+  - data

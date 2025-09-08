@@ -1,0 +1,8 @@
+description: Unauthorized operation
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/Error.yaml
+    example:
+      status: false
+      message: Invalid key

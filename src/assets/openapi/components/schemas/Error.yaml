@@ -1,0 +1,23 @@
+type: object
+properties:
+  status:
+    type: boolean
+    description: An indicator for the state of the request
+  message:
+    type: string
+    description: A short description of the error
+  meta:
+    $ref: ./ErrorMeta.yaml
+  type:
+    type: string
+    description: A tag to indicate the type of the error
+  code:
+    type: string
+    description: The error code
+    enum:
+      - validation_error
+      - processor_error
+      - api_error
+  errorCodeMappingNotFound:
+    type: boolean
+    description: An indicator for error mapping for the request

@@ -1,0 +1,14 @@
+type: object
+required:
+  - otp
+  - reference
+properties:
+  otp:
+    description: Customer's OTP for ongoing transaction
+    type: string
+  reference:
+    description: The reference of the ongoing transaction
+    type: string
+example:
+  otp: "123456"
+  reference: "5bwib5v6anhe9xa"

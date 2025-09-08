@@ -1,0 +1,41 @@
+type: object
+properties:
+  status:
+    type: boolean
+  type:
+    type: string
+  code:
+    type: string
+  message:
+    type: string
+  data:
+    type: array
+    items:
+      $ref: ./EftDebitOrderLogMandateResponseArray.yaml
+  meta:
+    type: object
+    properties:
+      total:
+        type: integer
+      skipped:
+        type: integer
+      perPage:
+        type: integer
+      page:
+        type: integer
+      pageCount:
+        type: integer
+    required:
+      - total
+      - skipped
+      - perPage
+      - page
+      - pageCount
+    additionalProperties: false
+required:
+  - status
+  - type
+  - code
+  - message
+  - data
+  - meta

@@ -1,0 +1,31 @@
+type: object
+description: A list of charge object
+required:
+  - authorization
+  - amount
+properties:
+  authorization:
+    description: Customer's card authorization code
+    type: string
+  amount:
+    description: Amount to charge on the authorization
+    type: integer
+  reference:
+    description: | 
+      A unique identifier containing lowercase letters `(a-z)`, digits `(0-9)` and these symbols: dash (`-`), underscore(`_`)
+    type: string
+  attempt_partial_debit:
+    description: >-
+      A flag to indicate if you want us to try recouping lower amounts when the
+      customer has insufficient fund
+    type: boolean
+  at_least:
+    description: Minimum amount to charge if the attempt_partial_debit flag is set
+    type: integer
+  metadata:
+    description: JSON object of custom data
+    type: object
+example: 
+  authorization: "AUTH_ncx8hews93"
+  amount: 250000
+  reference: "dam1266638dhhd"

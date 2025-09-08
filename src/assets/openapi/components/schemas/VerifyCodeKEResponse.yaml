@@ -1,0 +1,243 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      email:
+        type: string
+      merchant_logo:
+        type: string
+      merchant_name:
+        type: string
+      amount:
+        type: integer
+      domain:
+        type: string
+      currency:
+        type: string
+      id:
+        type: integer
+      channels:
+        type: array
+        items:
+          type: string
+      label:
+        type: string
+      original_amount:
+        type: integer
+      added_fees:
+        type: integer
+      merchant_id:
+        type: integer
+      merchant_key:
+        type: string
+      cancel_action:
+        nullable: true
+      access_code:
+        type: string
+      transaction_status:
+        type: string
+      log:
+        type: object
+        properties:
+          start_time:
+            type: integer
+          time_spent:
+            type: integer
+          attempts:
+            type: integer
+          errors:
+            type: integer
+          success:
+            type: boolean
+          mobile:
+            type: boolean
+          input:
+            type: array
+            items: {}
+          history:
+            type: array
+            items:
+              type: object
+              properties:
+                type:
+                  type: string
+                message:
+                  type: string
+                time:
+                  type: integer
+              required:
+                - type
+                - message
+                - time
+        required:
+          - start_time
+          - time_spent
+          - attempts
+          - errors
+          - success
+          - mobile
+          - input
+          - history
+        nullable: true
+      custom_filters:
+        type: string
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            nullable: true
+          last_name:
+            nullable: true
+          email:
+            type: string
+          phone:
+            nullable: true
+          metadata:
+            nullable: true
+          created_at:
+            type: string
+          updated_at:
+            type: string
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - phone
+          - metadata
+          - created_at
+          - updated_at
+      reference:
+        type: string
+      saved_cards:
+        type: object
+        properties:
+          enabled:
+            type: boolean
+          registered:
+            type: boolean
+          registered_phone:
+            nullable: true
+          registered_calling_code:
+            nullable: true
+        required:
+          - enabled
+          - registered
+          - registered_phone
+          - registered_calling_code
+      plan_details:
+        nullable: true
+      channel_options:
+        type: object
+        properties:
+          mobile_money:
+            type: array
+            items:
+              type: object
+              properties:
+                key:
+                  type: string
+                value:
+                  type: string
+                isNew:
+                  type: boolean
+                phoneNumberRegex:
+                  type: string
+                phoneNumberPlaceholder:
+                  type: string
+                isChannel:
+                  type: boolean
+                isMobileMoneyBusiness:
+                  type: boolean
+                accountNumberRegex:
+                  type: string
+              required:
+                - key
+                - value
+                - isNew
+                - phoneNumberRegex
+                - isChannel
+                - isMobileMoneyBusiness
+              additionalProperties: false
+        required:
+          - mobile_money
+      merchant_channel_settings:
+        type: object
+      link_config:
+        type: object
+        properties:
+          enabled:
+            type: boolean
+          has_linked_accounts:
+            type: boolean
+          has_saved_cards:
+            type: boolean
+          has_payment_instruments:
+            type: boolean
+          registered:
+            type: boolean
+          registered_phone:
+            nullable: true
+          registered_calling_code:
+            nullable: true
+        required:
+          - enabled
+          - has_linked_accounts
+          - has_saved_cards
+          - has_payment_instruments
+          - registered
+          - registered_phone
+          - registered_calling_code
+      exchange_rate:
+        type: object
+        properties:
+          id:
+            type: integer
+          rate:
+            type: number
+        required:
+          - id
+          - rate
+      public_encryption_key:
+        type: string
+      whitelabel:
+        type: boolean
+    required:
+      - email
+      - merchant_logo
+      - merchant_name
+      - amount
+      - domain
+      - currency
+      - id
+      - channels
+      - label
+      - original_amount
+      - added_fees
+      - merchant_id
+      - merchant_key
+      - cancel_action
+      - access_code
+      - transaction_status
+      - log
+      - custom_filters
+      - customer
+      - reference
+      - saved_cards
+      - plan_details
+      - channel_options
+      - merchant_channel_settings
+      - link_config
+      - public_encryption_key
+      - whitelabel
+required:
+  - status
+  - message
+  - data

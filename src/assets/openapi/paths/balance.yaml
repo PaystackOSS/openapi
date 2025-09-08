@@ -1,0 +1,19 @@
+get:
+  tags:
+    - Balance
+  summary: Fetch Balance
+  operationId: balance_fetch
+  description: You can only transfer from what you have
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BalanceCheckResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

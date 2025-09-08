@@ -1,0 +1,8 @@
+type: object
+properties:
+  name:
+    description: Recipient's name
+    type: string
+  email:
+    description: Recipient's email address
+    type: string

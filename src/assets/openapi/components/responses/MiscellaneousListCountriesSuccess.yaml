@@ -1,0 +1,5 @@
+description: Miscellaneous List Countries response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/MiscellaneousListCountriesResponse.yaml

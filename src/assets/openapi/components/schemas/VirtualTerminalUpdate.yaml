@@ -1,0 +1,9 @@
+type: object
+required:
+  - name
+properties:
+  name:
+    description: Name of the virtual terminal
+    type: string
+example:
+  name: "Lagos_Mainland_Zone_1"

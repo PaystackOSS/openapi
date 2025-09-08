@@ -1,0 +1,11 @@
+type: object
+properties:
+  status:
+    description: An indicator
+    type: boolean
+  message:
+    description: A short description of the response
+    type: string
+example:
+  status: true
+  message: Domain successfully registered on Apple Pay

@@ -1,0 +1,5 @@
+description: Customer Fetch Mandate Authorizations response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CustomerFetchMandateAuthorizationsResponse.yaml

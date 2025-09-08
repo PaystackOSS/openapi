@@ -1,0 +1,30 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      status:
+        type: string
+      advise:
+        type: string
+      message:
+        type: string
+      authorizationCode:
+        type: string
+      customerEmail:
+        type: string
+        description: The customer email used to initialize authorization
+    required:
+      - status
+      - advise
+      - message
+      - authorizationCode
+      - customerEmail
+required:
+  - status
+  - message
+  - data

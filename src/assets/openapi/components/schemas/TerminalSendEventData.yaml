@@ -1,0 +1,13 @@
+type: object
+description: The parameters needed to perform the specified action
+properties:
+  id:
+    description: The invoice or transaction  ID you want to push to the Terminal
+    type: integer
+    format: int64
+  reference:
+    description: The offline_reference from the Payment Request response
+    type: string
+example:
+  id: 7895939
+  reference: "4634337895939"

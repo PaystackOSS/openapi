@@ -1,0 +1,46 @@
+parameters:
+  - name: terminal_id
+    in: path
+    description: The ID of the Terminal the event should be sent to.
+    required: true
+    schema:
+      type: string
+    example: Z0R4orOU
+get:
+  tags:
+    - Terminal
+  summary: Fetch Terminal
+  description: Get the details of a Terminal
+  operationId: terminal_fetch
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalGetSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Terminal
+  summary: Update Terminal
+  operationId: terminal_update
+  description: Update the details of a Terminal
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TerminalUpate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TerminalUpate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalUpdateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

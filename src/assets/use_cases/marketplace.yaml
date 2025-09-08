@@ -1,0 +1,40 @@
+openapi: 3.0.1
+info:
+  title: Create an online marketplace
+  description: |
+    The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
+    
+    ### Prerequisites
+
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+    
+    The [Split API](https://paystack.com/docs/payments/split-payments/) is useful in marketplace apps where the transactions are divided between the platform and the vendor.
+    That way, the platform keeps a portion of each transaction.
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+paths:
+  /subaccount:
+    $ref: ../openapi/paths/subaccount.yaml
+  /split:
+    $ref: ../openapi/paths/split.yaml
+  /transaction/initialize:
+    $ref: '../openapi/paths/transaction_initialize.yaml'
+  /refund:
+    $ref: ../openapi/paths/refund.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []

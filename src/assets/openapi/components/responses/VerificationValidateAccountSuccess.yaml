@@ -1,0 +1,5 @@
+description: Verification Validate Account response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/VerificationValidateAccountResponse.yaml

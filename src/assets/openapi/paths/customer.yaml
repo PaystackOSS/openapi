@@ -1,0 +1,86 @@
+post:
+  tags:
+    - Customer
+  summary: Create Customer
+  operationId: customer_create
+  description: Create a customer on your integration
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CustomerCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/CustomerCreate.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CustomerCreateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Customer
+  summary: List Customers
+  operationId: customer_list
+  description: List customers on your integration
+  parameters:
+    - name: use_cursor
+      description: A flag to indicate if cursor based pagination should be used
+      in: query
+      schema:
+        type: boolean
+    - name: next
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the next set of data
+      in: query
+      schema:
+        type: string
+    - name: previous
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the previous set of data
+      in: query
+      schema:
+        type: string
+    - name: from
+      description: The start date
+      in: query
+      schema:
+        type: string
+        format: date-time
+    - name: to
+      description: The end date
+      in: query
+      schema:
+        type: string
+        format: date-time
+    - name: perPage
+      description: The number of records to fetch per request
+      in: query
+      schema:
+        type: string
+    - name: page
+      in: query
+      description: The offset to retrieve data from
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CustomerListResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

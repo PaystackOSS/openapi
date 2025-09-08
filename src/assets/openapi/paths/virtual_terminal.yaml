@@ -1,0 +1,43 @@
+post:
+  tags:
+    - Virtual Terminal
+  summary: Create Virtual Terminal
+  description: Create a Virtual Terminal on your integration
+  operationId: virtualTerminal_create
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalCreate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalCreateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Virtual Terminal
+  summary: List Virtual Terminals
+  description: List Virtual Terminals on your integration
+  operationId: virtualTerminal_list
+  parameters:
+    - name: perPage
+      in: query
+      description: The number of records to fetch per request
+      schema:
+        type: integer
+      example: 75
+    - name: page
+      in: query
+      description: The offset to retrieve data from
+      schema:
+        type: integer
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalListSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

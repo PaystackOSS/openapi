@@ -1,0 +1,5 @@
+description: Plan Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PlanUpdateResponse.yaml

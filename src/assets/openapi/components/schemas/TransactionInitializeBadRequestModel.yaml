@@ -1,0 +1,34 @@
+type: object
+description: >
+  Error response returned when a transaction is initialized with incorrect
+  parameters
+properties:
+  status:
+    type: boolean
+    description: An indicator for the state of the request
+  message:
+    type: string
+    description: A short description of the error
+  meta:
+    $ref: ./ErrorMeta.yaml
+  type:
+    type: string
+    description: A tag to indicate the type of the error
+    enum:
+      - validation_error
+      - processor_error
+      - api_error
+  code:
+    type: string
+    description: The error code
+  errorCodeMappingNotFound:
+    type: boolean
+    description: An indicator for error mapping for the request
+example:
+  status: false
+  message: Duplicate Transaction Reference
+  meta:
+    nextStep: Try and create the Transaction or Charge with a new reference
+  type: validation_error
+  code: duplicate_reference
+  errorCodeMappingNotFound: false

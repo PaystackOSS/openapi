@@ -1,0 +1,26 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      reference:
+        type: string
+      status:
+        type: string
+      display_text:
+        type: string
+      ussd_code:
+        type: string
+    required:
+      - reference
+      - status
+      - display_text
+      - ussd_code
+required:
+  - status
+  - message
+  - data

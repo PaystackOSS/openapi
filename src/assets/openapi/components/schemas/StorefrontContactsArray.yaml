@@ -1,0 +1,15 @@
+type: object
+properties:
+  value:
+    type: string
+  id:
+    type: integer
+  type_name:
+    nullable: true
+  type:
+    type: integer
+required:
+  - value
+  - id
+  - type_name
+  - type

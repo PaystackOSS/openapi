@@ -1,0 +1,23 @@
+get:
+  tags:
+    - Customer
+  summary: Verify Authorization
+  description: Check the status of an authorization request
+  operationId: customer_verifyAuthorization
+  parameters:
+    - name: reference
+      in: path
+      description: The reference returned in the initialization response
+      required: true
+      schema:
+        type: string
+      example: "dfbzfotsrbv4n5s82t4mp5b5mfn51h"
+  responses:
+    '200':
+      $ref: ../components/responses/CustomerAuthorizationVerifySuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

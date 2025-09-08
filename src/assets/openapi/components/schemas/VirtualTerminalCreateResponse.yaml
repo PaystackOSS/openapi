@@ -1,0 +1,54 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      integration:
+        type: integer
+      domain:
+        type: string
+      code:
+        type: string
+      paymentMethods:
+        type: array
+        items: {}
+      active:
+        type: boolean
+      metadata:
+        nullable: true
+      destinations:
+        type: array
+        items:
+          type: object
+          properties:
+            target:
+              type: string
+            type:
+              type: string
+            name:
+              type: string
+      currency:
+        type: string
+    required:
+      - id
+      - name
+      - integration
+      - domain
+      - code
+      - paymentMethods
+      - active
+      - metadata
+      - destinations
+      - currency
+required:
+  - status
+  - message
+  - data

@@ -1,0 +1,53 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      name:
+        type: string
+      integration:
+        type: integer
+      domain:
+        type: string
+      slug:
+        type: string
+      currency:
+        type: string
+      type:
+        type: string
+      collect_phone:
+        type: boolean
+      active:
+        type: boolean
+      published:
+        type: boolean
+      migrate:
+        type: boolean
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - name
+      - integration
+      - domain
+      - slug
+      - currency
+      - type
+      - collect_phone
+      - active
+      - published
+      - migrate
+      - id
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

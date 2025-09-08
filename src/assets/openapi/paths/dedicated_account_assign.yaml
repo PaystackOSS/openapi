@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Dedicated Virtual Account
+  summary: Assign Dedicated Account
+  operationId: dedicatedAccount_assign
+  description: With this endpoint, you can create a customer, validate the customer, and assign a DVA to the customer.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountAssign.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountAssign.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

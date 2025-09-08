@@ -1,0 +1,81 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      integration:
+        type: integer
+      domain:
+        type: string
+      type:
+        type: string
+      currency:
+        type: string
+      name:
+        type: string
+      details:
+        type: object
+        properties:
+          account_number:
+            type: string
+            nullable: true
+          account_name:
+            type: string
+            nullable: true
+          bank_code:
+            type: string
+          bank_name:
+            type: string
+        required:
+          - account_number
+          - account_name
+          - bank_code
+          - bank_name
+      description:
+        type: string
+      metadata:
+        type: object
+        nullable: true
+      recipient_code:
+        type: string
+      active:
+        type: boolean
+      recipient_account:
+        type: string
+      institution_code:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      isDeleted:
+        type: boolean
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - integration
+      - domain
+      - type
+      - currency
+      - name
+      - details
+      - description
+      - recipient_code
+      - active
+      - recipient_account
+      - institution_code
+      - email
+      - id
+      - isDeleted
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

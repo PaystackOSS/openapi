@@ -1,0 +1,5 @@
+description: Split Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SplitUpdateResponse.yaml

@@ -1,0 +1,9 @@
+type: object
+required:
+  - products
+properties:
+  products:
+    description: An array of product IDs
+    type: array
+    items:
+      type: integer

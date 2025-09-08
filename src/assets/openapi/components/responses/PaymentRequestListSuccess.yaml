@@ -1,0 +1,5 @@
+description: Payment Request List response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PaymentRequestListResponse.yaml

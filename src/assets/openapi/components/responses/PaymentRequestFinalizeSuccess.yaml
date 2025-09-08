@@ -1,0 +1,5 @@
+description: Payment Request Finalize response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PaymentRequestFinalizeResponse.yaml

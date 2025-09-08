@@ -1,0 +1,23 @@
+get:
+  tags:
+    - Terminal
+  summary: Fetch Terminal Status
+  description: Check the availiability of a Terminal before sending an event to it
+  operationId: terminal_fetchTerminalStatus
+  parameters:
+    - name: terminal_id
+      in: path
+      required: true
+      description: The ID of the Terminal the event should be sent to.
+      schema:
+        type: string
+      example: Z0R4orOU
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalGetStatusSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

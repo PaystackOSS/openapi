@@ -1,0 +1,60 @@
+get:
+  tags:
+    - Split
+  summary: Fetch Split
+  operationId: split_fetch
+  description: Get details of a split configuration for a transaction
+  parameters:
+    - name: id
+      in: path
+      description: The ID of the split configuration to fetch
+      required: true
+      schema:
+        type: integer
+      example: 4896895
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SplitFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Split
+  summary: Update Split
+  operationId: split_update
+  description: Update a split configuration for transactions
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SplitUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/SplitUpdate.yaml
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SplitUpdateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

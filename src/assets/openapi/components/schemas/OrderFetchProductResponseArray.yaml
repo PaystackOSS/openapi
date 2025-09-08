@@ -1,0 +1,102 @@
+type: object
+properties:
+  order_id:
+    type: integer
+  transaction:
+    type: integer
+  order_code:
+    type: string
+  customer:
+    type: integer
+  first_name:
+    type: string
+  last_name:
+    type: string
+  customer_name:
+    type: string
+  phone:
+    type: string
+  email:
+    type: string
+  product_code:
+    type: string
+  product_id:
+    type: integer
+  product_name:
+    type: string
+  price:
+    type: integer
+  quantity_sold:
+    type: integer
+  currency:
+    type: string
+  quantity:
+    type: integer
+  variant_id:
+    nullable: true
+  variant_price:
+    nullable: true
+  variant_code:
+    nullable: true
+  amount:
+    type: integer
+  shipping_method:
+    nullable: true
+  status:
+    type: string
+  shipping_address:
+    nullable: true
+  refunded:
+    type: boolean
+  shipping:
+    nullable: true
+  paid_at:
+    type: string
+  created_at:
+    type: string
+  is_shipped:
+    type: boolean
+  is_viewed:
+    type: integer
+  delivery_note:
+    nullable: true
+  shipping_fee:
+    nullable: true
+  amount_paid:
+    type: integer
+  storefront_slug:
+    type: string
+required:
+  - order_id
+  - transaction
+  - order_code
+  - customer
+  - first_name
+  - last_name
+  - customer_name
+  - phone
+  - email
+  - product_code
+  - product_id
+  - product_name
+  - price
+  - quantity_sold
+  - currency
+  - quantity
+  - variant_id
+  - variant_price
+  - variant_code
+  - amount
+  - shipping_method
+  - status
+  - shipping_address
+  - refunded
+  - shipping
+  - paid_at
+  - created_at
+  - is_shipped
+  - is_viewed
+  - delivery_note
+  - shipping_fee
+  - amount_paid
+  - storefront_slug

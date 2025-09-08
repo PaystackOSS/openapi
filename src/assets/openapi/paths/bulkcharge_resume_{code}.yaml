@@ -1,0 +1,27 @@
+get:
+  tags:
+    - Bulk Charge
+  summary: Resume Bulk Charge Batch
+  operationId: bulkCharge_resume
+  description: Resume the processing of a previously paused charge batch
+  parameters:
+    - name: code
+      description: The batch code for the bulk charge you want to pause
+      in: path
+      required: true
+      schema:
+        type: string
+      example: "BCH_180tl7oq7cayggh"
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BulkChargeResumeResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

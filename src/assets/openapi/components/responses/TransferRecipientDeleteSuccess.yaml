@@ -1,0 +1,5 @@
+description: Transfer Recipient Delete response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferRecipientDeleteResponse.yaml

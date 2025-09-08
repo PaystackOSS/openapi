@@ -1,0 +1,5 @@
+description: Product Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ProductUpdateResponse.yaml

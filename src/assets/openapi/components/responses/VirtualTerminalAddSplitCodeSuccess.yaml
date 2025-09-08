@@ -1,0 +1,5 @@
+description: Virtual Terminal Split Assign response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/VirtualTerminalAddSplitCodeResponse.yaml

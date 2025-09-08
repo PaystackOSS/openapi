@@ -1,0 +1,9 @@
+type: object
+required:
+  - account
+  - address
+properties:
+  account:
+    $ref: ./CustomerInitializeDirectDebitAccount.yaml
+  address:
+    $ref: ./CustomerInitializeDirectDebitAddress.yaml

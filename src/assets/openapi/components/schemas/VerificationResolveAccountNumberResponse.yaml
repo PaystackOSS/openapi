@@ -1,0 +1,23 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      account_number:
+        type: string
+      account_name:
+        type: string
+      bank_id:
+        type: integer
+    required:
+      - account_number
+      - account_name
+      - bank_id
+required:
+  - status
+  - message
+  - data

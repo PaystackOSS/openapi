@@ -1,0 +1,5 @@
+description: Bulk Charge List response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/BulkChargeListResponse.yaml

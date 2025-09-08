@@ -1,0 +1,5 @@
+description: Payment Request Verify response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PaymentRequestVerifyResponse.yaml

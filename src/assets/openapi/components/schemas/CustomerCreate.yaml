@@ -1,0 +1,23 @@
+type: object
+required:
+  - email
+properties:
+  email:
+    description: Customer's email address
+    type: string
+  first_name:
+    description: Customer's first name
+    type: string
+  last_name:
+    description: Customer's last name
+    type: string
+  phone:
+    description: Customer's phone number
+    type: string
+  metadata:
+    description: Stringified JSON object of custom data
+    type: string
+example:
+  email: rock@sandy.com
+  first_name: Rock
+  last_name: Sandy

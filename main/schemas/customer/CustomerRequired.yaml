@@ -1,7 +1,0 @@
-type: object
-required:
-  - email
-properties:
-  email:
-    description: Customer's email address
-    type:  string

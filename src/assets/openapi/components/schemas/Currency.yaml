@@ -1,0 +1,9 @@
+description: List of all support currencies
+type: string
+enum:
+  - GHS
+  - KES
+  - NGN
+  - ZAR
+  - USD
+example: GHS

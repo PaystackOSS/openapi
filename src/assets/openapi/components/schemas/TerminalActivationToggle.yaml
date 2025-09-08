@@ -1,0 +1,10 @@
+type: object
+description: Model for activating and deactivating a debug Terminal
+required:
+  - serial_number
+properties:
+  serial_number:
+    description: Device Serial Number
+    type: string
+example:
+  serial_number: '1111150412230003899'

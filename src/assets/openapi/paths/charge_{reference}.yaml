@@ -1,0 +1,28 @@
+get:
+  tags:
+    - Charge
+  summary: Check pending charge
+  operationId: charge_check
+  description: |
+    When you get `pending` as a charge status or if there was an exception when calling any of the `/charge` endpoints, wait 10 seconds or more, then make a check to see if its status has changed. Don't call too early as you may get a lot more pending than you should.
+  parameters:
+    - name: reference
+      in: path
+      required: true
+      description: The reference of the ongoing transaction
+      schema:
+        type: string
+      example: "5bwib5v6anhe9xa"
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChargeCheckPendingResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

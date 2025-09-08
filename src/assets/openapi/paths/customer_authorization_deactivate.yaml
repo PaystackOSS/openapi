@@ -1,0 +1,25 @@
+post:
+  tags:
+    - Customer
+  summary: Deactivate Authorization
+  operationId: customer_deactivateAuthorization
+  description: Deactivate an authorization for any payment channel.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CustomerDeactivateAuthorization.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/CustomerDeactivateAuthorization.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CustomerDeactivateAuthorizationResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

@@ -1,0 +1,5 @@
+description: Miscellaneous List Banks response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/MiscellaneousListBanksResponse.yaml

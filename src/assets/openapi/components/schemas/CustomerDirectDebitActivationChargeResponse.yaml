@@ -1,0 +1,11 @@
+type: object
+properties:
+  status:
+    type: boolean
+    example: true
+  message:
+    type: string
+    example: Mandate is queued for retry
+required:
+  - status
+  - message

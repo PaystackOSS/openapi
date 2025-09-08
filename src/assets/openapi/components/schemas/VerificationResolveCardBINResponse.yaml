@@ -1,0 +1,41 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      bin:
+        type: string
+      brand:
+        type: string
+      sub_brand:
+        type: string
+      country_code:
+        type: string
+      country_name:
+        type: string
+      card_type:
+        type: string
+      bank:
+        type: string
+      currency:
+        type: string
+      linked_bank_id:
+        type: integer
+    required:
+      - bin
+      - brand
+      - sub_brand
+      - country_code
+      - country_name
+      - card_type
+      - bank
+      - currency
+      - linked_bank_id
+required:
+  - status
+  - message
+  - data

@@ -1,0 +1,5 @@
+description: Balance Check response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/BalanceCheckResponse.yaml

@@ -1,0 +1,13 @@
+type: object
+properties:
+  targets:
+    type: array
+    description: Array of destination targets to unassign
+    items:
+      type: string
+required:
+  - targets
+example:
+  targets:
+    - '+2548012345678'
+    - '+2548098765432'

@@ -1,0 +1,11 @@
+type: object
+description: The USSD code for the provider to charge
+properties:
+  type:
+    description: The three-digit USSD code.
+    type: string
+    enum:
+      - '737'
+      - '919'
+      - '822'
+      - '966'

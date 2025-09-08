@@ -1,0 +1,25 @@
+post:
+  tags:
+    - Customer
+  summary: Set Risk Action
+  description: Set customer's risk action by whitelisting or blacklisting the customer
+  operationId: customer_riskAction
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CustomerRiskAction.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/CustomerRiskAction.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CustomerWhitelistBlacklistResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

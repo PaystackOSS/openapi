@@ -3,19 +3,24 @@
   "version": "1.0.0",
   "description": "The OpenAPI specification for the Paystack API",
   "author": "Damilola Odujoko",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "build": "pnpm build-main && pnpm build-wallet && pnpm build-membership && pnpm build-marketplace && pnpm build-betting && pnpm build-lending && pnpm build-savings",
-    "build-main": "swagger-cli bundle main/paystack.yaml --outfile dist/paystack.yaml --type yaml",
-    "build-wallet": "swagger-cli bundle use_cases/wallet.yaml --outfile dist/wallet.yaml --type yaml",
-    "build-membership": "swagger-cli bundle use_cases/membership.yaml --outfile dist/membership.yaml --type yaml",
-    "build-marketplace": "swagger-cli bundle use_cases/marketplace.yaml --outfile dist/marketplace.yaml --type yaml",
-    "build-betting": "swagger-cli bundle use_cases/betting.yaml --outfile dist/betting.yaml --type yaml",
-    "build-lending": "swagger-cli bundle use_cases/lending.yaml --outfile dist/lending.yaml --type yaml",
-    "build-savings": "swagger-cli bundle use_cases/savings.yaml --outfile dist/savings.yaml --type yaml",
-    "lint": "pnpm lint-main && pnpm lint-sdk",
-    "lint-main": "spectral lint dist/paystack.yaml",
-    "lint-sdk": "spectral lint ./sdk/paystack.yaml"
+    "bundle": "pnpm bundle:main && pnpm bundle:usecases",
+    "bundle:betting": "redocly bundle ./src/assets/use_cases/betting.yaml --output dist/betting.yaml",
+    "bundle:lending": "redocly bundle ./src/assets/use_cases/lending.yaml --output dist/lending.yaml",
+    "bundle:marketplace": "redocly bundle ./src/assets/use_cases/marketplace.yaml --output dist/marketplace.yaml",
+    "bundle:membership": "redocly bundle ./src/assets/use_cases/membership.yaml --output dist/membership.yaml",
+    "bundle:savings": "redocly bundle ./src/assets/use_cases/savings.yaml --output dist/savings.yaml",
+    "bundle:wallet": "redocly bundle ./src/assets/use_cases/wallet.yaml --output dist/wallet.yaml",
+    "bundle:main": "redocly bundle ./src/assets/openapi/openapi.yaml --output dist/paystack.yaml --remove-unused-components",
+    "bundle:usecases": "pnpm bundle:wallet && pnpm bundle:membership && pnpm bundle:marketplace && pnpm bundle:betting && pnpm bundle:lending && pnpm bundle:savings",
+    "dev": "pnpm bundle && pnpm start",
+    "lint": "pnpm lint:main && pnpm lint:sdk",
+    "lint:main": "spectral lint dist/paystack.yaml",
+    "lint:sdk": "spectral lint ./sdk/paystack.yaml",
+    "split": "redocly split ./src/assets/base/paystack.yaml --outDir=./src/assets/openapi",
+    "start": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,9 +36,12 @@
   },
   "homepage": "https://github.com/PaystackOSS/openapi#readme",
   "devDependencies": {
-    "@apidevtools/swagger-cli": "^4.0.4",
     "@quobix/vacuum": "^0.10.1",
-    "@redocly/cli": "^1.22.1",
-    "@stoplight/spectral-cli": "^6.5.1"
+    "@redocly/cli": "^2.0.5",
+    "@stoplight/spectral-cli": "^6.15.0",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "open": "^10.2.0",
+    "yaml": "^2.8.1"
   }
 }

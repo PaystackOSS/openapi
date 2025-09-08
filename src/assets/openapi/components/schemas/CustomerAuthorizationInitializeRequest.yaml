@@ -1,0 +1,25 @@
+type: object
+required:
+  - email
+  - channel
+properties:
+  email:
+    type: string
+    description: Customer's email address
+    example: ravi@demo.com
+  channel:
+    type: string
+    description: direct_debit is the only supported option for now
+    enum:
+      - direct_debit
+    example: direct_debit
+  callback_url:
+    type: string
+    description: >-
+      Fully qualified url (e.g. https://example.com/) to redirect your customer
+      to
+    example: http://test.url.com
+  account:
+    $ref: ./CustomerAuthorizationInitializeAccount.yaml
+  address:
+    $ref: ./CustomerAuthorizationInitializeAddress.yaml

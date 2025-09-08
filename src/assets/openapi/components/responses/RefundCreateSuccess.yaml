@@ -1,0 +1,5 @@
+description: Refund Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/RefundCreateResponse.yaml

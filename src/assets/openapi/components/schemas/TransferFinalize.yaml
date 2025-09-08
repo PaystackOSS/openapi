@@ -1,0 +1,11 @@
+type: object
+required:
+  - transfer_code
+  - otp
+properties:
+  transfer_code:
+    description: The transfer code you want to finalize
+    type: string
+  otp:
+    description: OTP sent to business phone to verify transfer
+    type: string

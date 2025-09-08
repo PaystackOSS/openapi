@@ -1,0 +1,54 @@
+parameters:
+  - name: code
+    in: path
+    description: The subaccount code you want to fetch
+    required: true
+    schema:
+      type: string
+    example: "ACCT_6uujpqtzmnufzkw"
+get:
+  tags:
+    - Subaccount
+  summary: Fetch Subaccount
+  operationId: subaccount_fetch
+  description: Get details of a subaccount on your integration
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SubaccountFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Subaccount
+  summary: Update Subaccount
+  operationId: subaccount_update
+  description: Update a subaccount details on your integration
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SubaccountUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/SubaccountUpdate.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SubaccountUpdateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

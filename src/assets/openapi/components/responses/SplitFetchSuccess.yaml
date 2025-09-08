@@ -1,0 +1,5 @@
+description: Split Fetch response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SplitFetchResponse.yaml

@@ -1,0 +1,50 @@
+parameters:
+  - name: code
+    in: path
+    description: Code of the Virtual Terminal
+    required: true
+    schema:
+      type: string
+    example: "VT_MCK5292Z"
+put:
+  tags:
+    - Virtual Terminal
+  summary: Add Split Code to Virtual Terminal
+  description: Add Split Code to Virtual Terminal
+  operationId: virtualTerminal_addSplitCode
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalAddSplitCode.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalAddSplitCode.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalAddSplitCodeSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server Error
+delete:
+  tags:
+    - Virtual Terminal
+  summary: Remove Split Code from Virtual Terminal
+  description: Remove Split Code from Virtual Terminal
+  operationId: virtualTerminal_deleteSplitCode
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalDeleteSplitCode.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalDeleteSplitCode.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalDeleteSplitCodeSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server Error

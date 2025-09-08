@@ -1,0 +1,44 @@
+post:
+  tags:
+    - Dedicated Virtual Account
+  summary: Split Dedicated Account Transaction
+  operationId: dedicatedAccount_addSplit
+  description: Split a dedicated virtual account transaction with one or more accounts
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountSplit.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountSplit.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+delete:
+  tags:
+    - Dedicated Virtual Account
+  summary: Remove Split from Dedicated Account
+  operationId: dedicatedAccount_removeSplit
+  description: If you've previously set up split payment for transactions on a dedicated virtual account, you can remove it with this endpoint
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountRemoveSplit.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountRemoveSplit.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

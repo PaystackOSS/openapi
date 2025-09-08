@@ -1,0 +1,18 @@
+type: object
+required:
+  - account_number
+properties:
+  account_number:
+    description: Valid Dedicated virtual account
+    type: string
+  subaccount:
+    description: Subaccount code of the account you want to split the transaction with
+    type: string
+  split_code:
+    description: >-
+      Split code consisting of the lists of accounts you want to split the
+      transaction with
+    type: string
+example:
+  account_number: "0033322211"
+  split_code: "SPL_e7jnRLtzla"

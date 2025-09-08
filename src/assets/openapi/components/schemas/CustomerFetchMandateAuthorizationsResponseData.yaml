@@ -1,0 +1,63 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 164098
+  status:
+    type: string
+    example: active
+  mandate_id:
+    type: integer
+    example: 512003
+  authorization_id:
+    type: integer
+    example: 110049014
+  authorization_code:
+    type: string
+    example: AUTH_8Lol0pNt14
+  integration_id:
+    type: integer
+    example: 463433
+  account_number:
+    type: string
+    example: '0123456789'
+  bank_code:
+    type: string
+    example: "032"
+  bank_name:
+    type: string
+    nullable: true
+    example: null
+  customer:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 43975700
+      customer_code:
+        type: string
+        example: CUS_2eusy8uwe34s23fy
+      email:
+        type: string
+        example: customer@email.com
+      first_name:
+        type: string
+        example: Smith
+      last_name:
+        type: string
+        example: Bel
+  authorized_at:
+    type: string
+    format: date-time
+    example: '2024-09-27T10:57:53.824Z'
+required:
+  - id
+  - status
+  - mandate_id
+  - authorization_id
+  - authorization_code
+  - integration_id
+  - account_number
+  - bank_code
+  - customer
+  - authorized_at

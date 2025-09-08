@@ -1,0 +1,21 @@
+parameters:
+  - name: code
+    in: path
+    description: Code of the Virtual Terminal
+    required: true
+    schema:
+      type: string
+    example: "VT_MCK5292Z"
+put:
+  tags:
+    - Virtual Terminal
+  summary: Deactivate Virtual Terminal
+  operationId: virtualTerminal_deactivate
+  description: Deactivate a Virtual Terminal on your integration
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalDeactivateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

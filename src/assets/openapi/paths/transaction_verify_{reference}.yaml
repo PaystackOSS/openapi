@@ -1,0 +1,27 @@
+get:
+  tags:
+    - Transaction
+  summary: Verify Transaction
+  operationId: transaction_verify
+  description: Verify a previously initiated transaction using it's reference
+  parameters:
+    - name: reference
+      in: path
+      description: The transaction reference to verify
+      required: true
+      schema:
+        type: string
+      example: re4lyvq3s3
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/VerifyResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

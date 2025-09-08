@@ -1,0 +1,83 @@
+post:
+  tags:
+    - Split
+  summary: Create Split
+  operationId: split_create
+  description: Create a split configuration for transactions
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SplitCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/SplitCreate.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SplitCreateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Split
+  summary: List Splits
+  operationId: split_list
+  description: List the transaction splits available on your integration
+  parameters:
+    - in: query
+      name: subaccount_code
+      description: Filter by subaccount code
+      schema:
+        type: string
+      example: ACCT_dskvlw3y3dMukmt
+    - name: name
+      description: The name of the split
+      in: query
+      schema:
+        type: string
+    - name: active
+      description: The status of the split
+      in: query
+      schema:
+        type: boolean
+    - in: query
+      name: per_page
+      schema:
+        type: integer
+      description: The number of records to fetch per request
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The offset to retrieve data from
+    - in: query
+      name: from
+      description: The start date
+      schema:
+        type: string
+        format: date-time
+    - in: query
+      name: to
+      description: The end date
+      schema:
+        type: string
+        format: date-time
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SplitListResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

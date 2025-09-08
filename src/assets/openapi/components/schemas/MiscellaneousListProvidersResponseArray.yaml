@@ -1,0 +1,51 @@
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  slug:
+    type: string
+  code:
+    type: string
+  longcode:
+    type: string
+  gateway:
+    nullable: true
+  pay_with_bank:
+    type: boolean
+  supports_transfer:
+    type: boolean
+  available_for_direct_debit:
+    type: boolean
+  active:
+    type: boolean
+  country:
+    type: string
+  currency:
+    type: string
+  type:
+    type: string
+  is_deleted:
+    type: boolean
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+required:
+  - id
+  - name
+  - slug
+  - code
+  - longcode
+  - gateway
+  - pay_with_bank
+  - supports_transfer
+  - available_for_direct_debit
+  - active
+  - country
+  - currency
+  - type
+  - is_deleted
+  - createdAt
+  - updatedAt

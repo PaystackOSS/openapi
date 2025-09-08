@@ -1,0 +1,19 @@
+type: object
+properties:
+  status:
+    type: boolean
+    example: true
+  message:
+    type: string
+    example: Mandate authorizations retrieved successfully
+  data:
+    type: array
+    items:
+      $ref: ./DirectDebitMandateAuthorizationData.yaml
+  meta:
+    $ref: ./DirectDebitMandateAuthorizationMeta.yaml
+required:
+  - status
+  - message
+  - data
+  - meta

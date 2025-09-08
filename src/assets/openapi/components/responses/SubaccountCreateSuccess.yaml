@@ -1,0 +1,5 @@
+description: Subaccount Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SubaccountCreateResponse.yaml

@@ -1,8 +1,0 @@
-description: Request successful
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Initiailize Transaction:
-        $ref: '../../examples/transaction/initialize.yaml'

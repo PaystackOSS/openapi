@@ -1,0 +1,59 @@
+post:
+  tags:
+    - Product
+  summary: Create Product
+  operationId: product_create
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ProductCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/ProductCreate.yaml
+  responses:
+    '201':
+      $ref: ../components/responses/ProductCreateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Product
+  summary: List Products
+  operationId: product_list
+  parameters:
+    - name: perPage
+      in: query
+      schema:
+        type: integer
+    - name: page
+      in: query
+      schema:
+        type: integer
+    - name: active
+      in: query
+      schema:
+        type: boolean
+    - in: query
+      name: from
+      schema:
+        type: string
+        format: date-time
+      description: The start date
+    - in: query
+      name: to
+      schema:
+        type: string
+        format: date-time
+      description: The end date
+  responses:
+    '200':
+      $ref: ../components/responses/ProductListsSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

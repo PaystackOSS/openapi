@@ -1,0 +1,83 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      customer:
+        type: integer
+      plan:
+        type: integer
+      integration:
+        type: integer
+      domain:
+        type: string
+      start:
+        type: integer
+      status:
+        type: string
+      quantity:
+        type: integer
+      amount:
+        type: integer
+      authorization:
+        type: integer
+      invoice_limit:
+        type: integer
+      split_code:
+        nullable: true
+      subscription_code:
+        type: string
+      email_token:
+        type: string
+      id:
+        type: integer
+      cancelledAt:
+        nullable: true
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      cron_expression:
+        type: string
+      next_payment_date:
+        type: string
+      easy_cron_id:
+        type: string
+        nullable: true
+      open_invoice:
+        type: string
+        nullable: true
+      metadata:
+        type: object
+        nullable: true
+    required:
+      - customer
+      - plan
+      - integration
+      - domain
+      - start
+      - status
+      - quantity
+      - amount
+      - authorization
+      - invoice_limit
+      - split_code
+      - subscription_code
+      - email_token
+      - id
+      - cancelledAt
+      - createdAt
+      - updatedAt
+      - cron_expression
+      - next_payment_date
+      - easy_cron_id
+      - open_invoice
+      - metadata
+required:
+  - status
+  - message
+  - data

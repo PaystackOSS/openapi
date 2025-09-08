@@ -1,0 +1,57 @@
+post:
+  tags:
+    - Page
+  summary: Create Page
+  operationId: page_create
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PageCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/PageCreate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/PageCreateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Page
+  summary: List Pages
+  operationId: page_list
+  parameters:
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+      description: Number of records to fetch per page
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: The section to retrieve
+    - in: query
+      name: from
+      schema:
+        type: string
+        format: date-time
+      description: The start date
+    - in: query
+      name: to
+      schema:
+        type: string
+        format: date-time
+      description: The end date
+  responses:
+    '200':
+      $ref: ../components/responses/PageListSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

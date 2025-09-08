@@ -1,0 +1,33 @@
+post:
+  tags:
+    - Split
+  summary: Add Subaccount to Split
+  operationId: split_addSubaccount
+  description: Add a subaccount to a split configuration, or update the share of an existing subaccount
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SplitSubaccounts.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/SplitSubaccounts.yaml
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the split configuration to fetch
+      schema:
+        type: integer
+      example: 4896895
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SplitAddUpdateSubaccountResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

@@ -1,0 +1,37 @@
+type: object
+properties:
+  business_name:
+    description: Name of business for subaccount
+    type: string
+  settlement_bank:
+    description: >-
+      Bank code for the bank. You can get the list of Bank Codes by calling the
+      List Banks endpoint.
+    type: string
+  account_number:
+    description: Bank account number
+    type: string
+  active:
+    description: Activate or deactivate a subaccount
+    type: boolean
+  percentage_charge:
+    description: Customer's phone number
+    type: number
+    format: float
+  description:
+    description: A description for this subaccount
+    type: string
+  primary_contact_email:
+    description: A contact email for the subaccount
+    type: string
+  primary_contact_name:
+    description: The name of the contact person for this subaccount
+    type: string
+  primary_contact_phone:
+    description: A phone number to call for this subaccount
+    type: string
+  metadata:
+    description: Stringified JSON object of custom data
+    type: string
+example:
+  business_name: "Sandalwood"

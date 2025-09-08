@@ -1,0 +1,46 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      status:
+        type: string
+      display_text:
+        type: string
+      reference:
+        type: string
+      account_name:
+        type: string
+      account_number:
+        type: string
+      bank:
+        type: object
+        properties:
+          slug:
+            type: string
+          name:
+            type: string
+          id:
+            type: integer
+        required:
+          - slug
+          - name
+          - id
+      account_expires_at:
+        type: string
+    required:
+      - status
+      - display_text
+      - reference
+      - account_name
+      - account_number
+      - bank
+      - account_expires_at
+required:
+  - status
+  - message
+  - data

@@ -1,0 +1,12 @@
+type: object
+properties:
+  sender:
+    type: string
+  body:
+    type: string
+  createdAt:
+    type: string
+required:
+  - sender
+  - body
+  - createdAt

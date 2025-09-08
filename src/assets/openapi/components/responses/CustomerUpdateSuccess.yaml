@@ -1,0 +1,5 @@
+description: Customer Update response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CustomerUpdateResponse.yaml

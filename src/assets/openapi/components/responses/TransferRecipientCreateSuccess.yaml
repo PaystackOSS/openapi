@@ -1,0 +1,5 @@
+description: Transfer Recipient Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferRecipientCreateResponse.yaml

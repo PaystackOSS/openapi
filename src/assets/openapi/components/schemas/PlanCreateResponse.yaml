@@ -1,0 +1,62 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      currency:
+        type: string
+      name:
+        type: string
+      amount:
+        type: integer
+      interval:
+        type: string
+      integration:
+        type: integer
+      domain:
+        type: string
+      plan_code:
+        type: string
+      invoice_limit:
+        type: integer
+      send_invoices:
+        type: boolean
+      send_sms:
+        type: boolean
+      hosted_page:
+        type: boolean
+      migrate:
+        type: boolean
+      is_archived:
+        type: boolean
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - currency
+      - name
+      - amount
+      - interval
+      - integration
+      - domain
+      - plan_code
+      - invoice_limit
+      - send_invoices
+      - send_sms
+      - hosted_page
+      - migrate
+      - is_archived
+      - id
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

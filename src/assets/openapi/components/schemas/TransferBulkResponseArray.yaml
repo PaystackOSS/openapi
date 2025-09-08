@@ -1,0 +1,21 @@
+type: object
+properties:
+  reference:
+    type: string
+  recipient:
+    type: string
+  amount:
+    type: integer
+  transfer_code:
+    type: string
+  currency:
+    type: string
+  status:
+    type: string
+required:
+  - reference
+  - recipient
+  - amount
+  - transfer_code
+  - currency
+  - status

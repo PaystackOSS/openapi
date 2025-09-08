@@ -1,0 +1,20 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      amount:
+        type: integer
+      currency:
+        type: string
+    required:
+      - amount
+      - currency
+required:
+  - status
+  - message
+  - data

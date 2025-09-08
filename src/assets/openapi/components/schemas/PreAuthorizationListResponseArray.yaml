@@ -1,0 +1,70 @@
+type: object
+properties:
+  domain:
+    type: string
+  status:
+    type: string
+  reference:
+    type: string
+  amount:
+    type: integer
+  created_at:
+    type: string
+  transaction_id:
+    type: string
+    nullable: true
+  captured_at:
+    type: string
+    nullable: true
+  released_at:
+    type: string
+    nullable: true
+  currency:
+    type: string
+  fees:
+    type: integer
+  customer:
+    type: object
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      customer_code:
+        type: string
+      phone:
+        type: string
+      metadata:
+        type: object
+      risk_action:
+        type: string
+      international_format_phone:
+        type: string
+    required:
+      - id
+      - first_name
+      - last_name
+      - email
+      - customer_code
+      - phone
+      - metadata
+      - risk_action
+      - international_format_phone
+  id:
+    type: integer
+required:
+  - domain
+  - status
+  - reference
+  - amount
+  - created_at
+  - transaction_id
+  - captured_at
+  - released_at
+  - currency
+  - fees
+  - id

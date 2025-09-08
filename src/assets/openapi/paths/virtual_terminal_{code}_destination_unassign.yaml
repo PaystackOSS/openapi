@@ -1,0 +1,29 @@
+parameters:
+  - name: code
+    in: path
+    description: Code of the Virtual Terminal
+    required: true
+    schema:
+      type: string
+    example: "VT_MCK5292Z"
+post:
+  tags:
+    - Virtual Terminal
+  summary: Unassign Destination from Virtual Terminal
+  operationId: virtualTerminal_destinationUnassign
+  description: Unassign a destination (WhatsApp Number) from a Virtual Terminal on your integration
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalDestinationUnassign.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalDestinationUnassign.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalDestinationUnassignSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

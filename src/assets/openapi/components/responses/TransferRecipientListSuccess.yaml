@@ -1,0 +1,5 @@
+description: Transfer Recipient List response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferRecipientListResponse.yaml

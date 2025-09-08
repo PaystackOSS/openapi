@@ -1,0 +1,261 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      domain:
+        type: string
+      status:
+        type: string
+      reference:
+        type: string
+      receipt_number:
+        type: string
+        nullable: true
+      amount:
+        type: integer
+      message:
+        type: string
+        nullable: true
+      gateway_response:
+        type: string
+      paid_at:
+        type: string
+        nullable: true
+      created_at:
+        type: string
+      channel:
+        type: string
+      currency:
+        type: string
+      ip_address:
+        type: string
+      metadata:
+        anyOf:
+          - type: string
+          - type: object
+      log:
+        type: object
+        properties:
+          start_time:
+            type: integer
+          time_spent:
+            type: integer
+          attempts:
+            type: integer
+          errors:
+            type: integer
+          success:
+            type: boolean
+          mobile:
+            type: boolean
+          input:
+            type: array
+            items: {}
+          history:
+            type: array
+            items:
+              type: object
+              properties:
+                type:
+                  type: string
+                message:
+                  type: string
+                time:
+                  type: integer
+              required:
+                - type
+                - message
+                - time
+              additionalProperties: false
+        required:
+          - start_time
+          - time_spent
+          - attempts
+          - errors
+          - success
+          - mobile
+          - input
+          - history
+        nullable: true
+      fees:
+        type: integer
+        nullable: true
+      fees_split:
+        nullable: true
+      authorization:
+        type: object
+        properties:
+          authorization_code:
+            type: string
+          bin:
+            nullable: true
+          last4:
+            type: string
+          exp_month:
+            type: string
+          exp_year:
+            type: string
+          channel:
+            type: string
+          card_type:
+            type: string
+          bank:
+            type: string
+          country_code:
+            type: string
+          brand:
+            type: string
+          reusable:
+            type: boolean
+          signature:
+            type: string
+          account_name:
+            nullable: true
+          receiver_bank_account_number:
+            nullable: true
+          receiver_bank:
+            nullable: true
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+            nullable: true
+          last_name:
+            type: string
+            nullable: true
+          email:
+            type: string
+          customer_code:
+            type: string
+          phone:
+            type: string
+            nullable: true
+          metadata:
+            nullable: true
+          risk_action:
+            type: string
+          international_format_phone:
+            type: string
+            nullable: true
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - customer_code
+          - phone
+          - metadata
+          - risk_action
+          - international_format_phone
+      plan:
+        type: string
+        nullable: true
+      split:
+        type: object
+      order_id:
+        nullable: true
+      paidAt:
+        type: string
+        nullable: true
+      createdAt:
+        type: string
+      requested_amount:
+        type: integer
+      pos_transaction_data:
+        nullable: true
+      source:
+        nullable: true
+      fees_breakdown:
+        nullable: true
+      connect:
+        nullable: true
+      transaction_date:
+        type: string
+      plan_object:
+        type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          plan_code:
+            type: string
+          description:
+            nullable: true
+          amount:
+            type: integer
+          interval:
+            type: string
+          send_invoices:
+            type: boolean
+          send_sms:
+            type: boolean
+          currency:
+            type: string
+        oneOf:
+          - allOf:
+              - minProperties: 0
+              - {}
+          - allOf:
+              - not:
+                  minProperties: 0
+              - required:
+                  - id
+                  - name
+                  - plan_code
+                  - description
+                  - amount
+                  - interval
+                  - send_invoices
+                  - send_sms
+                  - currency
+                additionalProperties: false
+      subaccount:
+        type: object
+    required:
+      - id
+      - domain
+      - status
+      - reference
+      - receipt_number
+      - amount
+      - message
+      - gateway_response
+      - paid_at
+      - created_at
+      - channel
+      - currency
+      - ip_address
+      - metadata
+      - log
+      - fees
+      - fees_split
+      - authorization
+      - customer
+      - plan
+      - split
+      - order_id
+      - paidAt
+      - createdAt
+      - requested_amount
+      - pos_transaction_data
+      - source
+      - fees_breakdown
+      - connect
+      - transaction_date
+      - plan_object
+      - subaccount
+required:
+  - status
+  - message
+  - data

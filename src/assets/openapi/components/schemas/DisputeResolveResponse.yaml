@@ -1,0 +1,100 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      currency:
+        type: string
+      last4:
+        type: string
+      bin:
+        type: string
+      transaction_reference:
+        nullable: true
+      merchant_transaction_reference:
+        type: string
+      refund_amount:
+        type: integer
+      status:
+        type: string
+      domain:
+        type: string
+      resolution:
+        type: string
+      category:
+        type: string
+      note:
+        nullable: true
+      attachments:
+        type: string
+      id:
+        type: integer
+      integration:
+        type: integer
+      transaction:
+        type: integer
+      created_by:
+        type: integer
+      evidence:
+        type: integer
+      resolvedAt:
+        type: string
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      dueAt:
+        nullable: true
+      message:
+        type: object
+        properties:
+          dispute:
+            type: integer
+          sender:
+            type: string
+          body:
+            type: string
+          id:
+            type: integer
+          createdAt:
+            type: string
+          updatedAt:
+            type: string
+        required:
+          - dispute
+          - sender
+          - body
+          - id
+          - createdAt
+          - updatedAt
+    required:
+      - currency
+      - last4
+      - bin
+      - transaction_reference
+      - merchant_transaction_reference
+      - refund_amount
+      - status
+      - domain
+      - resolution
+      - category
+      - note
+      - attachments
+      - id
+      - integration
+      - transaction
+      - created_by
+      - evidence
+      - resolvedAt
+      - createdAt
+      - updatedAt
+      - dueAt
+      - message
+required:
+  - status
+  - message
+  - data

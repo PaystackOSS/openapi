@@ -1,0 +1,35 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: array
+    items:
+      $ref: ./BulkChargeFetchBulkBatchChargesResponseArray.yaml
+  meta:
+    type: object
+    properties:
+      perPage:
+        type: string
+      total:
+        type: integer
+      skipped:
+        type: integer
+      page:
+        type: integer
+      pageCount:
+        type: integer
+    required:
+      - perPage
+      - total
+      - skipped
+      - page
+      - pageCount
+    additionalProperties: false
+required:
+  - status
+  - message
+  - data
+  - meta

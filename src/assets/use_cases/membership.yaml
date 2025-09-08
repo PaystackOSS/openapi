@@ -1,0 +1,43 @@
+openapi: 3.0.1
+info:
+  title: Create a membership app
+  description: |
+    The OpenAPI specification for creating a membership application using the [Paystack API](https://paystack.com/docs/api/).
+    
+    ### Prerequisites
+
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+
+    When using the [Subscriptions API](https://paystack.com/docs/payments/subscriptions), Paystack automatically charges the customer at the due time.
+    This saves you the need to run scheduled tasks for every customer.
+    
+    
+    While with the [Charge Authorization API](https://paystack.com/docs/payments/recurring-charges), you send Paystack the charge details at the due time.
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+paths:
+  /plan:
+    $ref: ../openapi/paths/plan.yaml
+  /subscription:
+    $ref: ../openapi/paths/subscription.yaml
+  /transaction/initialize:
+    $ref: '../openapi/paths/transaction_initialize.yaml'
+  /transaction/charge_authorization:
+    $ref: '../openapi/paths/transaction_charge_authorization.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []

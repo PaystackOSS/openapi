@@ -1,0 +1,5 @@
+description: Terminal Decommission Device response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TerminalDecommissionDeviceResponse.yaml

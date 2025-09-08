@@ -1,0 +1,75 @@
+post:
+  tags:
+    - Plan
+  summary: Create Plan
+  operationId: plan_create
+  description: Create a plan for recurring payments
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PlanCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/PlanCreate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/PlanCreateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Plan
+  summary: List Plans
+  operationId: plan_list
+  description: List all recurring payment plans
+  parameters:
+    - in: query
+      name: perPage
+      description: Number of records to fetch per page
+      schema:
+        type: integer
+    - in: query
+      name: page
+      description: The section to retrieve
+      schema:
+        type: integer
+    - in: query
+      name: interval
+      description: Specify interval of the plan
+      schema:
+        type: string
+        enum:
+        - daily
+        - weekly
+        - monthly
+        - biannually
+        - annually
+    - in: query
+      name: amount
+      schema:
+        type: integer
+      description: The amount on the plans to retrieve
+    - in: query
+      name: from
+      schema:
+        type: string
+        format: date-time
+      description: The start date
+    - in: query
+      name: to
+      schema:
+        type: string
+        format: date-time
+      description: The end date
+  responses:
+    '200':
+      $ref: ../components/responses/PlanListSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

@@ -1,0 +1,25 @@
+post:
+  tags:
+    - Charge
+  summary: Submit Phone
+  operationId: charge_submitPhone
+  description: Submit phone number when requested
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ChargeSubmitPhone.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/ChargeSubmitPhone.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChargeSubmitPhoneResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

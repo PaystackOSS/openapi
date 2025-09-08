@@ -1,0 +1,14 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: array
+    items:
+      $ref: ./MiscellaneousListCountriesResponseArray.yaml
+required:
+  - status
+  - message
+  - data

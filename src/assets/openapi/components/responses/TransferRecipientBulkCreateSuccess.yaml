@@ -1,0 +1,5 @@
+description: Transfer Recipient Bulk Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferRecipientBulkCreateResponse.yaml

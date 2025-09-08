@@ -1,0 +1,66 @@
+get:
+  tags:
+    - Transaction
+  summary: Export Transactions
+  operationId: transaction_export
+  x-operationId: transaction_exportTransaction
+  description: Download transactions that occurred on your integration for a specific timeframe
+  parameters:
+    - in: query
+      name: from
+      description: The start date
+      schema:
+        type: string
+        format: date-time
+      example: '2024-06-01T00:00:01Z'
+    - in: query
+      name: to
+      description: The end date
+      schema:
+        type: string
+        format: date-time
+      example: '2024-06-30T13:36:54Z'
+    - in: query
+      name: status
+      description: Filter by the status of the transaction
+      schema:
+        type: string
+        enum:
+          - success
+          - failed
+          - abandoned
+          - reversed
+          - all
+      example: success
+    - in: query
+      name: customer
+      description: Filter by customer ID
+      schema:
+        type: number
+      example: 123172416
+    - in: query
+      name: subaccount_code
+      description: Filter by subaccount code
+      schema:
+        type: string
+      example: ACCT_dskvlw3y3dMukmt
+    - in: query
+      name: settlement
+      description: Filter by the settlement ID
+      schema:
+        type: integer
+        format: int64
+      example: 5687910
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransactionExportResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

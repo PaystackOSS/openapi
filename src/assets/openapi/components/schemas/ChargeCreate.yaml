@@ -1,0 +1,42 @@
+type: object
+required:
+  - email
+  - amount
+properties:
+  email:
+    description: Customer's email address
+    type: string
+  amount:
+    description: >-
+      Amount should be in kobo if currency is NGN, pesewas, if currency is GHS,
+      and cents, if currency is ZAR
+    type: integer
+  authorization_code:
+    description: An authorization code to charge.
+    type: string
+  pin:
+    description: 4-digit PIN (send with a non-reusable authorization code)
+    type: string
+  reference:
+    description: >-
+      Unique transaction reference. Only -, .`, = and alphanumeric characters
+      allowed.
+    type: string
+  birthday:
+    description: The customer's birthday in the format YYYY-MM-DD e.g 2017-05-16
+    type: string
+    format: date
+  device_id:
+    description: >-
+      This is the unique identifier of the device a user uses in making
+      payment. 
+
+      Only -, .`, = and alphanumeric characters are allowed.
+    type: string
+  metadata:
+    description: JSON object of custom data
+    type: object
+example:
+  email: "customer@email.com"
+  amount: 350000
+  authorization_code: "AUTH_df1l5ehnym"

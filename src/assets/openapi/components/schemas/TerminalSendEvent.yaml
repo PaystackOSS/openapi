@@ -1,0 +1,27 @@
+type: object
+properties:
+  type:
+    description: The type of event to push
+    type: string
+    enum:
+      - invoice
+      - transaction
+  action:
+    description: >
+      The action the Terminal needs to perform. For the invoice type, the action
+      can either be process or view. 
+
+      For the transaction type, the action can either be process or print.
+    type: string
+    enum:
+      - process
+      - view
+      - print
+  data:
+    $ref: ./TerminalSendEventData.yaml
+example:
+  type: invoice
+  action: process
+  data:
+    id: 7895939
+    reference: "4634337895939"

@@ -1,0 +1,59 @@
+post:
+  tags:
+    - Charge
+  summary: Create Charge
+  operationId: charge_create
+  description: Initiate a payment by integrating the payment channel of your choice.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../components/schemas/ChargeCreate.yaml
+            - type: object
+              properties:
+                bank:
+                  $ref: ../components/schemas/Bank.yaml
+            - type: object
+              properties:
+                mobile_money:
+                  $ref: ../components/schemas/MobileMoney.yaml
+            - type: object
+              properties:
+                ussd:
+                  $ref: ../components/schemas/USSD.yaml
+            - type: object
+              properties:
+                eft:
+                  $ref: ../components/schemas/EFT.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          allOf:
+            - $ref: ../components/schemas/ChargeCreate.yaml
+            - type: object
+              properties:
+                bank:
+                  $ref: ../components/schemas/Bank.yaml
+            - type: object
+              properties:
+                mobile_money:
+                  $ref: ../components/schemas/MobileMoney.yaml
+            - type: object
+              properties:
+                ussd:
+                  $ref: ../components/schemas/USSD.yaml
+            - type: object
+              properties:
+                eft:
+                  $ref: ../components/schemas/EFT.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChargeCreateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

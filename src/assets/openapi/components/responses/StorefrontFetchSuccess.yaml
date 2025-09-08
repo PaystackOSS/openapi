@@ -1,0 +1,5 @@
+description: Storefront Fetch response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/StorefrontFetchResponse.yaml

@@ -1,0 +1,86 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      business_name:
+        type: string
+      account_name:
+        type: string
+        nullable: true
+      description:
+        type: string
+      primary_contact_name:
+        type: string
+      primary_contact_email:
+        type: string
+      primary_contact_phone:
+        type: string
+      metadata:
+        type: string
+      account_number:
+        type: string
+      percentage_charge:
+        type: number
+      settlement_bank:
+        type: string
+      currency:
+        type: string
+      bank:
+        type: integer
+      integration:
+        type: integer
+      domain:
+        type: string
+      product:
+        type: string
+      managed_by_integration:
+        type: integer
+      subaccount_code:
+        type: string
+      is_verified:
+        type: boolean
+      settlement_schedule:
+        type: string
+      active:
+        type: boolean
+      migrate:
+        type: boolean
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - business_name
+      - description
+      - primary_contact_name
+      - primary_contact_email
+      - primary_contact_phone
+      - metadata
+      - account_number
+      - percentage_charge
+      - settlement_bank
+      - currency
+      - bank
+      - integration
+      - domain
+      - managed_by_integration
+      - product
+      - subaccount_code
+      - is_verified
+      - settlement_schedule
+      - active
+      - migrate
+      - id
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

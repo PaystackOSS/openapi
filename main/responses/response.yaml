@@ -1,8 +1,0 @@
-type: object
-properties:
-  status:
-    type:  boolean
-  message:
-    type: string
-  data:
-    type: object

@@ -1,0 +1,122 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+      integration:
+        type: integer
+      domain:
+        type: string
+      amount:
+        type: integer
+      currency:
+        type: string
+      due_date:
+        type: string
+        nullable: true
+      has_invoice:
+        type: boolean
+      invoice_number:
+        type: integer
+        nullable: true
+      description:
+        nullable: true
+      pdf_url:
+        type: string
+        nullable: true
+      line_items:
+        type: array
+        items: {}
+      tax:
+        type: array
+        items: {}
+      request_code:
+        type: string
+      status:
+        type: string
+      paid:
+        type: boolean
+      paid_at:
+        nullable: true
+      metadata:
+        nullable: true
+      notifications:
+        type: array
+        items:
+          $ref: ./PaymentRequestNotificationsArray.yaml
+      offline_reference:
+        type: string
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          customer_code:
+            type: string
+          phone:
+            type: string
+          metadata:
+            type: object
+            properties:
+              calling_code:
+                type: string
+          risk_action:
+            type: string
+          international_format_phone:
+            type: string
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - customer_code
+          - phone
+          - metadata
+          - risk_action
+          - international_format_phone
+      created_at:
+        type: string
+      discount:
+        nullable: true
+      split_code:
+        nullable: true
+    required:
+      - id
+      - integration
+      - domain
+      - amount
+      - currency
+      - due_date
+      - has_invoice
+      - invoice_number
+      - description
+      - pdf_url
+      - line_items
+      - tax
+      - request_code
+      - status
+      - paid
+      - paid_at
+      - metadata
+      - notifications
+      - offline_reference
+      - customer
+      - created_at
+      - discount
+      - split_code
+required:
+  - status
+  - message
+  - data

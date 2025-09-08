@@ -1,0 +1,12 @@
+type: object
+properties:
+  amount:
+    type: string
+  formula:
+    nullable: true
+  type:
+    type: string
+required:
+  - amount
+  - formula
+  - type

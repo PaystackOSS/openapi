@@ -1,0 +1,29 @@
+parameters:
+  - name: code
+    description: The code for the charge whose batches you want to retrieve
+    in: path
+    required: true
+    schema:
+      type: string
+    example: "BCH_180tl7oq7cayggh"
+get:
+  tags:
+    - Bulk Charge
+  summary: Fetch Bulk Charge Batch
+  operationId: bulkCharge_fetch
+  description: | 
+    This endpoint retrieves a specific batch code. It also returns useful information on its progress by 
+    way of the `total_charges` and `pending_charges` attributes.
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BulkChargeFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

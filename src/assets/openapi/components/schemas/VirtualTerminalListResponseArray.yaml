@@ -1,0 +1,31 @@
+type: object
+properties:
+  id:
+    type: integer
+  code:
+    type: string
+  name:
+    type: string
+  integration:
+    type: integer
+  domain:
+    type: string
+  paymentMethods:
+    type: array
+    items: {}
+  active:
+    type: boolean
+  created_at:
+    type: string
+  currency:
+    type: string
+required:
+  - id
+  - code
+  - name
+  - integration
+  - domain
+  - paymentMethods
+  - active
+  - created_at
+  - currency

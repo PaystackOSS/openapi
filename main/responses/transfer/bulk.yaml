@@ -1,7 +1,0 @@
-description: Request successful
-content:
-  application/json:
-    schema:
-      $ref: '../bulk-response.yaml'
-    example:
-      $ref: '../../examples/transfer/bulk.yaml'

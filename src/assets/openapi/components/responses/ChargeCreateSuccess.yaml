@@ -1,0 +1,5 @@
+description: Charge Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ChargeCreateResponse.yaml

@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Charge
+  summary: Submit Address
+  operationId: charge_submitAddress
+  description: Send the details of the customer's address for address verification
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ChargeSubmitAddress.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/ChargeSubmitAddress.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

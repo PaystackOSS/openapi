@@ -1,0 +1,187 @@
+type: object
+properties:
+  id:
+    type: integer
+  active_for_dashboard_onboarding:
+    type: boolean
+  name:
+    type: string
+  iso_code:
+    type: string
+  default_currency_code:
+    type: string
+  integration_defaults:
+    type: object
+  calling_code:
+    type: string
+  pilot_mode:
+    type: boolean
+  relationships:
+    type: object
+    properties:
+      currency:
+        type: object
+        properties:
+          type:
+            type: string
+          data:
+            type: array
+            items:
+              type: string
+          supported_currencies:
+            type: object
+            properties:
+              NGN:
+                type: object
+                properties:
+                  bank:
+                    type: object
+                    properties:
+                      bank_type:
+                        type: string
+                      branch_code:
+                        type: boolean
+                      branch_code_type:
+                        type: string
+                      account_name:
+                        type: boolean
+                      account_verification_required:
+                        type: boolean
+                      account_number_label:
+                        type: string
+                      account_number_pattern:
+                        type: object
+                        properties:
+                          exact_match:
+                            type: boolean
+                          pattern:
+                            type: string
+                        required:
+                          - exact_match
+                          - pattern
+                      documents:
+                        type: array
+                        items: {}
+                      show_account_number_tooltip:
+                        type: boolean
+                    required:
+                      - bank_type
+                      - branch_code
+                      - branch_code_type
+                      - account_name
+                      - account_verification_required
+                      - account_number_label
+                      - account_number_pattern
+                      - documents
+                      - show_account_number_tooltip
+                required:
+                  - bank
+              USD:
+                type: object
+                properties:
+                  bank:
+                    type: object
+                    properties:
+                      bank_type:
+                        type: string
+                      required_fields:
+                        type: array
+                        items:
+                          type: string
+                      branch_code:
+                        type: boolean
+                      branch_code_type:
+                        type: string
+                      account_name:
+                        type: boolean
+                      account_verification_required:
+                        type: boolean
+                      account_number_label:
+                        type: string
+                      account_number_pattern:
+                        type: object
+                        properties:
+                          exact_match:
+                            type: boolean
+                          pattern:
+                            type: string
+                        required:
+                          - exact_match
+                          - pattern
+                      documents:
+                        type: array
+                        items: {}
+                      notices:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                      - bank_type
+                      - required_fields
+                      - branch_code
+                      - branch_code_type
+                      - account_name
+                      - account_verification_required
+                      - account_number_label
+                      - account_number_pattern
+                      - documents
+                      - notices
+                required:
+                  - bank
+            required:
+              - NGN
+              - USD
+        required:
+          - type
+          - data
+          - supported_currencies
+      integration_feature:
+        type: object
+        properties:
+          type:
+            type: string
+          data:
+            type: array
+            items: {}
+        required:
+          - type
+          - data
+      integration_type:
+        type: object
+        properties:
+          type:
+            type: string
+          data:
+            type: array
+            items:
+              type: string
+        required:
+          - type
+          - data
+      payment_method:
+        type: object
+        properties:
+          type:
+            type: string
+          data:
+            type: array
+            items:
+              type: string
+        required:
+          - type
+          - data
+    required:
+      - currency
+      - integration_feature
+      - integration_type
+      - payment_method
+required:
+  - id
+  - active_for_dashboard_onboarding
+  - name
+  - iso_code
+  - default_currency_code
+  - integration_defaults
+  - calling_code
+  - pilot_mode
+  - relationships

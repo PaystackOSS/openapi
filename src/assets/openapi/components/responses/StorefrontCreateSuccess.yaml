@@ -1,0 +1,5 @@
+description: Storefront Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/StorefrontCreateResponse.yaml

@@ -1,0 +1,39 @@
+parameters:
+  - name: code
+    in: path
+    description: Code of the Virtual Terminal
+    required: true
+    schema:
+      type: string
+    example: "VT_MCK5292Z"
+get:
+  tags:
+    - Virtual Terminal
+  summary: Fetch Virtual Terminal
+  description: Fetch a Virtual Terminal on your integration
+  operationId: virtualTerminal_fetch
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalFetchSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Virtual Terminal
+  summary: Update Virtual Terminal
+  description: Update a Virtual Terminal on your integration
+  operationId: virtualTerminal_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/VirtualTerminalUpdate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/VirtualTerminalUpdateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

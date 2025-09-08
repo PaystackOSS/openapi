@@ -1,0 +1,14 @@
+type: object
+required:
+  - pin
+  - reference
+properties:
+  pin:
+    description: Customer's PIN for the ongoing transaction
+    type: string
+  reference:
+    description: Transaction reference that requires the PIN
+    type: string
+example:
+  pin: "1234"
+  reference: "5bwib5v6anhe9xa"

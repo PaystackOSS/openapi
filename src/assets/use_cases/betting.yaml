@@ -1,0 +1,43 @@
+openapi: 3.0.1
+info:
+  title: Create a betting platform
+  description: |
+    The OpenAPI specification for creating a betting platform using the [Paystack API](https://paystack.com/docs/api/).
+    
+    ### Prerequisites
+    
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+    
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+    
+    We strongly recommend using the [Bulk Transfer API](https://paystack.com/docs/transfers/bulk-transfers) for sending customers their winnings instead of using Single Transfers.
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+paths:
+  /transaction/initialize:
+    $ref: '../openapi/paths/transaction_initialize.yaml'
+  /transaction/charge_authorization:
+    $ref: '../openapi/paths/transaction_charge_authorization.yaml'
+  /transaction/verify/{reference}:
+    $ref: '../openapi/paths/transaction_verify_{reference}.yaml'
+  /bank/resolve:
+    $ref: '../openapi/paths/bank_resolve.yaml'
+  /transferrecipient:
+    $ref: '../openapi/paths/transferrecipient.yaml'
+  /transfer/bulk:
+    $ref: '../openapi/paths/transfer_bulk.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret key in the format sk_domain_xxxxxx
+security:
+  - bearerAuth: []

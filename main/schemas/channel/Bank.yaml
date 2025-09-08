@@ -1,8 +1,0 @@
-type: object
-properties:
-  code:
-    description: Customer's bank code
-    type: string
-  account_number:
-    description: Customer's account number
-    type: string

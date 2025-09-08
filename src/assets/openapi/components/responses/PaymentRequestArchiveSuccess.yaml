@@ -1,0 +1,5 @@
+description: Payment Request Archive response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PaymentRequestArchiveResponse.yaml

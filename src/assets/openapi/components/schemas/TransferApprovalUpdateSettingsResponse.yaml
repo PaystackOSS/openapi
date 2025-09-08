@@ -1,0 +1,41 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      on_for_test_mode:
+        type: boolean
+      on_for_live_mode:
+        type: boolean
+      on_when_otp_is_on:
+        type: boolean
+      on_for_dashboard_initiated_transfers:
+        type: boolean
+      automatically_blacklist_rejected_recipients:
+        type: boolean
+      test_approval_url:
+        type: string
+      live_approval_url:
+        type: string
+      test_contact_email:
+        type: string
+      live_contact_email:
+        type: string
+    required:
+      - on_for_test_mode
+      - on_for_live_mode
+      - on_when_otp_is_on
+      - on_for_dashboard_initiated_transfers
+      - automatically_blacklist_rejected_recipients
+      - test_approval_url
+      - live_approval_url
+      - test_contact_email
+      - live_contact_email
+required:
+  - status
+  - message
+  - data

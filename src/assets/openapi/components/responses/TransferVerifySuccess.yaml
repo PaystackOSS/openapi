@@ -1,0 +1,5 @@
+description: Transfer Verify response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TransferVerifyResponse.yaml

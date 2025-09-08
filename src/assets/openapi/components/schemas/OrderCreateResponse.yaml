@@ -1,0 +1,143 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      discounts:
+        type: array
+        items: {}
+      currency:
+        type: string
+      shipping_address:
+        nullable: true
+      integration:
+        type: integer
+      domain:
+        type: string
+      email:
+        type: string
+      customer:
+        type: integer
+      amount:
+        type: integer
+      pay_for_me:
+        type: boolean
+      shipping:
+        type: object
+        properties:
+          customer:
+            type: integer
+          integration:
+            type: integer
+          domain:
+            type: string
+          fees:
+            type: integer
+          delivery_note:
+            nullable: true
+          street_line:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          country:
+            type: string
+          is_shipped:
+            type: boolean
+          delivery_tracking_link:
+            nullable: true
+          id:
+            type: integer
+          createdAt:
+            type: string
+          updatedAt:
+            type: string
+        required:
+          - customer
+          - integration
+          - domain
+          - fees
+          - delivery_note
+          - street_line
+          - city
+          - state
+          - country
+          - is_shipped
+          - delivery_tracking_link
+          - id
+          - createdAt
+          - updatedAt
+        nullable: true
+      shipping_fees:
+        type: integer
+      shipping_method:
+        type: object
+        properties:
+          region:
+            type: string
+          fee:
+            type: integer
+          currency:
+            type: string
+        required:
+          - region
+          - fee
+          - currency
+      metadata:
+        type: object
+      order_code:
+        type: string
+      status:
+        type: string
+      refunded:
+        type: boolean
+      is_viewed:
+        type: boolean
+      expiration_date:
+        nullable: true
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      items:
+        type: array
+        items: {}
+      pay_for_me_code:
+        type: string
+      discount_amount:
+        type: integer
+    required:
+      - discounts
+      - currency
+      - shipping_address
+      - integration
+      - domain
+      - email
+      - customer
+      - amount
+      - pay_for_me
+      - shipping
+      - shipping_fees
+      - metadata
+      - order_code
+      - status
+      - refunded
+      - is_viewed
+      - expiration_date
+      - id
+      - createdAt
+      - updatedAt
+      - items
+      - pay_for_me_code
+      - discount_amount
+required:
+  - status
+  - message
+  - data

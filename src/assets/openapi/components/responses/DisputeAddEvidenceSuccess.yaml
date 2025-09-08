@@ -1,0 +1,5 @@
+description: Dispute Add Evidence response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/DisputeAddEvidenceResponse.yaml

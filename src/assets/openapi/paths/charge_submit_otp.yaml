@@ -1,0 +1,25 @@
+post:
+  tags:
+    - Charge
+  summary: Submit OTP
+  operationId: charge_submitOtp
+  description: Submit OTP to complete a charge
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ChargeSubmitOTP.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/ChargeSubmitOTP.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChargeSubmitOtpResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

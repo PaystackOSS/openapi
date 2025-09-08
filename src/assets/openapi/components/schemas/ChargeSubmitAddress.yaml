@@ -1,0 +1,29 @@
+type: object
+required:
+  - address
+  - reference
+  - city
+  - state
+  - zip_code
+properties:
+  address:
+    description: Customer's address
+    type: string
+  city:
+    description: Customer's city
+    type: string
+  state:
+    description: Customer's state
+    type: string
+  zip_code:
+    description: Customer's zipcode
+    type: string
+  reference:
+    description: The reference of the ongoing transaction
+    type: string
+example:
+  address: "140 N 2ND ST"
+  city: "Stroudsburg"
+  state: "PA"
+  zip_code: "18360"
+  reference: "5bwib5v6anhe9xa"

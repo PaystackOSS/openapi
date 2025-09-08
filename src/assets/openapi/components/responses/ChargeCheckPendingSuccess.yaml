@@ -1,0 +1,5 @@
+description: Charge Check Pending response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ChargeCheckPendingResponse.yaml

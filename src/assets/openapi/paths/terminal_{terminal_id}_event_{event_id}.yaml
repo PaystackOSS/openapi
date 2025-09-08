@@ -1,0 +1,30 @@
+get:
+  tags:
+    - Terminal
+  summary: Fetch Event Status
+  description: Check the status of an event sent to the Terminal
+  operationId: terminal_fetchEventStatus
+  parameters:
+    - name: terminal_id
+      in: path
+      required: true
+      description: The ID of the Terminal the event should be sent to.
+      schema:
+        type: string
+      example: Z0R4orOU
+    - name: event_id
+      in: path
+      required: true
+      description: The ID of the event that was sent to the Terminal
+      schema:
+        type: string
+      example: 616d721e8c5cd40a0cdd54a6
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

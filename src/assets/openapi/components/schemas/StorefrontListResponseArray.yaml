@@ -1,0 +1,40 @@
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  slug:
+    type: string
+  orders_count:
+    type: integer
+  status:
+    type: string
+  revenue:
+    nullable: true
+  currency:
+    type: string
+  products:
+    type: array
+    items: {}
+  contacts:
+    type: array
+    items: {}
+  social_media:
+    type: array
+    items: {}
+  shipping_fees:
+    type: array
+    items: {}
+required:
+  - id
+  - name
+  - slug
+  - orders_count
+  - status
+  - revenue
+  - currency
+  - products
+  - contacts
+  - social_media
+  - shipping_fees

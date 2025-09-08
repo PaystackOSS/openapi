@@ -1,0 +1,44 @@
+openapi: 3.0.1
+info:
+  title: Create a lending application
+  description: |
+    The OpenAPI specification for creating a marketplace application using the [Paystack API](https://paystack.com/docs/api/).
+    
+    ### Prerequisites
+
+    1. Sign up on [Paystack](https://paystack.com/signup) to get your secret API key
+
+    2. Set your API key as an environment variable on [Postman](https://learning.postman.com/docs/sending-requests/variables/)
+
+
+    The [Partial Debits](https://paystack.com/docs/payments/partial-debits) feature allows you to recover some revenue that would have otherwise been lost. It is currently available on request.
+  version: 1.0.0
+  contact:
+    email: devrel@paystack.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+  - url: https://api.paystack.co
+    description: Base API endpoint
+paths:
+  /transaction/initialize:
+    $ref: '../openapi/paths/transaction_initialize.yaml'
+  /transaction/charge_authorization:
+    $ref: '../openapi/paths/transaction_charge_authorization.yaml'
+  /transaction/partial_debit:
+    $ref: ../openapi/paths/transaction_partial_debit.yaml
+  /bank/resolve:
+    $ref: '../openapi/paths/bank_resolve.yaml'
+  /transferrecipient:
+    $ref: '../openapi/paths/transferrecipient.yaml'
+  /transfer:
+    $ref: ../openapi/paths/transfer.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret key in the format sk_domain_xxxxxx
+security:
+  - bearerAuth: []

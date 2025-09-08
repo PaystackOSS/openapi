@@ -1,0 +1,5 @@
+description: Subscription Disable response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SubscriptionDisableResponse.yaml

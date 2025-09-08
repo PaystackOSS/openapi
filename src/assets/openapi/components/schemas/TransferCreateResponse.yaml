@@ -1,0 +1,76 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      transfersessionid:
+        type: array
+        items: {}
+      transfertrials:
+        type: array
+        items: {}
+      domain:
+        type: string
+      amount:
+        type: integer
+      currency:
+        type: string
+      reference:
+        type: string
+      source:
+        type: string
+      source_details:
+        nullable: true
+      reason:
+        type: string
+      status:
+        type: string
+      failures:
+        nullable: true
+      transfer_code:
+        type: string
+      titan_code:
+        nullable: true
+      transferred_at:
+        nullable: true
+      id:
+        type: integer
+      integration:
+        type: integer
+      request:
+        type: integer
+      recipient:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - transfersessionid
+      - transfertrials
+      - domain
+      - amount
+      - currency
+      - reference
+      - source
+      - source_details
+      - reason
+      - status
+      - failures
+      - transfer_code
+      - titan_code
+      - transferred_at
+      - id
+      - integration
+      - request
+      - recipient
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

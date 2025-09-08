@@ -1,0 +1,79 @@
+description: Initialize a transaction
+type: object
+required:
+  - email
+  - amount
+properties:
+  email:
+    description: Customer's email address
+    type: string
+  amount:
+    description: >
+      Amount should be in smallest denomination of the currency.
+    type: integer
+  currency:
+    $ref: ./Currency.yaml
+  reference:
+    description: >-
+      Unique transaction reference. Only -, ., = and alphanumeric characters
+      allowed.
+    type: string
+  channels:
+    description: >-
+      An array of payment channels to control what channels you want to make
+      available to the user to make a payment with
+    type: array
+    items:
+      type: string
+      enum:
+        - card
+        - bank
+        - ussd
+        - qr
+        - eft
+        - mobile_money
+        - bank_transfer
+  callback_url:
+    description: >
+      Fully qualified url, e.g. https://example.com/ to redirect your customers
+      to after a successful payment. Use this to override the callback url
+      provided on the dashboard for this transaction
+    type: string
+  plan:
+    description: >
+      If transaction is to create a subscription to a predefined plan, provide
+      plan code here. 
+
+      This would invalidate the value provided in amount
+    type: string
+  invoice_limit:
+    description: Number of times to charge customer during subscription to plan
+    type: integer
+  split_code:
+    description: The split code of the transaction split
+    type: string
+  split:
+    $ref: ./SplitCreate.yaml
+  subaccount:
+    description: The code for the subaccount that owns the payment
+    type: string
+  transaction_charge:
+    description: |
+      A flat fee to charge the subaccount for a transaction. 
+      This overrides the split percentage set when the subaccount was created
+    type: string
+  bearer:
+    description: The bearer of the transaction charge
+    type: string
+    enum:
+      - account
+      - subaccount
+  label:
+    description: Used to replace the email address shown on the Checkout
+    type: string
+  metadata:
+    description: JSON object of custom data
+    type: object
+example:
+  email: test@demo.com
+  amount: 10000

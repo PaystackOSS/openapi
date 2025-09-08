@@ -1,0 +1,19 @@
+put:
+  tags:
+    - Direct Debit
+  summary: Trigger Activation Charge
+  description: Trigger activation charge for specified customers
+  operationId: directdebit_triggerActivationCharge
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DirectDebitActivationChargeRequest.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/DirectDebitActivationChargeSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

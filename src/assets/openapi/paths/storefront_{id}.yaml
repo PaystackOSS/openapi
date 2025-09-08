@@ -1,0 +1,56 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Storefront
+  summary: Fetch Storefront
+  operationId: storefront_fetch
+  responses:
+    '200':
+      $ref: ../components/responses/StorefrontFetchSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+put:
+  tags:
+    - Storefront
+  summary: Update Storefront
+  operationId: storefront_update
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/StorefrontUpdate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/StorefrontUpdate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/StorefrontUpdateSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+delete:
+  tags:
+    - Storefront
+  summary: Delete Storefront
+  operationId: storefront_delete
+  responses:
+    '200':
+      $ref: ../components/responses/StorefrontDeleteSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

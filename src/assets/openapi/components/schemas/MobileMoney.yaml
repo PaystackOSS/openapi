@@ -1,0 +1,11 @@
+type: object
+description: Details of the mobile service provider
+properties:
+  phone:
+    description: Customer's phone number
+    type: string
+  provider:
+    description: >-
+      The telco provider of customer's phone number. This can be fetched from
+      the List Bank endpoint
+    type: string

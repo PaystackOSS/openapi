@@ -1,0 +1,45 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: ID of dedicated virtual account
+    schema:
+      type: string
+get:
+  tags:
+    - Dedicated Virtual Account
+  summary: Fetch Dedicated Account
+  operationId: dedicatedAccount_fetch
+  description: Get details of a dedicated virtual account on your integration.
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DedicatedNubanFetchResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+delete:
+  tags:
+    - Dedicated Virtual Account
+  summary: Deactivate Dedicated Account
+  operationId: dedicatedAccount_deactivate
+  description: Deactivate a dedicated virtual account on your integration.
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DedicatedNubanDeactivateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

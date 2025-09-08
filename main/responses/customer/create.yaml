@@ -1,8 +1,0 @@
-description: Customer Created
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Create Customer:
-        $ref: '../../examples/customer/create.yaml'

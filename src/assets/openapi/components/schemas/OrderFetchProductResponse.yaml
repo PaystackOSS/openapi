@@ -1,0 +1,38 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: array
+    items:
+      $ref: ./OrderFetchProductResponseArray.yaml
+  meta:
+    type: object
+    properties:
+      quantity_sold:
+        type: integer
+      revenue:
+        type: integer
+      total:
+        type: integer
+      skipped:
+        type: integer
+      perPage:
+        type: integer
+      pageCount:
+        type: integer
+    required:
+      - quantity_sold
+      - revenue
+      - total
+      - skipped
+      - perPage
+      - pageCount
+    additionalProperties: false
+required:
+  - status
+  - message
+  - data
+  - meta

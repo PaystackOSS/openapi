@@ -1,0 +1,5 @@
+description: Virtual Terminal Lists response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/VirtualTerminalListResponse.yaml

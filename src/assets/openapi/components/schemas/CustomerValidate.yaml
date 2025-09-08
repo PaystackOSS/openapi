@@ -1,0 +1,48 @@
+type: object
+required:
+  - first_name
+  - last_name
+  - type
+  - country
+  - bvn
+  - bank_code
+  - account_number
+properties:
+  first_name:
+    description: Customer's first name
+    type: string
+  middle_name:
+    description: Customer's middle name
+    type: string
+  last_name:
+    description: Customer's last name
+    type: string
+  type:
+    description: Predefined types of identification.
+    type: string
+    default: bank_account
+  value:
+    description: Customer's identification number.
+    type: string
+  country:
+    description: Two-letter country code of identification issuer
+    type: string
+  bvn:
+    description: Customer's Bank Verification Number
+    type: string
+  bank_code:
+    description: >-
+      You can get the list of bank codes by calling the List Banks endpoint
+      (https://api.paystack.co/bank).
+    type: string
+  account_number:
+    description: Customer's bank account number.
+    type: string
+example:
+  first_name: "Jabal"
+  last_name: "Cedar"
+  country: "NG"
+  type: "bank_account"
+  account_number: "0123456789"
+  bank_code: "007"
+  bvn: "20012345677"

@@ -1,0 +1,9 @@
+type: object
+properties:
+  sent_at:
+    type: string
+  channel:
+    type: string
+required:
+  - sent_at
+  - channel

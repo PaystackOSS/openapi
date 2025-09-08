@@ -1,0 +1,25 @@
+post:
+  tags:
+    - Transaction
+  summary: Partial Debit
+  operationId: transaction_partialDebit
+  description: Retrieve part of a payment from a customer
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TransactionPartialDebit.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TransactionPartialDebit.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TransactionPartialDebitResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

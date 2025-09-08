@@ -1,0 +1,22 @@
+type: object
+properties:
+  authorization_code:
+    type: string
+    example: AUTH_JV4T9Wawdj
+  channel:
+    type: string
+    example: direct_debit
+  bank:
+    type: string
+    example: Guaranty Trust Bank
+  active:
+    type: boolean
+    example: true
+  customer:
+    $ref: ./CustomerAuthorizationVerifyResponseCustomer.yaml
+required:
+  - authorization_code
+  - channel
+  - bank
+  - active
+  - customer

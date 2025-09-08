@@ -1,0 +1,143 @@
+type: object
+properties:
+  amount:
+    type: integer
+  createdAt:
+    type: string
+  currency:
+    type: string
+  domain:
+    type: string
+  failures:
+    nullable: true
+  id:
+    type: integer
+  integration:
+    type: integer
+  reason:
+    type: string
+  reference:
+    type: string
+  source:
+    type: string
+  source_details:
+    nullable: true
+  status:
+    type: string
+  titan_code:
+    nullable: true
+  transfer_code:
+    type: string
+  request:
+    type: integer
+  transferred_at:
+    nullable: true
+  updatedAt:
+    type: string
+  recipient:
+    type: object
+    properties:
+      active:
+        type: boolean
+      createdAt:
+        type: string
+      currency:
+        type: string
+      description:
+        type: string
+      domain:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      integration:
+        type: integer
+      metadata:
+        type: object
+        nullable: true
+      name:
+        type: string
+      recipient_code:
+        type: string
+      type:
+        type: string
+      updatedAt:
+        type: string
+      is_deleted:
+        type: boolean
+      isDeleted:
+        type: boolean
+      details:
+        type: object
+        properties:
+          authorization_code:
+            nullable: true
+          account_number:
+            type: string
+          account_name:
+            type: string
+            nullable: true
+          bank_code:
+            type: string
+          bank_name:
+            type: string
+        required:
+          - authorization_code
+          - account_number
+          - account_name
+          - bank_code
+          - bank_name
+    required:
+      - active
+      - createdAt
+      - currency
+      - description
+      - domain
+      - email
+      - id
+      - integration
+      - name
+      - recipient_code
+      - type
+      - updatedAt
+      - is_deleted
+      - isDeleted
+      - details
+  session:
+    type: object
+    properties:
+      provider:
+        nullable: true
+      id:
+        nullable: true
+    required:
+      - provider
+      - id
+  fee_charged:
+    type: integer
+  fees_breakdown:
+    type: integer
+    nullable: true
+required:
+  - amount
+  - createdAt
+  - currency
+  - domain
+  - failures
+  - id
+  - integration
+  - reason
+  - reference
+  - source
+  - source_details
+  - status
+  - titan_code
+  - request
+  - transfer_code
+  - transferred_at
+  - updatedAt
+  - recipient
+  - session
+  - fee_charged
+  - fees_breakdown

@@ -1,0 +1,85 @@
+post:
+  tags:
+    - Apple Pay
+  summary: Register Domain
+  description: |
+    Register a top-level domain or subdomain for your Apple Pay integration.
+
+    > This endpoint can only be called with one domain or subdomain at a time.
+  operationId: applePay_registerDomain
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ApplePayParam.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/ApplePayParam.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/ApplePayOkResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Apple Pay
+  summary: List Domains
+  description: Lists all registered domains on your integration. Returns an empty array if no domains have been added.
+  operationId: applePay_listDomain
+  parameters:
+    - name: use_cursor
+      in: query
+      description: A flag to indicate if cursor based pagination should be used
+      schema:
+        type: boolean
+      example: true
+    - name: next
+      in: query
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the next set of data
+      schema:
+        type: string
+    - name: previous
+      in: query
+      description: >
+        An alphanumeric value returned for every cursor based retrieval, used to
+        retrieve the previous set of data
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+delete:
+  tags:
+    - Apple Pay
+  summary: Unregister Domain
+  description: |
+    Unregister a top-level domain or subdomain previously used for your Apple
+    Pay integration.
+  operationId: applePay_unregisterDomain
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ApplePayParam.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/ApplePayParam.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

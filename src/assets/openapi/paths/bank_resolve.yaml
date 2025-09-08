@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Bank
+  summary: Resolve Account Number
+  operationId: bank_resolveAccountNumber
+  parameters:
+    - name: account_number
+      in: query
+      schema:
+        type: integer
+      example: 22728151
+    - name: bank_code
+      in: query
+      schema:
+        type: integer
+      example: 63
+  responses:
+    '200':
+      $ref: ../components/responses/VerificationResolveAccountNumberSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

@@ -1,0 +1,89 @@
+post:
+  tags:
+    - Dedicated Virtual Account
+  summary: Create Dedicated Account
+  operationId: dedicatedAccount_create
+  description: Create a dedicated virtual account for an existing customer
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountCreate.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/DedicatedVirtualAccountCreate.yaml
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DedicatedNubanCreateResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Dedicated Virtual Account
+  summary: List Dedicated Accounts
+  operationId: dedicatedAccount_list
+  description: List dedicated virtual accounts available on your integration.
+  parameters:
+    - name: active
+      in: query
+      description: Status of the dedicated virtual account
+      schema:
+        type: boolean
+      example: true
+    - name: customer
+      in: query
+      description: The customer's ID
+      schema:
+        type: integer
+      example: 297346561
+    - name: currency
+      in: query
+      description: The currency of the dedicated virtual account
+      schema:
+        type: string
+        enum: 
+          - NGN
+          - GHS
+    - name: provider_slug
+      in: query
+      description: The bank's slug in lowercase, without spaces
+      schema:
+        type: string
+      example: "titan-paystack"
+    - name: bank_id
+      in: query
+      description: The bank's ID
+      schema:
+        type: string
+      example: "035"
+    - name: perPage
+      in: query
+      description: The number of records to fetch per request
+      schema:
+        type: integer
+        default: 50
+    - name: page
+      in: query
+      description: The offset to retrieve data from
+      schema:
+        type: integer
+        default: 1
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DedicatedNubanListResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

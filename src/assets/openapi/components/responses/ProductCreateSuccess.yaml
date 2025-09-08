@@ -1,0 +1,5 @@
+description: Product Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ProductCreateResponse.yaml

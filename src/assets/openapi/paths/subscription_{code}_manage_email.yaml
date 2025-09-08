@@ -1,0 +1,18 @@
+post:
+  tags:
+    - Subscription
+  summary: Send Update Subscription Link
+  operationId: subscription_manageEmail
+  parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

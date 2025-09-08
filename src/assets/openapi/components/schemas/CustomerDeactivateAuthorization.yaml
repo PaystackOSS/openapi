@@ -1,0 +1,9 @@
+type: object
+required:
+  - authorization_code
+properties:
+  authorization_code:
+    description: Authorization code to be deactivated
+    type: string
+example: 
+  authorization_code: "AUTH_xxxIjkZVj5"

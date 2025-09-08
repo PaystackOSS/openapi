@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Terminal
+  summary: Commission Terminal
+  description: Activate your debug device by linking it to your integration
+  operationId: terminal_commission
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TerminalActivationToggle.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TerminalActivationToggle.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalCommissionDeviceSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

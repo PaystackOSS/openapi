@@ -1,0 +1,20 @@
+parameters:
+  - name: slug
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - Page
+  summary: Check Slug Availability
+  operationId: page_checkSlugAvailability
+  responses:
+    '200':
+      $ref: ../components/responses/PageCheckSlugAvailabilitySuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

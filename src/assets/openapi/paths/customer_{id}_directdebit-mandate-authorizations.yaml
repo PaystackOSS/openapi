@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Customer
+  summary: Fetch Mandate Authorizations
+  operationId: customer_fetchMandateAuthorizations
+  description: Get the list of direct debit mandates associated with a customer
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The customer ID for the authorizations to fetch
+      schema:
+        type: integer
+      example: 297346561
+  responses:
+    '200':
+      $ref: ../components/responses/CustomerFetchMandateAuthorizationsSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

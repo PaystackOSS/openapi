@@ -1,0 +1,119 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      variants_options:
+        type: array
+        items: {}
+      variants:
+        type: array
+        items: {}
+      name:
+        type: string
+      description:
+        type: string
+      currency:
+        type: string
+      price:
+        type: integer
+      quantity:
+        type: integer
+      type:
+        type: string
+      is_shippable:
+        type: boolean
+      unlimited:
+        type: boolean
+      files:
+        type: array
+        items: {}
+      shipping_fields:
+        type: object
+        properties:
+          delivery_note:
+            type: string
+          shipping_address:
+            type: string
+          shipping_fees:
+            type: array
+            items: {}
+        required:
+          - delivery_note
+          - shipping_address
+          - shipping_fees
+      integration:
+        type: integer
+      domain:
+        type: string
+      metadata:
+        type: object
+        properties:
+          background_color:
+            type: string
+        required:
+          - background_color
+      slug:
+        type: string
+      product_code:
+        type: string
+      quantity_sold:
+        type: integer
+      active:
+        type: boolean
+      deleted_at:
+        nullable: true
+      in_stock:
+        type: boolean
+      minimum_orderable:
+        type: integer
+      maximum_orderable:
+        type: integer
+        nullable: true
+      redirect_url:
+        type: string
+        nullable: true
+      low_stock_alert:
+        type: boolean
+      id:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+    required:
+      - variants_options
+      - variants
+      - name
+      - description
+      - currency
+      - price
+      - quantity
+      - type
+      - is_shippable
+      - unlimited
+      - files
+      - shipping_fields
+      - integration
+      - domain
+      - metadata
+      - slug
+      - product_code
+      - quantity_sold
+      - active
+      - deleted_at
+      - in_stock
+      - minimum_orderable
+      - maximum_orderable
+      - low_stock_alert
+      - id
+      - createdAt
+      - updatedAt
+required:
+  - status
+  - message
+  - data

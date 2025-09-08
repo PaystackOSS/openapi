@@ -1,0 +1,48 @@
+get:
+  tags:
+    - Transfer
+  summary: Export Transfers
+  operationId: transfer_exportTransfer
+  parameters:
+    - in: query
+      name: recipient
+      description: Export transfer by the recipient code
+      schema:
+        type: string
+    - in: query
+      name: status
+      description: Export transfer by status
+      schema:
+        type: string
+        default: pending
+        enum:
+          - pending
+          - success
+          - failed
+          - otp
+          - abandoned
+          - reversed
+          - blocked
+          - rejected
+          - received
+    - in: query
+      name: from
+      schema:
+        type: string
+        format: date-time
+      description: The start date
+    - in: query
+      name: to
+      schema:
+        type: string
+        format: date-time
+      description: The end date
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

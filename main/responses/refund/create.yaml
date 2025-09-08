@@ -1,8 +1,0 @@
-description: Request successful
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Create Refund:
-        $ref: '../../examples/refund/create.yaml'

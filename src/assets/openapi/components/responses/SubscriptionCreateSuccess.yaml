@@ -1,0 +1,5 @@
+description: Subscription Create response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SubscriptionCreateResponse.yaml

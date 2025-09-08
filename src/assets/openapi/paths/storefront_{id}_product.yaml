@@ -1,0 +1,42 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+post:
+  tags:
+    - Storefront
+  summary: Add Products to Storefront
+  operationId: storefront_addProducts
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/StorefrontAddProducts.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/StorefrontAddProducts.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error
+get:
+  tags:
+    - Storefront
+  summary: List Products in Storefront
+  operationId: storefront_listProducts
+  responses:
+    '200':
+      $ref: ../components/responses/Ok.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    default:
+      description: Server error

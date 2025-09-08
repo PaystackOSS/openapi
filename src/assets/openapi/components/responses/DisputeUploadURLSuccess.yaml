@@ -1,0 +1,5 @@
+description: Dispute Upload U R L response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/DisputeUploadURLResponse.yaml

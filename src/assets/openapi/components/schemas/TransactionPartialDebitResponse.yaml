@@ -1,0 +1,184 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      amount:
+        type: integer
+      currency:
+        type: string
+      transaction_date:
+        type: string
+      status:
+        type: string
+      reference:
+        type: string
+      domain:
+        type: string
+      metadata:
+        type: string
+      gateway_response:
+        type: string
+      message:
+        nullable: true
+      channel:
+        type: string
+      ip_address:
+        nullable: true
+      log:
+        type: object
+        properties:
+          start_time:
+            type: integer
+          time_spent:
+            type: integer
+          attempts:
+            type: integer
+          errors:
+            type: integer
+          success:
+            type: boolean
+          mobile:
+            type: boolean
+          input:
+            type: array
+            items: {}
+          history:
+            type: array
+            items:
+              type: object
+              properties:
+                type:
+                  type: string
+                message:
+                  type: string
+                time:
+                  type: integer
+              required:
+                - type
+                - message
+                - time
+        required:
+          - start_time
+          - time_spent
+          - attempts
+          - errors
+          - success
+          - mobile
+          - input
+          - history
+        nullable: true
+      fees:
+        type: integer
+      authorization:
+        type: object
+        properties:
+          authorization_code:
+            type: string
+          bin:
+            type: string
+          last4:
+            type: string
+          exp_month:
+            type: string
+          exp_year:
+            type: string
+          channel:
+            type: string
+          card_type:
+            type: string
+          bank:
+            type: string
+          country_code:
+            type: string
+          brand:
+            type: string
+          reusable:
+            type: boolean
+          signature:
+            type: string
+          account_name:
+            nullable: true
+        required:
+          - authorization_code
+          - bin
+          - last4
+          - exp_month
+          - exp_year
+          - channel
+          - card_type
+          - bank
+          - country_code
+          - brand
+          - reusable
+          - signature
+          - account_name
+      customer:
+        type: object
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+            nullable: true
+          last_name:
+            type: string
+            nullable: true
+          email:
+            type: string
+          customer_code:
+            type: string
+          phone:
+            type: string
+            nullable: true
+          metadata:
+            type: object
+            nullable: true
+          risk_action:
+            type: string
+          international_format_phone:
+            type: string
+            nullable: true
+        required:
+          - id
+          - first_name
+          - last_name
+          - email
+          - customer_code
+          - phone
+          - metadata
+          - risk_action
+          - international_format_phone
+      plan:
+        type: integer
+      requested_amount:
+        type: integer
+      id:
+        type: integer
+    required:
+      - amount
+      - currency
+      - transaction_date
+      - status
+      - reference
+      - domain
+      - gateway_response
+      - message
+      - channel
+      - ip_address
+      - log
+      - fees
+      - authorization
+      - customer
+      - metadata
+      - plan
+      - requested_amount
+      - id
+required:
+  - status
+  - message
+  - data

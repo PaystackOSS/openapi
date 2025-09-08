@@ -1,0 +1,29 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      pending:
+        type: array
+        items:
+          $ref: ./PaymentRequestPendingArray.yaml
+      successful:
+        type: array
+        items:
+          $ref: ./PaymentRequestSuccessfulArray.yaml
+      total:
+        type: array
+        items:
+          $ref: ./PaymentRequestTotalArray.yaml
+    required:
+      - pending
+      - successful
+      - total
+required:
+  - status
+  - message
+  - data

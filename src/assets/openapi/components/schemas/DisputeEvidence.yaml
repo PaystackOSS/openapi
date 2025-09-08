@@ -1,0 +1,26 @@
+type: object
+required:
+  - customer_email
+  - customer_name
+  - customer_phone
+  - service_details
+properties:
+  customer_email:
+    description: Customer email
+    type: string
+  customer_name:
+    description: Customer name
+    type: string
+  customer_phone:
+    description: Customer mobile number
+    type: string
+  service_details:
+    description: Details of service offered
+    type: string
+  delivery_address:
+    description: Delivery address
+    type: string
+  delivery_date:
+    description: ISO 8601 representation of delivery date (YYYY-MM-DD)
+    type: string
+    format: date-time

@@ -1,0 +1,37 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: array
+    items:
+      type: object
+      properties:
+        integration:
+          type: integer
+        target:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        id:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - integration
+        - target
+        - name
+        - type
+        - id
+        - createdAt
+        - updatedAt
+required:
+  - status
+  - message
+  - data

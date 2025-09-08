@@ -1,0 +1,5 @@
+description: Bulk Charge Initiate response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/BulkChargeInitiateResponse.yaml

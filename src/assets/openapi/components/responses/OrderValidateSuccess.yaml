@@ -1,0 +1,5 @@
+description: Order Validate response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/OrderValidateResponse.yaml

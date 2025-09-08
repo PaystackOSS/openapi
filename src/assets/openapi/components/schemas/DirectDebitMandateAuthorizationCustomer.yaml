@@ -1,0 +1,23 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 28958104
+  customer_code:
+    type: string
+    example: CUS_5kye9bc41uw15pb
+  email:
+    type: string
+    example: customer@email.com
+  first_name:
+    type: string
+    example: Booker
+  last_name:
+    type: string
+    example: Jones
+required:
+  - id
+  - customer_code
+  - email
+  - first_name
+  - last_name

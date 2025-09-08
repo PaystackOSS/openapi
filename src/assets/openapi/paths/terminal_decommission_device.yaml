@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Terminal
+  summary: Decommission Terminal
+  description: Unlink your debug device from your integration
+  operationId: terminal_decommission
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TerminalActivationToggle.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/TerminalActivationToggle.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/TerminalDecommissionDeviceSuccess.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    default:
+      description: Server error

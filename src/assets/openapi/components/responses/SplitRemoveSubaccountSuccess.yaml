@@ -1,0 +1,5 @@
+description: Split Remove Subaccount response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/SplitRemoveSubaccountResponse.yaml

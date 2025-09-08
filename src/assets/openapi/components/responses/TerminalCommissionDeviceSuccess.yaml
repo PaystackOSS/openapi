@@ -1,0 +1,5 @@
+description: Terminal Commission Device response
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/TerminalCommissionDeviceResponse.yaml

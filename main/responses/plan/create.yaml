@@ -1,8 +1,0 @@
-description: Create Plan
-content:
-  application/json:
-    schema:
-      $ref: '../response.yaml'
-    examples:
-      Create Plan:
-        $ref: '../../examples/plan/create.yaml'

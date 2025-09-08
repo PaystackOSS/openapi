@@ -1,0 +1,68 @@
+type: object
+properties:
+  status:
+    type: boolean
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      transactions:
+        type: array
+        items: {}
+      subscriptions:
+        type: array
+        items: {}
+      authorizations:
+        type: array
+        items: {}
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      metadata:
+        type: object
+      domain:
+        type: string
+      customer_code:
+        type: string
+      risk_action:
+        type: string
+      id:
+        type: integer
+      integration:
+        type: integer
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      identified:
+        type: boolean
+      identifications:
+        nullable: true
+    required:
+      - transactions
+      - subscriptions
+      - authorizations
+      - first_name
+      - last_name
+      - email
+      - phone
+      - metadata
+      - domain
+      - customer_code
+      - risk_action
+      - id
+      - integration
+      - createdAt
+      - updatedAt
+      - identified
+      - identifications
+required:
+  - status
+  - message
+  - data

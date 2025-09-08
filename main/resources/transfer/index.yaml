@@ -1,4 +1,0 @@
-post:
-  $ref: './initiate.yaml'
-get:
-  $ref: './list.yaml'

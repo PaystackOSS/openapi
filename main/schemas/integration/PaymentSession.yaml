@@ -1,7 +1,0 @@
-type: object
-required:
-  - timeout
-properties:
-  timeout:
-    description: Time in seconds before a transaction becomes invalid
-    type: string

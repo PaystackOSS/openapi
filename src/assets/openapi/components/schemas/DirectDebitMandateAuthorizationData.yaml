@@ -1,0 +1,47 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 112244
+  status:
+    type: string
+    example: active
+  mandate_id:
+    type: integer
+    example: 1560169
+  authorization_id:
+    type: integer
+    example: 1069309917
+  authorization_code:
+    type: string
+    example: AUTH_lEt8QgrSfW
+  integration_id:
+    type: integer
+    example: 463433
+  account_number:
+    type: string
+    example: '0123456789'
+  bank_code:
+    type: string
+    example: '058'
+  bank_name:
+    type: string
+    example: Guaranty Trust Bank
+  customer:
+    $ref: ./DirectDebitMandateAuthorizationCustomer.yaml
+  authorized_at:
+    type: string
+    format: date-time
+    example: '2025-06-23T12:47:10.632Z'
+required:
+  - id
+  - status
+  - mandate_id
+  - authorization_id
+  - authorization_code
+  - integration_id
+  - account_number
+  - bank_code
+  - bank_name
+  - customer
+  - authorized_at
