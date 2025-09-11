@@ -2611,7 +2611,7 @@ paths:
           name: plan
           description: Plan ID
           schema:
-            type: number
+            type: integer
           example: 2697466
         - in: query
           name: customer
