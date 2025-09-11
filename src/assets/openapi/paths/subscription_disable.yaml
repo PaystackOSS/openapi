@@ -2,6 +2,7 @@ post:
   tags:
     - Subscription
   summary: Disable Subscription
+  description: Disable a subscription on your integration
   operationId: subscription_disable
   requestBody:
     content:

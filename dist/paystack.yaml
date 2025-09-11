@@ -2549,6 +2549,7 @@ paths:
       tags:
         - Plan
       summary: Update Plan
+      description: Update a plan details on your integration
       operationId: plan_update
       requestBody:
         content:
@@ -2572,6 +2573,7 @@ paths:
       tags:
         - Subscription
       summary: Create Subscription
+      description: Create a subscription a customer
       operationId: subscription_create
       requestBody:
         content:
@@ -2592,6 +2594,7 @@ paths:
       tags:
         - Subscription
       summary: List Subscriptions
+      description: List all subscriptions available on your integration
       operationId: subscription_list
       parameters:
         - in: query
@@ -2606,9 +2609,10 @@ paths:
           description: The section to retrieve
         - in: query
           name: plan
-          schema:
-            type: string
           description: Plan ID
+          schema:
+            type: number
+          example: 2697466
         - in: query
           name: customer
           schema:
@@ -2640,12 +2644,15 @@ paths:
       - name: code
         in: path
         required: true
+        description: The subscription code for the subscription you want to fetch
         schema:
           type: string
+        example: SUB_5co81xgmwg78x3d
     get:
       tags:
         - Subscription
       summary: Fetch Subscription
+      description: Get details of a customer's subscription
       operationId: subscription_fetch
       responses:
         '200':
@@ -2661,6 +2668,7 @@ paths:
       tags:
         - Subscription
       summary: Disable Subscription
+      description: Disable a subscription on your integration
       operationId: subscription_disable
       requestBody:
         content:
@@ -2682,6 +2690,7 @@ paths:
       tags:
         - Subscription
       summary: Enable Subscription
+      description: Enable a subscription on your integration
       operationId: subscription_enable
       requestBody:
         content:
@@ -2703,13 +2712,16 @@ paths:
       tags:
         - Subscription
       summary: Generate Update Subscription Link
+      description: Generate a link for updating the card on a subscription
       operationId: subscription_manageLink
       parameters:
         - name: code
           in: path
           required: true
+          description: Subscription code
           schema:
             type: string
+          example: qlgwhpyq1ts9nsw
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -2722,13 +2734,16 @@ paths:
       tags:
         - Subscription
       summary: Send Update Subscription Link
+      description: Email a customer a link for updating the card on their subscription
       operationId: subscription_manageEmail
       parameters:
         - name: code
           in: path
           required: true
+          description: Subscription code
           schema:
             type: string
+          example: qlgwhpyq1ts9nsw
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -11097,6 +11112,9 @@ components:
           description: Set the date for the first debit. (ISO 8601 format) e.g. 2017-05-16T00:30:13+01:00
           type: string
           format: date-time
+      example:
+        customer: CUS_xnxdt6s1zg1f4nx
+        plan: PLN_gx2wn530m0i3w3m
     SubscriptionCreateResponse:
       type: object
       properties:
@@ -11376,6 +11394,9 @@ components:
         token:
           description: Email token
           type: string
+      example:
+        code: SUB_vsyqdmlzble3uii
+        token: d7gofp6yppn3qz7
     SubscriptionDisableResponse:
       type: object
       properties:
