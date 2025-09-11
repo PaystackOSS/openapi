@@ -2,6 +2,7 @@ post:
   tags:
     - Transfer Recipient
   summary: Create Transfer Recipient
+  description: Creates a new recipient. A duplicate account number will lead to the retrieval of the existing record.
   operationId: transferrecipient_create
   requestBody:
     content:
@@ -26,6 +27,7 @@ get:
   tags:
     - Transfer Recipient
   summary: List Transfer Recipients
+  description: List transfer recipients available on your integration
   operationId: transferrecipient_list
   parameters:
     - in: query

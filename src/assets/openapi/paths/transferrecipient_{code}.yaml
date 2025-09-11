@@ -5,14 +5,16 @@ parameters:
     required: true
     schema:
       type: string
+    example: RCP_5ap8rcimmcj8lbi
 get:
   tags:
     - Transfer Recipient
   summary: Fetch Transfer recipient
+  description: Fetch the details of a transfer recipient
   operationId: transferrecipient_fetch
   responses:
     '200':
-      description: ''
+      description: 'Successful response'
       content:
         application/json:
           schema:
@@ -26,7 +28,8 @@ get:
 put:
   tags:
     - Transfer Recipient
-  summary: Update Transfer recipient
+  summary: Update Transfer Recipient
+  description: Update the details of a transfer recipient
   operationId: transferrecipient_update
   requestBody:
     content:
@@ -38,7 +41,7 @@ put:
           $ref: ../components/schemas/TransferRecipientUpdate.yaml
   responses:
     '200':
-      description: ''
+      description: 'Successful response'
       content:
         application/json:
           schema:
@@ -53,10 +56,11 @@ delete:
   tags:
     - Transfer Recipient
   summary: Delete Transfer Recipient
+  description: Delete a transfer recipient (sets the transfer recipient to inactive)
   operationId: transferrecipient_delete
   responses:
     '200':
-      description: ''
+      description: 'Successful response'
       content:
         application/json:
           schema:
