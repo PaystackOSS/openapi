@@ -25,6 +25,7 @@ put:
   tags:
     - Plan
   summary: Update Plan
+  description: Update a plan details on your integration
   operationId: plan_update
   requestBody:
     content:

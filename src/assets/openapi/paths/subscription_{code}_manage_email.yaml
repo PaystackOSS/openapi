@@ -2,13 +2,16 @@ post:
   tags:
     - Subscription
   summary: Send Update Subscription Link
+  description: Email a customer a link for updating the card on their subscription
   operationId: subscription_manageEmail
   parameters:
     - name: code
       in: path
       required: true
+      description: Subscription code
       schema:
         type: string
+      example: "qlgwhpyq1ts9nsw"
   responses:
     '200':
       $ref: ../components/responses/Ok.yaml

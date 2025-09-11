@@ -9,3 +9,6 @@ properties:
   token:
     description: Email token
     type: string
+example: 
+  code: "SUB_vsyqdmlzble3uii"
+  token: "d7gofp6yppn3qz7"

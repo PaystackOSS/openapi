@@ -2,6 +2,7 @@ post:
   tags:
     - Subscription
   summary: Create Subscription
+  description: Create a subscription a customer
   operationId: subscription_create
   requestBody:
     content:
@@ -22,6 +23,7 @@ get:
   tags:
     - Subscription
   summary: List Subscriptions
+  description: List all subscriptions available on your integration
   operationId: subscription_list
   parameters:
     - in: query
@@ -36,9 +38,10 @@ get:
       description: The section to retrieve
     - in: query
       name: plan
-      schema:
-        type: string
       description: Plan ID
+      schema:
+        type: integer
+      example: 2697466
     - in: query
       name: customer
       schema:

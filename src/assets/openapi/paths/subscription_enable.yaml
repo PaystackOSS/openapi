@@ -2,6 +2,7 @@ post:
   tags:
     - Subscription
   summary: Enable Subscription
+  description: Enable a subscription on your integration
   operationId: subscription_enable
   requestBody:
     content:

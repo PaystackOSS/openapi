@@ -2,12 +2,15 @@ parameters:
   - name: code
     in: path
     required: true
+    description: The subscription code for the subscription you want to fetch
     schema:
       type: string
+    example: "SUB_5co81xgmwg78x3d"
 get:
   tags:
     - Subscription
   summary: Fetch Subscription
+  description: Get details of a customer's subscription
   operationId: subscription_fetch
   responses:
     '200':

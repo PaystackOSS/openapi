@@ -23,3 +23,6 @@ properties:
       2017-05-16T00:30:13+01:00
     type: string
     format: date-time
+example: 
+  customer: "CUS_xnxdt6s1zg1f4nx"
+  plan: "PLN_gx2wn530m0i3w3m"
