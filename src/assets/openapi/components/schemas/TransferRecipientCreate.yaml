@@ -7,10 +7,15 @@ required:
 properties:
   type:
     description: Recipient Type
-    default: nuban
     type: string
+    enum: 
+      - nuban
+      - ghipss
+      - mobile_money
+      - basa
+      - authorization
   name:
-    description: Recipient's name
+    description: The recipient's name according to their account registration.
     type: string
   account_number:
     description: Recipient's bank account number
@@ -32,3 +37,8 @@ properties:
   metadata:
     description: JSON object of custom data
     type: object
+example: 
+  type: nuban
+  name: Smith Taplo
+  account_number: '01000000010'
+  bank_code: '058'

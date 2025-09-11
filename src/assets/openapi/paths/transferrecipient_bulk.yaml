@@ -2,6 +2,8 @@ post:
   tags:
     - Transfer Recipient
   summary: Bulk Create Transfer Recipient
+  description: | 
+    Create multiple transfer recipients in batches. A duplicate account number will lead to the retrieval of the existing record.
   operationId: transferrecipient_bulk
   requestBody:
     content:
@@ -13,7 +15,7 @@ post:
           $ref: ../components/schemas/TransferRecipientBulk.yaml
   responses:
     '200':
-      description: ''
+      description: 'Sucessful response'
       content:
         application/json:
           schema:

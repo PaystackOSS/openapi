@@ -2756,6 +2756,7 @@ paths:
       tags:
         - Transfer Recipient
       summary: Create Transfer Recipient
+      description: Creates a new recipient. A duplicate account number will lead to the retrieval of the existing record.
       operationId: transferrecipient_create
       requestBody:
         content:
@@ -2780,6 +2781,7 @@ paths:
       tags:
         - Transfer Recipient
       summary: List Transfer Recipients
+      description: List transfer recipients available on your integration
       operationId: transferrecipient_list
       parameters:
         - in: query
@@ -2827,6 +2829,8 @@ paths:
       tags:
         - Transfer Recipient
       summary: Bulk Create Transfer Recipient
+      description: |
+        Create multiple transfer recipients in batches. A duplicate account number will lead to the retrieval of the existing record.
       operationId: transferrecipient_bulk
       requestBody:
         content:
@@ -2838,7 +2842,7 @@ paths:
               $ref: '#/components/schemas/TransferRecipientBulk'
       responses:
         '200':
-          description: ''
+          description: Sucessful response
           content:
             application/json:
               schema:
@@ -2855,14 +2859,16 @@ paths:
         required: true
         schema:
           type: string
+        example: RCP_5ap8rcimmcj8lbi
     get:
       tags:
         - Transfer Recipient
       summary: Fetch Transfer recipient
+      description: Fetch the details of a transfer recipient
       operationId: transferrecipient_fetch
       responses:
         '200':
-          description: ''
+          description: Successful response
           content:
             application/json:
               schema:
@@ -2876,7 +2882,8 @@ paths:
     put:
       tags:
         - Transfer Recipient
-      summary: Update Transfer recipient
+      summary: Update Transfer Recipient
+      description: Update the details of a transfer recipient
       operationId: transferrecipient_update
       requestBody:
         content:
@@ -2888,7 +2895,7 @@ paths:
               $ref: '#/components/schemas/TransferRecipientUpdate'
       responses:
         '200':
-          description: ''
+          description: Successful response
           content:
             application/json:
               schema:
@@ -2903,10 +2910,11 @@ paths:
       tags:
         - Transfer Recipient
       summary: Delete Transfer Recipient
+      description: Delete a transfer recipient (sets the transfer recipient to inactive)
       operationId: transferrecipient_delete
       responses:
         '200':
-          description: ''
+          description: Successful response
           content:
             application/json:
               schema:
@@ -11526,10 +11534,15 @@ components:
       properties:
         type:
           description: Recipient Type
-          default: nuban
           type: string
+          enum:
+            - nuban
+            - ghipss
+            - mobile_money
+            - basa
+            - authorization
         name:
-          description: Recipient's name
+          description: The recipient's name according to their account registration.
           type: string
         account_number:
           description: Recipient's bank account number
@@ -11549,6 +11562,11 @@ components:
         metadata:
           description: JSON object of custom data
           type: object
+      example:
+        type: nuban
+        name: Smith Taplo
+        account_number: '01000000010'
+        bank_code: '058'
     TransferRecipientCreateResponse:
       type: object
       properties:
