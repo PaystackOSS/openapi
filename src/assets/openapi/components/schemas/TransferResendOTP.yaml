@@ -12,4 +12,8 @@ properties:
     default: transfer
     enum:
       - disable_otp
+      - resend_otp
       - transfer
+example:
+  transfer_code: TRF_vsyqdmlzble3uii
+  reason: resend_otp

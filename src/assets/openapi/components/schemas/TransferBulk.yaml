@@ -4,8 +4,9 @@ required:
   - transfers
 properties:
   source:
-    description: Where should we transfer from? Only balance is allowed for now
+    description: The source of funds for the transfer.
     type: string
+    default: balance
   currency:
     description: Specify the currency of the transfer.
     type: string
@@ -20,3 +21,9 @@ properties:
     type: array
     items:
       $ref: ./TransferBase.yaml
+example:
+  source: balance
+  transfers:
+    - amount: 120000
+      recipient: RCP_gd9vgag7n5lr5ix
+      reference: acv_9ee55786-2323-4760-98e2-6380c9cb3f68

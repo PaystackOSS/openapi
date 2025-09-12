@@ -5,14 +5,16 @@ parameters:
     required: true
     schema:
       type: string
+    example: TRF_1ptvuv321ahaa7q
 get:
   tags:
     - Transfer
   summary: Fetch Transfer
+  description: Get details of a transfer on your integration
   operationId: transfer_fetch
   responses:
     '200':
-      description: ''
+      description: 'Succesful operation'
       content:
         application/json:
           schema:

@@ -2,6 +2,7 @@ post:
   tags:
     - Transfer
   summary: Finalize Transfer
+  description: Finalize an initiated transfer
   operationId: transfer_finalize
   requestBody:
     content:

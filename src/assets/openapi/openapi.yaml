@@ -84,6 +84,11 @@ tags:
     description: |
       A collection of endpoints for automating sending money to beneficiaries
     x-product-name: Transfers
+  - name: Balance
+    description: >
+      A collection of endpoints gaining insights into the amount on an
+      integration
+    x-product-name: Balance
   - name: Product
     description: |
       A collection of endpoints for creating and managing inventories
@@ -110,11 +115,6 @@ tags:
     description: |
       A collection of endpoints for gaining insights into payouts
     x-product-name: Settlements
-  - name: Balance
-    description: >
-      A collection of endpoints gaining insights into the amount on an
-      integration
-    x-product-name: Balance
   - name: Integration
     description: |
       A collection of endpoints for managing some settings on an integration
@@ -298,6 +298,10 @@ paths:
     $ref: paths/transfer_disable_otp_finalize.yaml
   /transfer/enable_otp:
     $ref: paths/transfer_enable_otp.yaml
+  /balance:
+    $ref: paths/balance.yaml
+  /balance/ledger:
+    $ref: paths/balance_ledger.yaml
   /product:
     $ref: paths/product.yaml
   /product/{id}:
@@ -350,10 +354,6 @@ paths:
     $ref: paths/settlement.yaml
   /settlement/{id}/transaction:
     $ref: paths/settlement_{id}_transaction.yaml
-  /balance:
-    $ref: paths/balance.yaml
-  /balance/ledger:
-    $ref: paths/balance_ledger.yaml
   /integration/payment_session_timeout:
     $ref: paths/integration_payment_session_timeout.yaml
   /refund:

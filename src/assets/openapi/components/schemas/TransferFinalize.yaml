@@ -9,3 +9,6 @@ properties:
   otp:
     description: OTP sent to business phone to verify transfer
     type: string
+example: 
+  transfer_code: TRF_vsyqdmlzble3uii
+  otp: "928783"

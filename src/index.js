@@ -5,7 +5,7 @@ import path from 'path'
 import open from 'open';
 
 const app = express()
-const port = 3031
+const port = 7070
 
 const __dirname = new URL('.', import.meta.url).pathname;
 const file = fs.readFileSync(path.join(__dirname, '../dist/paystack.yaml'), 'utf8')

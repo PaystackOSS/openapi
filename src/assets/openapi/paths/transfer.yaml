@@ -2,6 +2,7 @@ post:
   tags:
     - Transfer
   summary: Initiate Transfer
+  description: Send money to your customers
   operationId: transfer_initiate
   requestBody:
     content:
@@ -13,7 +14,7 @@ post:
           $ref: ../components/schemas/TransferInitiate.yaml
   responses:
     '200':
-      description: ''
+      description: 'Successful operation'
       content:
         application/json:
           schema:
@@ -26,6 +27,7 @@ get:
   tags:
     - Transfer
   summary: List Transfers
+  description: List the transfers made on your integration
   operationId: transfer_list
   parameters:
     - in: query
@@ -33,6 +35,7 @@ get:
       description: A flag to indicate if cursor based pagination should be used
       schema:
         type: boolean
+      example: true
     - in: query
       name: next
       description: >
