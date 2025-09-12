@@ -2,6 +2,7 @@ get:
   tags:
     - Transfer
   summary: Export Transfers
+  description: Export a list of transfers carried out on your integration
   operationId: transfer_exportTransfer
   parameters:
     - in: query
@@ -25,6 +26,7 @@ get:
           - blocked
           - rejected
           - received
+      example: success
     - in: query
       name: from
       schema:

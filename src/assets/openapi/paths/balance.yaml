@@ -3,7 +3,7 @@ get:
     - Balance
   summary: Fetch Balance
   operationId: balance_fetch
-  description: You can only transfer from what you have
+  description: Fetch the available balance on your integration
   responses:
     '200':
       description: ''

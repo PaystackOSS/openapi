@@ -22,3 +22,7 @@ properties:
   reason:
     description: The reason or narration for the transfer.
     type: string
+example: 
+  amount: 120000
+  recipient: RCP_gd9vgag7n5lr5ix
+  reference: acv_9ee55786-2323-4760-98e2-6380c9cb3f68

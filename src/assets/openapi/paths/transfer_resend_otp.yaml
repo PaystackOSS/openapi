@@ -2,6 +2,7 @@ post:
   tags:
     - Transfer
   summary: Resend OTP for Transfer
+  description: Generates and send a new OTP to customer in the event they are having trouble receiving one.
   operationId: transfer_resendOtp
   requestBody:
     content:

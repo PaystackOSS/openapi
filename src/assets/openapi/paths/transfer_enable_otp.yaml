@@ -2,10 +2,13 @@ post:
   tags:
     - Transfer
   summary: Enable OTP requirement for Transfers
+  description: | 
+    In the event that a customer wants to stop being able to complete transfers programmatically, this endpoint helps turn OTP requirement back on. 
+    No arguments required.
   operationId: transfer_enableOtp
   responses:
     '200':
-      description: ''
+      description: 'Successful response'
       content:
         application/json:
           schema:

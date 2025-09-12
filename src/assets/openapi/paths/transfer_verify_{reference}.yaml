@@ -2,13 +2,16 @@ get:
   tags:
     - Transfer
   summary: Verify Transfer
+  description: Verify the status of a transfer on your integration
   operationId: transfer_verify
   parameters:
     - name: reference
+      description: Transfer reference
       in: path
       required: true
       schema:
         type: string
+      example: acv_9ee55786-2323-4760-98e2-6380c9cb3f67
   responses:
     '200':
       description: ''

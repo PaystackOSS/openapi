@@ -2,6 +2,7 @@ get:
   tags:
     - Balance
   summary: Balance Ledger
+  description: Fetch all pay-ins and pay-outs that occured on your integration
   operationId: balance_ledger
   parameters:
     - in: query

@@ -2,6 +2,7 @@ post:
   tags:
     - Transfer
   summary: Finalize Disabling OTP for Transfers
+  description: Finalize the request to disable OTP on your transfers
   operationId: transfer_disableOtpFinalize
   requestBody:
     content:
@@ -13,7 +14,7 @@ post:
           $ref: ../components/schemas/TransferFinalizeDisableOTP.yaml
   responses:
     '200':
-      description: ''
+      description: 'Successful response'
       content:
         application/json:
           schema:

@@ -73,6 +73,10 @@ tags:
     description: |
       A collection of endpoints for automating sending money to beneficiaries
     x-product-name: Transfers
+  - name: Balance
+    description: |
+      A collection of endpoints gaining insights into the amount on an integration
+    x-product-name: Balance
   - name: Product
     description: |
       A collection of endpoints for creating and managing inventories
@@ -99,10 +103,6 @@ tags:
     description: |
       A collection of endpoints for gaining insights into payouts
     x-product-name: Settlements
-  - name: Balance
-    description: |
-      A collection of endpoints gaining insights into the amount on an integration
-    x-product-name: Balance
   - name: Integration
     description: |
       A collection of endpoints for managing some settings on an integration
@@ -2930,6 +2930,7 @@ paths:
       tags:
         - Transfer
       summary: Initiate Transfer
+      description: Send money to your customers
       operationId: transfer_initiate
       requestBody:
         content:
@@ -2941,7 +2942,7 @@ paths:
               $ref: '#/components/schemas/TransferInitiate'
       responses:
         '200':
-          description: ''
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -2954,6 +2955,7 @@ paths:
       tags:
         - Transfer
       summary: List Transfers
+      description: List the transfers made on your integration
       operationId: transfer_list
       parameters:
         - in: query
@@ -2961,6 +2963,7 @@ paths:
           description: A flag to indicate if cursor based pagination should be used
           schema:
             type: boolean
+          example: true
         - in: query
           name: next
           description: |
@@ -3034,6 +3037,7 @@ paths:
       tags:
         - Transfer
       summary: Finalize Transfer
+      description: Finalize an initiated transfer
       operationId: transfer_finalize
       requestBody:
         content:
@@ -3055,6 +3059,10 @@ paths:
       tags:
         - Transfer
       summary: Initiate Bulk Transfer
+      description: |
+        Batch multiple transfers in a single request.
+
+        You need to disable the Transfers OTP requirement to use this endpoint.
       operationId: transfer_bulk
       requestBody:
         content:
@@ -3083,14 +3091,16 @@ paths:
         required: true
         schema:
           type: string
+        example: TRF_1ptvuv321ahaa7q
     get:
       tags:
         - Transfer
       summary: Fetch Transfer
+      description: Get details of a transfer on your integration
       operationId: transfer_fetch
       responses:
         '200':
-          description: ''
+          description: Succesful operation
           content:
             application/json:
               schema:
@@ -3106,13 +3116,16 @@ paths:
       tags:
         - Transfer
       summary: Verify Transfer
+      description: Verify the status of a transfer on your integration
       operationId: transfer_verify
       parameters:
         - name: reference
+          description: Transfer reference
           in: path
           required: true
           schema:
             type: string
+          example: acv_9ee55786-2323-4760-98e2-6380c9cb3f67
       responses:
         '200':
           description: ''
@@ -3131,6 +3144,7 @@ paths:
       tags:
         - Transfer
       summary: Export Transfers
+      description: Export a list of transfers carried out on your integration
       operationId: transfer_exportTransfer
       parameters:
         - in: query
@@ -3154,6 +3168,7 @@ paths:
               - blocked
               - rejected
               - received
+          example: success
         - in: query
           name: from
           schema:
@@ -3180,6 +3195,7 @@ paths:
       tags:
         - Transfer
       summary: Resend OTP for Transfer
+      description: Generates and send a new OTP to customer in the event they are having trouble receiving one.
       operationId: transfer_resendOtp
       requestBody:
         content:
@@ -3205,10 +3221,13 @@ paths:
       tags:
         - Transfer
       summary: Disable OTP for Transfers
+      description: |
+        This is used in the event that you want to be able to complete transfers programmatically without use of OTPs. 
+        No arguments required. You will get an OTP to complete the request.
       operationId: transfer_disableOtp
       responses:
         '200':
-          description: ''
+          description: Successful response
           content:
             application/json:
               schema:
@@ -3222,6 +3241,7 @@ paths:
       tags:
         - Transfer
       summary: Finalize Disabling OTP for Transfers
+      description: Finalize the request to disable OTP on your transfers
       operationId: transfer_disableOtpFinalize
       requestBody:
         content:
@@ -3233,7 +3253,7 @@ paths:
               $ref: '#/components/schemas/TransferFinalizeDisableOTP'
       responses:
         '200':
-          description: ''
+          description: Successful response
           content:
             application/json:
               schema:
@@ -3247,16 +3267,82 @@ paths:
       tags:
         - Transfer
       summary: Enable OTP requirement for Transfers
+      description: |
+        In the event that a customer wants to stop being able to complete transfers programmatically, this endpoint helps turn OTP requirement back on. 
+        No arguments required.
       operationId: transfer_enableOtp
       responses:
         '200':
-          description: ''
+          description: Successful response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransferEnablesOtpResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /balance:
+    get:
+      tags:
+        - Balance
+      summary: Fetch Balance
+      operationId: balance_fetch
+      description: Fetch the available balance on your integration
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceCheckResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /balance/ledger:
+    get:
+      tags:
+        - Balance
+      summary: Balance Ledger
+      description: Fetch all pay-ins and pay-outs that occured on your integration
+      operationId: balance_ledger
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceFetchLedgerResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
         default:
           description: Server error
   /product:
@@ -4131,68 +4217,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Ok'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /balance:
-    get:
-      tags:
-        - Balance
-      summary: Fetch Balance
-      operationId: balance_fetch
-      description: You can only transfer from what you have
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BalanceCheckResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /balance/ledger:
-    get:
-      tags:
-        - Balance
-      summary: Balance Ledger
-      operationId: balance_ledger
-      parameters:
-        - in: query
-          name: perPage
-          schema:
-            type: integer
-          description: Number of records to fetch per page
-        - in: query
-          name: page
-          schema:
-            type: integer
-          description: The section to retrieve
-        - in: query
-          name: from
-          schema:
-            type: string
-            format: date-time
-          description: The start date
-        - in: query
-          name: to
-          schema:
-            type: string
-            format: date-time
-          description: The end date
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BalanceFetchLedgerResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -12033,6 +12057,10 @@ components:
         reason:
           description: The reason or narration for the transfer.
           type: string
+      example:
+        amount: 120000
+        recipient: RCP_gd9vgag7n5lr5ix
+        reference: acv_9ee55786-2323-4760-98e2-6380c9cb3f68
     TransferInitiate:
       description: Transfer initiation model
       allOf:
@@ -12040,12 +12068,9 @@ components:
         - type: object
           required:
             - source
-            - amount
-            - recipient
-            - reference
           properties:
             source:
-              description: The origin of the funds to send from
+              description: The source of funds to send from
               type: string
               default: balance
             currency:
@@ -12057,6 +12082,8 @@ components:
                 - ZAR
                 - KES
                 - GHS
+          example:
+            source: balance
     TransferCreateResponse:
       type: object
       properties:
@@ -12146,6 +12173,9 @@ components:
         otp:
           description: OTP sent to business phone to verify transfer
           type: string
+      example:
+        transfer_code: TRF_vsyqdmlzble3uii
+        otp: '928783'
     TransferBulk:
       type: object
       required:
@@ -12153,8 +12183,9 @@ components:
         - transfers
       properties:
         source:
-          description: Where should we transfer from? Only balance is allowed for now
+          description: The source of funds for the transfer.
           type: string
+          default: balance
         currency:
           description: Specify the currency of the transfer.
           type: string
@@ -12169,6 +12200,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TransferBase'
+      example:
+        source: balance
+        transfers:
+          - amount: 120000
+            recipient: RCP_gd9vgag7n5lr5ix
+            reference: acv_9ee55786-2323-4760-98e2-6380c9cb3f68
     TransferBulkResponseArray:
       type: object
       properties:
@@ -12540,7 +12577,11 @@ components:
           default: transfer
           enum:
             - disable_otp
+            - resend_otp
             - transfer
+      example:
+        transfer_code: TRF_vsyqdmlzble3uii
+        reason: resend_otp
     TransferResendsOtpResponse:
       type: object
       properties:
@@ -12569,6 +12610,8 @@ components:
         otp:
           description: OTP sent to business phone to verify disabling OTP requirement
           type: string
+      example:
+        otp: '928783'
     TransferFinalizeDisablesOtpResponse:
       type: object
       properties:
@@ -12589,6 +12632,104 @@ components:
       required:
         - status
         - message
+    BalanceCheckResponseArray:
+      type: object
+      properties:
+        currency:
+          type: string
+        balance:
+          type: integer
+      required:
+        - currency
+        - balance
+    BalanceCheckResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BalanceCheckResponseArray'
+      required:
+        - status
+        - message
+        - data
+    BalanceFetchLedgerResponseArray:
+      type: object
+      properties:
+        integration:
+          type: integer
+        domain:
+          type: string
+        balance:
+          type: integer
+        currency:
+          type: string
+        difference:
+          type: integer
+        reason:
+          type: string
+        model_responsible:
+          type: string
+        model_row:
+          type: integer
+        id:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - integration
+        - domain
+        - balance
+        - currency
+        - difference
+        - reason
+        - model_responsible
+        - model_row
+        - id
+        - createdAt
+        - updatedAt
+    BalanceFetchLedgerResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BalanceFetchLedgerResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              type: integer
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
     ProductListsResponseArray:
       type: object
       properties:
@@ -15846,104 +15987,6 @@ components:
       required:
         - status
         - message
-    BalanceCheckResponseArray:
-      type: object
-      properties:
-        currency:
-          type: string
-        balance:
-          type: integer
-      required:
-        - currency
-        - balance
-    BalanceCheckResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BalanceCheckResponseArray'
-      required:
-        - status
-        - message
-        - data
-    BalanceFetchLedgerResponseArray:
-      type: object
-      properties:
-        integration:
-          type: integer
-        domain:
-          type: string
-        balance:
-          type: integer
-        currency:
-          type: string
-        difference:
-          type: integer
-        reason:
-          type: string
-        model_responsible:
-          type: string
-        model_row:
-          type: integer
-        id:
-          type: integer
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      required:
-        - integration
-        - domain
-        - balance
-        - currency
-        - difference
-        - reason
-        - model_responsible
-        - model_row
-        - id
-        - createdAt
-        - updatedAt
-    BalanceFetchLedgerResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BalanceFetchLedgerResponseArray'
-        meta:
-          type: object
-          properties:
-            total:
-              type: integer
-            skipped:
-              type: integer
-            perPage:
-              type: integer
-            page:
-              type: integer
-            pageCount:
-              type: integer
-          required:
-            - total
-            - skipped
-            - perPage
-            - page
-            - pageCount
-          additionalProperties: false
-      required:
-        - status
-        - message
-        - data
-        - meta
     ControlPanelFetchPaymentSessionTimeoutResponse:
       type: object
       properties:

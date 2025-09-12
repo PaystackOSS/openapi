@@ -2,10 +2,13 @@ post:
   tags:
     - Transfer
   summary: Disable OTP for Transfers
+  description: | 
+    This is used in the event that you want to be able to complete transfers programmatically without use of OTPs. 
+    No arguments required. You will get an OTP to complete the request.
   operationId: transfer_disableOtp
   responses:
     '200':
-      description: ''
+      description: 'Successful response'
       content:
         application/json:
           schema:

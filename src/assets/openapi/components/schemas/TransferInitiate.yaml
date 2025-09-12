@@ -4,12 +4,9 @@ allOf:
   - type: object
     required:
       - source
-      - amount
-      - recipient
-      - reference
     properties:
       source:
-        description: The origin of the funds to send from
+        description: The source of funds to send from
         type: string
         default: balance
       currency:
@@ -21,3 +18,5 @@ allOf:
           - ZAR
           - KES
           - GHS
+    example:
+      source: balance

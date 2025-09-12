@@ -2,6 +2,10 @@ post:
   tags:
     - Transfer
   summary: Initiate Bulk Transfer
+  description: | 
+    Batch multiple transfers in a single request.
+
+    You need to disable the Transfers OTP requirement to use this endpoint.
   operationId: transfer_bulk
   requestBody:
     content:
