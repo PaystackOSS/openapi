@@ -1,13 +1,16 @@
 parameters:
   - name: id
+    description: The unique identifier of the product
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 2196244
 get:
   tags:
     - Product
   summary: Fetch Product
+  description: Fetch a previously created product 
   operationId: product_fetch
   responses:
     '200':
@@ -22,6 +25,7 @@ put:
   tags:
     - Product
   summary: Update product
+  description: Update a previously created product 
   operationId: product_update
   requestBody:
     content:
@@ -44,6 +48,7 @@ delete:
   tags:
     - Product
   summary: Delete Product
+  description: Delete a previously created product 
   operationId: product_delete
   responses:
     '200':

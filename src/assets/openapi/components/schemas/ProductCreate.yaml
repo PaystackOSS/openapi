@@ -34,3 +34,8 @@ properties:
   metadata:
     description: Stringified JSON object of custom data
     type: string
+example:
+  name: Cups
+  description: Environment friendly paper cups
+  price: 10000
+  currency: NGN

@@ -3350,6 +3350,7 @@ paths:
       tags:
         - Product
       summary: Create Product
+      description: Create a new product on your integration
       operationId: product_create
       requestBody:
         content:
@@ -3370,20 +3371,25 @@ paths:
       tags:
         - Product
       summary: List Products
+      description: List all previously created products
       operationId: product_list
       parameters:
         - name: perPage
+          description: Number of records to fetch per page
           in: query
           schema:
             type: integer
         - name: page
+          description: The section to retrieve
           in: query
           schema:
             type: integer
         - name: active
+          description: The state of the product
           in: query
           schema:
             type: boolean
+          example: true
         - in: query
           name: from
           schema:
@@ -3408,14 +3414,17 @@ paths:
   /product/{id}:
     parameters:
       - name: id
+        description: The unique identifier of the product
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 2196244
     get:
       tags:
         - Product
       summary: Fetch Product
+      description: Fetch a previously created product
       operationId: product_fetch
       responses:
         '200':
@@ -3430,6 +3439,7 @@ paths:
       tags:
         - Product
       summary: Update product
+      description: Update a previously created product
       operationId: product_update
       requestBody:
         content:
@@ -3452,6 +3462,7 @@ paths:
       tags:
         - Product
       summary: Delete Product
+      description: Delete a previously created product
       operationId: product_delete
       responses:
         '200':
@@ -12917,6 +12928,11 @@ components:
         metadata:
           description: Stringified JSON object of custom data
           type: string
+      example:
+        name: Cups
+        description: Environment friendly paper cups
+        price: 10000
+        currency: NGN
     ProductCreateResponse:
       type: object
       properties:
@@ -13202,6 +13218,11 @@ components:
         metadata:
           description: JSON object of custom data
           type: object
+      example:
+        name: Spoon
+        description: Environment friendly paper spoons
+        price: 5000
+        currency: NGN
     ProductUpdateResponse:
       type: object
       properties:
