@@ -2,6 +2,7 @@ post:
   tags:
     - Product
   summary: Create Product
+  description: Create a new product on your integration
   operationId: product_create
   requestBody:
     content:
@@ -22,20 +23,25 @@ get:
   tags:
     - Product
   summary: List Products
+  description: List all previously created products
   operationId: product_list
   parameters:
     - name: perPage
+      description: Number of records to fetch per page
       in: query
       schema:
         type: integer
     - name: page
+      description: The section to retrieve
       in: query
       schema:
         type: integer
     - name: active
+      description: The state of the product
       in: query
       schema:
         type: boolean
+      example: true
     - in: query
       name: from
       schema:

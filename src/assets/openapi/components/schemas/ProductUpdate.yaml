@@ -29,3 +29,8 @@ properties:
   metadata:
     description: JSON object of custom data
     type: object
+example:
+  name: Spoon
+  description: Environment friendly paper spoons
+  price: 5000
+  currency: NGN
