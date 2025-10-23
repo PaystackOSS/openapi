@@ -2,13 +2,16 @@ get:
   tags:
     - Miscellaneous
   summary: Resolve Card BIN
+  description: Get the details of a card BIN
   operationId: miscellaneous_resolveCardBin
   parameters:
     - name: bin
+      description: The card bank identification number
       in: path
       required: true
       schema:
-        type: string
+        type: integer
+      example: 539983
   responses:
     '200':
       $ref: ../components/responses/VerificationResolveCardBINSuccess.yaml

@@ -2,6 +2,7 @@ get:
   tags:
     - Miscellaneous
   summary: List Countries
+  description: List all supported countries on Paystack
   operationId: miscellaneous_listCountries
   responses:
     '200':
