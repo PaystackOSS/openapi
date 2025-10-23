@@ -1,13 +1,16 @@
 parameters:
   - name: id
+    description: The unique identifier of a previously created payment request
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 18823736
 get:
   tags:
     - Payment Request
   summary: Fetch Payment Request
+  description: Fetch a previously created payment request
   operationId: paymentRequest_fetch
   responses:
     '200':
@@ -22,6 +25,7 @@ put:
   tags:
     - Payment Request
   summary: Update Payment Request
+  description: Update a previously created payment request
   operationId: paymentRequest_update
   requestBody:
     content:

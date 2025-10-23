@@ -1,6 +1,7 @@
 type: object
 required:
   - customer
+  - amount
 properties:
   customer:
     description: Customer id or code
@@ -39,32 +40,25 @@ properties:
       Indicates whether Paystack sends an email notification to customer.
       Defaults to true
     type: boolean
-    items:
-      type: object
   draft:
     description: >-
       Indicate if request should be saved as draft. Defaults to false and
       overrides send_notification
     type: boolean
-    items:
-      type: object
   has_invoice:
     description: >-
       Set to true to create a draft invoice (adds an auto incrementing invoice
-      number if none is provided) 
-
-      even if there are no line_items or tax passed
+      number if none is provided) even if there are no line_items or tax passed
     type: boolean
-    items:
-      type: object
   invoice_number:
     description: >-
-      Numeric value of invoice. Invoice will start from 1 and auto increment
-      from there. This field is to help 
-
-      override whatever value Paystack decides. Auto increment for subsequent
-      invoices continue from this point.
+      Numeric value of invoice. Invoice will start from 1 and auto increment from there. 
+      This field is to help override whatever value Paystack decides. Auto increment for 
+      subsequent invoices continue from this point.
     type: integer
   split_code:
     description: The split code of the transaction split.
     type: string
+example:
+  customer: CUS_xqp6o5oja5cackf
+  amount: 10000
