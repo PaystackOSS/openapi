@@ -2,6 +2,7 @@ post:
   tags:
     - Payment Request
   summary: Create Payment Request
+  description: Create a new payment request by issuing an invoice to a customer
   operationId: paymentRequest_create
   requestBody:
     content:
@@ -22,6 +23,7 @@ get:
   tags:
     - Payment Request
   summary: List Payment Request
+  description: List all previously created payment requests to your customers
   operationId: paymentRequest_list
   parameters:
     - in: query
@@ -43,6 +45,12 @@ get:
       name: status
       schema:
         type: string
+        enum: 
+          - draft
+          - pending
+          - success
+          - failed
+      example: success
       description: Invoice status to filter
     - in: query
       name: currency

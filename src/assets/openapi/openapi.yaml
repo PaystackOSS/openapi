@@ -89,6 +89,11 @@ tags:
       A collection of endpoints gaining insights into the amount on an
       integration
     x-product-name: Balance
+  - name: Payment Request
+    description: |
+      A collection of endpoints for managing invoices for the payment of goods
+      and services
+    x-product-name: Payment Requests  
   - name: Product
     description: |
       A collection of endpoints for creating and managing inventories
@@ -106,11 +111,6 @@ tags:
       A collection of endpoints for creating and managing links for the
       collection of payment for products
     x-product-name: Payment Pages
-  - name: Payment Request
-    description: |
-      A collection of endpoints for managing invoices for the payment of goods
-      and services
-    x-product-name: Payment Requests
   - name: Settlement
     description: |
       A collection of endpoints for gaining insights into payouts
@@ -302,6 +302,20 @@ paths:
     $ref: paths/balance.yaml
   /balance/ledger:
     $ref: paths/balance_ledger.yaml
+  /paymentrequest:
+    $ref: paths/paymentrequest.yaml
+  /paymentrequest/{id}:
+    $ref: paths/paymentrequest_{id}.yaml
+  /paymentrequest/verify/{id}:
+    $ref: paths/paymentrequest_verify_{id}.yaml
+  /paymentrequest/notify/{id}:
+    $ref: paths/paymentrequest_notify_{id}.yaml
+  /paymentrequest/totals:
+    $ref: paths/paymentrequest_totals.yaml
+  /paymentrequest/finalize/{id}:
+    $ref: paths/paymentrequest_finalize_{id}.yaml
+  /paymentrequest/archive/{id}:
+    $ref: paths/paymentrequest_archive_{id}.yaml
   /product:
     $ref: paths/product.yaml
   /product/{id}:
@@ -336,20 +350,6 @@ paths:
     $ref: paths/page_check_slug_availability_{slug}.yaml
   /page/{id}/product:
     $ref: paths/page_{id}_product.yaml
-  /paymentrequest:
-    $ref: paths/paymentrequest.yaml
-  /paymentrequest/{id}:
-    $ref: paths/paymentrequest_{id}.yaml
-  /paymentrequest/verify/{id}:
-    $ref: paths/paymentrequest_verify_{id}.yaml
-  /paymentrequest/notify/{id}:
-    $ref: paths/paymentrequest_notify_{id}.yaml
-  /paymentrequest/totals:
-    $ref: paths/paymentrequest_totals.yaml
-  /paymentrequest/finalize/{id}:
-    $ref: paths/paymentrequest_finalize_{id}.yaml
-  /paymentrequest/archive/{id}:
-    $ref: paths/paymentrequest_archive_{id}.yaml
   /settlement:
     $ref: paths/settlement.yaml
   /settlement/{id}/transaction:

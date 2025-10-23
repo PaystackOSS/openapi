@@ -77,6 +77,11 @@ tags:
     description: |
       A collection of endpoints gaining insights into the amount on an integration
     x-product-name: Balance
+  - name: Payment Request
+    description: |
+      A collection of endpoints for managing invoices for the payment of goods
+      and services
+    x-product-name: Payment Requests
   - name: Product
     description: |
       A collection of endpoints for creating and managing inventories
@@ -94,11 +99,6 @@ tags:
       A collection of endpoints for creating and managing links for the
       collection of payment for products
     x-product-name: Payment Pages
-  - name: Payment Request
-    description: |
-      A collection of endpoints for managing invoices for the payment of goods
-      and services
-    x-product-name: Payment Requests
   - name: Settlement
     description: |
       A collection of endpoints for gaining insights into payouts
@@ -3345,6 +3345,242 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
+  /paymentrequest:
+    post:
+      tags:
+        - Payment Request
+      summary: Create Payment Request
+      description: Create a new payment request by issuing an invoice to a customer
+      operationId: paymentRequest_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestCreateSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+    get:
+      tags:
+        - Payment Request
+      summary: List Payment Request
+      description: List all previously created payment requests to your customers
+      operationId: paymentRequest_list
+      parameters:
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: Number of records to fetch per page
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The section to retrieve
+        - in: query
+          name: customer
+          schema:
+            type: string
+          description: Customer ID
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum:
+              - draft
+              - pending
+              - success
+              - failed
+          example: success
+          description: Invoice status to filter
+        - in: query
+          name: currency
+          schema:
+            type: string
+          description: If your integration supports more than one currency, choose the one to filter
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+          description: The start date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+          description: The end date
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestListSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /paymentrequest/{id}:
+    parameters:
+      - name: id
+        description: The unique identifier of a previously created payment request
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 18823736
+    get:
+      tags:
+        - Payment Request
+      summary: Fetch Payment Request
+      description: Fetch a previously created payment request
+      operationId: paymentRequest_fetch
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestListSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+    put:
+      tags:
+        - Payment Request
+      summary: Update Payment Request
+      description: Update a previously created payment request
+      operationId: paymentRequest_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestUpdateSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /paymentrequest/verify/{id}:
+    parameters:
+      - name: id
+        description: The unique identifier of a previously created payment request
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 18823736
+    get:
+      tags:
+        - Payment Request
+      summary: Verify Payment Request
+      description: Verify the status of a previously created payment request
+      operationId: paymentRequest_verify
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestVerifySuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /paymentrequest/notify/{id}:
+    parameters:
+      - name: id
+        description: The unique identifier of a previously created payment request
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 18823736
+    post:
+      tags:
+        - Payment Request
+      summary: Send Notification
+      description: Trigger an email reminder to a customer for a previously created payment request
+      operationId: paymentRequest_notify
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestSendNotificationSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /paymentrequest/totals:
+    get:
+      tags:
+        - Payment Request
+      summary: Payment Request Total
+      description: Get the metric of all pending and successful payment requests
+      operationId: paymentRequest_totals
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestTotalSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: Server error
+  /paymentrequest/finalize/{id}:
+    parameters:
+      - name: id
+        description: The unique identifier of a draft payment request
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 18823736
+    post:
+      tags:
+        - Payment Request
+      summary: Finalize Payment Request
+      description: Finalise the creation of a draft payment request for a customer
+      operationId: paymentRequest_finalize
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestFinalizeSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
+  /paymentrequest/archive/{id}:
+    parameters:
+      - name: id
+        description: The unique identifier of a previously created payment request
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 18823736
+    post:
+      tags:
+        - Payment Request
+      summary: Archive Payment Request
+      description: |
+        Archive a payment request to clean up your records. An archived payment request cannot be verified and will not 
+        be returned when listing all previously created payment requests.
+      operationId: paymentRequest_archive
+      responses:
+        '200':
+          $ref: '#/components/responses/PaymentRequestArchiveSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /product:
     post:
       tags:
@@ -3974,215 +4210,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/PageAddProductsSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /paymentrequest:
-    post:
-      tags:
-        - Payment Request
-      summary: Create Payment Request
-      operationId: paymentRequest_create
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PaymentRequestCreate'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PaymentRequestCreate'
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestCreateSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-    get:
-      tags:
-        - Payment Request
-      summary: List Payment Request
-      operationId: paymentRequest_list
-      parameters:
-        - in: query
-          name: perPage
-          schema:
-            type: integer
-          description: Number of records to fetch per page
-        - in: query
-          name: page
-          schema:
-            type: integer
-          description: The section to retrieve
-        - in: query
-          name: customer
-          schema:
-            type: string
-          description: Customer ID
-        - in: query
-          name: status
-          schema:
-            type: string
-          description: Invoice status to filter
-        - in: query
-          name: currency
-          schema:
-            type: string
-          description: If your integration supports more than one currency, choose the one to filter
-        - in: query
-          name: from
-          schema:
-            type: string
-            format: date-time
-          description: The start date
-        - in: query
-          name: to
-          schema:
-            type: string
-            format: date-time
-          description: The end date
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestListSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /paymentrequest/{id}:
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-    get:
-      tags:
-        - Payment Request
-      summary: Fetch Payment Request
-      operationId: paymentRequest_fetch
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestListSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-    put:
-      tags:
-        - Payment Request
-      summary: Update Payment Request
-      operationId: paymentRequest_update
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PaymentRequestUpdate'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PaymentRequestUpdate'
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestUpdateSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /paymentrequest/verify/{id}:
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-    get:
-      tags:
-        - Payment Request
-      summary: Verify Payment Request
-      operationId: paymentRequest_verify
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestVerifySuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /paymentrequest/notify/{id}:
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-    post:
-      tags:
-        - Payment Request
-      summary: Send Notification
-      operationId: paymentRequest_notify
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestSendNotificationSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /paymentrequest/totals:
-    get:
-      tags:
-        - Payment Request
-      summary: Payment Request Total
-      operationId: paymentRequest_totals
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestTotalSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        default:
-          description: Server error
-  /paymentrequest/finalize/{id}:
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-    post:
-      tags:
-        - Payment Request
-      summary: Finalize Payment Request
-      operationId: paymentRequest_finalize
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestFinalizeSuccess'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        default:
-          description: Server error
-  /paymentrequest/archive/{id}:
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-    post:
-      tags:
-        - Payment Request
-      summary: Archive Payment Request
-      operationId: paymentRequest_archive
-      responses:
-        '200':
-          $ref: '#/components/responses/PaymentRequestArchiveSuccess'
         '401':
           $ref: '#/components/responses/Unauthorized'
         default:
@@ -12741,6 +12768,858 @@ components:
         - message
         - data
         - meta
+    PaymentRequestLineItemsArray:
+      type: object
+      properties:
+        name:
+          type: string
+        amount:
+          type: integer
+        quantity:
+          type: integer
+      required:
+        - name
+        - amount
+        - quantity
+    PaymentRequestTaxArray:
+      type: object
+      properties:
+        name:
+          type: string
+        amount:
+          type: integer
+      required:
+        - name
+        - amount
+    PaymentRequestListResponseArray:
+      type: object
+      properties:
+        id:
+          type: integer
+        integration:
+          type: integer
+        domain:
+          type: string
+        amount:
+          type: integer
+        currency:
+          type: string
+        due_date:
+          type: string
+          nullable: true
+        has_invoice:
+          type: boolean
+        invoice_number:
+          type: integer
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        pdf_url:
+          type: string
+          nullable: true
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestLineItemsArray'
+        tax:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestTaxArray'
+        request_code:
+          type: string
+        status:
+          type: string
+        paid:
+          type: boolean
+        paid_at:
+          nullable: true
+        metadata:
+          nullable: true
+        notifications:
+          type: array
+          items: {}
+        offline_reference:
+          type: string
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            customer_code:
+              type: string
+            phone:
+              type: string
+            metadata:
+              type: object
+            risk_action:
+              type: string
+            international_format_phone:
+              type: string
+          required:
+            - id
+            - first_name
+            - last_name
+            - email
+            - customer_code
+            - phone
+            - metadata
+            - risk_action
+            - international_format_phone
+        created_at:
+          type: string
+        discount:
+          nullable: true
+        split_code:
+          type: string
+          nullable: true
+      required:
+        - id
+        - integration
+        - domain
+        - amount
+        - currency
+        - due_date
+        - has_invoice
+        - invoice_number
+        - description
+        - pdf_url
+        - line_items
+        - tax
+        - request_code
+        - status
+        - paid
+        - paid_at
+        - metadata
+        - notifications
+        - offline_reference
+        - customer
+        - created_at
+        - discount
+        - split_code
+    PaymentRequestListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestListResponseArray'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            skipped:
+              type: integer
+            perPage:
+              anyOf:
+                - type: integer
+                - type: string
+            page:
+              type: integer
+            pageCount:
+              type: integer
+          required:
+            - total
+            - skipped
+            - perPage
+            - page
+            - pageCount
+          additionalProperties: false
+      required:
+        - status
+        - message
+        - data
+        - meta
+    PaymentRequestCreate:
+      type: object
+      required:
+        - customer
+        - amount
+      properties:
+        customer:
+          description: Customer id or code
+          type: string
+        amount:
+          description: |-
+            Payment request amount. Only useful if line items and tax values are ignored. 
+            The endpoint will throw a friendly warning if neither is available.
+          type: integer
+        currency:
+          description: Specify the currency of the invoice. Allowed values are NGN, GHS, ZAR and USD. Defaults to NGN
+          type: string
+        due_date:
+          description: ISO 8601 representation of request due date
+          type: string
+          format: date-time
+        description:
+          description: A short description of the payment request
+          type: string
+        line_items:
+          description: Array of line items
+          type: array
+          items:
+            type: object
+        tax:
+          description: Array of taxes
+          type: array
+          items:
+            type: object
+        send_notification:
+          description: Indicates whether Paystack sends an email notification to customer. Defaults to true
+          type: boolean
+        draft:
+          description: Indicate if request should be saved as draft. Defaults to false and overrides send_notification
+          type: boolean
+        has_invoice:
+          description: Set to true to create a draft invoice (adds an auto incrementing invoice number if none is provided) even if there are no line_items or tax passed
+          type: boolean
+        invoice_number:
+          description: Numeric value of invoice. Invoice will start from 1 and auto increment from there.  This field is to help override whatever value Paystack decides. Auto increment for  subsequent invoices continue from this point.
+          type: integer
+        split_code:
+          description: The split code of the transaction split.
+          type: string
+      example:
+        customer: CUS_xqp6o5oja5cackf
+        amount: 10000
+    PaymentRequestCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            due_date:
+              type: string
+              nullable: true
+            has_invoice:
+              type: boolean
+            invoice_number:
+              type: integer
+              nullable: true
+            description:
+              type: string
+              nullable: true
+            line_items:
+              type: array
+              items: {}
+            tax:
+              type: array
+              items: {}
+            request_code:
+              type: string
+            status:
+              type: string
+            paid:
+              type: boolean
+            metadata:
+              type: object
+              nullable: true
+            notifications:
+              type: array
+              items: {}
+            offline_reference:
+              type: string
+            customer:
+              type: integer
+            created_at:
+              type: string
+            discount:
+              nullable: true
+            split_code:
+              type: string
+              nullable: true
+          required:
+            - id
+            - integration
+            - domain
+            - amount
+            - currency
+            - due_date
+            - has_invoice
+            - invoice_number
+            - description
+            - line_items
+            - tax
+            - request_code
+            - status
+            - paid
+            - metadata
+            - notifications
+            - offline_reference
+            - customer
+            - created_at
+            - discount
+            - split_code
+      required:
+        - status
+        - message
+        - data
+    PaymentRequestUpdate:
+      type: object
+      properties:
+        customer:
+          description: Customer id or code
+          type: string
+        amount:
+          description: |-
+            Payment request amount. Only useful if line items and tax values are ignored. 
+            The endpoint will throw a friendly warning if neither is available.
+          type: integer
+        currency:
+          description: Specify the currency of the invoice. Allowed values are NGN, GHS, ZAR and USD. Defaults to NGN
+          type: string
+        due_date:
+          description: ISO 8601 representation of request due date
+          type: string
+          format: date-time
+        description:
+          description: A short description of the payment request
+          type: string
+        line_items:
+          description: Array of line items
+          type: array
+          items:
+            type: object
+        tax:
+          description: Array of taxes
+          type: array
+          items:
+            type: object
+        send_notification:
+          description: Indicates whether Paystack sends an email notification to customer. Defaults to true
+          type: boolean
+        draft:
+          description: Indicate if request should be saved as draft. Defaults to false and overrides send_notification
+          type: boolean
+        has_invoice:
+          description: Set to true to create a draft invoice (adds an auto incrementing invoice number if none is provided) even if there are no line_items or tax passed
+          type: boolean
+          items:
+            type: object
+        invoice_number:
+          description: Numeric value of invoice. Invoice will start from 1 and auto increment from there. This field is to help override whatever value Paystack decides.  Auto increment for subsequent invoices continue from this point.
+          type: integer
+        split_code:
+          description: The split code of the transaction split.
+          type: string
+      example:
+        amount: 15000
+    PaymentRequestNotificationsArray:
+      type: object
+      properties:
+        sent_at:
+          type: string
+        channel:
+          type: string
+      required:
+        - sent_at
+        - channel
+    PaymentRequestUpdateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            due_date:
+              type: string
+              nullable: true
+            has_invoice:
+              type: boolean
+            invoice_number:
+              type: integer
+              nullable: true
+            description:
+              nullable: true
+            pdf_url:
+              type: string
+              nullable: true
+            line_items:
+              type: array
+              items: {}
+            tax:
+              type: array
+              items: {}
+            request_code:
+              type: string
+            status:
+              type: string
+            paid:
+              type: boolean
+            paid_at:
+              nullable: true
+            metadata:
+              nullable: true
+            notifications:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequestNotificationsArray'
+            offline_reference:
+              type: string
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                metadata:
+                  type: object
+                  properties:
+                    calling_code:
+                      type: string
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            created_at:
+              type: string
+            discount:
+              nullable: true
+            split_code:
+              nullable: true
+          required:
+            - id
+            - integration
+            - domain
+            - amount
+            - currency
+            - due_date
+            - has_invoice
+            - invoice_number
+            - description
+            - pdf_url
+            - line_items
+            - tax
+            - request_code
+            - status
+            - paid
+            - paid_at
+            - metadata
+            - notifications
+            - offline_reference
+            - customer
+            - created_at
+            - discount
+            - split_code
+      required:
+        - status
+        - message
+        - data
+    PaymentRequestVerifyResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            integration:
+              type: object
+              properties:
+                key:
+                  type: string
+                name:
+                  type: string
+                logo:
+                  type: string
+                allowed_currencies:
+                  type: array
+                  items:
+                    type: string
+              required:
+                - key
+                - name
+                - logo
+                - allowed_currencies
+            domain:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            due_date:
+              type: string
+              nullable: true
+            has_invoice:
+              type: boolean
+            invoice_number:
+              type: integer
+              nullable: true
+            description:
+              nullable: true
+            pdf_url:
+              type: string
+              nullable: true
+            line_items:
+              type: array
+              items: {}
+            tax:
+              type: array
+              items: {}
+            request_code:
+              type: string
+            status:
+              type: string
+            paid:
+              type: boolean
+            paid_at:
+              nullable: true
+            metadata:
+              nullable: true
+            notifications:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequestNotificationsArray'
+            offline_reference:
+              type: string
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                metadata:
+                  type: object
+                  properties:
+                    calling_code:
+                      type: string
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            created_at:
+              type: string
+            discount:
+              nullable: true
+            split_code:
+              nullable: true
+            pending_amount:
+              type: integer
+          required:
+            - id
+            - integration
+            - domain
+            - amount
+            - currency
+            - due_date
+            - has_invoice
+            - invoice_number
+            - description
+            - pdf_url
+            - line_items
+            - tax
+            - request_code
+            - status
+            - paid
+            - paid_at
+            - metadata
+            - notifications
+            - offline_reference
+            - customer
+            - created_at
+            - discount
+            - split_code
+            - pending_amount
+      required:
+        - status
+        - message
+        - data
+    PaymentRequestSendNotificationResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+      required:
+        - status
+        - message
+    PaymentRequestPendingArray:
+      type: object
+      properties:
+        currency:
+          type: string
+        amount:
+          type: integer
+      required:
+        - currency
+        - amount
+    PaymentRequestSuccessfulArray:
+      type: object
+      properties:
+        currency:
+          type: string
+        amount:
+          type: integer
+      required:
+        - currency
+        - amount
+    PaymentRequestTotalArray:
+      type: object
+      properties:
+        currency:
+          type: string
+        amount:
+          type: integer
+      required:
+        - currency
+        - amount
+    PaymentRequestTotalResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            pending:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequestPendingArray'
+            successful:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequestSuccessfulArray'
+            total:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequestTotalArray'
+          required:
+            - pending
+            - successful
+            - total
+      required:
+        - status
+        - message
+        - data
+    PaymentRequestFinalizeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            integration:
+              type: integer
+            domain:
+              type: string
+            amount:
+              type: integer
+            currency:
+              type: string
+            due_date:
+              type: string
+              nullable: true
+            has_invoice:
+              type: boolean
+            invoice_number:
+              type: integer
+              nullable: true
+            description:
+              type: string
+              nullable: true
+            pdf_url:
+              nullable: true
+            line_items:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequestLineItemsArray'
+            tax:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequestTaxArray'
+            request_code:
+              type: string
+            status:
+              type: string
+            paid:
+              type: boolean
+            paid_at:
+              nullable: true
+            metadata:
+              nullable: true
+            notifications:
+              type: array
+              items: {}
+            offline_reference:
+              type: string
+            customer:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                customer_code:
+                  type: string
+                phone:
+                  type: string
+                metadata:
+                  type: object
+                  properties:
+                    calling_code:
+                      type: string
+                risk_action:
+                  type: string
+                international_format_phone:
+                  type: string
+              required:
+                - id
+                - first_name
+                - last_name
+                - email
+                - customer_code
+                - phone
+                - metadata
+                - risk_action
+                - international_format_phone
+            created_at:
+              type: string
+            discount:
+              type: object
+              properties:
+                type:
+                  type: string
+                amount:
+                  type: integer
+              required:
+                - type
+                - amount
+              nullable: true
+            split_code:
+              nullable: true
+            pending_amount:
+              type: integer
+          required:
+            - id
+            - integration
+            - domain
+            - amount
+            - currency
+            - due_date
+            - has_invoice
+            - invoice_number
+            - description
+            - pdf_url
+            - line_items
+            - tax
+            - request_code
+            - status
+            - paid
+            - paid_at
+            - metadata
+            - notifications
+            - offline_reference
+            - customer
+            - created_at
+            - discount
+            - split_code
+            - pending_amount
+      required:
+        - status
+        - message
+        - data
+    PaymentRequestArchiveResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+      required:
+        - status
+        - message
     ProductListsResponseArray:
       type: object
       properties:
@@ -15144,870 +16023,6 @@ components:
         - status
         - message
         - data
-    PaymentRequestLineItemsArray:
-      type: object
-      properties:
-        name:
-          type: string
-        amount:
-          type: integer
-        quantity:
-          type: integer
-      required:
-        - name
-        - amount
-        - quantity
-    PaymentRequestTaxArray:
-      type: object
-      properties:
-        name:
-          type: string
-        amount:
-          type: integer
-      required:
-        - name
-        - amount
-    PaymentRequestListResponseArray:
-      type: object
-      properties:
-        id:
-          type: integer
-        integration:
-          type: integer
-        domain:
-          type: string
-        amount:
-          type: integer
-        currency:
-          type: string
-        due_date:
-          type: string
-          nullable: true
-        has_invoice:
-          type: boolean
-        invoice_number:
-          type: integer
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        pdf_url:
-          type: string
-          nullable: true
-        line_items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestLineItemsArray'
-        tax:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestTaxArray'
-        request_code:
-          type: string
-        status:
-          type: string
-        paid:
-          type: boolean
-        paid_at:
-          nullable: true
-        metadata:
-          nullable: true
-        notifications:
-          type: array
-          items: {}
-        offline_reference:
-          type: string
-        customer:
-          type: object
-          properties:
-            id:
-              type: integer
-            first_name:
-              type: string
-            last_name:
-              type: string
-            email:
-              type: string
-            customer_code:
-              type: string
-            phone:
-              type: string
-            metadata:
-              type: object
-            risk_action:
-              type: string
-            international_format_phone:
-              type: string
-          required:
-            - id
-            - first_name
-            - last_name
-            - email
-            - customer_code
-            - phone
-            - metadata
-            - risk_action
-            - international_format_phone
-        created_at:
-          type: string
-        discount:
-          nullable: true
-        split_code:
-          type: string
-          nullable: true
-      required:
-        - id
-        - integration
-        - domain
-        - amount
-        - currency
-        - due_date
-        - has_invoice
-        - invoice_number
-        - description
-        - pdf_url
-        - line_items
-        - tax
-        - request_code
-        - status
-        - paid
-        - paid_at
-        - metadata
-        - notifications
-        - offline_reference
-        - customer
-        - created_at
-        - discount
-        - split_code
-    PaymentRequestListResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestListResponseArray'
-        meta:
-          type: object
-          properties:
-            total:
-              type: integer
-            skipped:
-              type: integer
-            perPage:
-              anyOf:
-                - type: integer
-                - type: string
-            page:
-              type: integer
-            pageCount:
-              type: integer
-          required:
-            - total
-            - skipped
-            - perPage
-            - page
-            - pageCount
-          additionalProperties: false
-      required:
-        - status
-        - message
-        - data
-        - meta
-    PaymentRequestCreate:
-      type: object
-      required:
-        - customer
-      properties:
-        customer:
-          description: Customer id or code
-          type: string
-        amount:
-          description: |-
-            Payment request amount. Only useful if line items and tax values are ignored. 
-            The endpoint will throw a friendly warning if neither is available.
-          type: integer
-        currency:
-          description: Specify the currency of the invoice. Allowed values are NGN, GHS, ZAR and USD. Defaults to NGN
-          type: string
-        due_date:
-          description: ISO 8601 representation of request due date
-          type: string
-          format: date-time
-        description:
-          description: A short description of the payment request
-          type: string
-        line_items:
-          description: Array of line items
-          type: array
-          items:
-            type: object
-        tax:
-          description: Array of taxes
-          type: array
-          items:
-            type: object
-        send_notification:
-          description: Indicates whether Paystack sends an email notification to customer. Defaults to true
-          type: boolean
-          items:
-            type: object
-        draft:
-          description: Indicate if request should be saved as draft. Defaults to false and overrides send_notification
-          type: boolean
-          items:
-            type: object
-        has_invoice:
-          description: |-
-            Set to true to create a draft invoice (adds an auto incrementing invoice number if none is provided) 
-            even if there are no line_items or tax passed
-          type: boolean
-          items:
-            type: object
-        invoice_number:
-          description: |-
-            Numeric value of invoice. Invoice will start from 1 and auto increment from there. This field is to help 
-            override whatever value Paystack decides. Auto increment for subsequent invoices continue from this point.
-          type: integer
-        split_code:
-          description: The split code of the transaction split.
-          type: string
-    PaymentRequestCreateResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-            integration:
-              type: integer
-            domain:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            due_date:
-              type: string
-              nullable: true
-            has_invoice:
-              type: boolean
-            invoice_number:
-              type: integer
-              nullable: true
-            description:
-              type: string
-              nullable: true
-            line_items:
-              type: array
-              items: {}
-            tax:
-              type: array
-              items: {}
-            request_code:
-              type: string
-            status:
-              type: string
-            paid:
-              type: boolean
-            metadata:
-              type: object
-              nullable: true
-            notifications:
-              type: array
-              items: {}
-            offline_reference:
-              type: string
-            customer:
-              type: integer
-            created_at:
-              type: string
-            discount:
-              nullable: true
-            split_code:
-              type: string
-              nullable: true
-          required:
-            - id
-            - integration
-            - domain
-            - amount
-            - currency
-            - due_date
-            - has_invoice
-            - invoice_number
-            - description
-            - line_items
-            - tax
-            - request_code
-            - status
-            - paid
-            - metadata
-            - notifications
-            - offline_reference
-            - customer
-            - created_at
-            - discount
-            - split_code
-      required:
-        - status
-        - message
-        - data
-    PaymentRequestUpdate:
-      type: object
-      properties:
-        customer:
-          description: Customer id or code
-          type: string
-        amount:
-          description: |-
-            Payment request amount. Only useful if line items and tax values are ignored. 
-            The endpoint will throw a friendly warning if neither is available.
-          type: integer
-        currency:
-          description: Specify the currency of the invoice. Allowed values are NGN, GHS, ZAR and USD. Defaults to NGN
-          type: string
-        due_date:
-          description: ISO 8601 representation of request due date
-          type: string
-          format: date-time
-        description:
-          description: A short description of the payment request
-          type: string
-        line_items:
-          description: Array of line items
-          type: array
-          items:
-            type: object
-        tax:
-          description: Array of taxes
-          type: array
-          items:
-            type: object
-        send_notification:
-          description: Indicates whether Paystack sends an email notification to customer. Defaults to true
-          type: boolean
-          items:
-            type: object
-        draft:
-          description: Indicate if request should be saved as draft. Defaults to false and overrides send_notification
-          type: boolean
-          items:
-            type: object
-        has_invoice:
-          description: |-
-            Set to true to create a draft invoice (adds an auto incrementing invoice number if none is provided) 
-            even if there are no line_items or tax passed
-          type: boolean
-          items:
-            type: object
-        invoice_number:
-          description: |-
-            Numeric value of invoice. Invoice will start from 1 and auto increment from there. This field is to help 
-            override whatever value Paystack decides. Auto increment for subsequent invoices continue from this point.
-          type: integer
-        split_code:
-          description: The split code of the transaction split.
-          type: string
-    PaymentRequestNotificationsArray:
-      type: object
-      properties:
-        sent_at:
-          type: string
-        channel:
-          type: string
-      required:
-        - sent_at
-        - channel
-    PaymentRequestUpdateResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-            integration:
-              type: integer
-            domain:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            due_date:
-              type: string
-              nullable: true
-            has_invoice:
-              type: boolean
-            invoice_number:
-              type: integer
-              nullable: true
-            description:
-              nullable: true
-            pdf_url:
-              type: string
-              nullable: true
-            line_items:
-              type: array
-              items: {}
-            tax:
-              type: array
-              items: {}
-            request_code:
-              type: string
-            status:
-              type: string
-            paid:
-              type: boolean
-            paid_at:
-              nullable: true
-            metadata:
-              nullable: true
-            notifications:
-              type: array
-              items:
-                $ref: '#/components/schemas/PaymentRequestNotificationsArray'
-            offline_reference:
-              type: string
-            customer:
-              type: object
-              properties:
-                id:
-                  type: integer
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                metadata:
-                  type: object
-                  properties:
-                    calling_code:
-                      type: string
-                risk_action:
-                  type: string
-                international_format_phone:
-                  type: string
-              required:
-                - id
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - metadata
-                - risk_action
-                - international_format_phone
-            created_at:
-              type: string
-            discount:
-              nullable: true
-            split_code:
-              nullable: true
-          required:
-            - id
-            - integration
-            - domain
-            - amount
-            - currency
-            - due_date
-            - has_invoice
-            - invoice_number
-            - description
-            - pdf_url
-            - line_items
-            - tax
-            - request_code
-            - status
-            - paid
-            - paid_at
-            - metadata
-            - notifications
-            - offline_reference
-            - customer
-            - created_at
-            - discount
-            - split_code
-      required:
-        - status
-        - message
-        - data
-    PaymentRequestVerifyResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-            integration:
-              type: object
-              properties:
-                key:
-                  type: string
-                name:
-                  type: string
-                logo:
-                  type: string
-                allowed_currencies:
-                  type: array
-                  items:
-                    type: string
-              required:
-                - key
-                - name
-                - logo
-                - allowed_currencies
-            domain:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            due_date:
-              type: string
-              nullable: true
-            has_invoice:
-              type: boolean
-            invoice_number:
-              type: integer
-              nullable: true
-            description:
-              nullable: true
-            pdf_url:
-              type: string
-              nullable: true
-            line_items:
-              type: array
-              items: {}
-            tax:
-              type: array
-              items: {}
-            request_code:
-              type: string
-            status:
-              type: string
-            paid:
-              type: boolean
-            paid_at:
-              nullable: true
-            metadata:
-              nullable: true
-            notifications:
-              type: array
-              items:
-                $ref: '#/components/schemas/PaymentRequestNotificationsArray'
-            offline_reference:
-              type: string
-            customer:
-              type: object
-              properties:
-                id:
-                  type: integer
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                metadata:
-                  type: object
-                  properties:
-                    calling_code:
-                      type: string
-                risk_action:
-                  type: string
-                international_format_phone:
-                  type: string
-              required:
-                - id
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - metadata
-                - risk_action
-                - international_format_phone
-            created_at:
-              type: string
-            discount:
-              nullable: true
-            split_code:
-              nullable: true
-            pending_amount:
-              type: integer
-          required:
-            - id
-            - integration
-            - domain
-            - amount
-            - currency
-            - due_date
-            - has_invoice
-            - invoice_number
-            - description
-            - pdf_url
-            - line_items
-            - tax
-            - request_code
-            - status
-            - paid
-            - paid_at
-            - metadata
-            - notifications
-            - offline_reference
-            - customer
-            - created_at
-            - discount
-            - split_code
-            - pending_amount
-      required:
-        - status
-        - message
-        - data
-    PaymentRequestSendNotificationResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-      required:
-        - status
-        - message
-    PaymentRequestPendingArray:
-      type: object
-      properties:
-        currency:
-          type: string
-        amount:
-          type: integer
-      required:
-        - currency
-        - amount
-    PaymentRequestSuccessfulArray:
-      type: object
-      properties:
-        currency:
-          type: string
-        amount:
-          type: integer
-      required:
-        - currency
-        - amount
-    PaymentRequestTotalArray:
-      type: object
-      properties:
-        currency:
-          type: string
-        amount:
-          type: integer
-      required:
-        - currency
-        - amount
-    PaymentRequestTotalResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            pending:
-              type: array
-              items:
-                $ref: '#/components/schemas/PaymentRequestPendingArray'
-            successful:
-              type: array
-              items:
-                $ref: '#/components/schemas/PaymentRequestSuccessfulArray'
-            total:
-              type: array
-              items:
-                $ref: '#/components/schemas/PaymentRequestTotalArray'
-          required:
-            - pending
-            - successful
-            - total
-      required:
-        - status
-        - message
-        - data
-    PaymentRequestFinalizeResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-            integration:
-              type: integer
-            domain:
-              type: string
-            amount:
-              type: integer
-            currency:
-              type: string
-            due_date:
-              type: string
-              nullable: true
-            has_invoice:
-              type: boolean
-            invoice_number:
-              type: integer
-              nullable: true
-            description:
-              type: string
-              nullable: true
-            pdf_url:
-              nullable: true
-            line_items:
-              type: array
-              items:
-                $ref: '#/components/schemas/PaymentRequestLineItemsArray'
-            tax:
-              type: array
-              items:
-                $ref: '#/components/schemas/PaymentRequestTaxArray'
-            request_code:
-              type: string
-            status:
-              type: string
-            paid:
-              type: boolean
-            paid_at:
-              nullable: true
-            metadata:
-              nullable: true
-            notifications:
-              type: array
-              items: {}
-            offline_reference:
-              type: string
-            customer:
-              type: object
-              properties:
-                id:
-                  type: integer
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                email:
-                  type: string
-                customer_code:
-                  type: string
-                phone:
-                  type: string
-                metadata:
-                  type: object
-                  properties:
-                    calling_code:
-                      type: string
-                risk_action:
-                  type: string
-                international_format_phone:
-                  type: string
-              required:
-                - id
-                - first_name
-                - last_name
-                - email
-                - customer_code
-                - phone
-                - metadata
-                - risk_action
-                - international_format_phone
-            created_at:
-              type: string
-            discount:
-              type: object
-              properties:
-                type:
-                  type: string
-                amount:
-                  type: integer
-              required:
-                - type
-                - amount
-              nullable: true
-            split_code:
-              nullable: true
-            pending_amount:
-              type: integer
-          required:
-            - id
-            - integration
-            - domain
-            - amount
-            - currency
-            - due_date
-            - has_invoice
-            - invoice_number
-            - description
-            - pdf_url
-            - line_items
-            - tax
-            - request_code
-            - status
-            - paid
-            - paid_at
-            - metadata
-            - notifications
-            - offline_reference
-            - customer
-            - created_at
-            - discount
-            - split_code
-            - pending_amount
-      required:
-        - status
-        - message
-        - data
-    PaymentRequestArchiveResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        message:
-          type: string
-      required:
-        - status
-        - message
     ControlPanelFetchPaymentSessionTimeoutResponse:
       type: object
       properties:
@@ -18457,6 +18472,54 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/SubscriptionDisableResponse'
+    PaymentRequestListSuccess:
+      description: Payment Request List response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestListResponse'
+    PaymentRequestCreateSuccess:
+      description: Payment Request Create response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestCreateResponse'
+    PaymentRequestUpdateSuccess:
+      description: Payment Request Update response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestUpdateResponse'
+    PaymentRequestVerifySuccess:
+      description: Payment Request Verify response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestVerifyResponse'
+    PaymentRequestSendNotificationSuccess:
+      description: Payment Request Send Notification response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestSendNotificationResponse'
+    PaymentRequestTotalSuccess:
+      description: Payment Request Total response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestTotalResponse'
+    PaymentRequestFinalizeSuccess:
+      description: Payment Request Finalize response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestFinalizeResponse'
+    PaymentRequestArchiveSuccess:
+      description: Payment Request Archive response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequestArchiveResponse'
     ProductListsSuccess:
       description: Product Lists response
       content:
@@ -18583,54 +18646,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PageAddProductsResponse'
-    PaymentRequestListSuccess:
-      description: Payment Request List response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestListResponse'
-    PaymentRequestCreateSuccess:
-      description: Payment Request Create response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestCreateResponse'
-    PaymentRequestUpdateSuccess:
-      description: Payment Request Update response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestUpdateResponse'
-    PaymentRequestVerifySuccess:
-      description: Payment Request Verify response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestVerifyResponse'
-    PaymentRequestSendNotificationSuccess:
-      description: Payment Request Send Notification response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestSendNotificationResponse'
-    PaymentRequestTotalSuccess:
-      description: Payment Request Total response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestTotalResponse'
-    PaymentRequestFinalizeSuccess:
-      description: Payment Request Finalize response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestFinalizeResponse'
-    PaymentRequestArchiveSuccess:
-      description: Payment Request Archive response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaymentRequestArchiveResponse'
     RefundListSuccess:
       description: Refund List response
       content:

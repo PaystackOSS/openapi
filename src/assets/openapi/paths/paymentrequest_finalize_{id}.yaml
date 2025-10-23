@@ -1,13 +1,16 @@
 parameters:
   - name: id
+    description: The unique identifier of a draft payment request
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 18823736
 post:
   tags:
     - Payment Request
   summary: Finalize Payment Request
+  description: Finalise the creation of a draft payment request for a customer
   operationId: paymentRequest_finalize
   responses:
     '200':

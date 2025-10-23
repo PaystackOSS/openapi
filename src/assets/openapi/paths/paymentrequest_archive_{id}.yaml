@@ -1,13 +1,18 @@
 parameters:
   - name: id
+    description: The unique identifier of a previously created payment request
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 18823736
 post:
   tags:
     - Payment Request
   summary: Archive Payment Request
+  description: | 
+    Archive a payment request to clean up your records. An archived payment request cannot be verified and will not 
+    be returned when listing all previously created payment requests.
   operationId: paymentRequest_archive
   responses:
     '200':

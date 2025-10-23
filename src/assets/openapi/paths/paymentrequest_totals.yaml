@@ -2,6 +2,7 @@ get:
   tags:
     - Payment Request
   summary: Payment Request Total
+  description: Get the metric of all pending and successful payment requests
   operationId: paymentRequest_totals
   responses:
     '200':
