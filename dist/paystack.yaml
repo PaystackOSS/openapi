@@ -4721,13 +4721,16 @@ paths:
       tags:
         - Miscellaneous
       summary: Resolve Card BIN
+      description: Get the details of a card BIN
       operationId: miscellaneous_resolveCardBin
       parameters:
         - name: bin
+          description: The card bank identification number
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          example: 539983
       responses:
         '200':
           $ref: '#/components/responses/VerificationResolveCardBINSuccess'
@@ -4742,6 +4745,7 @@ paths:
       tags:
         - Miscellaneous
       summary: List Countries
+      description: List all supported countries on Paystack
       operationId: miscellaneous_listCountries
       responses:
         '200':
@@ -4765,7 +4769,7 @@ paths:
           description: The country code of the states to list. It is gotten after the charge request
           schema:
             type: string
-            example: CA
+          example: CA
       responses:
         '200':
           $ref: '#/components/responses/MiscellaneousListStatesSuccess'

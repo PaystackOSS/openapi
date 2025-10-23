@@ -10,7 +10,7 @@ get:
       description: The country code of the states to list. It is gotten after the charge request
       schema:
         type: string
-        example: CA
+      example: CA
   responses:
     '200':
       $ref: ../components/responses/MiscellaneousListStatesSuccess.yaml
