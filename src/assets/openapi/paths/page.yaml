@@ -2,6 +2,7 @@ post:
   tags:
     - Page
   summary: Create Page
+  description: Create a webpage to receive payments
   operationId: page_create
   requestBody:
     content:
@@ -22,13 +23,16 @@ get:
   tags:
     - Page
   summary: List Pages
+  description: List all previously created payment pages
   operationId: page_list
   parameters:
     - in: query
       name: perPage
       schema:
         type: integer
+        default: 50
       description: Number of records to fetch per page
+      example: 10
     - in: query
       name: page
       schema:
