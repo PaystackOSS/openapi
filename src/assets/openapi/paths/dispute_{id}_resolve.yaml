@@ -1,15 +1,17 @@
 put:
   tags:
     - Dispute
-  summary: Resolve a Dispute
+  summary: Resolve Dispute
+  description: Resolve a transaction dispute
   operationId: dispute_resolve
   parameters:
     - name: id
-      description: Dispute ID
+      description: The unique identifier of the dispute
       in: path
       required: true
       schema:
-        type: string
+        type: integer
+      example: 4734583785
   requestBody:
     content:
       application/json:

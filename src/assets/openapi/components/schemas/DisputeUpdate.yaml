@@ -3,10 +3,10 @@ required:
   - refund_amount
 properties:
   refund_amount:
-    description: >-
-      The amount to refund, in kobo if currency is NGN, pesewas, if currency is
-      GHS, and cents, if currency is ZAR
-    type: string
+    description: The amount to refund, in the subunit of your currency
+    type: integer
   uploaded_filename:
     description: Filename of attachment returned via response from the Dispute upload URL
     type: string
+example:
+  refund_amount: 50000

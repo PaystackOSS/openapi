@@ -1,15 +1,17 @@
 get:
   tags:
     - Dispute
-  summary: Get Upload URL
+  summary: Fetch Upload URL
+  description: Get the URL to upload a dispute evidence
   operationId: dispute_uploadUrl
   parameters:
     - name: id
-      description: Dispute ID
+      description: The unique identifier of the dispute
       in: path
       required: true
       schema:
-        type: string
+        type: integer
+      example: 4734583785
   responses:
     '200':
       $ref: ../components/responses/DisputeUploadURLSuccess.yaml

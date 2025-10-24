@@ -1,4 +1,4 @@
-description: Dispute Upload U R L response
+description: Dispute Upload URL response
 content:
   application/json:
     schema:

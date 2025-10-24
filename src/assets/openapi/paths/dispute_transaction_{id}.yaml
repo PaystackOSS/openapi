@@ -2,14 +2,16 @@ get:
   tags:
     - Dispute
   summary: List Transaction Disputes
+  description: List all disputes filed for a transaction
   operationId: dispute_transaction
   parameters:
     - name: id
-      description: Transaction ID
+      description: The unique identifier of the transaction
       in: path
       required: true
       schema:
-        type: string
+        type: integer
+      example: 4734583785
   responses:
     '200':
       $ref: ../components/responses/DisputeListTransactionSuccess.yaml

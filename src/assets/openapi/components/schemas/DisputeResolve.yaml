@@ -12,13 +12,16 @@ properties:
     description: Reason for resolving
     type: string
   refund_amount:
-    description: >-
-      The amount to refund, in kobo if currency is NGN, pesewas, if currency is
-      GHS, and cents, if currency is ZAR
-    type: string
+    description: The amount to refund, in the subunit of your integration currency
+    type: integer
   uploaded_filename:
     description: Filename of attachment returned via response from the Dispute upload URL
     type: string
   evidence:
     description: Evidence Id for fraud claims
     type: integer
+example:
+  resolution: 'merchant-accepted'
+  message: Merchant accepted
+  refund_amount: 50000
+  uploaded_filename: qesp8a4df1xejihd9x5q
