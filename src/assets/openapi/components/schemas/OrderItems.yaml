@@ -8,7 +8,7 @@ required:
 properties:
   item:
     description: The product ID of the item
-    type: string
+    type: integer
   type:
     description: The type of the item. `product` is currently the acceptable value
     type: string
@@ -18,3 +18,8 @@ properties:
   amount:
     description: The cost of the item
     type: integer
+example:
+  item: 2179824
+  type: product
+  quantity: 200000
+  amount: 2

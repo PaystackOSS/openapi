@@ -21,8 +21,14 @@ properties:
     description: The customer's mobile number
     type: string
   currency:
-    description: Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD
+    description: Currency in which amount is set
     type: string
+    enum:
+      - GHS
+      - KES
+      - NGN
+      - USD
+      - ZAR
   items:
     type: array
     items:
@@ -30,10 +36,25 @@ properties:
   shipping:
     $ref: ./OrderShipping.yaml
   is_gift:
-    description: |
-      A flag to indicate if the order is for someone else
+    description: A flag to indicate if the order is for someone else
     type: boolean
   pay_for_me:
-    description: |
-      A flag to indicate if the someone else should pay for the order
+    description: A flag to indicate if the someone else should pay for the order
     type: boolean
+example:
+  email: test@email.com
+  first_name: Demo
+  last_name: User
+  phone: '+2348031245678'
+  currency: NGN
+  items:
+    - item: 2179824
+      type: product
+      quantity: 200000
+      amount: 2
+  shipping:
+    street_line: Somewhere on Earth
+    city: Atlantic
+    state: Pacific
+    country: Equator
+    shipping_fee: 10000

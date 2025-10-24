@@ -2,6 +2,7 @@ post:
   tags:
     - Order
   summary: Create Order
+  description: Create an order for selected items
   operationId: order_create
   requestBody:
     content:
@@ -22,6 +23,7 @@ get:
   tags:
     - Order
   summary: List Orders
+  description: List the previously created orders
   operationId: order_list
   parameters:
     - in: query
