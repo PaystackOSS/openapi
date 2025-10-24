@@ -25,3 +25,9 @@ properties:
   delivery_note:
     description: Extra details to be aware of for the delivery
     type: string
+example:
+  street_line: Somewhere on Earth
+  city: Atlantic
+  state: Pacific
+  country: Equator
+  shipping_fee: 10000

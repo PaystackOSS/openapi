@@ -1,14 +1,17 @@
 parameters:
   - name: code
+    description: The unique code of a previously created order
     in: path
     required: true
     schema:
       type: string
+    example: ORD_6z0lqwpmxrm7dsp
 get:
   tags:
     - Order
-  summary: Validate pay for me order
-  operationId: order_validatePayForMe
+  summary: Validate Order
+  description: Validate a pay for me order
+  operationId: order_validate
   responses:
     '200':
       $ref: ../components/responses/OrderValidateSuccess.yaml

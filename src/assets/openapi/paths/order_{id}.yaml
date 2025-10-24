@@ -1,13 +1,16 @@
 parameters:
   - name: id
+    description: The unique identifier of the order
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 1559046
 get:
   tags:
     - Order
   summary: Fetch Order
+  description: Fetch the details of a previously created order
   operationId: order_fetch
   responses:
     '200':

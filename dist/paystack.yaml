@@ -3975,6 +3975,7 @@ paths:
       tags:
         - Order
       summary: Create Order
+      description: Create an order for selected items
       operationId: order_create
       requestBody:
         content:
@@ -3995,6 +3996,7 @@ paths:
       tags:
         - Order
       summary: List Orders
+      description: List the previously created orders
       operationId: order_list
       parameters:
         - in: query
@@ -4031,14 +4033,17 @@ paths:
   /order/{id}:
     parameters:
       - name: id
+        description: The unique identifier of the order
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1559046
     get:
       tags:
         - Order
       summary: Fetch Order
+      description: Fetch the details of a previously created order
       operationId: order_fetch
       responses:
         '200':
@@ -4052,15 +4057,18 @@ paths:
   /order/product/{id}:
     parameters:
       - name: id
+        description: The unique identifier of the order
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1559046
     get:
       tags:
         - Order
-      summary: Fetch Products Order
-      operationId: order_fetchProducts
+      summary: Fetch Product Orders
+      description: Fetch all orders for a particular product
+      operationId: order_product
       responses:
         '200':
           $ref: '#/components/responses/OrderFetchProductSuccess'
@@ -4073,15 +4081,18 @@ paths:
   /order/{code}/validate:
     parameters:
       - name: code
+        description: The unique code of a previously created order
         in: path
         required: true
         schema:
           type: string
+        example: ORD_6z0lqwpmxrm7dsp
     get:
       tags:
         - Order
-      summary: Validate pay for me order
-      operationId: order_validatePayForMe
+      summary: Validate Order
+      description: Validate a pay for me order
+      operationId: order_validate
       responses:
         '200':
           $ref: '#/components/responses/OrderValidateSuccess'
@@ -14989,7 +15000,7 @@ components:
       properties:
         item:
           description: The product ID of the item
-          type: string
+          type: integer
         type:
           description: The type of the item. `product` is currently the acceptable value
           type: string
@@ -14999,6 +15010,11 @@ components:
         amount:
           description: The cost of the item
           type: integer
+      example:
+        item: 2179824
+        type: product
+        quantity: 200000
+        amount: 2
     OrderShipping:
       type: object
       description: The shipping details of the order
@@ -15027,6 +15043,12 @@ components:
         delivery_note:
           description: Extra details to be aware of for the delivery
           type: string
+      example:
+        street_line: Somewhere on Earth
+        city: Atlantic
+        state: Pacific
+        country: Equator
+        shipping_fee: 10000
     OrderCreate:
       type: object
       required:
@@ -15051,8 +15073,14 @@ components:
           description: The customer's mobile number
           type: string
         currency:
-          description: Currency in which amount is set. Allowed values are NGN, GHS, ZAR or USD
+          description: Currency in which amount is set
           type: string
+          enum:
+            - GHS
+            - KES
+            - NGN
+            - USD
+            - ZAR
         items:
           type: array
           items:
@@ -15060,13 +15088,28 @@ components:
         shipping:
           $ref: '#/components/schemas/OrderShipping'
         is_gift:
-          description: |
-            A flag to indicate if the order is for someone else
+          description: A flag to indicate if the order is for someone else
           type: boolean
         pay_for_me:
-          description: |
-            A flag to indicate if the someone else should pay for the order
+          description: A flag to indicate if the someone else should pay for the order
           type: boolean
+      example:
+        email: test@email.com
+        first_name: Demo
+        last_name: User
+        phone: '+2348031245678'
+        currency: NGN
+        items:
+          - item: 2179824
+            type: product
+            quantity: 200000
+            amount: 2
+        shipping:
+          street_line: Somewhere on Earth
+          city: Atlantic
+          state: Pacific
+          country: Equator
+          shipping_fee: 10000
     OrderCreateResponse:
       type: object
       properties:
