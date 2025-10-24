@@ -2,6 +2,7 @@ get:
   tags:
     - Integration
   summary: Fetch Payment Session Timeout
+  description: Fetch the session timeout of a transaction
   operationId: integration_fetchPaymentSessionTimeout
   responses:
     '200':
@@ -21,6 +22,7 @@ put:
   tags:
     - Integration
   summary: Update Payment Session Timeout
+  description: Update the session timeout of a transaction
   operationId: integration_updatePaymentSessionTimeout
   requestBody:
     content:

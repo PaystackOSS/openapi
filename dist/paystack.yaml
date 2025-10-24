@@ -4272,6 +4272,7 @@ paths:
       tags:
         - Integration
       summary: Fetch Payment Session Timeout
+      description: Fetch the session timeout of a transaction
       operationId: integration_fetchPaymentSessionTimeout
       responses:
         '200':
@@ -4290,6 +4291,7 @@ paths:
       tags:
         - Integration
       summary: Update Payment Session Timeout
+      description: Update the session timeout of a transaction
       operationId: integration_updatePaymentSessionTimeout
       requestBody:
         content:
@@ -16122,8 +16124,8 @@ components:
       properties:
         timeout:
           description: Time in seconds before a transaction becomes invalid
-          type: string
-          example: '30'
+          type: integer
+          example: 30
     ControlPanelUpdatePaymentSessionTimeoutResponse:
       type: object
       properties:
