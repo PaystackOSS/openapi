@@ -4218,15 +4218,18 @@ paths:
     get:
       tags:
         - Settlement
-      summary: Fetch Settlements
+      summary: List Settlements
+      description: List settlements made to your settlement accounts
       operationId: settlements_fetch
       parameters:
         - name: perPage
+          description: The number of records to fetch per request
           in: query
           schema:
             type: integer
           example: 50
         - name: page
+          description: The offset to retrieve data from
           in: query
           schema:
             type: integer
@@ -4240,18 +4243,21 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
-  /settlement/{id}/transaction:
+  /settlement/{id}/transactions:
     get:
       tags:
         - Settlement
-      summary: Settlement Transactions
+      summary: Fetch Settlement Transactions
+      description: Get the transactions that make up a particular settlement
       operationId: settlements_transaction
       parameters:
         - name: id
+          description: The settlement ID in which you want to fetch its transactions
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          example: 8610870
       responses:
         '200':
           $ref: '#/components/responses/Ok'
