@@ -6,11 +6,12 @@ get:
   operationId: storefront_fetchOrders
   parameters:
     - name: id
+      description: The unique identifier of the Storefront
       in: path
       required: true
       schema:
-        type: string
-      example: Z0R4orOU
+        type: integer
+      example: 1559046
   responses:
     '200':
       $ref: ../components/responses/Ok.yaml

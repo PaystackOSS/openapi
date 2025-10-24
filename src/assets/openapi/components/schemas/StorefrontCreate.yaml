@@ -11,14 +11,21 @@ properties:
     description: >
       A unique identifier to access your store. Once the storefront is created,
       it can be accessed from
-
       https://paystack.shop/your-slug
     type: string
   currency:
-    description: >
-      Currency for prices of products in your storefront. Allowed values are:
-      `NGN`, `GHS`, `KES`, `ZAR` or `USD`
+    description: Currency for prices of products in your storefront.
     type: string
+    enum:
+      - GHS
+      - KES
+      - NGN
+      - USD
+      - ZAR
   description:
     description: The description of the storefront
     type: string
+example:
+  name: Obi and Sons
+  slug: 'obi_and_sons'
+  currency: NGN

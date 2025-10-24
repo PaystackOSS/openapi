@@ -3714,6 +3714,7 @@ paths:
       tags:
         - Storefront
       summary: Create Storefront
+      description: Create a digital shop to manage and display your products
       operationId: storefront_create
       requestBody:
         content:
@@ -3734,16 +3735,21 @@ paths:
       tags:
         - Storefront
       summary: List Storefronts
+      description: List the storefronts you previously created
       operationId: storefront_list
       parameters:
-        - name: perPage
-          in: query
+        - in: query
+          name: perPage
+          description: Number of records to fetch per request
           schema:
             type: integer
-        - name: page
-          in: query
+            default: 50
+        - in: query
+          name: page
+          description: The offset to retrieve data from
           schema:
             type: integer
+            default: 1
         - name: status
           in: query
           schema:
@@ -3751,6 +3757,7 @@ paths:
             enum:
               - active
               - inactive
+          example: active
       responses:
         '200':
           $ref: '#/components/responses/StorefrontListSuccess'
@@ -3763,14 +3770,17 @@ paths:
   /storefront/{id}:
     parameters:
       - name: id
+        description: The unique identifier of the Storefront
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1559046
     get:
       tags:
         - Storefront
       summary: Fetch Storefront
+      description: Get the details of a previously created Storefront
       operationId: storefront_fetch
       responses:
         '200':
@@ -3785,6 +3795,7 @@ paths:
       tags:
         - Storefront
       summary: Update Storefront
+      description: Update the details of a previously created Storefront
       operationId: storefront_update
       requestBody:
         content:
@@ -3807,6 +3818,7 @@ paths:
       tags:
         - Storefront
       summary: Delete Storefront
+      description: Delete a previously created Storefront
       operationId: storefront_delete
       responses:
         '200':
@@ -3820,14 +3832,17 @@ paths:
   /storefront/verify/{slug}:
     parameters:
       - name: slug
+        description: The custom slug to check
         in: path
         required: true
         schema:
           type: string
+        example: struct_and_faces
     get:
       tags:
         - Storefront
       summary: Verify Storefront Slug
+      description: Verify the availability of a slug before using it for your Storefront
       operationId: storefront_verifySlug
       responses:
         '200':
@@ -3847,11 +3862,12 @@ paths:
       operationId: storefront_fetchOrders
       parameters:
         - name: id
+          description: The unique identifier of the Storefront
           in: path
           required: true
           schema:
-            type: string
-          example: Z0R4orOU
+            type: integer
+          example: 1559046
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -3862,14 +3878,17 @@ paths:
   /storefront/{id}/product:
     parameters:
       - name: id
+        description: The unique identifier of the Storefront
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1559046
     post:
       tags:
         - Storefront
       summary: Add Products to Storefront
+      description: Add previously created products to a Storefront
       operationId: storefront_addProducts
       requestBody:
         content:
@@ -3891,7 +3910,8 @@ paths:
     get:
       tags:
         - Storefront
-      summary: List Products in Storefront
+      summary: List Storefront Products
+      description: List the products in a Storefront
       operationId: storefront_listProducts
       responses:
         '200':
@@ -3905,14 +3925,17 @@ paths:
   /storefront/{id}/publish:
     parameters:
       - name: id
+        description: The unique identifier of the Storefront
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1559046
     post:
       tags:
         - Storefront
       summary: Publish Storefront
+      description: Make your Storefront publicly available
       operationId: storefront_publish
       responses:
         '200':
@@ -3926,14 +3949,17 @@ paths:
   /storefront/{id}/duplicate:
     parameters:
       - name: id
+        description: The unique identifier of the Storefront
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1559046
     post:
       tags:
         - Storefront
       summary: Duplicate Storefront
+      description: Duplicate a previously created Storefront
       operationId: storefront_duplicate
       responses:
         '200':
@@ -14482,16 +14508,24 @@ components:
           type: string
         slug:
           description: |
-            A unique identifier to access your store. Once the storefront is created, it can be accessed from
-            https://paystack.shop/your-slug
+            A unique identifier to access your store. Once the storefront is created, it can be accessed from https://paystack.shop/your-slug
           type: string
         currency:
-          description: |
-            Currency for prices of products in your storefront. Allowed values are: `NGN`, `GHS`, `KES`, `ZAR` or `USD`
+          description: Currency for prices of products in your storefront.
           type: string
+          enum:
+            - GHS
+            - KES
+            - NGN
+            - USD
+            - ZAR
         description:
           description: The description of the storefront
           type: string
+      example:
+        name: Obi and Sons
+        slug: obi_and_sons
+        currency: NGN
     StorefrontContactsArray:
       type: object
       properties:
@@ -14718,6 +14752,8 @@ components:
         description:
           description: The description of the storefront
           type: string
+      example:
+        description: Import and Export
     StorefrontUpdateResponse:
       type: object
       properties:
@@ -14748,6 +14784,10 @@ components:
           type: array
           items:
             type: integer
+      example:
+        products:
+          - 2196244
+          - 2179824
     OrderItemsArray:
       type: object
       properties:

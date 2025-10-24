@@ -2,6 +2,7 @@ post:
   tags:
     - Storefront
   summary: Create Storefront
+  description: Create a digital shop to manage and display your products
   operationId: storefront_create
   requestBody:
     content:
@@ -22,16 +23,21 @@ get:
   tags:
     - Storefront
   summary: List Storefronts
+  description: List the storefronts you previously created
   operationId: storefront_list
   parameters:
-    - name: perPage
-      in: query
+    - in: query
+      name: perPage
+      description: Number of records to fetch per request
       schema:
         type: integer
-    - name: page
-      in: query
+        default: 50
+    - in: query
+      name: page
+      description: The offset to retrieve data from
       schema:
         type: integer
+        default: 1
     - name: status
       in: query
       schema:
@@ -39,6 +45,7 @@ get:
         enum:
           - active
           - inactive
+      example: active
   responses:
     '200':
       $ref: ../components/responses/StorefrontListSuccess.yaml

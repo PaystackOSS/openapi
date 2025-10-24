@@ -7,3 +7,7 @@ properties:
     type: array
     items:
       type: integer
+example:
+  products:
+    - 2196244
+    - 2179824

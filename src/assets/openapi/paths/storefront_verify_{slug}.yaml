@@ -1,13 +1,16 @@
 parameters:
   - name: slug
+    description: The custom slug to check
     in: path
     required: true
     schema:
       type: string
+    example: struct_and_faces
 get:
   tags:
     - Storefront
   summary: Verify Storefront Slug
+  description: Verify the availability of a slug before using it for your Storefront
   operationId: storefront_verifySlug
   responses:
     '200':

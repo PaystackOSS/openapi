@@ -13,3 +13,5 @@ properties:
   description:
     description: The description of the storefront
     type: string
+example:
+  description: Import and Export
