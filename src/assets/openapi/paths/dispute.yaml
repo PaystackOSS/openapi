@@ -2,6 +2,7 @@ get:
   tags:
     - Dispute
   summary: List Disputes
+  description: List transaction disputes filed by customers  
   operationId: dispute_list
   parameters:
     - in: query
@@ -16,11 +17,15 @@ get:
         type: integer
     - in: query
       name: status
-      description: >-
-        Dispute Status. Acceptable values are awaiting-merchant-feedback,
-        awaiting-bank-feedback, pending, resolved
+      description: Dispute status
       schema:
         type: string
+        enum:
+          - awaiting-merchant-feedback
+          - awaiting-bank-feedback
+          - pending
+          - resolved
+      example: awaiting-merchant-feedback
     - in: query
       name: transaction
       description: Transaction ID

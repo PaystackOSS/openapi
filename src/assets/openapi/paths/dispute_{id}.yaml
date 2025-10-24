@@ -1,14 +1,16 @@
 parameters:
   - name: id
-    description: Dispute ID
+    description: The unique identifier of the dispute
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 1801929
 get:
   tags:
     - Dispute
   summary: Fetch Dispute
+  description: Fetch a transaction dispute
   operationId: dispute_fetch
   responses:
     '200':
@@ -23,6 +25,7 @@ put:
   tags:
     - Dispute
   summary: Update Dispute
+  description: Update a transaction dispute
   operationId: dispute_update
   requestBody:
     content:

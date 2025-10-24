@@ -2,6 +2,7 @@ post:
   tags:
     - Dispute
   summary: Add Evidence
+  description: Provide evidence for a dispute 
   operationId: dispute_evidence
   requestBody:
     content:
@@ -13,11 +14,12 @@ post:
           $ref: ../components/schemas/DisputeEvidence.yaml
   parameters:
     - name: id
-      description: Dispute ID
+      description: The unique identifier of the dispute
       in: path
       required: true
       schema:
-        type: string
+        type: integer
+      example: 4734583785
   responses:
     '200':
       $ref: ../components/responses/DisputeAddEvidenceSuccess.yaml

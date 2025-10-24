@@ -24,3 +24,9 @@ properties:
     description: ISO 8601 representation of delivery date (YYYY-MM-DD)
     type: string
     format: date-time
+example:
+  customer_email: customer@email.com
+  customer_name: Mensah King
+  customer_phone: '08012345678'
+  service_details: claim for buying cups
+

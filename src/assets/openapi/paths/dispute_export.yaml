@@ -2,6 +2,7 @@ get:
   tags:
     - Dispute
   summary: Export Disputes
+  description: Export the disputes available on your integration
   operationId: dispute_download
   parameters:
     - in: query
@@ -18,6 +19,12 @@ get:
       name: status
       schema:
         type: string
+        enum: 
+          - awaiting-merchant-feedback
+          - awaiting-bank-feedback
+          - pending
+          - resolved
+      example: awaiting-merchant-feedback
     - in: query
       name: from
       schema:

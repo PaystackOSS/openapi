@@ -22,8 +22,8 @@ post:
           $ref: ../components/schemas/RefundRetry.yaml
   responses:
     '200':
-      $ref: ../components/responses/RefundCreateSuccess.yaml
-    '401':
+      $ref: ../components/responses/RefundRetrySuccess.yaml
+    '422':
       $ref: ../components/responses/Unauthorized.yaml
     default:
       description: Server error

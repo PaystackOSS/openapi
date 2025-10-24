@@ -4412,8 +4412,8 @@ paths:
               $ref: '#/components/schemas/RefundRetry'
       responses:
         '200':
-          $ref: '#/components/responses/RefundCreateSuccess'
-        '401':
+          $ref: '#/components/responses/RefundRetrySuccess'
+        '422':
           $ref: '#/components/responses/Unauthorized'
         default:
           description: Server error
@@ -4446,6 +4446,7 @@ paths:
       tags:
         - Dispute
       summary: List Disputes
+      description: List transaction disputes filed by customers
       operationId: dispute_list
       parameters:
         - in: query
@@ -4460,9 +4461,15 @@ paths:
             type: integer
         - in: query
           name: status
-          description: Dispute Status. Acceptable values are awaiting-merchant-feedback, awaiting-bank-feedback, pending, resolved
+          description: Dispute status
           schema:
             type: string
+            enum:
+              - awaiting-merchant-feedback
+              - awaiting-bank-feedback
+              - pending
+              - resolved
+          example: awaiting-merchant-feedback
         - in: query
           name: transaction
           description: Transaction ID
@@ -4492,15 +4499,17 @@ paths:
   /dispute/{id}:
     parameters:
       - name: id
-        description: Dispute ID
+        description: The unique identifier of the dispute
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1801929
     get:
       tags:
         - Dispute
       summary: Fetch Dispute
+      description: Fetch a transaction dispute
       operationId: dispute_fetch
       responses:
         '200':
@@ -4515,6 +4524,7 @@ paths:
       tags:
         - Dispute
       summary: Update Dispute
+      description: Update a transaction dispute
       operationId: dispute_update
       requestBody:
         content:
@@ -4537,15 +4547,17 @@ paths:
     get:
       tags:
         - Dispute
-      summary: Get Upload URL
+      summary: Fetch Upload URL
+      description: Get the URL to upload a dispute evidence
       operationId: dispute_uploadUrl
       parameters:
         - name: id
-          description: Dispute ID
+          description: The unique identifier of the dispute
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          example: 4734583785
       responses:
         '200':
           $ref: '#/components/responses/DisputeUploadURLSuccess'
@@ -4560,6 +4572,7 @@ paths:
       tags:
         - Dispute
       summary: Export Disputes
+      description: Export the disputes available on your integration
       operationId: dispute_download
       parameters:
         - in: query
@@ -4576,6 +4589,12 @@ paths:
           name: status
           schema:
             type: string
+            enum:
+              - awaiting-merchant-feedback
+              - awaiting-bank-feedback
+              - pending
+              - resolved
+          example: awaiting-merchant-feedback
         - in: query
           name: from
           schema:
@@ -4602,14 +4621,16 @@ paths:
       tags:
         - Dispute
       summary: List Transaction Disputes
+      description: List all disputes filed for a transaction
       operationId: dispute_transaction
       parameters:
         - name: id
-          description: Transaction ID
+          description: The unique identifier of the transaction
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          example: 4734583785
       responses:
         '200':
           $ref: '#/components/responses/DisputeListTransactionSuccess'
@@ -4623,15 +4644,17 @@ paths:
     put:
       tags:
         - Dispute
-      summary: Resolve a Dispute
+      summary: Resolve Dispute
+      description: Resolve a transaction dispute
       operationId: dispute_resolve
       parameters:
         - name: id
-          description: Dispute ID
+          description: The unique identifier of the dispute
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          example: 4734583785
       requestBody:
         content:
           application/json:
@@ -4654,6 +4677,7 @@ paths:
       tags:
         - Dispute
       summary: Add Evidence
+      description: Provide evidence for a dispute
       operationId: dispute_evidence
       requestBody:
         content:
@@ -4665,11 +4689,12 @@ paths:
               $ref: '#/components/schemas/DisputeEvidence'
       parameters:
         - name: id
-          description: Dispute ID
+          description: The unique identifier of the dispute
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          example: 4734583785
       responses:
         '200':
           $ref: '#/components/responses/DisputeAddEvidenceSuccess'
@@ -16549,6 +16574,95 @@ components:
       properties:
         refund_account_details:
           $ref: '#/components/schemas/RefundRetryAccountDetails'
+    RefundRetryResponse:
+      title: Generated schema for Root
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            integration:
+              type: number
+            transaction:
+              type: number
+            dispute:
+              type: object
+            settlement:
+              type: object
+            id:
+              type: number
+            domain:
+              type: string
+            currency:
+              type: string
+            amount:
+              type: number
+            status:
+              type: string
+            refunded_at:
+              type: string
+              nullable: true
+            expected_at:
+              type: string
+            channel:
+              type: string
+            refunded_by:
+              type: string
+            customer_note:
+              type: string
+            merchant_note:
+              type: string
+            deducted_amount:
+              type: number
+            fully_deducted:
+              type: boolean
+            bank_reference:
+              type: string
+              nullable: true
+            reason:
+              type: string
+            customer:
+              type: object
+            initiated_by:
+              type: string
+            reversed_at:
+              type: string
+              nullable: true
+            session_id:
+              type: string
+              nullable: true
+          required:
+            - integration
+            - transaction
+            - dispute
+            - settlement
+            - id
+            - domain
+            - currency
+            - amount
+            - status
+            - refunded_at
+            - expected_at
+            - channel
+            - refunded_by
+            - customer_note
+            - merchant_note
+            - deducted_amount
+            - fully_deducted
+            - bank_reference
+            - reason
+            - customer
+            - initiated_by
+            - reversed_at
+            - session_id
+      required:
+        - status
+        - message
+        - data
     RefundFetchResponse:
       type: object
       properties:
@@ -17240,11 +17354,13 @@ components:
         - refund_amount
       properties:
         refund_amount:
-          description: The amount to refund, in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
-          type: string
+          description: The amount to refund, in the subunit of your currency
+          type: integer
         uploaded_filename:
           description: Filename of attachment returned via response from the Dispute upload URL
           type: string
+      example:
+        refund_amount: 50000
     DisputeUpdateResponse:
       type: object
       properties:
@@ -17810,14 +17926,19 @@ components:
           description: Reason for resolving
           type: string
         refund_amount:
-          description: The amount to refund, in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
-          type: string
+          description: The amount to refund, in the subunit of your integration currency
+          type: integer
         uploaded_filename:
           description: Filename of attachment returned via response from the Dispute upload URL
           type: string
         evidence:
           description: Evidence Id for fraud claims
           type: integer
+      example:
+        resolution: merchant-accepted
+        message: Merchant accepted
+        refund_amount: 50000
+        uploaded_filename: qesp8a4df1xejihd9x5q
     DisputeResolveResponse:
       type: object
       properties:
@@ -17946,6 +18067,11 @@ components:
           description: ISO 8601 representation of delivery date (YYYY-MM-DD)
           type: string
           format: date-time
+      example:
+        customer_email: customer@email.com
+        customer_name: Mensah King
+        customer_phone: '08012345678'
+        service_details: claim for buying cups
     DisputeAddEvidenceResponse:
       type: object
       properties:
@@ -18836,6 +18962,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RefundCreateResponse'
+    RefundRetrySuccess:
+      description: Refund Create response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RefundRetryResponse'
     RefundFetchSuccess:
       description: Refund Fetch response
       content:
@@ -18861,7 +18993,7 @@ components:
           schema:
             $ref: '#/components/schemas/DisputeUpdateResponse'
     DisputeUploadURLSuccess:
-      description: Dispute Upload U R L response
+      description: Dispute Upload URL response
       content:
         application/json:
           schema:
