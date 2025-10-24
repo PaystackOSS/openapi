@@ -1,0 +1,20 @@
+type: object
+description: An object that contains the customer’s account details for refund
+required:
+  - currency
+  - account_number
+  - bank_id
+properties:
+  currency:
+    description: The currency of the customer's bank account. It should be the same as the currency the payment was made
+    type: string
+  account_number:
+    description: The customer's account number
+    type: string
+  bank_id:
+    description: The ID representing the customer's bank. You can get the list of bank IDs by calling the List Banks endpoint.
+    type: string
+example:
+  currency: NGN
+  account_number: '1234567890'
+  bank_id: '9'

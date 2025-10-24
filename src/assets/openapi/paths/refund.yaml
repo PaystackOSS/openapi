@@ -2,6 +2,7 @@ post:
   tags:
     - Refund
   summary: Create Refund
+  description: Initiate a refund for a previously completed transaction
   operationId: refund_create
   requestBody:
     content:
@@ -22,13 +23,16 @@ get:
   tags:
     - Refund
   summary: List Refunds
+  description: List previously created refunds
   operationId: refund_list
   parameters:
     - in: query
       name: perPage
       schema:
         type: integer
+        default: 50
       description: Number of records to fetch per page
+      example: 10
     - in: query
       name: page
       schema:

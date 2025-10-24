@@ -358,6 +358,8 @@ paths:
     $ref: paths/integration_payment_session_timeout.yaml
   /refund:
     $ref: paths/refund.yaml
+  /refund/retry_with_customer_details/{id}:
+    $ref: paths/refund_retry_with_customer_details_{id}.yaml
   /refund/{id}:
     $ref: paths/refund_{id}.yaml
   /dispute:
