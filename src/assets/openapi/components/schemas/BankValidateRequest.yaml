@@ -37,3 +37,11 @@ properties:
   document_number:
     description: Customer’s mode of identity number
     type: string
+example:
+  account_name: Ann Bron
+  account_number: '0123456789'
+  account_type: personal
+  bank_code: '632005'
+  country_code: ZA
+  document_type: identityNumber
+  document_number: '1234567890123'

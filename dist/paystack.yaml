@@ -4623,12 +4623,12 @@ paths:
       tags:
         - Bank
       summary: List Banks
+      description: List banks supported on Paystack
       operationId: bank_list
       parameters:
         - in: query
           name: country
-          description: |
-            The country from which to obtain the list of supported banks.
+          description: The country from which to obtain the list of supported banks
           schema:
             type: string
             enum:
@@ -4636,30 +4636,90 @@ paths:
               - kenya
               - nigeria
               - south africa
+          example: nigeria
         - in: query
-          name: pay_with_bank_transfer
+          name: currency
+          description: The country from which to obtain the list of supported banks
           schema:
-            type: boolean
+            type: string
+            enum:
+              - GHS
+              - KES
+              - NGN
+              - ZAR
+          example: NGN
         - in: query
           name: use_cursor
+          description: A flag to indicate if cursor based pagination should be used
           schema:
             type: boolean
         - in: query
           name: perPage
+          description: The number of records to fetch per request
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: The offset to retrieve data from
           schema:
             type: integer
         - in: query
           name: next
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to
+            retrieve the next set of data
           schema:
             type: string
         - in: query
           name: previous
+          description: |
+            An alphanumeric value returned for every cursor based retrieval, used to
+            retrieve the previous set of data
           schema:
             type: string
         - in: query
+          name: pay_with_bank_transfer
+          description: A flag to filter for available banks a customer can make a transfer to complete a payment
+          schema:
+            type: boolean
+        - in: query
+          name: pay_with_bank
+          description: A flag to filter for banks a customer can pay directly from
+          schema:
+            type: boolean
+        - in: query
+          name: enabled_for_verification
+          description: |
+            A flag to filter the banks that are supported for account verification in South Africa.
+            You need to combine this with either the `currency` or `country` filter.
+          schema:
+            type: boolean
+        - in: query
           name: gateway
+          description: The type of gateway for a Nigerian bank
           schema:
             type: string
+            enum:
+              - emandate
+              - digitalbankmandate
+        - in: query
+          name: type
+          description: Type of financial channel
+          schema:
+            type: string
+            enum:
+              - ghipps
+              - mobile_money
+              - nuban
+              - kepss
+              - basa
+        - in: query
+          name: include_nip_sort_code
+          description: |
+            A flag that returns Nigerian banks with their NIP institution code. 
+            The returned value can be used in identifying institutions on NIP.
+          schema:
+            type: boolean
       responses:
         '200':
           $ref: '#/components/responses/MiscellaneousListBanksSuccess'
@@ -4674,14 +4734,17 @@ paths:
       tags:
         - Bank
       summary: Resolve Account Number
+      description: Resolve an account number to confirm the name associated with it
       operationId: bank_resolveAccountNumber
       parameters:
         - name: account_number
+          description: The account number of interest
           in: query
           schema:
             type: integer
           example: 22728151
         - name: bank_code
+          description: The bank code associated with the account number
           in: query
           schema:
             type: integer
@@ -4700,6 +4763,7 @@ paths:
       tags:
         - Bank
       summary: Validate Bank Account
+      description: Confirm the authenticity of a customer's account number before sending money
       operationId: bank_validateAccountNumber
       requestBody:
         content:
@@ -17956,6 +18020,14 @@ components:
         document_number:
           description: Customer’s mode of identity number
           type: string
+      example:
+        account_name: Ann Bron
+        account_number: '0123456789'
+        account_type: personal
+        bank_code: '632005'
+        country_code: ZA
+        document_type: identityNumber
+        document_number: '1234567890123'
     VerificationValidateAccountResponse:
       type: object
       properties:

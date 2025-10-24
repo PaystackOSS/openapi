@@ -2,6 +2,7 @@ post:
   tags:
     - Bank
   summary: Validate Bank Account
+  description: Confirm the authenticity of a customer's account number before sending money
   operationId: bank_validateAccountNumber
   requestBody:
     content:
