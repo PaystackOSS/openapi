@@ -8,6 +8,9 @@ post:
   tags:
     - Page
   summary: Add Products
+  description: | 
+    Add products to a previously created payment page. You can only add products to pages
+    that was created with a `product` type.
   operationId: page_addProducts
   requestBody:
     content:

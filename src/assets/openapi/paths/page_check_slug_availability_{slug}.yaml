@@ -1,13 +1,16 @@
 parameters:
   - name: slug
     in: path
+    description: The custom slug to check
     required: true
     schema:
       type: string
+    example: risky-burger
 get:
   tags:
     - Page
   summary: Check Slug Availability
+  description: Check if a custom slug is available for use when creating a payment page
   operationId: page_checkSlugAvailability
   responses:
     '200':

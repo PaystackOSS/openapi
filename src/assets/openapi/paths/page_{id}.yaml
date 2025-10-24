@@ -1,13 +1,16 @@
 parameters:
   - name: id
     in: path
+    description: The unique identifier of a payment page
     required: true
     schema:
-      type: string
+      type: integer
+    example: 1891222
 get:
   tags:
     - Page
   summary: Fetch Page
+  description: Get a previously created payment page
   operationId: page_fetch
   responses:
     '200':
@@ -22,6 +25,7 @@ put:
   tags:
     - Page
   summary: Update Page
+  description: Update a previously created payment page
   operationId: page_update
   requestBody:
     content:

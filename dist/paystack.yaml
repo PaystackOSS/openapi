@@ -4070,6 +4070,7 @@ paths:
       tags:
         - Page
       summary: Create Page
+      description: Create a webpage to receive payments
       operationId: page_create
       requestBody:
         content:
@@ -4090,13 +4091,16 @@ paths:
       tags:
         - Page
       summary: List Pages
+      description: List all previously created payment pages
       operationId: page_list
       parameters:
         - in: query
           name: perPage
           schema:
             type: integer
+            default: 50
           description: Number of records to fetch per page
+          example: 10
         - in: query
           name: page
           schema:
@@ -4127,13 +4131,16 @@ paths:
     parameters:
       - name: id
         in: path
+        description: The unique identifier of a payment page
         required: true
         schema:
-          type: string
+          type: integer
+        example: 1891222
     get:
       tags:
         - Page
       summary: Fetch Page
+      description: Get a previously created payment page
       operationId: page_fetch
       responses:
         '200':
@@ -4148,6 +4155,7 @@ paths:
       tags:
         - Page
       summary: Update Page
+      description: Update a previously created payment page
       operationId: page_update
       requestBody:
         content:
@@ -4170,13 +4178,16 @@ paths:
     parameters:
       - name: slug
         in: path
+        description: The custom slug to check
         required: true
         schema:
           type: string
+        example: risky-burger
     get:
       tags:
         - Page
       summary: Check Slug Availability
+      description: Check if a custom slug is available for use when creating a payment page
       operationId: page_checkSlugAvailability
       responses:
         '200':
@@ -4198,6 +4209,9 @@ paths:
       tags:
         - Page
       summary: Add Products
+      description: |
+        Add products to a previously created payment page. You can only add products to pages
+        that was created with a `product` type.
       operationId: page_addProducts
       requestBody:
         content:
@@ -15715,6 +15729,9 @@ components:
           type: array
           items:
             type: object
+      example:
+        name: Extra Charges
+        amount: 200000
     PageCreateResponse:
       type: object
       properties:
@@ -15858,11 +15875,13 @@ components:
           description: The description of the page
           type: string
         amount:
-          description: Amount should be in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+          description: Amount should be in the subunit of the currency
           type: integer
         active:
           description: Set to false to deactivate page url
           type: boolean
+      example:
+        name: Backyard Sale
     PageUpdateResponse:
       type: object
       properties:
@@ -15957,13 +15976,17 @@ components:
     PageProduct:
       type: object
       required:
-        - product
+        - products
       properties:
-        product:
-          description: IDs of all products to add to a page
+        products:
+          description: A list of IDs of products to add to a page.
           type: array
           items:
-            type: string
+            type: integer
+      example:
+        products:
+          - 2196244
+          - 2179824
     PageProductsArray:
       type: object
       properties:
