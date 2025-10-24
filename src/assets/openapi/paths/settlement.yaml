@@ -1,15 +1,18 @@
 get:
   tags:
     - Settlement
-  summary: Fetch Settlements
+  summary: List Settlements
+  description: List settlements made to your settlement accounts
   operationId: settlements_fetch
   parameters:
     - name: perPage
+      description: The number of records to fetch per request
       in: query
       schema:
         type: integer
       example: 50
     - name: page
+      description: The offset to retrieve data from
       in: query
       schema:
         type: integer
