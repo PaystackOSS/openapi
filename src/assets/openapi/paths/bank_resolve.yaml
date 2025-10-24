@@ -2,14 +2,17 @@ get:
   tags:
     - Bank
   summary: Resolve Account Number
+  description: Resolve an account number to confirm the name associated with it
   operationId: bank_resolveAccountNumber
   parameters:
     - name: account_number
+      description: The account number of interest
       in: query
       schema:
         type: integer
       example: 22728151
     - name: bank_code
+      description: The bank code associated with the account number
       in: query
       schema:
         type: integer
