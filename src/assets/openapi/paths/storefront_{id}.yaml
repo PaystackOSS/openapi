@@ -1,13 +1,16 @@
 parameters:
   - name: id
+    description: The unique identifier of the Storefront
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 1559046
 get:
   tags:
     - Storefront
   summary: Fetch Storefront
+  description: Get the details of a previously created Storefront
   operationId: storefront_fetch
   responses:
     '200':
@@ -22,6 +25,7 @@ put:
   tags:
     - Storefront
   summary: Update Storefront
+  description: Update the details of a previously created Storefront
   operationId: storefront_update
   requestBody:
     content:
@@ -44,6 +48,7 @@ delete:
   tags:
     - Storefront
   summary: Delete Storefront
+  description: Delete a previously created Storefront
   operationId: storefront_delete
   responses:
     '200':

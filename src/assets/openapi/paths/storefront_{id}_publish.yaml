@@ -1,13 +1,16 @@
 parameters:
   - name: id
+    description: The unique identifier of the Storefront
     in: path
     required: true
     schema:
-      type: string
+      type: integer
+    example: 1559046
 post:
   tags:
     - Storefront
   summary: Publish Storefront
+  description: Make your Storefront publicly available
   operationId: storefront_publish
   responses:
     '200':
