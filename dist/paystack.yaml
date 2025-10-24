@@ -4330,6 +4330,7 @@ paths:
       tags:
         - Refund
       summary: Create Refund
+      description: Initiate a refund for a previously completed transaction
       operationId: refund_create
       requestBody:
         content:
@@ -4350,13 +4351,16 @@ paths:
       tags:
         - Refund
       summary: List Refunds
+      description: List previously created refunds
       operationId: refund_list
       parameters:
         - in: query
           name: perPage
           schema:
             type: integer
+            default: 50
           description: Number of records to fetch per page
+          example: 10
         - in: query
           name: page
           schema:
@@ -4383,18 +4387,51 @@ paths:
           $ref: '#/components/responses/NotFound'
         default:
           description: Server error
+  /refund/retry_with_customer_details/{id}:
+    post:
+      tags:
+        - Refund
+      summary: Retry Refund
+      description: Retry a refund with a `needs-attention` status by providing the bank account details of a customer.
+      operationId: refund_retry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The identifier of the refund
+          schema:
+            type: integer
+          example: 15581137
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRetry'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefundRetry'
+      responses:
+        '200':
+          $ref: '#/components/responses/RefundCreateSuccess'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        default:
+          description: Server error
   /refund/{id}:
     get:
       tags:
         - Refund
       summary: Fetch Refund
+      description: Get a previously created refund
       operationId: refund_fetch
       parameters:
         - name: id
           in: path
           required: true
+          description: The identifier of the refund
           schema:
-            type: string
+            type: integer
+          example: 15581137
       responses:
         '200':
           $ref: '#/components/responses/RefundFetchSuccess'
@@ -16324,22 +16361,28 @@ components:
         - transaction
       properties:
         transaction:
-          description: Transaction reference or id
+          description: The reference of a previosuly completed transaction
           type: string
         amount:
-          description: |-
-            Amount ( in kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR ) to be refunded to the customer. 
-            Amount cannot be more than the original transaction amount
+          description: Amount to be refunded to the customer. It cannot be more than the original transaction amount
           type: integer
         currency:
-          description: Three-letter ISO currency. Allowed values are NGN, GHS, ZAR or USD
+          description: Three-letter ISO currency
           type: string
+          enum:
+            - GHS
+            - KES
+            - NGN
+            - USD
+            - ZAR
         customer_note:
           description: Customer reason
           type: string
         merchant_note:
           description: Merchant reason
           type: string
+      example:
+        transaction: mpkr39h74k
     RefundCreateResponse:
       type: object
       properties:
@@ -16478,6 +16521,34 @@ components:
         - status
         - message
         - data
+    RefundRetryAccountDetails:
+      type: object
+      description: An object that contains the customer’s account details for refund
+      required:
+        - currency
+        - account_number
+        - bank_id
+      properties:
+        currency:
+          description: The currency of the customer's bank account. It should be the same as the currency the payment was made
+          type: string
+        account_number:
+          description: The customer's account number
+          type: string
+        bank_id:
+          description: The ID representing the customer's bank. You can get the list of bank IDs by calling the List Banks endpoint.
+          type: string
+      example:
+        currency: NGN
+        account_number: '1234567890'
+        bank_id: '9'
+    RefundRetry:
+      type: object
+      required:
+        - refund_account_details
+      properties:
+        refund_account_details:
+          $ref: '#/components/schemas/RefundRetryAccountDetails'
     RefundFetchResponse:
       type: object
       properties:

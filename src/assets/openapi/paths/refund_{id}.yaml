@@ -2,13 +2,16 @@ get:
   tags:
     - Refund
   summary: Fetch Refund
+  description: Get a previously created refund
   operationId: refund_fetch
   parameters:
     - name: id
       in: path
       required: true
+      description: The identifier of the refund
       schema:
-        type: string
+        type: integer
+      example: 15581137
   responses:
     '200':
       $ref: ../components/responses/RefundFetchSuccess.yaml

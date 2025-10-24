@@ -1,0 +1,6 @@
+type: object
+required:
+  - refund_account_details
+properties:
+  refund_account_details:
+    $ref: './RefundRetryAccountDetails.yaml'
