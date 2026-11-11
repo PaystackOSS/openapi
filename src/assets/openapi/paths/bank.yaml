@@ -67,6 +67,11 @@ get:
       schema:
         type: boolean
     - in: query
+      name: available_for_direct_debit
+      description: A flag to filter for banks that support Direct Debit
+      schema:
+        type: boolean
+    - in: query
       name: enabled_for_verification
       description: | 
         A flag to filter the banks that are supported for account verification in South Africa.

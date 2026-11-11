@@ -36,6 +36,8 @@ properties:
   metadata:
     description: JSON object of custom data
     type: object
+  direct_debit:
+    $ref: ./DirectDebit.yaml
 example:
   email: "customer@email.com"
   amount: 350000

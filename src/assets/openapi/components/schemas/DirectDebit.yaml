@@ -1,0 +1,37 @@
+type: object
+description: The customer's account and address to set up a Direct Debit mandate
+properties:
+  account:
+    $ref: ./CustomerAuthorizationInitializeAccount.yaml
+  address:
+    type: object
+    properties:
+      street:
+        type: string
+        description: The customer's street
+        example: 126 Joel Ogunnaike
+      city:
+        type: string
+        description: The customer's city
+        example: Ikeja
+      state:
+        type: string
+        description: The customer's state
+        example: Lagos
+      country:
+        type: string
+        description: The customer's country
+        example: NG
+    required:
+      - street
+      - city
+      - state
+  phone:
+    type: string
+    description: >-
+      The customer's phone number in international format. Required if we
+      don't already have a phone for this customer.
+    example: '+2348012345678'
+required:
+  - account
+  - address
