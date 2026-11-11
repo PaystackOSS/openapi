@@ -17,8 +17,16 @@ properties:
     type: string
     description: >-
       Fully qualified url (e.g. https://example.com/) to redirect your customer
-      to
+      to. Some banks require it. If you don't send one, we use the callback URL
+      on your dashboard.
     example: http://test.url.com
+  use_hosted_url:
+    type: boolean
+    description: >-
+      Set to false to drive the mandate setup in your own UI. When false,
+      account and address are required.
+    default: true
+    example: false
   account:
     $ref: ./CustomerAuthorizationInitializeAccount.yaml
   address:

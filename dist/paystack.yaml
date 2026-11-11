@@ -4809,6 +4809,11 @@ paths:
           schema:
             type: boolean
         - in: query
+          name: available_for_direct_debit
+          description: A flag to filter for banks that support Direct Debit
+          schema:
+            type: boolean
+        - in: query
           name: enabled_for_verification
           description: |
             A flag to filter the banks that are supported for account verification in South Africa.
@@ -6542,6 +6547,56 @@ components:
         - status
         - message
         - data
+    CustomerAuthorizationInitializeAccount:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The customer's account number
+          example: '0123456789'
+        bank_code:
+          type: string
+          description: The code representing the customer's bank
+          example: '058'
+      required:
+        - number
+        - bank_code
+    DirectDebit:
+      type: object
+      description: The customer's account and address to set up a Direct Debit mandate
+      properties:
+        account:
+          $ref: '#/components/schemas/CustomerAuthorizationInitializeAccount'
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+              description: The customer's street
+              example: 126 Joel Ogunnaike
+            city:
+              type: string
+              description: The customer's city
+              example: Ikeja
+            state:
+              type: string
+              description: The customer's state
+              example: Lagos
+            country:
+              type: string
+              description: The customer's country
+              example: NG
+          required:
+            - street
+            - city
+            - state
+        phone:
+          type: string
+          description: The customer's phone number in international format. Required if we don't already have a phone for this customer.
+          example: '+2348012345678'
+      required:
+        - account
+        - address
     ChargeCreate:
       type: object
       required:
@@ -6575,6 +6630,8 @@ components:
         metadata:
           description: JSON object of custom data
           type: object
+        direct_debit:
+          $ref: '#/components/schemas/DirectDebit'
       example:
         email: customer@email.com
         amount: 350000
@@ -9865,20 +9922,6 @@ components:
       required:
         - status
         - message
-    CustomerAuthorizationInitializeAccount:
-      type: object
-      properties:
-        number:
-          type: string
-          description: The customer's account number
-          example: '0123456789'
-        bank_code:
-          type: string
-          description: The code representing the customer's bank
-          example: '058'
-      required:
-        - number
-        - bank_code
     CustomerAuthorizationInitializeAddress:
       type: object
       properties:
@@ -9916,8 +9959,13 @@ components:
           example: direct_debit
         callback_url:
           type: string
-          description: Fully qualified url (e.g. https://example.com/) to redirect your customer to
+          description: Fully qualified url (e.g. https://example.com/) to redirect your customer to. Some banks require it. If you don't send one, we use the callback URL on your dashboard.
           example: http://test.url.com
+        use_hosted_url:
+          type: boolean
+          description: Set to false to drive the mandate setup in your own UI. When false, account and address are required.
+          default: true
+          example: false
         account:
           $ref: '#/components/schemas/CustomerAuthorizationInitializeAccount'
         address:
